@@ -1,0 +1,53 @@
+---
+title: "Authentication"
+description: "Authenticate APIPod API requests and protect your credentials."
+icon: "key-round"
+---
+
+Create and manage API keys in the [APIPod Console](https://www.apipod.ai/console/api-keys). Server-to-server clients should send the key with the standard Bearer authorization header.
+
+```http
+Authorization: Bearer <APIPOD_API_KEY>
+```
+
+```bash
+curl https://api.apipod.ai/v1/account/status \
+  -H "Authorization: Bearer $APIPOD_API_KEY"
+```
+
+## Supported credential headers
+
+| Method | Intended use |
+| --- | --- |
+| `Authorization: Bearer <key>` | Recommended for APIPod and OpenAI-compatible clients |
+| `x-api-key: <key>` | Accepted for Anthropic-compatible clients |
+| `x-goog-api-key: <key>` | Accepted for Gemini-compatible clients |
+| `?key=<key>` | Gemini-compatible fallback; avoid it when a header is available |
+
+<Note>
+  APIPod management tokens are a separate credential type and cannot be used on model APIs.
+</Note>
+
+## Store keys safely
+
+- Read keys from an environment variable or secret manager on your server.
+- Never embed a key in browser JavaScript, mobile binaries, public repositories, logs, or URLs.
+- Use separate keys for development, staging, and production.
+- Revoke and replace a key immediately if it may have been exposed.
+- Configure expiration, model or feature permissions, quota limits, rate limits, and an IP allowlist when appropriate.
+
+## Authentication failures
+
+Authentication failures normally use an OpenAI-compatible error envelope:
+
+```json
+{
+  "error": {
+    "message": "Authentication required. Please provide a valid API key or sign in.",
+    "type": "invalid_request_error",
+    "code": "invalid_api_key"
+  }
+}
+```
+
+An invalid, revoked, expired, IP-restricted, or otherwise ineligible key is rejected before a model request is dispatched. See [Error codes](/error-codes) for client handling guidance.

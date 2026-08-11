@@ -1,80 +1,90 @@
 ---
 title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+description: "Create and poll your first APIPod image task."
+icon: "rocket"
 ---
 
-## Get started in three steps
+This quickstart creates a GPT Image 2 task, captures its APIPod task ID, and polls the result endpoint.
 
-Get your documentation site running locally and make your first customization.
+<Steps>
+  <Step title="Create an API key">
+    Sign in to the [APIPod Console](https://www.apipod.ai/console/api-keys), create an API key, and copy it when it is displayed.
+  </Step>
+  <Step title="Set local environment variables">
 
-### Step 1: Set up your local environment
+    ```bash
+    export APIPOD_API_KEY="your-api-key"
+    export APIPOD_IDEMPOTENCY_KEY="image-$(date +%s)"
+    ```
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+    Use a stable, unique idempotency key for one logical create operation. If a network failure makes the result ambiguous, retry with the same key and unchanged JSON body.
+  </Step>
+  <Step title="Create an image task">
 
-### Step 2: Deploy your changes
+    ```bash
+    curl https://api.apipod.ai/v1/images/generations \
+      -H "Authorization: Bearer $APIPOD_API_KEY" \
+      -H "Content-Type: application/json" \
+      -H "Idempotency-Key: $APIPOD_IDEMPOTENCY_KEY" \
+      -d '{
+        "model": "gpt-image-2",
+        "prompt": "A clean product photograph of a translucent glass speaker, soft studio lighting",
+        "aspect_ratio": "1:1",
+        "resolution": "1K"
+      }'
+    ```
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+    A successful create response has this envelope:
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+    ```json
+    {
+      "code": 200,
+      "message": "success",
+      "data": {
+        "task_id": "img_example_task_id"
+      }
+    }
+    ```
+  </Step>
+  <Step title="Poll the task">
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+    ```bash
+    export APIPOD_TASK_ID="img_example_task_id"
 
-### Step 3: Go live
+    curl "https://api.apipod.ai/v1/images/status/$APIPOD_TASK_ID" \
+      -H "Authorization: Bearer $APIPOD_API_KEY"
+    ```
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+    Continue polling while the status is `pending` or `processing`. Stop when it becomes `completed`, `failed`, or `cancelled`.
+  </Step>
+</Steps>
 
-## Next steps
+## Completed response
 
-Now that you have your docs running, explore these key features:
+```json
+{
+  "code": 200,
+  "message": "success",
+  "data": {
+    "task_id": "img_example_task_id",
+    "status": "completed",
+    "result": [
+      "https://example.com/generated-image.png"
+    ],
+    "completed_at": 1786358400
+  }
+}
+```
+
+<Warning>
+  HTTP `200` from the create endpoint means the task was accepted. It does not mean the image or video has finished generating.
+</Warning>
 
 <CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
+  <Card title="GPT Image 2 parameters" icon="image" href="/gpt-image-2/gpt-image-2">
+    Review every supported field and all five language examples.
+  </Card>
+  <Card title="Task lifecycle" icon="clock-3" href="/asynchronous-tasks">
+    Add production polling, webhooks, and terminal-state handling.
+  </Card>
 </CardGroup>
-
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>

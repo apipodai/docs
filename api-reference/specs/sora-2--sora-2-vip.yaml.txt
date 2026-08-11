@@ -1,0 +1,263 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Sora 2(VIP)",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "sora-2-vip",
+      "modelType": "video",
+      "provider": "openai"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "Sora 2(VIP)",
+        "properties": {
+          "aspect_ratio": {
+            "type": "string",
+            "title": "Aspect Ratio",
+            "description": "This parameter defines the aspect ratio of the video.",
+            "enum": [
+              "9:16",
+              "16:9"
+            ],
+            "default": "9:16",
+            "x-apipod-ui": {
+              "component": "button-group",
+              "labels": {
+                "1": ",,,,,,,,,",
+                "16": ",,,,,,,,,",
+                "16:": ",,,,,,,,,"
+              }
+            }
+          },
+          "duration": {
+            "type": "integer",
+            "title": "Duration",
+            "description": "The video durations",
+            "enum": [
+              "8",
+              "12"
+            ],
+            "default": "8",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "image_url": {
+            "type": "string",
+            "title": "Image Url",
+            "description": "URL of the image to use as the first frame. Please do not upload real portrait images, as this will most likely result in failure. The image format must be consistent with the ratio, and only 1280×720 (16:9 landscape) and 720×1280 (9:16 portrait) are supported.",
+            "x-apipod-ui": {
+              "component": "single-image"
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "Describe the content of the video to be generated.",
+            "default": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
+            "maxLength": 4000,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          }
+        },
+        "required": [
+          "model",
+          "prompt"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_url",
+          "duration",
+          "aspect_ratio"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "video",
+          "previewMedia": [
+            "https://s.apipod.ai/videos/2025/12/19/1759774617268337005.mp4"
+          ]
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              },
+              "result": {
+                "type": "array",
+                "description": "generated video url list",
+                "items": {
+                  "type": "string",
+                  "description": "video url"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "task status",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/videos/generations": {
+      "post": {
+        "summary": "video API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/videos/status/{task_id}",
+          "polling": {
+            "interval": 3000,
+            "maxAttempts": 900,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/videos/status/{task_id}": {
+      "get": {
+        "summary": "Sora 2(VIP) Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

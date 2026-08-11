@@ -1,122 +1,1736 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "APIPod Docs",
+  "description": "APIPod API documentation for image and video generation models.",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#7357FF",
+    "light": "#8B73FF",
+    "dark": "#5A3FD6"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.ico",
+  "logo": {
+    "light": "/logo.svg",
+    "dark": "/logo.svg",
+    "href": "https://www.apipod.ai"
+  },
+  "icons": {
+    "library": "lucide"
+  },
   "navigation": {
-    "tabs": [
+    "languages": [
       {
-        "tab": "Guides",
-        "groups": [
+        "language": "en",
+        "default": true,
+        "tabs": [
           {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
+            "tab": "Get Started",
+            "groups": [
+              {
+                "group": "Overview",
+                "icon": "compass",
+                "pages": [
+                  "introduction",
+                  "quickstart",
+                  "authentication",
+                  "endpoint-conventions"
+                ]
+              },
+              {
+                "group": "Core concepts",
+                "icon": "blocks",
+                "pages": [
+                  "asynchronous-tasks",
+                  "webhooks",
+                  "error-codes"
+                ]
+              }
             ]
           },
           {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+            "tab": "API Reference",
+            "groups": [
+              {
+                "group": "LLM",
+                "icon": "bot",
+                "pages": [
+                  "models"
+                ]
+              },
+              {
+                "group": "Images",
+                "icon": "image",
+                "pages": [
+                  {
+                    "group": "GPT Image 2",
+                    "icon": "wand-sparkles",
+                    "pages": [
+                      "gpt-image-2/gpt-image-2",
+                      "gpt-image-2/gpt-image-2-lite",
+                      "gpt-image-2/gpt-image-2-fast"
+                    ]
+                  },
+                  {
+                    "group": "Nano Banana",
+                    "icon": "banana",
+                    "pages": [
+                      "nano-banana/nano-banana-2",
+                      "nano-banana/nano-banana-pro"
+                    ]
+                  },
+                  {
+                    "group": "Seedream",
+                    "icon": "flower-2",
+                    "pages": [
+                      {
+                        "group": "Seedream V4.5",
+                        "pages": [
+                          "seedream/4-5-text-to-image",
+                          "seedream/4-5-image-to-image"
+                        ]
+                      },
+                      {
+                        "group": "Seedream V5.0 Lite",
+                        "pages": [
+                          "seedream/5-0-lite-text-to-image",
+                          "seedream/5-0-lite-image-to-image"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Wan Image",
+                    "icon": "cloud-sun",
+                    "pages": [
+                      {
+                        "group": "Wan Image V2.7",
+                        "pages": [
+                          "wan/2-7-text-to-image",
+                          "wan/2-7-image-to-image"
+                        ]
+                      },
+                      {
+                        "group": "Wan Image V2.7 Pro",
+                        "pages": [
+                          "wan/2-7-text-to-image-pro",
+                          "wan/2-7-image-to-image-pro"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Videos",
+                "icon": "video",
+                "pages": [
+                  {
+                    "group": "Veo",
+                    "icon": "clapperboard",
+                    "pages": [
+                      {
+                        "group": "Veo 3.1 Lite",
+                        "pages": [
+                          "veo/3-1-lite",
+                          "veo/3-1-lite-4k"
+                        ]
+                      },
+                      {
+                        "group": "Veo 3.1 Fast",
+                        "pages": [
+                          "veo/3-1-fast",
+                          "veo/3-1-fast-4k",
+                          "veo/3-1-fast-ref"
+                        ]
+                      },
+                      {
+                        "group": "Veo 3.1 Quality",
+                        "pages": [
+                          "veo/3-1-quality",
+                          "veo/3-1-quality-4k"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Seedance",
+                    "icon": "film",
+                    "pages": [
+                      {
+                        "group": "Seedance 1.0",
+                        "pages": [
+                          {
+                            "group": "Seedance 1.0 Lite",
+                            "pages": [
+                              "seedance/seedance-1-0-lite-t2v",
+                              "seedance/seedance-1-0-lite-i2v",
+                              "seedance/seedance-1-0-lite-i2v-ref"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 1.0 Pro Fast",
+                            "pages": [
+                              "seedance/seedance-1-0-pro-fast-t2v",
+                              "seedance/seedance-1-0-pro-fast-i2v"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 1.0 Pro",
+                            "pages": [
+                              "seedance/seedance-1-0-pro-i2v",
+                              "seedance/seedance-1-0-pro-t2v"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "group": "Seedance 1.5",
+                        "pages": [
+                          "seedance/seedance-1-5-pro-i2v",
+                          "seedance/seedance-1-5-pro-t2v"
+                        ]
+                      },
+                      {
+                        "group": "Seedance 2.0",
+                        "pages": [
+                          {
+                            "group": "Seedance 2.0 Pro",
+                            "pages": [
+                              "seedance/2-0-text-to-video",
+                              "seedance/2-0-image-to-video",
+                              "seedance/2-0-reference-to-video"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 2.0 Fast",
+                            "pages": [
+                              "seedance/2-0-fast-text-to-video",
+                              "seedance/2-0-fast-image-to-video",
+                              "seedance/2-0-fast-reference-to-video"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 2.0 Mini",
+                            "pages": [
+                              "seedance/2-0-mini-image-to-video",
+                              "seedance/2-0-mini-reference-to-video",
+                              "seedance/2-0-mini-text-to-video"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Grok Imagine",
+                    "icon": "orbit",
+                    "pages": [
+                      {
+                        "group": "Grok Imagine Video 1.0",
+                        "pages": [
+                          "grok-imagine/grok-imagine-t2v",
+                          "grok-imagine/grok-imagine-i2v"
+                        ]
+                      },
+                      {
+                        "group": "Grok Imagine Video 1.5",
+                        "pages": [
+                          "grok-imagine-1-5/grok-imagine-1-5-fast",
+                          "grok-imagine-1-5/grok-imagine-1-5-preview",
+                          "grok-imagine-1-5/grok-imagine-1-5-vip"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Sora 2",
+                    "icon": "aperture",
+                    "pages": [
+                      "sora-2/sora-2-vip"
+                    ]
+                  },
+                  {
+                    "group": "Gemini Omni",
+                    "icon": "gem",
+                    "pages": [
+                      "gemini-omni/gemini-omni-t2v",
+                      "gemini-omni/gemini-omni-i2v",
+                      "gemini-omni/gemini-omni-r2v",
+                      "gemini-omni/gemini-omni-extend"
+                    ]
+                  },
+                  {
+                    "group": "MiniMax H3",
+                    "icon": "scan",
+                    "pages": [
+                      "minimax-h3/minimax-h3-t2v",
+                      "minimax-h3/minimax-h3-i2v",
+                      "minimax-h3/minimax-h3-r2v"
+                    ]
+                  },
+                  {
+                    "group": "Wan Video",
+                    "icon": "cloud",
+                    "pages": [
+                      {
+                        "group": "Wan 2.7",
+                        "pages": [
+                          "wan/wan2-7-i2v",
+                          "wan/wan2-7-t2v",
+                          "wan/wan2-7-videoedit"
+                        ]
+                      },
+                      {
+                        "group": "Wan 3.0",
+                        "pages": [
+                          "wan/wan3-0-i2v",
+                          "wan/wan3-0-r2v",
+                          "wan/wan3-0-t2v"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Kling Motion Control",
+                    "icon": "person-standing",
+                    "pages": [
+                      "kling/kling-2-6-motion-control"
+                    ]
+                  },
+                  {
+                    "group": "Motion Control",
+                    "icon": "move-3d",
+                    "pages": [
+                      "motion-control/motion-control-m1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Tasks",
+                "icon": "list-checks",
+                "pages": [
+                  "query-image-task",
+                  "query-video-task"
+                ]
+              }
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
-        "groups": [
+        "language": "zh-CN",
+        "tabs": [
           {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
+            "tab": "开始使用",
+            "groups": [
+              {
+                "group": "概览",
+                "icon": "compass",
+                "pages": [
+                  "zh-CN/introduction",
+                  "zh-CN/quickstart",
+                  "zh-CN/authentication",
+                  "zh-CN/endpoint-conventions"
+                ]
+              },
+              {
+                "group": "核心概念",
+                "icon": "blocks",
+                "pages": [
+                  "zh-CN/asynchronous-tasks",
+                  "zh-CN/webhooks",
+                  "zh-CN/error-codes"
+                ]
+              }
             ]
           },
           {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+            "tab": "API 参考",
+            "groups": [
+              {
+                "group": "LLM",
+                "icon": "bot",
+                "pages": [
+                  "zh-CN/models"
+                ]
+              },
+              {
+                "group": "图片",
+                "icon": "image",
+                "pages": [
+                  {
+                    "group": "GPT Image 2",
+                    "icon": "wand-sparkles",
+                    "pages": [
+                      "zh-CN/gpt-image-2/gpt-image-2",
+                      "zh-CN/gpt-image-2/gpt-image-2-lite",
+                      "zh-CN/gpt-image-2/gpt-image-2-fast"
+                    ]
+                  },
+                  {
+                    "group": "Nano Banana",
+                    "icon": "banana",
+                    "pages": [
+                      "zh-CN/nano-banana/nano-banana-2",
+                      "zh-CN/nano-banana/nano-banana-pro"
+                    ]
+                  },
+                  {
+                    "group": "Seedream",
+                    "icon": "flower-2",
+                    "pages": [
+                      {
+                        "group": "Seedream V4.5",
+                        "pages": [
+                          "zh-CN/seedream/4-5-text-to-image",
+                          "zh-CN/seedream/4-5-image-to-image"
+                        ]
+                      },
+                      {
+                        "group": "Seedream V5.0 Lite",
+                        "pages": [
+                          "zh-CN/seedream/5-0-lite-text-to-image",
+                          "zh-CN/seedream/5-0-lite-image-to-image"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Wan Image",
+                    "icon": "cloud-sun",
+                    "pages": [
+                      {
+                        "group": "Wan Image V2.7",
+                        "pages": [
+                          "zh-CN/wan/2-7-text-to-image",
+                          "zh-CN/wan/2-7-image-to-image"
+                        ]
+                      },
+                      {
+                        "group": "Wan Image V2.7 Pro",
+                        "pages": [
+                          "zh-CN/wan/2-7-text-to-image-pro",
+                          "zh-CN/wan/2-7-image-to-image-pro"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "视频",
+                "icon": "video",
+                "pages": [
+                  {
+                    "group": "Veo",
+                    "icon": "clapperboard",
+                    "pages": [
+                      {
+                        "group": "Veo 3.1 Lite",
+                        "pages": [
+                          "zh-CN/veo/3-1-lite",
+                          "zh-CN/veo/3-1-lite-4k"
+                        ]
+                      },
+                      {
+                        "group": "Veo 3.1 Fast",
+                        "pages": [
+                          "zh-CN/veo/3-1-fast",
+                          "zh-CN/veo/3-1-fast-4k",
+                          "zh-CN/veo/3-1-fast-ref"
+                        ]
+                      },
+                      {
+                        "group": "Veo 3.1 Quality",
+                        "pages": [
+                          "zh-CN/veo/3-1-quality",
+                          "zh-CN/veo/3-1-quality-4k"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Seedance",
+                    "icon": "film",
+                    "pages": [
+                      {
+                        "group": "Seedance 1.0",
+                        "pages": [
+                          {
+                            "group": "Seedance 1.0 Lite",
+                            "pages": [
+                              "zh-CN/seedance/seedance-1-0-lite-t2v",
+                              "zh-CN/seedance/seedance-1-0-lite-i2v",
+                              "zh-CN/seedance/seedance-1-0-lite-i2v-ref"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 1.0 Pro Fast",
+                            "pages": [
+                              "zh-CN/seedance/seedance-1-0-pro-fast-t2v",
+                              "zh-CN/seedance/seedance-1-0-pro-fast-i2v"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 1.0 Pro",
+                            "pages": [
+                              "zh-CN/seedance/seedance-1-0-pro-i2v",
+                              "zh-CN/seedance/seedance-1-0-pro-t2v"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "group": "Seedance 1.5",
+                        "pages": [
+                          "zh-CN/seedance/seedance-1-5-pro-i2v",
+                          "zh-CN/seedance/seedance-1-5-pro-t2v"
+                        ]
+                      },
+                      {
+                        "group": "Seedance 2.0",
+                        "pages": [
+                          {
+                            "group": "Seedance 2.0 Pro",
+                            "pages": [
+                              "zh-CN/seedance/2-0-text-to-video",
+                              "zh-CN/seedance/2-0-image-to-video",
+                              "zh-CN/seedance/2-0-reference-to-video"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 2.0 Fast",
+                            "pages": [
+                              "zh-CN/seedance/2-0-fast-text-to-video",
+                              "zh-CN/seedance/2-0-fast-image-to-video",
+                              "zh-CN/seedance/2-0-fast-reference-to-video"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 2.0 Mini",
+                            "pages": [
+                              "zh-CN/seedance/2-0-mini-image-to-video",
+                              "zh-CN/seedance/2-0-mini-reference-to-video",
+                              "zh-CN/seedance/2-0-mini-text-to-video"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Grok Imagine",
+                    "icon": "orbit",
+                    "pages": [
+                      {
+                        "group": "Grok Imagine Video 1.0",
+                        "pages": [
+                          "zh-CN/grok-imagine/grok-imagine-t2v",
+                          "zh-CN/grok-imagine/grok-imagine-i2v"
+                        ]
+                      },
+                      {
+                        "group": "Grok Imagine Video 1.5",
+                        "pages": [
+                          "zh-CN/grok-imagine-1-5/grok-imagine-1-5-fast",
+                          "zh-CN/grok-imagine-1-5/grok-imagine-1-5-preview",
+                          "zh-CN/grok-imagine-1-5/grok-imagine-1-5-vip"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Sora 2",
+                    "icon": "aperture",
+                    "pages": [
+                      "zh-CN/sora-2/sora-2-vip"
+                    ]
+                  },
+                  {
+                    "group": "Gemini Omni",
+                    "icon": "gem",
+                    "pages": [
+                      "zh-CN/gemini-omni/gemini-omni-t2v",
+                      "zh-CN/gemini-omni/gemini-omni-i2v",
+                      "zh-CN/gemini-omni/gemini-omni-r2v",
+                      "zh-CN/gemini-omni/gemini-omni-extend"
+                    ]
+                  },
+                  {
+                    "group": "MiniMax H3",
+                    "icon": "scan",
+                    "pages": [
+                      "zh-CN/minimax-h3/minimax-h3-t2v",
+                      "zh-CN/minimax-h3/minimax-h3-i2v",
+                      "zh-CN/minimax-h3/minimax-h3-r2v"
+                    ]
+                  },
+                  {
+                    "group": "Wan 视频",
+                    "icon": "cloud",
+                    "pages": [
+                      {
+                        "group": "Wan 2.7",
+                        "pages": [
+                          "zh-CN/wan/wan2-7-i2v",
+                          "zh-CN/wan/wan2-7-t2v",
+                          "zh-CN/wan/wan2-7-videoedit"
+                        ]
+                      },
+                      {
+                        "group": "Wan 3.0",
+                        "pages": [
+                          "zh-CN/wan/wan3-0-i2v",
+                          "zh-CN/wan/wan3-0-r2v",
+                          "zh-CN/wan/wan3-0-t2v"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Kling 动作控制",
+                    "icon": "person-standing",
+                    "pages": [
+                      "zh-CN/kling/kling-2-6-motion-control"
+                    ]
+                  },
+                  {
+                    "group": "动作控制",
+                    "icon": "move-3d",
+                    "pages": [
+                      "zh-CN/motion-control/motion-control-m1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "任务",
+                "icon": "list-checks",
+                "pages": [
+                  "zh-CN/query-image-task",
+                  "zh-CN/query-video-task"
+                ]
+              }
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    ]
   },
   "navbar": {
     "links": [
       {
+        "label": "Models",
+        "href": "https://www.apipod.ai/models"
+      },
+      {
+        "label": "Pricing",
+        "href": "https://www.apipod.ai/pricing"
+      },
+      {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:api@apipod.ai"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Console",
+      "href": "https://www.apipod.ai/console"
     }
+  },
+  "api": {
+    "openapi": [
+      "api-reference/openapi/gpt-image-2--gpt-image-2.yaml",
+      "api-reference/openapi/gpt-image-2--gpt-image-2.zh.yaml",
+      "api-reference/openapi/gpt-image-2--gpt-image-2-lite.yaml",
+      "api-reference/openapi/gpt-image-2--gpt-image-2-lite.zh.yaml",
+      "api-reference/openapi/gpt-image-2--gpt-image-2-fast.yaml",
+      "api-reference/openapi/gpt-image-2--gpt-image-2-fast.zh.yaml",
+      "api-reference/openapi/nano-banana--nano-banana-2.yaml",
+      "api-reference/openapi/nano-banana--nano-banana-2.zh.yaml",
+      "api-reference/openapi/nano-banana--nano-banana-pro.yaml",
+      "api-reference/openapi/nano-banana--nano-banana-pro.zh.yaml",
+      "api-reference/openapi/seedream--4-5-text-to-image.yaml",
+      "api-reference/openapi/seedream--4-5-text-to-image.zh.yaml",
+      "api-reference/openapi/seedream--4-5-image-to-image.yaml",
+      "api-reference/openapi/seedream--4-5-image-to-image.zh.yaml",
+      "api-reference/openapi/seedream--5-0-lite-text-to-image.yaml",
+      "api-reference/openapi/seedream--5-0-lite-text-to-image.zh.yaml",
+      "api-reference/openapi/seedream--5-0-lite-image-to-image.yaml",
+      "api-reference/openapi/seedream--5-0-lite-image-to-image.zh.yaml",
+      "api-reference/openapi/wan--2-7-text-to-image.yaml",
+      "api-reference/openapi/wan--2-7-text-to-image.zh.yaml",
+      "api-reference/openapi/wan--2-7-image-to-image.yaml",
+      "api-reference/openapi/wan--2-7-image-to-image.zh.yaml",
+      "api-reference/openapi/wan--2-7-text-to-image-pro.yaml",
+      "api-reference/openapi/wan--2-7-text-to-image-pro.zh.yaml",
+      "api-reference/openapi/wan--2-7-image-to-image-pro.yaml",
+      "api-reference/openapi/wan--2-7-image-to-image-pro.zh.yaml",
+      "api-reference/openapi/query-image-task.yaml",
+      "api-reference/openapi/query-image-task.zh.yaml",
+      "api-reference/openapi/veo--3-1-fast.yaml",
+      "api-reference/openapi/veo--3-1-fast.zh.yaml",
+      "api-reference/openapi/veo--3-1-fast-4k.yaml",
+      "api-reference/openapi/veo--3-1-fast-4k.zh.yaml",
+      "api-reference/openapi/veo--3-1-fast-ref.yaml",
+      "api-reference/openapi/veo--3-1-fast-ref.zh.yaml",
+      "api-reference/openapi/veo--3-1-quality.yaml",
+      "api-reference/openapi/veo--3-1-quality.zh.yaml",
+      "api-reference/openapi/veo--3-1-quality-4k.yaml",
+      "api-reference/openapi/veo--3-1-quality-4k.zh.yaml",
+      "api-reference/openapi/seedance--2-0-text-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-text-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-image-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-image-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-reference-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-reference-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-fast-text-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-fast-text-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-fast-image-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-fast-image-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-fast-reference-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-fast-reference-to-video.zh.yaml",
+      "api-reference/openapi/grok-imagine--grok-imagine-t2v.yaml",
+      "api-reference/openapi/grok-imagine--grok-imagine-t2v.zh.yaml",
+      "api-reference/openapi/grok-imagine--grok-imagine-i2v.yaml",
+      "api-reference/openapi/grok-imagine--grok-imagine-i2v.zh.yaml",
+      "api-reference/openapi/grok-imagine-1-5--grok-imagine-1-5-fast.yaml",
+      "api-reference/openapi/grok-imagine-1-5--grok-imagine-1-5-fast.zh.yaml",
+      "api-reference/openapi/grok-imagine-1-5--grok-imagine-1-5-preview.yaml",
+      "api-reference/openapi/grok-imagine-1-5--grok-imagine-1-5-preview.zh.yaml",
+      "api-reference/openapi/sora-2--sora-2-vip.yaml",
+      "api-reference/openapi/sora-2--sora-2-vip.zh.yaml",
+      "api-reference/openapi/gemini-omni--gemini-omni-t2v.yaml",
+      "api-reference/openapi/gemini-omni--gemini-omni-t2v.zh.yaml",
+      "api-reference/openapi/gemini-omni--gemini-omni-i2v.yaml",
+      "api-reference/openapi/gemini-omni--gemini-omni-i2v.zh.yaml",
+      "api-reference/openapi/gemini-omni--gemini-omni-r2v.yaml",
+      "api-reference/openapi/gemini-omni--gemini-omni-r2v.zh.yaml",
+      "api-reference/openapi/gemini-omni--gemini-omni-extend.yaml",
+      "api-reference/openapi/gemini-omni--gemini-omni-extend.zh.yaml",
+      "api-reference/openapi/minimax-h3--minimax-h3-t2v.yaml",
+      "api-reference/openapi/minimax-h3--minimax-h3-t2v.zh.yaml",
+      "api-reference/openapi/minimax-h3--minimax-h3-i2v.yaml",
+      "api-reference/openapi/minimax-h3--minimax-h3-i2v.zh.yaml",
+      "api-reference/openapi/minimax-h3--minimax-h3-r2v.yaml",
+      "api-reference/openapi/minimax-h3--minimax-h3-r2v.zh.yaml",
+      "api-reference/openapi/query-video-task.yaml",
+      "api-reference/openapi/query-video-task.zh.yaml",
+      "api-reference/openapi/grok-imagine-1-5--grok-imagine-1-5-vip.yaml",
+      "api-reference/openapi/grok-imagine-1-5--grok-imagine-1-5-vip.zh.yaml",
+      "api-reference/openapi/kling--kling-2-6-motion-control.yaml",
+      "api-reference/openapi/kling--kling-2-6-motion-control.zh.yaml",
+      "api-reference/openapi/motion-control--motion-control-m1.yaml",
+      "api-reference/openapi/motion-control--motion-control-m1.zh.yaml",
+      "api-reference/openapi/seedance--doubao-seedance-1-0-pro-fast-i2v.yaml",
+      "api-reference/openapi/seedance--doubao-seedance-1-0-pro-fast-i2v.zh.yaml",
+      "api-reference/openapi/seedance--doubao-seedance-1-0-pro-fast-t2v.yaml",
+      "api-reference/openapi/seedance--doubao-seedance-1-0-pro-fast-t2v.zh.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-lite-i2v.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-lite-i2v.zh.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-lite-i2v-ref.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-lite-i2v-ref.zh.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-lite-t2v.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-lite-t2v.zh.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-pro-fast-i2v.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-pro-fast-i2v.zh.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-pro-fast-t2v.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-pro-fast-t2v.zh.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-pro-i2v.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-pro-i2v.zh.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-pro-t2v.yaml",
+      "api-reference/openapi/seedance--seedance-1-0-pro-t2v.zh.yaml",
+      "api-reference/openapi/seedance--seedance-1-5-pro-i2v.yaml",
+      "api-reference/openapi/seedance--seedance-1-5-pro-i2v.zh.yaml",
+      "api-reference/openapi/seedance--seedance-1-5-pro-t2v.yaml",
+      "api-reference/openapi/seedance--seedance-1-5-pro-t2v.zh.yaml",
+      "api-reference/openapi/seedance--2-0-mini-image-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-mini-image-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-mini-reference-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-mini-reference-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-mini-text-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-mini-text-to-video.zh.yaml",
+      "api-reference/openapi/seedance--seedance-2-0-t2v-vip.yaml",
+      "api-reference/openapi/seedance--seedance-2-0-t2v-vip.zh.yaml",
+      "api-reference/openapi/veo--3-1-lite.yaml",
+      "api-reference/openapi/veo--3-1-lite.zh.yaml",
+      "api-reference/openapi/veo--3-1-lite-4k.yaml",
+      "api-reference/openapi/veo--3-1-lite-4k.zh.yaml",
+      "api-reference/openapi/wan--wan2-7-i2v.yaml",
+      "api-reference/openapi/wan--wan2-7-i2v.zh.yaml",
+      "api-reference/openapi/wan--wan2-7-t2v.yaml",
+      "api-reference/openapi/wan--wan2-7-t2v.zh.yaml",
+      "api-reference/openapi/wan--wan2-7-videoedit.yaml",
+      "api-reference/openapi/wan--wan2-7-videoedit.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-i2v.yaml",
+      "api-reference/openapi/wan--wan3-0-i2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-r2v.yaml",
+      "api-reference/openapi/wan--wan3-0-r2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-t2v.yaml",
+      "api-reference/openapi/wan--wan3-0-t2v.zh.yaml"
+    ],
+    "playground": {
+      "display": "interactive",
+      "proxy": false
+    },
+    "examples": {
+      "languages": [
+        "curl",
+        "python",
+        "go",
+        "rust",
+        "javascript"
+      ],
+      "defaults": "required"
+    },
+    "url": "full"
+  },
+  "search": {
+    "prompt": "Search APIPod documentation"
+  },
+  "seo": {
+    "indexing": "navigable"
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "cursor"
+    ]
   },
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/introduction",
+      "permanent": false
+    },
+    {
+      "source": "/gpt-image-2/gpt-image-2-edit",
+      "destination": "/gpt-image-2/gpt-image-2",
+      "permanent": true
+    },
+    {
+      "source": "/en/gpt-image-2/gpt-image-2-edit",
+      "destination": "/gpt-image-2/gpt-image-2",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gpt-image-2/gpt-image-2-edit",
+      "destination": "/zh-CN/gpt-image-2/gpt-image-2",
+      "permanent": true
+    },
+    {
+      "source": "/sora-2/sora-2",
+      "destination": "/sora-2/sora-2-vip",
+      "permanent": true
+    },
+    {
+      "source": "/sora-2/sora-2-pro",
+      "destination": "/sora-2/sora-2-vip",
+      "permanent": true
+    },
+    {
+      "source": "/en/sora-2/sora-2",
+      "destination": "/sora-2/sora-2-vip",
+      "permanent": true
+    },
+    {
+      "source": "/en/sora-2/sora-2-pro",
+      "destination": "/sora-2/sora-2-vip",
+      "permanent": true
+    },
+    {
+      "source": "/zh/sora-2/sora-2",
+      "destination": "/zh-CN/sora-2/sora-2-vip",
+      "permanent": true
+    },
+    {
+      "source": "/zh/sora-2/sora-2-pro",
+      "destination": "/zh-CN/sora-2/sora-2-vip",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/sora-2/sora-2",
+      "destination": "/zh-CN/sora-2/sora-2-vip",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/sora-2/sora-2-pro",
+      "destination": "/zh-CN/sora-2/sora-2-vip",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/seedance/seedance-2-0-mini-i2v",
+      "destination": "/zh-CN/seedance/2-0-mini-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/seedance/seedance-2-0-mini-r2v",
+      "destination": "/zh-CN/seedance/2-0-mini-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/seedance/seedance-2-0-mini-t2v",
+      "destination": "/zh-CN/seedance/2-0-mini-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/2065583m0",
+      "destination": "/introduction",
+      "permanent": true
+    },
+    {
+      "source": "/seedance/seedance-2-0-mini-i2v",
+      "destination": "/seedance/2-0-mini-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/seedance/seedance-2-0-mini-r2v",
+      "destination": "/seedance/2-0-mini-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/seedance/seedance-2-0-mini-t2v",
+      "destination": "/seedance/2-0-mini-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/introduction",
+      "destination": "/introduction",
+      "permanent": true
+    },
+    {
+      "source": "/zh/introduction",
+      "destination": "/zh-CN/introduction",
+      "permanent": true
+    },
+    {
+      "source": "/en/gpt-image-2/gpt-image-2",
+      "destination": "/gpt-image-2/gpt-image-2",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gpt-image-2/gpt-image-2",
+      "destination": "/zh-CN/gpt-image-2/gpt-image-2",
+      "permanent": true
+    },
+    {
+      "source": "/en/gpt-image-2/gpt-image-2-lite",
+      "destination": "/gpt-image-2/gpt-image-2-lite",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gpt-image-2/gpt-image-2-lite",
+      "destination": "/zh-CN/gpt-image-2/gpt-image-2-lite",
+      "permanent": true
+    },
+    {
+      "source": "/en/gpt-image-2/gpt-image-2-fast",
+      "destination": "/gpt-image-2/gpt-image-2-fast",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gpt-image-2/gpt-image-2-fast",
+      "destination": "/zh-CN/gpt-image-2/gpt-image-2-fast",
+      "permanent": true
+    },
+    {
+      "source": "/en/nano-banana/nano-banana-2",
+      "destination": "/nano-banana/nano-banana-2",
+      "permanent": true
+    },
+    {
+      "source": "/zh/nano-banana/nano-banana-2",
+      "destination": "/zh-CN/nano-banana/nano-banana-2",
+      "permanent": true
+    },
+    {
+      "source": "/en/nano-banana/nano-banana-pro",
+      "destination": "/nano-banana/nano-banana-pro",
+      "permanent": true
+    },
+    {
+      "source": "/zh/nano-banana/nano-banana-pro",
+      "destination": "/zh-CN/nano-banana/nano-banana-pro",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedream/4-5-text-to-image",
+      "destination": "/seedream/4-5-text-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedream/4-5-text-to-image",
+      "destination": "/zh-CN/seedream/4-5-text-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedream/4-5-image-to-image",
+      "destination": "/seedream/4-5-image-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedream/4-5-image-to-image",
+      "destination": "/zh-CN/seedream/4-5-image-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedream/5-0-lite-text-to-image",
+      "destination": "/seedream/5-0-lite-text-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedream/5-0-lite-text-to-image",
+      "destination": "/zh-CN/seedream/5-0-lite-text-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedream/5-0-lite-image-to-image",
+      "destination": "/seedream/5-0-lite-image-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedream/5-0-lite-image-to-image",
+      "destination": "/zh-CN/seedream/5-0-lite-image-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/2-7-text-to-image",
+      "destination": "/wan/2-7-text-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/2-7-text-to-image",
+      "destination": "/zh-CN/wan/2-7-text-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/2-7-image-to-image",
+      "destination": "/wan/2-7-image-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/2-7-image-to-image",
+      "destination": "/zh-CN/wan/2-7-image-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/2-7-text-to-image-pro",
+      "destination": "/wan/2-7-text-to-image-pro",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/2-7-text-to-image-pro",
+      "destination": "/zh-CN/wan/2-7-text-to-image-pro",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/2-7-image-to-image-pro",
+      "destination": "/wan/2-7-image-to-image-pro",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/2-7-image-to-image-pro",
+      "destination": "/zh-CN/wan/2-7-image-to-image-pro",
+      "permanent": true
+    },
+    {
+      "source": "/en/query-image-task",
+      "destination": "/query-image-task",
+      "permanent": true
+    },
+    {
+      "source": "/zh/query-image-task",
+      "destination": "/zh-CN/query-image-task",
+      "permanent": true
+    },
+    {
+      "source": "/en/veo/3-1-fast",
+      "destination": "/veo/3-1-fast",
+      "permanent": true
+    },
+    {
+      "source": "/zh/veo/3-1-fast",
+      "destination": "/zh-CN/veo/3-1-fast",
+      "permanent": true
+    },
+    {
+      "source": "/en/veo/3-1-fast-4k",
+      "destination": "/veo/3-1-fast-4k",
+      "permanent": true
+    },
+    {
+      "source": "/zh/veo/3-1-fast-4k",
+      "destination": "/zh-CN/veo/3-1-fast-4k",
+      "permanent": true
+    },
+    {
+      "source": "/en/veo/3-1-fast-ref",
+      "destination": "/veo/3-1-fast-ref",
+      "permanent": true
+    },
+    {
+      "source": "/zh/veo/3-1-fast-ref",
+      "destination": "/zh-CN/veo/3-1-fast-ref",
+      "permanent": true
+    },
+    {
+      "source": "/en/veo/3-1-quality",
+      "destination": "/veo/3-1-quality",
+      "permanent": true
+    },
+    {
+      "source": "/zh/veo/3-1-quality",
+      "destination": "/zh-CN/veo/3-1-quality",
+      "permanent": true
+    },
+    {
+      "source": "/en/veo/3-1-quality-4k",
+      "destination": "/veo/3-1-quality-4k",
+      "permanent": true
+    },
+    {
+      "source": "/zh/veo/3-1-quality-4k",
+      "destination": "/zh-CN/veo/3-1-quality-4k",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-text-to-video",
+      "destination": "/seedance/2-0-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-text-to-video",
+      "destination": "/zh-CN/seedance/2-0-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-image-to-video",
+      "destination": "/seedance/2-0-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-image-to-video",
+      "destination": "/zh-CN/seedance/2-0-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-reference-to-video",
+      "destination": "/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-reference-to-video",
+      "destination": "/zh-CN/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-fast-text-to-video",
+      "destination": "/seedance/2-0-fast-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-fast-text-to-video",
+      "destination": "/zh-CN/seedance/2-0-fast-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-fast-image-to-video",
+      "destination": "/seedance/2-0-fast-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-fast-image-to-video",
+      "destination": "/zh-CN/seedance/2-0-fast-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-fast-reference-to-video",
+      "destination": "/seedance/2-0-fast-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-fast-reference-to-video",
+      "destination": "/zh-CN/seedance/2-0-fast-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/grok-imagine/grok-imagine-t2v",
+      "destination": "/grok-imagine/grok-imagine-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/grok-imagine/grok-imagine-t2v",
+      "destination": "/zh-CN/grok-imagine/grok-imagine-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/grok-imagine/grok-imagine-i2v",
+      "destination": "/grok-imagine/grok-imagine-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/grok-imagine/grok-imagine-i2v",
+      "destination": "/zh-CN/grok-imagine/grok-imagine-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/grok-imagine-1-5/grok-imagine-1-5-fast",
+      "destination": "/grok-imagine-1-5/grok-imagine-1-5-fast",
+      "permanent": true
+    },
+    {
+      "source": "/zh/grok-imagine-1-5/grok-imagine-1-5-fast",
+      "destination": "/zh-CN/grok-imagine-1-5/grok-imagine-1-5-fast",
+      "permanent": true
+    },
+    {
+      "source": "/en/grok-imagine-1-5/grok-imagine-1-5-preview",
+      "destination": "/grok-imagine-1-5/grok-imagine-1-5-preview",
+      "permanent": true
+    },
+    {
+      "source": "/zh/grok-imagine-1-5/grok-imagine-1-5-preview",
+      "destination": "/zh-CN/grok-imagine-1-5/grok-imagine-1-5-preview",
+      "permanent": true
+    },
+    {
+      "source": "/en/sora-2/sora-2-vip",
+      "destination": "/sora-2/sora-2-vip",
+      "permanent": true
+    },
+    {
+      "source": "/zh/sora-2/sora-2-vip",
+      "destination": "/zh-CN/sora-2/sora-2-vip",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni/gemini-omni-t2v",
+      "destination": "/gemini-omni/gemini-omni-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni/gemini-omni-t2v",
+      "destination": "/zh-CN/gemini-omni/gemini-omni-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni/gemini-omni-i2v",
+      "destination": "/gemini-omni/gemini-omni-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni/gemini-omni-i2v",
+      "destination": "/zh-CN/gemini-omni/gemini-omni-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni/gemini-omni-r2v",
+      "destination": "/gemini-omni/gemini-omni-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni/gemini-omni-r2v",
+      "destination": "/zh-CN/gemini-omni/gemini-omni-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni/gemini-omni-extend",
+      "destination": "/gemini-omni/gemini-omni-extend",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni/gemini-omni-extend",
+      "destination": "/zh-CN/gemini-omni/gemini-omni-extend",
+      "permanent": true
+    },
+    {
+      "source": "/en/minimax-h3/minimax-h3-t2v",
+      "destination": "/minimax-h3/minimax-h3-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/minimax-h3/minimax-h3-t2v",
+      "destination": "/zh-CN/minimax-h3/minimax-h3-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/minimax-h3/minimax-h3-i2v",
+      "destination": "/minimax-h3/minimax-h3-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/minimax-h3/minimax-h3-i2v",
+      "destination": "/zh-CN/minimax-h3/minimax-h3-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/minimax-h3/minimax-h3-r2v",
+      "destination": "/minimax-h3/minimax-h3-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/minimax-h3/minimax-h3-r2v",
+      "destination": "/zh-CN/minimax-h3/minimax-h3-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/query-video-task",
+      "destination": "/query-video-task",
+      "permanent": true
+    },
+    {
+      "source": "/zh/query-video-task",
+      "destination": "/zh-CN/query-video-task",
+      "permanent": true
+    },
+    {
+      "source": "/en/grok-imagine-1-5/grok-imagine-1-5-vip",
+      "destination": "/grok-imagine-1-5/grok-imagine-1-5-vip",
+      "permanent": true
+    },
+    {
+      "source": "/zh/grok-imagine-1-5/grok-imagine-1-5-vip",
+      "destination": "/zh-CN/grok-imagine-1-5/grok-imagine-1-5-vip",
+      "permanent": true
+    },
+    {
+      "source": "/en/kling/kling-2-6-motion-control",
+      "destination": "/kling/kling-2-6-motion-control",
+      "permanent": true
+    },
+    {
+      "source": "/zh/kling/kling-2-6-motion-control",
+      "destination": "/zh-CN/kling/kling-2-6-motion-control",
+      "permanent": true
+    },
+    {
+      "source": "/en/motion-control/motion-control-m1",
+      "destination": "/motion-control/motion-control-m1",
+      "permanent": true
+    },
+    {
+      "source": "/zh/motion-control/motion-control-m1",
+      "destination": "/zh-CN/motion-control/motion-control-m1",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/doubao-seedance-1-0-pro-fast-i2v",
+      "destination": "/seedance/doubao-seedance-1-0-pro-fast-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/doubao-seedance-1-0-pro-fast-i2v",
+      "destination": "/zh-CN/seedance/doubao-seedance-1-0-pro-fast-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/doubao-seedance-1-0-pro-fast-t2v",
+      "destination": "/seedance/doubao-seedance-1-0-pro-fast-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/doubao-seedance-1-0-pro-fast-t2v",
+      "destination": "/zh-CN/seedance/doubao-seedance-1-0-pro-fast-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/seedance-1-0-lite-i2v",
+      "destination": "/seedance/seedance-1-0-lite-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/seedance-1-0-lite-i2v",
+      "destination": "/zh-CN/seedance/seedance-1-0-lite-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/seedance-1-0-lite-i2v-ref",
+      "destination": "/seedance/seedance-1-0-lite-i2v-ref",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/seedance-1-0-lite-i2v-ref",
+      "destination": "/zh-CN/seedance/seedance-1-0-lite-i2v-ref",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/seedance-1-0-lite-t2v",
+      "destination": "/seedance/seedance-1-0-lite-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/seedance-1-0-lite-t2v",
+      "destination": "/zh-CN/seedance/seedance-1-0-lite-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/seedance-1-0-pro-fast-i2v",
+      "destination": "/seedance/seedance-1-0-pro-fast-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/seedance-1-0-pro-fast-i2v",
+      "destination": "/zh-CN/seedance/seedance-1-0-pro-fast-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/seedance-1-0-pro-fast-t2v",
+      "destination": "/seedance/seedance-1-0-pro-fast-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/seedance-1-0-pro-fast-t2v",
+      "destination": "/zh-CN/seedance/seedance-1-0-pro-fast-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/seedance-1-0-pro-i2v",
+      "destination": "/seedance/seedance-1-0-pro-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/seedance-1-0-pro-i2v",
+      "destination": "/zh-CN/seedance/seedance-1-0-pro-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/seedance-1-0-pro-t2v",
+      "destination": "/seedance/seedance-1-0-pro-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/seedance-1-0-pro-t2v",
+      "destination": "/zh-CN/seedance/seedance-1-0-pro-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/seedance-1-5-pro-i2v",
+      "destination": "/seedance/seedance-1-5-pro-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/seedance-1-5-pro-i2v",
+      "destination": "/zh-CN/seedance/seedance-1-5-pro-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/seedance-1-5-pro-t2v",
+      "destination": "/seedance/seedance-1-5-pro-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/seedance-1-5-pro-t2v",
+      "destination": "/zh-CN/seedance/seedance-1-5-pro-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-mini-image-to-video",
+      "destination": "/seedance/2-0-mini-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-mini-image-to-video",
+      "destination": "/zh-CN/seedance/2-0-mini-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-mini-reference-to-video",
+      "destination": "/seedance/2-0-mini-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-mini-reference-to-video",
+      "destination": "/zh-CN/seedance/2-0-mini-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-mini-text-to-video",
+      "destination": "/seedance/2-0-mini-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-mini-text-to-video",
+      "destination": "/zh-CN/seedance/2-0-mini-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/seedance-2-0-t2v-vip",
+      "destination": "/seedance/seedance-2-0-t2v-vip",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/seedance-2-0-t2v-vip",
+      "destination": "/zh-CN/seedance/seedance-2-0-t2v-vip",
+      "permanent": true
+    },
+    {
+      "source": "/en/veo/3-1-lite",
+      "destination": "/veo/3-1-lite",
+      "permanent": true
+    },
+    {
+      "source": "/zh/veo/3-1-lite",
+      "destination": "/zh-CN/veo/3-1-lite",
+      "permanent": true
+    },
+    {
+      "source": "/en/veo/3-1-lite-4k",
+      "destination": "/veo/3-1-lite-4k",
+      "permanent": true
+    },
+    {
+      "source": "/zh/veo/3-1-lite-4k",
+      "destination": "/zh-CN/veo/3-1-lite-4k",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan2-7-i2v",
+      "destination": "/wan/wan2-7-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan2-7-i2v",
+      "destination": "/zh-CN/wan/wan2-7-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan2-7-t2v",
+      "destination": "/wan/wan2-7-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan2-7-t2v",
+      "destination": "/zh-CN/wan/wan2-7-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan2-7-videoedit",
+      "destination": "/wan/wan2-7-videoedit",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan2-7-videoedit",
+      "destination": "/zh-CN/wan/wan2-7-videoedit",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-i2v",
+      "destination": "/wan/wan3-0-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-i2v",
+      "destination": "/zh-CN/wan/wan3-0-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-r2v",
+      "destination": "/wan/wan3-0-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-r2v",
+      "destination": "/zh-CN/wan/wan3-0-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-t2v",
+      "destination": "/wan/wan3-0-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-t2v",
+      "destination": "/zh-CN/wan/wan3-0-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/14024404d0",
+      "destination": "/nano-banana/nano-banana-pro",
+      "permanent": true
+    },
+    {
+      "source": "/14024943d0",
+      "destination": "/seedream/4-5-text-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/14025414d0",
+      "destination": "/seedream/5-0-lite-text-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/14024675d0",
+      "destination": "/gpt-image-2/gpt-image-2",
+      "permanent": true
+    },
+    {
+      "source": "/14024783d0",
+      "destination": "/query-image-task",
+      "permanent": true
+    },
+    {
+      "source": "/14025470d0",
+      "destination": "/wan/2-7-text-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/14027954d0",
+      "destination": "/wan/2-7-image-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/14027955d0",
+      "destination": "/wan/2-7-text-to-image-pro",
+      "permanent": true
+    },
+    {
+      "source": "/14027966d0",
+      "destination": "/wan/2-7-image-to-image-pro",
+      "permanent": true
+    },
+    {
+      "source": "/14037703d0",
+      "destination": "/veo/3-1-fast",
+      "permanent": true
+    },
+    {
+      "source": "/14126452d0",
+      "destination": "/seedance/2-0-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/14126895d0",
+      "destination": "/seedance/2-0-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/14126909d0",
+      "destination": "/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/14139985d0",
+      "destination": "/seedance/2-0-fast-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/14139986d0",
+      "destination": "/seedance/2-0-fast-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/14139989d0",
+      "destination": "/seedance/2-0-fast-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/14454319d0",
+      "destination": "/gpt-image-2/gpt-image-2",
+      "permanent": true
+    },
+    {
+      "source": "/14454323d0",
+      "destination": "/gpt-image-2/gpt-image-2",
+      "permanent": true
+    },
+    {
+      "source": "/14563793d0",
+      "destination": "/grok-imagine/grok-imagine-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/14563794d0",
+      "destination": "/grok-imagine/grok-imagine-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/14667206d0",
+      "destination": "/sora-2/sora-2-vip",
+      "permanent": true
+    },
+    {
+      "source": "/14807471d0",
+      "destination": "/nano-banana/nano-banana-2",
+      "permanent": true
+    },
+    {
+      "source": "/15589232d0",
+      "destination": "/grok-imagine-1-5/grok-imagine-1-5-preview",
+      "permanent": true
+    },
+    {
+      "source": "/15747666d0",
+      "destination": "/veo/3-1-fast-4k",
+      "permanent": true
+    },
+    {
+      "source": "/15747672d0",
+      "destination": "/veo/3-1-fast-ref",
+      "permanent": true
+    },
+    {
+      "source": "/15747849d0",
+      "destination": "/veo/3-1-quality",
+      "permanent": true
+    },
+    {
+      "source": "/15747934d0",
+      "destination": "/veo/3-1-quality-4k",
+      "permanent": true
+    },
+    {
+      "source": "/15748097d0",
+      "destination": "/gemini-omni/gemini-omni-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/15748175d0",
+      "destination": "/gemini-omni/gemini-omni-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/15748545d0",
+      "destination": "/gemini-omni/gemini-omni-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/15748551d0",
+      "destination": "/gemini-omni/gemini-omni-extend",
+      "permanent": true
+    },
+    {
+      "source": "/16626823d0",
+      "destination": "/grok-imagine-1-5/grok-imagine-1-5-fast",
+      "permanent": true
+    },
+    {
+      "source": "/16724960d0",
+      "destination": "/gpt-image-2/gpt-image-2-lite",
+      "permanent": true
+    },
+    {
+      "source": "/16809455d0",
+      "destination": "/minimax-h3/minimax-h3-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/16809456d0",
+      "destination": "/minimax-h3/minimax-h3-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/16809458d0",
+      "destination": "/minimax-h3/minimax-h3-r2v",
+      "permanent": true
+    }
+  ],
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "github": "https://github.com/APIPod"
     }
   }
 }

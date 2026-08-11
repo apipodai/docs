@@ -1,0 +1,264 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "VEO 3.1 Quality 4K",
+    "version": "1.0.0",
+    "description": "Google Veo 3.1 Quality 4K Version",
+    "x-apipod-metadata": {
+      "modelId": "veo3-1-quality-4k",
+      "modelType": "video",
+      "provider": "google"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "VEO 3.1 Quality 4K",
+        "description": "Google Veo 3.1 Quality 4K Version",
+        "properties": {
+          "aspect_ratio": {
+            "type": "string",
+            "title": "Aspect ratio",
+            "description": "the generated video width and height aspect ratio.",
+            "enum": [
+              "16:9",
+              "9:16"
+            ],
+            "default": "16:9",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "title": "Reference frame",
+            "description": "The referenced start frame or end frame image.",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "double-image",
+              "defaultImages": [
+                "https://s.apipod.ai/images/1764901806792_videoframe_0.png"
+              ]
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "Describe the content of the video to be generated.",
+            "default": "A movie-like close-up shot shows fingers gently touching a complex pencil sketch of an octopus on an antique manuscript. As the fingers make contact, a ripple of water spreads outward, and the 2D drawing magically and seamlessly transforms into a realistic, wet, and glistening 3D octopus. The octopus subtly raises its head, and its tentacles twitch as if coming to life. The entire scene is illuminated by a single warm light source on a dark wooden table, creating a mysterious and wonderful atmosphere. ASMR audio.",
+            "maxLength": 4000,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          }
+        },
+        "required": [
+          "model",
+          "prompt"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_urls",
+          "aspect_ratio"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "video",
+          "previewMedia": [
+            "https://s.apipod.ai/videos/2025/12/05/0c1613ee-a8d6-4ed9-a1e2-7a64c29187b7.mp4"
+          ]
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "任务唯一标识"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "完成时间戳"
+              },
+              "result": {
+                "type": "object",
+                "description": "生成的视频信息",
+                "properties": {
+                  "duration": {
+                    "type": "number",
+                    "description": "视频时长（秒）"
+                  },
+                  "height": {
+                    "type": "integer",
+                    "description": "视频高度"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "视频 URL"
+                  },
+                  "width": {
+                    "type": "integer",
+                    "description": "视频宽度"
+                  }
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "任务状态",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "任务唯一标识"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/videos/generations": {
+      "post": {
+        "summary": "video API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/videos/status/{task_id}",
+          "polling": {
+            "interval": 3000,
+            "maxAttempts": 200,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/videos/status/{task_id}": {
+      "get": {
+        "summary": "VEO 3.1 Quality 4K Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

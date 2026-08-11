@@ -1,0 +1,2022 @@
+{
+  "source": "https://docs.apipod.ai",
+  "generatedAt": "2026-08-11T01:21:40.898Z",
+  "sitemapCount": 76,
+  "sourcePaths": [
+    "/2065583m0",
+    "/gpt-image-2/gpt-image-2",
+    "/gpt-image-2/gpt-image-2-lite",
+    "/gpt-image-2/gpt-image-2-fast",
+    "/gpt-image-2/gpt-image-2-edit",
+    "/nano-banana/nano-banana-2",
+    "/nano-banana/nano-banana-pro",
+    "/seedream/4-5-text-to-image",
+    "/seedream/4-5-image-to-image",
+    "/seedream/5-0-lite-text-to-image",
+    "/seedream/5-0-lite-image-to-image",
+    "/wan/2-7-text-to-image",
+    "/wan/2-7-image-to-image",
+    "/wan/2-7-text-to-image-pro",
+    "/wan/2-7-image-to-image-pro",
+    "/query-image-task",
+    "/veo/3-1-fast",
+    "/veo/3-1-fast-4k",
+    "/veo/3-1-fast-ref",
+    "/veo/3-1-quality",
+    "/veo/3-1-quality-4k",
+    "/seedance/2-0-text-to-video",
+    "/seedance/2-0-image-to-video",
+    "/seedance/2-0-reference-to-video",
+    "/seedance/2-0-fast-text-to-video",
+    "/seedance/2-0-fast-image-to-video",
+    "/seedance/2-0-fast-reference-to-video",
+    "/grok-imagine/grok-imagine-t2v",
+    "/grok-imagine/grok-imagine-i2v",
+    "/grok-imagine-1-5/grok-imagine-1-5-fast",
+    "/grok-imagine-1-5/grok-imagine-1-5-preview",
+    "/sora-2/sora-2-vip",
+    "/gemini-omni/gemini-omni-t2v",
+    "/gemini-omni/gemini-omni-i2v",
+    "/gemini-omni/gemini-omni-r2v",
+    "/gemini-omni/gemini-omni-extend",
+    "/minimax-h3/minimax-h3-t2v",
+    "/minimax-h3/minimax-h3-i2v",
+    "/minimax-h3/minimax-h3-r2v",
+    "/query-video-task",
+    "/14024404d0",
+    "/14024943d0",
+    "/14025414d0",
+    "/14024675d0",
+    "/14024783d0",
+    "/14025470d0",
+    "/14027954d0",
+    "/14027955d0",
+    "/14027966d0",
+    "/14037703d0",
+    "/14126452d0",
+    "/14126895d0",
+    "/14126909d0",
+    "/14139985d0",
+    "/14139986d0",
+    "/14139989d0",
+    "/14454319d0",
+    "/14454323d0",
+    "/14563793d0",
+    "/14563794d0",
+    "/14667206d0",
+    "/14807471d0",
+    "/15589232d0",
+    "/15747666d0",
+    "/15747672d0",
+    "/15747849d0",
+    "/15747934d0",
+    "/15748097d0",
+    "/15748175d0",
+    "/15748545d0",
+    "/15748551d0",
+    "/16626823d0",
+    "/16724960d0",
+    "/16809455d0",
+    "/16809456d0",
+    "/16809458d0"
+  ],
+  "publicPageCount": 65,
+  "schemaOnlyCount": 36,
+  "schemaPaths": [
+    "/14024404d0",
+    "/14024943d0",
+    "/14025414d0",
+    "/14024675d0",
+    "/14024783d0",
+    "/14025470d0",
+    "/14027954d0",
+    "/14027955d0",
+    "/14027966d0",
+    "/14037703d0",
+    "/14126452d0",
+    "/14126895d0",
+    "/14126909d0",
+    "/14139985d0",
+    "/14139986d0",
+    "/14139989d0",
+    "/14454319d0",
+    "/14454323d0",
+    "/14563793d0",
+    "/14563794d0",
+    "/14667206d0",
+    "/14807471d0",
+    "/15589232d0",
+    "/15747666d0",
+    "/15747672d0",
+    "/15747849d0",
+    "/15747934d0",
+    "/15748097d0",
+    "/15748175d0",
+    "/15748545d0",
+    "/15748551d0",
+    "/16626823d0",
+    "/16724960d0",
+    "/16809455d0",
+    "/16809456d0",
+    "/16809458d0"
+  ],
+  "schemaNames": {
+    "/14024404d0": "NanoBanana",
+    "/14024943d0": "Seedream4.5",
+    "/14025414d0": "Seedream5.0",
+    "/14024675d0": "SubmitTaskResponse",
+    "/14024783d0": "TaskDetailResponse",
+    "/14025470d0": "WAN2.7Image",
+    "/14027954d0": "WAN2.7ImageEdit",
+    "/14027955d0": "WAN2.7ImagePro",
+    "/14027966d0": "WAN2.7ImageEditPro",
+    "/14037703d0": "Veo3.1Fast",
+    "/14126452d0": "Seedance2.0TextToVideo",
+    "/14126895d0": "Seedance2.0ImageToVideo",
+    "/14126909d0": "Seedance2.0ReferenceToVideo",
+    "/14139985d0": "Seedance2.0FastTextToVideo",
+    "/14139986d0": "Seedance2.0FastImageToVideo",
+    "/14139989d0": "Seedance2.0FastReferenceToVideo",
+    "/14454319d0": "GPTImage2",
+    "/14454323d0": "GPTImage2Edit",
+    "/14563793d0": "GrokImagineT2V",
+    "/14563794d0": "GrokImagineI2V",
+    "/14667206d0": "Sora2VIP",
+    "/14807471d0": "NanoBanana2",
+    "/15589232d0": "GrokImagine15",
+    "/15747666d0": "Veo3.1 Fast 4K",
+    "/15747672d0": "Veo3.1 Fast Reference",
+    "/15747849d0": "Veo3.1 Quality",
+    "/15747934d0": "Veo3.1 Quality 4K",
+    "/15748097d0": "Gemini Omni Text to Video",
+    "/15748175d0": "Gemini Omni Image to Video",
+    "/15748545d0": "Gemini Omni Reference to Video",
+    "/15748551d0": "Gemini Omni Extend",
+    "/16626823d0": "GrokImagine15Fast",
+    "/16724960d0": "GPTImage2 Lite",
+    "/16809455d0": "MiniMaxH3T2V",
+    "/16809456d0": "MiniMaxH3I2V",
+    "/16809458d0": "MiniMaxH3R2V"
+  },
+  "pages": [
+    {
+      "slug": "introduction",
+      "title": "Getting Started with APIPod API",
+      "legacy": "/2065583m0",
+      "schema": false
+    },
+    {
+      "slug": "gpt-image-2/gpt-image-2",
+      "title": "GPT Image 2",
+      "legacy": "/gpt-image-2/gpt-image-2",
+      "schema": true,
+      "modelId": "gpt-image-2",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "openai",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "GPT Image 2",
+          "zh": "GPT Image 2"
+        }
+      },
+      "introduction": {
+        "en": "GPT Image 2 is OpenAI's image generation and editing model, exposed through APIPod's primary official-route public ID. It supports prompt-driven generation and reference-image editing in the same asynchronous workflow. In APIPod, the public model ID is gpt-image-2. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "GPT Image 2 是 OpenAI 的图片生成与编辑模型，APIPod 通过主官方路由公开 ID 提供该能力，同一套异步工作流同时支持提示词生图和参考图编辑。在 APIPod 中，公开模型 ID 为 gpt-image-2，支持文生图、图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "gpt-image-2/gpt-image-2-lite",
+      "title": "GPT Image 2 Lite",
+      "legacy": "/gpt-image-2/gpt-image-2-lite",
+      "schema": true,
+      "modelId": "gpt-image-2-lite",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "openai",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "GPT Image 2 Lite",
+          "zh": "GPT Image 2 轻量版"
+        }
+      },
+      "introduction": {
+        "en": "GPT Image 2 Lite is APIPod's cost-oriented routing variant for GPT Image 2 rather than a separate OpenAI model. It uses the shared generation and editing contract with lower-cost configured channels. In APIPod, the public model ID is gpt-image-2-lite. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "GPT Image 2 Lite 是 APIPod 面向低成本通道提供的 GPT Image 2 路由版本，并非独立的 OpenAI 模型；它沿用统一的图片生成与编辑契约。在 APIPod 中，公开模型 ID 为 gpt-image-2-lite，支持文生图、图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "gpt-image-2/gpt-image-2-fast",
+      "title": "GPT Image 2 Fast",
+      "legacy": "/gpt-image-2/gpt-image-2-fast",
+      "schema": true,
+      "modelId": "gpt-image-2-fast",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "openai",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "text"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "GPT Image 2 Fast",
+          "zh": "GPT Image 2 快速版"
+        }
+      },
+      "introduction": {
+        "en": "GPT Image 2 Fast is APIPod's latency-oriented routing variant for GPT Image 2 rather than a separate OpenAI model. It keeps the shared generation and editing request shape while favoring faster configured channels. In APIPod, the public model ID is gpt-image-2-fast. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "GPT Image 2 Fast 是 APIPod 面向低延迟通道提供的 GPT Image 2 路由版本，并非独立的 OpenAI 模型；它沿用统一的图片生成与编辑请求结构。在 APIPod 中，公开模型 ID 为 gpt-image-2-fast，支持文生图、图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "nano-banana/nano-banana-2",
+      "title": "Nano Banana 2",
+      "legacy": "/nano-banana/nano-banana-2",
+      "schema": true,
+      "modelId": "nano-banana-2",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Nano Banana 2",
+          "zh": "Nano Banana 2"
+        }
+      },
+      "introduction": {
+        "en": "Nano Banana 2 is Google's general-purpose Gemini image generation and editing model, balancing fast generation with instruction following, text rendering, and subject consistency across reference images. In APIPod, the public model ID is nano-banana-2. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "Nano Banana 2 是 Google Gemini 图片系列的通用型生成与编辑模型，重点兼顾生成速度、指令理解、文字渲染和多张参考图下的主体一致性。在 APIPod 中，公开模型 ID 为 nano-banana-2，支持文生图、图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "nano-banana/nano-banana-pro",
+      "title": "Nano Banana Pro",
+      "legacy": "/nano-banana/nano-banana-pro",
+      "schema": true,
+      "modelId": "nano-banana-pro",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "text",
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Nano Banana Pro",
+          "zh": "Nano Banana Pro"
+        }
+      },
+      "introduction": {
+        "en": "Nano Banana Pro is Google's high-quality Gemini image model for complex creative work, with an emphasis on multimodal reasoning, real-world knowledge, precise text rendering, multi-image composition, and high-resolution output. In APIPod, the public model ID is nano-banana-pro. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "Nano Banana Pro 是 Google Gemini 图片系列中面向复杂创作的高质量模型，强调多模态推理、现实世界知识、精细文字渲染、多图融合和高分辨率输出。在 APIPod 中，公开模型 ID 为 nano-banana-pro，支持文生图、图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedream/4-5-text-to-image",
+      "title": "Seedream V4.5 Text to Image",
+      "legacy": "/seedream/4-5-text-to-image",
+      "schema": true,
+      "modelId": "seedream-v4.5",
+      "classifications": [
+        "text_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedream V4.5 Text to Image",
+          "zh": "Seedream V4.5 文生图"
+        }
+      },
+      "introduction": {
+        "en": "Seedream 4.5 is ByteDance's text-to-image model for prompt-faithful composition, detailed visual styles, and text rendering. In APIPod, the public model ID is seedream-v4.5. It supports text-to-image, accepts text inputs, and returns results through asynchronous image tasks.",
+        "zh": "Seedream 4.5 是字节跳动的文生图模型，重点提升提示词遵循、画面构图、视觉风格和文字渲染能力。在 APIPod 中，公开模型 ID 为 seedream-v4.5，支持文生图；接受文本输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedream/4-5-image-to-image",
+      "title": "Seedream V4.5 Image to Image",
+      "legacy": "/seedream/4-5-image-to-image",
+      "schema": true,
+      "modelId": "seedream-v4.5-edit",
+      "classifications": [
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "image",
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedream V4.5 Edit",
+          "zh": "Seedream V4.5 图生图"
+        }
+      },
+      "introduction": {
+        "en": "Seedream 4.5 Edit is ByteDance's reference-image editing model, designed to preserve subjects and fine details while following transformation instructions across one or more source images. In APIPod, the public model ID is seedream-v4.5-edit. It supports image generation and editing, accepts image and text inputs, and returns results through asynchronous image tasks.",
+        "zh": "Seedream 4.5 Edit 是字节跳动的参考图编辑模型，适合在一张或多张源图片之间保持主体和细节，并按提示词完成可控修改。在 APIPod 中，公开模型 ID 为 seedream-v4.5-edit，支持图片生成与编辑；接受图片、文本输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedream/5-0-lite-text-to-image",
+      "title": "Seedream 5.0 Lite Text to Image",
+      "legacy": "/seedream/5-0-lite-text-to-image",
+      "schema": true,
+      "modelId": "seedream-5.0-lite",
+      "classifications": [
+        "text_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedream 5.0 Lite",
+          "zh": "Seedream 5.0 Lite"
+        }
+      },
+      "introduction": {
+        "en": "Seedream 5.0 Lite is APIPod's efficiency-oriented text-to-image route in the Seedream 5 family, intended for prompt-driven generation with flexible high-resolution output. In APIPod, the public model ID is seedream-5.0-lite. It supports text-to-image, accepts text inputs, and returns results through asynchronous image tasks.",
+        "zh": "Seedream 5.0 Lite 是 APIPod 在 Seedream 5 系列中开放的效率型文生图路由，面向提示词驱动和灵活的高分辨率图片生成。在 APIPod 中，公开模型 ID 为 seedream-5.0-lite，支持文生图；接受文本输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedream/5-0-lite-image-to-image",
+      "title": "Seedream 5.0 Lite Image to Image",
+      "legacy": "/seedream/5-0-lite-image-to-image",
+      "schema": true,
+      "modelId": "seedream-5.0-lite-edit",
+      "classifications": [
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedream 5.0 Lite Edit",
+          "zh": "Seedream 5.0 Lite 图生图"
+        }
+      },
+      "introduction": {
+        "en": "Seedream 5.0 Lite Edit is APIPod's efficiency-oriented Seedream 5 route for reference-guided image editing and subject-consistent transformations. In APIPod, the public model ID is seedream-5.0-lite-edit. It supports image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "Seedream 5.0 Lite Edit 是 APIPod 在 Seedream 5 系列中开放的效率型图片编辑路由，用于参考图引导和保持主体一致性的图像修改。在 APIPod 中，公开模型 ID 为 seedream-5.0-lite-edit，支持图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/2-7-text-to-image",
+      "title": "WAN 2.7 Text to Image",
+      "legacy": "/wan/2-7-text-to-image",
+      "schema": true,
+      "modelId": "wan2.7-image",
+      "classifications": [
+        "text_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 2.7 Text to Image",
+          "zh": "WAN 2.7 文生图"
+        }
+      },
+      "introduction": {
+        "en": "Wan 2.7 Image is Alibaba's text-to-image model with an optional reasoning stage for interpreting prompts and planning composition before rendering. In APIPod, the public model ID is wan2.7-image. It supports text-to-image, accepts text inputs, and returns results through asynchronous image tasks.",
+        "zh": "Wan 2.7 Image 是阿里的文生图模型，可通过可选的生成前推理理解提示词并规划构图。在 APIPod 中，公开模型 ID 为 wan2.7-image，支持文生图；接受文本输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/2-7-image-to-image",
+      "title": "WAN 2.7 Image to Image",
+      "legacy": "/wan/2-7-image-to-image",
+      "schema": true,
+      "modelId": "wan2.7-image-edit",
+      "classifications": [
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 2.7 Image Edit",
+          "zh": "WAN 2.7 图生图"
+        }
+      },
+      "introduction": {
+        "en": "Wan 2.7 Image Edit is Alibaba's instruction-based image editing model for controlled changes that preserve the source structure and principal subjects. In APIPod, the public model ID is wan2.7-image-edit. It supports image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "Wan 2.7 Image Edit 是阿里的指令式图片编辑模型，用于在保留原图结构和主要主体的同时完成可控修改。在 APIPod 中，公开模型 ID 为 wan2.7-image-edit，支持图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/2-7-text-to-image-pro",
+      "title": "WAN 2.7 Text to Image Pro",
+      "legacy": "/wan/2-7-text-to-image-pro",
+      "schema": true,
+      "modelId": "wan2.7-image-pro",
+      "classifications": [
+        "text_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 2.7 Text to Image Pro",
+          "zh": "WAN 2.7 文生图专业版"
+        }
+      },
+      "introduction": {
+        "en": "Wan 2.7 Image Pro is the high-resolution text-to-image route in APIPod's Wan 2.7 image family, with a 4K output tier for detailed or large-format assets. In APIPod, the public model ID is wan2.7-image-pro. It supports text-to-image, accepts text inputs, and returns results through asynchronous image tasks.",
+        "zh": "Wan 2.7 Image Pro 是 APIPod Wan 2.7 图片系列中的高分辨率文生图路由，提供 4K 输出档位，适合细节丰富或大尺寸素材。在 APIPod 中，公开模型 ID 为 wan2.7-image-pro，支持文生图；接受文本输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/2-7-image-to-image-pro",
+      "title": "WAN 2.7 Image to Image Pro",
+      "legacy": "/wan/2-7-image-to-image-pro",
+      "schema": true,
+      "modelId": "wan2.7-image-pro-edit",
+      "classifications": [
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 2.7 Image Edit Pro",
+          "zh": "WAN 2.7 图生图专业版"
+        }
+      },
+      "introduction": {
+        "en": "Wan 2.7 Image Pro Edit is the quality-oriented editing route in APIPod's Wan 2.7 image family, combining reference images with text instructions for high-fidelity changes. In APIPod, the public model ID is wan2.7-image-pro-edit. It supports image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "Wan 2.7 Image Pro Edit 是 APIPod Wan 2.7 图片系列中的质量优先编辑路由，通过参考图片和文本指令完成高保真修改。在 APIPod 中，公开模型 ID 为 wan2.7-image-pro-edit，支持图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "query-image-task",
+      "title": "Query Image Task",
+      "legacy": "/query-image-task",
+      "schema": true
+    },
+    {
+      "slug": "veo/3-1-fast",
+      "title": "Veo 3.1 Fast",
+      "legacy": "/veo/3-1-fast",
+      "schema": true,
+      "modelId": "veo3-1-fast",
+      "classifications": [
+        "text_to_video",
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Veo 3.1 Fast",
+          "zh": "Veo 3.1 快速"
+        }
+      },
+      "introduction": {
+        "en": "Veo 3.1 Fast is a fast-generation route based on Google Veo 3.1. It supports text or first/last-frame image guidance and can generate video with audio. In APIPod, the public model ID is veo3-1-fast. It supports text-to-video and image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Veo 3.1 Fast 基于 Google Veo 3.1，属于快速生成路由，支持文本或首尾帧图片引导，并可生成带音频的视频。在 APIPod 中，公开模型 ID 为 veo3-1-fast，支持文生视频、图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "veo/3-1-fast-4k",
+      "title": "Veo 3.1 Fast 4K",
+      "legacy": "/veo/3-1-fast-4k",
+      "schema": true,
+      "modelId": "veo3-1-fast-4k",
+      "classifications": [
+        "text_to_video",
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Veo 3.1 Fast 4K",
+          "zh": "Veo 3.1 快速(4K)"
+        }
+      },
+      "introduction": {
+        "en": "Veo 3.1 Fast 4K is a fast-generation route based on Google Veo 3.1. It supports text or first/last-frame image guidance and can generate video with audio, with this public ID targeting 4K output. In APIPod, the public model ID is veo3-1-fast-4k. It supports text-to-video and image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Veo 3.1 Fast 4K 基于 Google Veo 3.1，属于快速生成路由，支持文本或首尾帧图片引导，并可生成带音频的视频；该公开 ID 以 4K 输出为目标。在 APIPod 中，公开模型 ID 为 veo3-1-fast-4k，支持文生视频、图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "veo/3-1-fast-ref",
+      "title": "Veo 3.1 Fast Reference",
+      "legacy": "/veo/3-1-fast-ref",
+      "schema": true,
+      "modelId": "veo3-1-fast-ref",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Veo 3.1 Fast Reference",
+          "zh": "Veo 3.1 多图参考"
+        }
+      },
+      "introduction": {
+        "en": "Veo 3.1 Fast Ref is Google Veo 3.1's multi-reference video route, using up to three subject or style images to guide character, lighting, and color consistency. In APIPod, the public model ID is veo3-1-fast-ref. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Veo 3.1 Fast Ref 是 Google Veo 3.1 的多参考图视频路由，可使用最多 3 张主体或风格参考图控制角色、光线和色调的一致性。在 APIPod 中，公开模型 ID 为 veo3-1-fast-ref，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "veo/3-1-quality",
+      "title": "Veo 3.1 Quality",
+      "legacy": "/veo/3-1-quality",
+      "schema": true,
+      "modelId": "veo3-1-quality",
+      "classifications": [
+        "text_to_video",
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Veo 3.1 Quality",
+          "zh": "Veo 3.1 高质量"
+        }
+      },
+      "introduction": {
+        "en": "Veo 3.1 Quality is a quality-focused route based on Google Veo 3.1. It supports text or first/last-frame image guidance and can generate video with audio. In APIPod, the public model ID is veo3-1-quality. It supports text-to-video and image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Veo 3.1 Quality 基于 Google Veo 3.1，属于质量优先路由，支持文本或首尾帧图片引导，并可生成带音频的视频。在 APIPod 中，公开模型 ID 为 veo3-1-quality，支持文生视频、图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "veo/3-1-quality-4k",
+      "title": "Veo 3.1 Quality 4K",
+      "legacy": "/veo/3-1-quality-4k",
+      "schema": true,
+      "modelId": "veo3-1-quality-4k",
+      "classifications": [
+        "text_to_video",
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Veo 3.1 Quality 4K",
+          "zh": "Veo 3.1 高质量(4K)"
+        }
+      },
+      "introduction": {
+        "en": "Veo 3.1 Quality 4K is a quality-focused route based on Google Veo 3.1. It supports text or first/last-frame image guidance and can generate video with audio, with this public ID targeting 4K output. In APIPod, the public model ID is veo3-1-quality-4k. It supports text-to-video and image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Veo 3.1 Quality 4K 基于 Google Veo 3.1，属于质量优先路由，支持文本或首尾帧图片引导，并可生成带音频的视频；该公开 ID 以 4K 输出为目标。在 APIPod 中，公开模型 ID 为 veo3-1-quality-4k，支持文生视频、图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/2-0-text-to-video",
+      "title": "Seedance 2.0 Text to Video",
+      "legacy": "/seedance/2-0-text-to-video",
+      "schema": true,
+      "modelId": "seedance-2.0-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.0 Text to Video",
+          "zh": "Seedance 2.0 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.0 Text to Video is a standard route that turns text instructions into video without requiring source media. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.0 文生视频是标准路由，根据文本指令生成视频，不要求提供源媒体。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/2-0-image-to-video",
+      "title": "Seedance 2.0 Image to Video",
+      "legacy": "/seedance/2-0-image-to-video",
+      "schema": true,
+      "modelId": "seedance-2.0-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.0 Image to Video",
+          "zh": "Seedance 2.0 首尾帧"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.0 Image to Video is a standard route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.0 图生视频是标准路由，以必填首帧图片生成视频，并在公开 schema 允许时使用可选尾帧。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/2-0-reference-to-video",
+      "title": "Seedance 2.0 Reference to Video",
+      "legacy": "/seedance/2-0-reference-to-video",
+      "schema": true,
+      "modelId": "seedance-2.0-r2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.0 Reference",
+          "zh": "Seedance 2.0 参考素材"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.0 Reference to Video is a standard route that uses reference images, video, or audio to guide subjects, motion, visual style, and sound. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-r2v. It supports image-to-video, accepts text, image and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.0 参考生视频是标准路由，使用参考图片、视频或音频引导主体、动作、视觉风格和声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-r2v，支持图生视频；接受文本、图片、视频输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/2-0-fast-text-to-video",
+      "title": "Seedance 2.0 Fast Text to Video",
+      "legacy": "/seedance/2-0-fast-text-to-video",
+      "schema": true,
+      "modelId": "seedance-2.0-fast-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.0 Fast Text to Video",
+          "zh": "Seedance 2.0 文生图极速版"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.0 Fast Text to Video is a lower-latency route that turns text instructions into video without requiring source media. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-fast-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.0 Fast 文生视频是低延迟路由，根据文本指令生成视频，不要求提供源媒体。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-fast-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/2-0-fast-image-to-video",
+      "title": "Seedance 2.0 Fast Image to Video",
+      "legacy": "/seedance/2-0-fast-image-to-video",
+      "schema": true,
+      "modelId": "seedance-2.0-fast-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "outputTypes": [
+          "video",
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.0 Fast Image to Video",
+          "zh": "Seedance 2.0 图生视频极速版"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.0 Fast Image to Video is a lower-latency route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-fast-i2v. It supports image-to-video, accepts text, image, audio and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.0 Fast 图生视频是低延迟路由，以必填首帧图片生成视频，并在公开 schema 允许时使用可选尾帧。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-fast-i2v，支持图生视频；接受文本、图片、音频、视频输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/2-0-fast-reference-to-video",
+      "title": "Seedance 2.0 Fast Reference to Video",
+      "legacy": "/seedance/2-0-fast-reference-to-video",
+      "schema": true,
+      "modelId": "seedance-2.0-fast-r2v",
+      "classifications": [
+        "text_to_video",
+        "image_to_video",
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "outputTypes": [
+          "image",
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.0 Fast Reference to Video",
+          "zh": "Seedance 2.0 参考素材极速版"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.0 Fast Reference to Video is a lower-latency route that uses reference images, video, or audio to guide subjects, motion, visual style, and sound. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-fast-r2v. It supports text-to-video, image-to-video and video-to-video, accepts text, image, audio and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.0 Fast 参考生视频是低延迟路由，使用参考图片、视频或音频引导主体、动作、视觉风格和声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-fast-r2v，支持文生视频、图生视频、视频到视频；接受文本、图片、音频、视频输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "grok-imagine/grok-imagine-t2v",
+      "title": "Grok Imagine Text to Video",
+      "legacy": "/grok-imagine/grok-imagine-t2v",
+      "schema": true,
+      "modelId": "grok-imagine-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "xai",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Grok Imagine Text to Video",
+          "zh": "Grok Imagine 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Grok Imagine is a text-to-video route in xAI's Grok Imagine video family, intended for short clips with coherent motion and synchronized audio. In APIPod, the public model ID is grok-imagine-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Grok Imagine 是 xAI Grok Imagine 视频系列的文生视频路由，用于生成带连贯运动和同步音频的短视频。在 APIPod 中，公开模型 ID 为 grok-imagine-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "grok-imagine/grok-imagine-i2v",
+      "title": "Grok Imagine Image to Video",
+      "legacy": "/grok-imagine/grok-imagine-i2v",
+      "schema": true,
+      "modelId": "grok-imagine-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "xai",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Grok Imagine Image to Video",
+          "zh": "Grok Imagine 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Grok Imagine is a image-to-video route in xAI's Grok Imagine video family, intended for short clips with coherent motion and synchronized audio. In APIPod, the public model ID is grok-imagine-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Grok Imagine 是 xAI Grok Imagine 视频系列的图生视频路由，用于生成带连贯运动和同步音频的短视频。在 APIPod 中，公开模型 ID 为 grok-imagine-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "grok-imagine-1-5/grok-imagine-1-5-fast",
+      "title": "Grok Imagine Video 1.5 Fast",
+      "legacy": "/grok-imagine-1-5/grok-imagine-1-5-fast",
+      "schema": true,
+      "modelId": "grok-imagine-1.5-fast",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "xai",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Grok Imagine Video 1.5 Fast",
+          "zh": "Grok Imagine Video 1.5 快速版"
+        }
+      },
+      "introduction": {
+        "en": "Grok Imagine 1.5 Fast is a fast route for longer clips and multiple reference images in xAI's Grok Imagine video family, intended for short clips with coherent motion and synchronized audio. In APIPod, the public model ID is grok-imagine-1.5-fast. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Grok Imagine 1.5 Fast 是 xAI Grok Imagine 视频系列的面向较长片段和多参考图的快速路由，用于生成带连贯运动和同步音频的短视频。在 APIPod 中，公开模型 ID 为 grok-imagine-1.5-fast，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "grok-imagine-1-5/grok-imagine-1-5-preview",
+      "title": "Grok Imagine Video 1.5 Preview",
+      "legacy": "/grok-imagine-1-5/grok-imagine-1-5-preview",
+      "schema": true,
+      "modelId": "grok-imagine-1.5-preview",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "xai",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Grok Imagine Video 1.5 Preview",
+          "zh": "Grok Imagine Video 1.5 预览版"
+        }
+      },
+      "introduction": {
+        "en": "Grok Imagine 1.5 Preview is a preview route that requires one source image in xAI's Grok Imagine video family, intended for short clips with coherent motion and synchronized audio. In APIPod, the public model ID is grok-imagine-1.5-preview. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Grok Imagine 1.5 Preview 是 xAI Grok Imagine 视频系列的要求单张源图片的预览路由，用于生成带连贯运动和同步音频的短视频。在 APIPod 中，公开模型 ID 为 grok-imagine-1.5-preview，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "sora-2/sora-2-vip",
+      "title": "Sora 2 Official API",
+      "legacy": "/sora-2/sora-2-vip",
+      "schema": true,
+      "modelId": "sora-2-vip",
+      "classifications": [
+        "text_to_video",
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "openai",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Sora 2 VIP",
+          "zh": "Sora 2 VIP"
+        }
+      },
+      "introduction": {
+        "en": "Sora 2 VIP is APIPod's official-provider routing ID for Sora 2. Its public contract supports 4-, 8-, or 12-second clips and an optional first-frame image. In APIPod, the public model ID is sora-2-vip. It supports text-to-video and image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Sora 2 VIP 是 APIPod 为 Sora 2 提供的官方供应商路由 ID，公开契约支持 4、8、12 秒视频以及可选首帧图片。在 APIPod 中，公开模型 ID 为 sora-2-vip，支持文生视频、图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "gemini-omni/gemini-omni-t2v",
+      "title": "Gemini Omni Text to Video",
+      "legacy": "/gemini-omni/gemini-omni-t2v",
+      "schema": true,
+      "modelId": "gemini-omni-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "text"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Text to Video",
+          "zh": "Gemini Omni 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni T2V is APIPod's text-to-video routing mode for the configured Gemini Omni channel. It uses text instructions to create video without requiring reference media. In APIPod, the public model ID is gemini-omni-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni T2V 是 APIPod 为已配置 Gemini Omni 通道提供的文生视频路由模式，仅使用文本指令生成视频，不要求参考素材。在 APIPod 中，公开模型 ID 为 gemini-omni-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "gemini-omni/gemini-omni-i2v",
+      "title": "Gemini Omni Image to Video",
+      "legacy": "/gemini-omni/gemini-omni-i2v",
+      "schema": true,
+      "modelId": "gemini-omni-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Image to Video",
+          "zh": "Gemini Omni 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni I2V is APIPod's first/last-frame image-to-video routing mode for the configured Gemini Omni channel. It accepts one required first frame and one optional last frame. In APIPod, the public model ID is gemini-omni-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni I2V 是 APIPod 为已配置 Gemini Omni 通道提供的首尾帧图生视频路由模式，要求提供首帧，并可选提供尾帧。在 APIPod 中，公开模型 ID 为 gemini-omni-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "gemini-omni/gemini-omni-r2v",
+      "title": "Gemini Omni Reference to Video",
+      "legacy": "/gemini-omni/gemini-omni-r2v",
+      "schema": true,
+      "modelId": "gemini-omni-r2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Reference to video",
+          "zh": "Gemini Omni 参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni R2V is APIPod's reference-to-video routing mode for the configured Gemini Omni channel. It uses one to five reference images to guide subject and visual consistency. In APIPod, the public model ID is gemini-omni-r2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni R2V 是 APIPod 为已配置 Gemini Omni 通道提供的参考生视频路由模式，支持使用 1 至 5 张参考图引导主体和视觉一致性。在 APIPod 中，公开模型 ID 为 gemini-omni-r2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "gemini-omni/gemini-omni-extend",
+      "title": "Gemini Omni Extend",
+      "legacy": "/gemini-omni/gemini-omni-extend",
+      "schema": true,
+      "modelId": "gemini-omni-extend",
+      "classifications": [
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "video",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Extend",
+          "zh": "Gemini Omni 视频转视频"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Extend is APIPod's video extension and editing routing mode for the configured Gemini Omni channel. It requires a source video and can attach up to five reference images. In APIPod, the public model ID is gemini-omni-extend. It supports video-to-video, accepts text, video and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Extend 是 APIPod 为已配置 Gemini Omni 通道提供的视频续写与编辑路由模式，要求提供源视频，并可附带最多 5 张参考图。在 APIPod 中，公开模型 ID 为 gemini-omni-extend，支持视频到视频；接受文本、视频、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "minimax-h3/minimax-h3-t2v",
+      "title": "MiniMax H3 Text to Video",
+      "legacy": "/minimax-h3/minimax-h3-t2v",
+      "schema": true,
+      "modelId": "minimax-h3-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "minimax",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "MiniMax H3 Text to Video",
+          "zh": "MiniMax H3 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "MiniMax H3 T2V is the prompt-only text-to-video mode of MiniMax H3. APIPod exposes native 2K output and 4-to-15-second generation for this public ID. In APIPod, the public model ID is minimax-h3-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "MiniMax H3 T2V 是 MiniMax H3 的纯文生视频模式；APIPod 为该公开 ID 开放原生 2K 输出和 4 至 15 秒视频生成。在 APIPod 中，公开模型 ID 为 minimax-h3-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "minimax-h3/minimax-h3-i2v",
+      "title": "MiniMax H3 Image to Video",
+      "legacy": "/minimax-h3/minimax-h3-i2v",
+      "schema": true,
+      "modelId": "minimax-h3-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "minimax",
+        "inputTypes": [
+          "text",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "MiniMax H3 Image to Video",
+          "zh": "MiniMax H3 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "MiniMax H3 Image to Video is a dedicated mode in MiniMax's multimodal H3 video family that uses a required first frame and an optional last frame. APIPod currently exposes a 2K, 4-to-15-second asynchronous contract for this family. In APIPod, the public model ID is minimax-h3-i2v. It supports image-to-video, accepts text, video and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "MiniMax H3 图生视频是 MiniMax H3 多模态视频系列的独立模式，使用必填首帧和可选尾帧；APIPod 当前为该系列提供 2K、4 至 15 秒的异步生成契约。在 APIPod 中，公开模型 ID 为 minimax-h3-i2v，支持图生视频；接受文本、视频、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "minimax-h3/minimax-h3-r2v",
+      "title": "MiniMax H3 Reference to Video",
+      "legacy": "/minimax-h3/minimax-h3-r2v",
+      "schema": true,
+      "modelId": "minimax-h3-r2v",
+      "classifications": [
+        "image_to_video",
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "minimax",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "MiniMax H3 Reference to Video",
+          "zh": "MiniMax H3 参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "MiniMax H3 Reference to Video is a dedicated mode in MiniMax's multimodal H3 video family that combines image, video, and audio references. APIPod currently exposes a 2K, 4-to-15-second asynchronous contract for this family. In APIPod, the public model ID is minimax-h3-r2v. It supports image-to-video and video-to-video, accepts text, image, audio and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "MiniMax H3 参考生视频是 MiniMax H3 多模态视频系列的独立模式，组合图片、视频和音频参考素材；APIPod 当前为该系列提供 2K、4 至 15 秒的异步生成契约。在 APIPod 中，公开模型 ID 为 minimax-h3-r2v，支持图生视频、视频到视频；接受文本、图片、音频、视频输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "query-video-task",
+      "title": "Query Video Task",
+      "legacy": "/query-video-task",
+      "schema": true
+    },
+    {
+      "slug": "grok-imagine-1-5/grok-imagine-1-5-vip",
+      "title": "Grok Imagine 1.5 VIP",
+      "legacy": "/grok-imagine-1-5/grok-imagine-1-5-vip",
+      "schema": true,
+      "modelId": "grok-imagine-1.5-vip",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "xai",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": " Grok Imagine Video 1.5 VIP",
+          "zh": " Grok Imagine Video 1.5 VIP"
+        }
+      },
+      "introduction": {
+        "en": "Grok Imagine 1.5 VIP is APIPod's official-channel image-to-video route for Grok Imagine 1.5. It requires a source image and supports 480p or 720p clips up to 15 seconds. In APIPod, the public model ID is grok-imagine-1.5-vip. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Grok Imagine 1.5 VIP 是 APIPod 为 Grok Imagine 1.5 提供的官方通道路由，仅支持图生视频，要求提供源图片，可生成最长 15 秒的 480p 或 720p 视频。在 APIPod 中，公开模型 ID 为 grok-imagine-1.5-vip，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "kling/kling-2-6-motion-control",
+      "title": "Kling 2.6 Motion Control",
+      "legacy": "/kling/kling-2-6-motion-control",
+      "schema": true,
+      "modelId": "kling-2.6-motion-control",
+      "classifications": [
+        "text_to_video",
+        "image_to_video",
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "kling",
+        "inputTypes": [
+          "text",
+          "image",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Kling 2.6 Motion Control",
+          "zh": "可灵 2.6 动作控制"
+        }
+      },
+      "introduction": {
+        "en": "Kling 2.6 Motion Control transfers motion and timing from a reference video to a character or subject in a reference image, with optional preservation of the reference video's audio. In APIPod, the public model ID is kling-2.6-motion-control. It supports text-to-video, image-to-video and video-to-video, accepts text, image and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "Kling 2.6 Motion Control 是可灵的动作控制模型，将参考视频中的动作和时序迁移到参考图片中的人物或主体，并可按请求保留参考视频音频。在 APIPod 中，公开模型 ID 为 kling-2.6-motion-control，支持文生视频、图生视频、视频到视频；接受文本、图片、视频输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "motion-control/motion-control-m1",
+      "title": "Motion Control M1",
+      "legacy": "/motion-control/motion-control-m1",
+      "schema": true,
+      "modelId": "motion-control-m1",
+      "classifications": [
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "image",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Motion Control",
+          "zh": "动作模仿"
+        }
+      },
+      "introduction": {
+        "en": "Motion Control M1 transfers the action and timing of a reference video to a subject supplied in a reference image, producing a new asynchronous video result. In APIPod, the public model ID is motion-control-m1. It supports video-to-video, accepts image and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "Motion Control M1 将参考视频中的动作与节奏迁移到参考图片中的主体，生成新的异步视频结果。在 APIPod 中，公开模型 ID 为 motion-control-m1，支持视频到视频；接受图片、视频输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/doubao-seedance-1-0-pro-fast-i2v",
+      "title": "Seedance 1.0 Pro Fast Image to Video",
+      "legacy": "/seedance/doubao-seedance-1-0-pro-fast-i2v",
+      "schema": true,
+      "modelId": "doubao-seedance-1.0-pro-fast-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "doubao",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 1.0 Pro Fast Image to Video",
+          "zh": "Seedance 1.0 Pro Fast Image to Video"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 1.0 Pro Fast Image to Video is a Doubao provider route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is doubao-seedance-1.0-pro-fast-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 1.0 Pro Fast 图生视频是豆包供应商路由，以必填首帧图片生成视频，并在公开 schema 允许时使用可选尾帧。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 doubao-seedance-1.0-pro-fast-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/doubao-seedance-1-0-pro-fast-t2v",
+      "title": "Seedance 1.0 Pro Fast Text to Video",
+      "legacy": "/seedance/doubao-seedance-1-0-pro-fast-t2v",
+      "schema": true,
+      "modelId": "doubao-seedance-1.0-pro-fast-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "doubao",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 1.0 Pro Fast Text to Video",
+          "zh": "Seedance 1.0 Pro Fast Text to Video"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 1.0 Pro Fast Text to Video is a Doubao provider route that turns text instructions into video without requiring source media. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is doubao-seedance-1.0-pro-fast-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 1.0 Pro Fast 文生视频是豆包供应商路由，根据文本指令生成视频，不要求提供源媒体。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 doubao-seedance-1.0-pro-fast-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/seedance-1-0-lite-i2v",
+      "title": "Seedance 1.0 Lite Image to Video",
+      "legacy": "/seedance/seedance-1-0-lite-i2v",
+      "schema": true,
+      "modelId": "seedance-1.0-lite-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 1.0 Lite Image to Video",
+          "zh": "Seedance 1.0 Lite 图生视频(首尾帧)"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 1.0 Lite Image to Video is a standard route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-1.0-lite-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 1.0 Lite 图生视频是标准路由，以必填首帧图片生成视频，并在公开 schema 允许时使用可选尾帧。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-1.0-lite-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/seedance-1-0-lite-i2v-ref",
+      "title": "Seedance 1.0 Lite Image to Video Reference",
+      "legacy": "/seedance/seedance-1-0-lite-i2v-ref",
+      "schema": true,
+      "modelId": "seedance-1.0-lite-i2v-ref",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 1.0 Lite Image to Video Reference",
+          "zh": "Seedance 1.0 Lite 图生视频(参考图)"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 1.0 Lite Image to Video is a standard route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-1.0-lite-i2v-ref. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 1.0 Lite 图生视频是标准路由，以必填首帧图片生成视频，并在公开 schema 允许时使用可选尾帧。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-1.0-lite-i2v-ref，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/seedance-1-0-lite-t2v",
+      "title": "Seedance 1.0 Lite Text to Video",
+      "legacy": "/seedance/seedance-1-0-lite-t2v",
+      "schema": true,
+      "modelId": "seedance-1.0-lite-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 1.0 Lite Text to Video",
+          "zh": "Seedance 1.0 Lite 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 1.0 Lite Text to Video is a standard route that turns text instructions into video without requiring source media. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-1.0-lite-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 1.0 Lite 文生视频是标准路由，根据文本指令生成视频，不要求提供源媒体。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-1.0-lite-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/seedance-1-0-pro-fast-i2v",
+      "title": "Seedance 1.0 Pro Fast Image to Video",
+      "legacy": "/seedance/seedance-1-0-pro-fast-i2v",
+      "schema": true,
+      "modelId": "seedance-1.0-pro-fast-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 1.0 Pro Fast Image to Video",
+          "zh": "Seedance 1.0 Pro Fast 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 1.0 Pro Fast Image to Video is a lower-latency route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-1.0-pro-fast-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 1.0 Pro Fast 图生视频是低延迟路由，以必填首帧图片生成视频，并在公开 schema 允许时使用可选尾帧。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-1.0-pro-fast-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/seedance-1-0-pro-fast-t2v",
+      "title": "Seedance 1.0 Pro Fast Text to Video",
+      "legacy": "/seedance/seedance-1-0-pro-fast-t2v",
+      "schema": true,
+      "modelId": "seedance-1.0-pro-fast-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 1.0 Pro Fast Text to Video",
+          "zh": "Seedance 1.0 Pro Fast 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 1.0 Pro Fast Text to Video is a lower-latency route that turns text instructions into video without requiring source media. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-1.0-pro-fast-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 1.0 Pro Fast 文生视频是低延迟路由，根据文本指令生成视频，不要求提供源媒体。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-1.0-pro-fast-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/seedance-1-0-pro-i2v",
+      "title": "Seedance 1.0 Pro Image to Video",
+      "legacy": "/seedance/seedance-1-0-pro-i2v",
+      "schema": true,
+      "modelId": "seedance-1.0-pro-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 1.0 Pro Image to Video",
+          "zh": "Seedance 1.0 Pro 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 1.0 Pro Image to Video is a standard route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-1.0-pro-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 1.0 Pro 图生视频是标准路由，以必填首帧图片生成视频，并在公开 schema 允许时使用可选尾帧。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-1.0-pro-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/seedance-1-0-pro-t2v",
+      "title": "Seedance 1.0 Pro Text to Video",
+      "legacy": "/seedance/seedance-1-0-pro-t2v",
+      "schema": true,
+      "modelId": "seedance-1.0-pro-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 1.0 Pro Text to Video",
+          "zh": "Seedance 1.0 Pro 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 1.0 Pro Text to Video is a standard route that turns text instructions into video without requiring source media. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-1.0-pro-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 1.0 Pro 文生视频是标准路由，根据文本指令生成视频，不要求提供源媒体。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-1.0-pro-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/seedance-1-5-pro-i2v",
+      "title": "Seedance 1.5 Pro Image to Video",
+      "legacy": "/seedance/seedance-1-5-pro-i2v",
+      "schema": true,
+      "modelId": "seedance-1.5-pro-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 1.5 Pro Image to Video",
+          "zh": "Seedance 1.5 Pro 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 1.5 Pro Image to Video is a standard route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-1.5-pro-i2v. It supports image-to-video, accepts image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 1.5 Pro 图生视频是标准路由，以必填首帧图片生成视频，并在公开 schema 允许时使用可选尾帧。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-1.5-pro-i2v，支持图生视频；接受图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/seedance-1-5-pro-t2v",
+      "title": "Seedance 1.5 Pro Text to Video",
+      "legacy": "/seedance/seedance-1-5-pro-t2v",
+      "schema": true,
+      "modelId": "seedance-1.5-pro-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 1.5 Pro Text to Video",
+          "zh": "Seedance 1.5 Pro 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 1.5 Pro Text to Video is a standard route that turns text instructions into video without requiring source media. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-1.5-pro-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 1.5 Pro 文生视频是标准路由，根据文本指令生成视频，不要求提供源媒体。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-1.5-pro-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/2-0-mini-image-to-video",
+      "title": "Seedance 2.0 Mini Image to Video",
+      "legacy": "/seedance/seedance-2-0-mini-i2v",
+      "schema": true,
+      "modelId": "seedance-2.0-mini-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.0 Mini Image to Video",
+          "zh": "Seedance 2.0 Mini 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.0 Mini Image to Video is a efficiency-oriented route for scaled workloads that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-mini-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.0 Mini 图生视频是面向规模化调用的效率型路由，以必填首帧图片生成视频，并在公开 schema 允许时使用可选尾帧。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-mini-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/2-0-mini-reference-to-video",
+      "title": "Seedance 2.0 Mini Reference to Video",
+      "legacy": "/seedance/seedance-2-0-mini-r2v",
+      "schema": true,
+      "modelId": "seedance-2.0-mini-r2v",
+      "classifications": [
+        "image_to_video",
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "audio",
+          "image",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.0 Mini Reference to Video",
+          "zh": "Seedance 2.0 Mini 参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.0 Mini Reference to Video is a efficiency-oriented route for scaled workloads that uses reference images, video, or audio to guide subjects, motion, visual style, and sound. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-mini-r2v. It supports image-to-video and video-to-video, accepts text, audio, image and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.0 Mini 参考生视频是面向规模化调用的效率型路由，使用参考图片、视频或音频引导主体、动作、视觉风格和声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-mini-r2v，支持图生视频、视频到视频；接受文本、音频、图片、视频输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/2-0-mini-text-to-video",
+      "title": "Seedance 2.0 mini Text to Video",
+      "legacy": "/seedance/seedance-2-0-mini-t2v",
+      "schema": true,
+      "modelId": "seedance-2.0-mini-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.0 Mini Text to Video",
+          "zh": "Seedance 2.0 Mini 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.0 Mini Text to Video is a efficiency-oriented route for scaled workloads that turns text instructions into video without requiring source media. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-mini-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.0 Mini 文生视频是面向规模化调用的效率型路由，根据文本指令生成视频，不要求提供源媒体。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-mini-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/seedance-2-0-t2v-vip",
+      "title": "Seedance 2.0 Text to Video VIP",
+      "legacy": "/seedance/seedance-2-0-t2v-vip",
+      "schema": true,
+      "modelId": "seedance-2.0-t2v-vip",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.0 Text to Video",
+          "zh": "Seedance 2.0 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.0 T2V VIP is APIPod's full-capability text-to-video route for Seedance 2.0, intended for prompt-driven generation with synchronized audio and the configured standard-quality channel. In APIPod, the public model ID is seedance-2.0-t2v-vip. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.0 T2V VIP 是 APIPod 为 Seedance 2.0 提供的完整能力文生视频路由，面向提示词驱动、同步音频和已配置标准质量通道的生成任务。在 APIPod 中，公开模型 ID 为 seedance-2.0-t2v-vip，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "veo/3-1-lite",
+      "title": "VEO 3.1 Lite",
+      "legacy": "/veo/3-1-lite",
+      "schema": true,
+      "modelId": "veo3-1-lite",
+      "classifications": [
+        "text_to_video",
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Veo 3.1 Lite",
+          "zh": "Veo 3.1 轻量"
+        }
+      },
+      "introduction": {
+        "en": "Veo 3.1 Lite is APIPod's efficiency-oriented routing variant for Google Veo 3.1, not a separate Google model name. It supports text- or image-guided video generation with audio through the shared Veo contract. In APIPod, the public model ID is veo3-1-lite. It supports text-to-video and image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Veo 3.1 Lite 是 APIPod 面向效率优化提供的 Google Veo 3.1 路由版本，并非独立的 Google 模型名称；它通过统一 Veo 契约支持文本或图片引导的带音频视频生成。在 APIPod 中，公开模型 ID 为 veo3-1-lite，支持文生视频、图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "veo/3-1-lite-4k",
+      "title": "VEO 3.1 Lite 4K",
+      "legacy": "/veo/3-1-lite-4k",
+      "schema": true,
+      "modelId": "veo3-1-lite-4k",
+      "classifications": [
+        "text_to_video",
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Veo 3.1 Lite 4K",
+          "zh": "Veo 3.1 轻量(4K)"
+        }
+      },
+      "introduction": {
+        "en": "Veo 3.1 Lite 4K is APIPod's efficiency-oriented Veo 3.1 route with a 4K output target, not a separate Google model name. In APIPod, the public model ID is veo3-1-lite-4k. It supports text-to-video and image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Veo 3.1 Lite 4K 是 APIPod 面向效率优化并以 4K 输出为目标的 Veo 3.1 路由版本，并非独立的 Google 模型名称。在 APIPod 中，公开模型 ID 为 veo3-1-lite-4k，支持文生视频、图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan2-7-i2v",
+      "title": "WAN 2.7 Image to Video",
+      "legacy": "/wan/wan2-7-i2v",
+      "schema": true,
+      "modelId": "wan2.7-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 2.7 Image to Video",
+          "zh": "WAN 2.7 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 2.7 Image to Video is a dedicated task mode in Alibaba's Wan video family that animates a first-frame image and supports last-frame control where exposed. In APIPod, the public model ID is wan2.7-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 2.7 图生视频是阿里 Wan Video模型的独立任务模式，将首帧图片生成视频，并在公开契约中支持尾帧控制。在 APIPod 中，公开模型 ID 为 wan2.7-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan2-7-t2v",
+      "title": "WAN 2.7 Text to Video",
+      "legacy": "/wan/wan2-7-t2v",
+      "schema": true,
+      "modelId": "wan2.7-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 2.7 Text to Video",
+          "zh": "WAN 2.7 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 2.7 Text to Video is a dedicated task mode in Alibaba's Wan video family that creates video directly from text prompts without source media. In APIPod, the public model ID is wan2.7-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 2.7 文生视频是阿里 Wan Video模型的独立任务模式，直接根据文本提示词生成视频，不要求源媒体。在 APIPod 中，公开模型 ID 为 wan2.7-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan2-7-videoedit",
+      "title": "WAN 2.7 Video Edit",
+      "legacy": "/wan/wan2-7-videoedit",
+      "schema": true,
+      "modelId": "wan2.7-videoedit",
+      "classifications": [
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 2.7 Video Edit",
+          "zh": "WAN 2.7 视频编辑"
+        }
+      },
+      "introduction": {
+        "en": "Wan 2.7 Video Edit is a dedicated task mode in Alibaba's Wan video family that edits a source video from text instructions and optional image references. In APIPod, the public model ID is wan2.7-videoedit. It supports video-to-video, accepts text, image and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 2.7 视频编辑是阿里 Wan Video模型的独立任务模式，根据文本指令和可选图片参考编辑源视频。在 APIPod 中，公开模型 ID 为 wan2.7-videoedit，支持视频到视频；接受文本、图片、视频输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-i2v",
+      "title": "WAN 3.0 Image to Video",
+      "legacy": "/wan/wan3-0-i2v",
+      "schema": true,
+      "modelId": "wan3.0-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Image to Video",
+          "zh": "WAN 3.0 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Image to Video is a dedicated task mode in Alibaba's Wan video family that animates a first-frame image and supports last-frame control where exposed. In APIPod, the public model ID is wan3.0-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 图生视频是阿里 Wan Video模型的独立任务模式，将首帧图片生成视频，并在公开契约中支持尾帧控制。在 APIPod 中，公开模型 ID 为 wan3.0-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-r2v",
+      "title": "WAN 3.0 参考生视频",
+      "legacy": "/wan/wan3-0-r2v",
+      "schema": true,
+      "modelId": "wan3.0-r2v",
+      "classifications": [
+        "image_to_video",
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "file"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Reference to Video",
+          "zh": "WAN 3.0 参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Reference to Video is a dedicated task mode in Alibaba's Wan video family that uses image, video, audio, file, or web references to guide generation. In APIPod, the public model ID is wan3.0-r2v. It supports image-to-video and video-to-video, accepts text, image, audio, video and file inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 参考生视频是阿里 Wan Video模型的独立任务模式，使用图片、视频、音频、文件或网页参考素材引导生成。在 APIPod 中，公开模型 ID 为 wan3.0-r2v，支持图生视频、视频到视频；接受文本、图片、音频、视频、文件输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-t2v",
+      "title": "WAN 3.0 Text to Video",
+      "legacy": "/wan/wan3-0-t2v",
+      "schema": true,
+      "modelId": "wan3.0-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/models",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Text to Video",
+          "zh": "WAN 3.0 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Text to Video is a dedicated task mode in Alibaba's Wan video family that creates video directly from text prompts without source media. In APIPod, the public model ID is wan3.0-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 文生视频是阿里 Wan Video模型的独立任务模式，直接根据文本提示词生成视频，不要求源媒体。在 APIPod 中，公开模型 ID 为 wan3.0-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    }
+  ]
+}

@@ -1,0 +1,224 @@
+openapi: 3.0.1
+info:
+  title: ''
+  description: ''
+  version: 1.0.0
+paths:
+  /v1/videos/generations:
+    post:
+      summary: Grok Imagine Text to Video
+      deprecated: false
+      description: >-
+        **Grok Imagine Text to Video** converts prompts into short AI videos,
+        supporting natural dynamic effects, scene continuity, and synchronized
+        audio, making it ideal for quickly creating visual concepts or short
+        video content.
+
+
+
+        ## Query Task Details
+
+
+        After submitting a task, you can check the task progress and obtain the
+        generated results through the unified query endpoint:
+
+
+
+        <Card title="Get Video Task Details" icon="lucide-search"
+        href="/query-video-task">Learn how to query task status and obtain
+        generated results</Card>
+
+
+
+        ::: tip[]
+
+
+        In a production environment, it is recommended to use the `callback_url`
+        parameter to receive automatic notifications upon generation completion
+        instead of polling the status endpoint.
+
+
+        :::
+      tags:
+        - Video Models/Grok Imagine
+        - text to video
+        - 'grok '
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrokImagineT2V'
+            example:
+              model: grok-imagine-t2v
+              prompt: 手绘漫画风格，三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。
+              aspect_ratio: '9:16'
+              duration: 10
+              resolution: 720p
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitTaskResponse'
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: abcd-efgh-1234
+          headers: {}
+          x-apidog-name: 成功
+      security:
+        - APIPod APIKey: []
+          x-apidog:
+            required: true
+            schemeGroups:
+              - id: Gq2ktuP-6K-sUonPGfDUz
+                schemeIds:
+                  - APIPod APIKey
+            use:
+              id: Gq2ktuP-6K-sUonPGfDUz
+      x-apidog-folder: Video Models/Grok Imagine
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/1247502/apis/api-34241004-run
+components:
+  schemas:
+    GrokImagineT2V:
+      type: object
+      properties:
+        model:
+          type: string
+          const: grok-imagine-t2v
+          description: Model ID, fixed value grok-imagine-t2v
+        prompt:
+          type: string
+          maxLength: 4000
+        aspect_ratio:
+          type: string
+          enum:
+            - '1:1'
+            - '2:3'
+            - '3:2'
+            - '9:16'
+            - '16:9'
+          x-apidog-enum:
+            - value: '1:1'
+              name: ''
+              description: ''
+            - value: '2:3'
+              name: ''
+              description: ''
+            - value: '3:2'
+              name: ''
+              description: ''
+            - value: '9:16'
+              name: ''
+              description: ''
+            - value: '16:9'
+              name: ''
+              description: ''
+          default: '16:9'
+        duration:
+          type: integer
+          minimum: 6
+          maximum: 30
+          multipleOf: 1
+          default: 6
+        resolution:
+          type: string
+          enum:
+            - 480p
+            - 720p
+          x-apidog-enum:
+            - value: 480p
+              name: ''
+              description: ''
+            - value: 720p
+              name: ''
+              description: ''
+          default: 720p
+      required:
+        - model
+        - prompt
+      x-apidog-orders:
+        - model
+        - prompt
+        - aspect_ratio
+        - duration
+        - resolution
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SubmitTaskResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Response status code
+          enum:
+            - 200
+            - 401
+            - 500
+            - 400
+            - 403
+            - 402
+            - 404
+            - 429
+          x-apidog-enum:
+            - value: 200
+              name: Success
+              description: Request has been processed successfully
+            - value: 401
+              name: Unauthorized
+              description: Authentication credentials are missing or invalid
+            - value: 500
+              name: Authentication credentials are missing or invalid
+              description: An unexpected error occurred while processing the request
+            - value: 400
+              name: Bad Request
+              description: This is a bad request
+            - value: 403
+              name: Forbidden
+              description: Forbidden response
+            - value: 402
+              name: Insufficient quota
+              description: Account does not have enough credits to perform the operation
+            - value: 404
+              name: Not Found
+              description: The requested resource or endpoint does not exist
+            - value: 429
+              name: Rate limit
+              description: Request limit has been exceeded for this resource
+        message:
+          type: string
+          description: Response message, error description when failed
+        data:
+          type: object
+          properties:
+            task_id:
+              type: string
+              description: >-
+                Unique identifier for asynchronous tasks.can be used with Get
+                Task Details endpoint to query task status
+          x-apidog-orders:
+            - task_id
+          required:
+            - task_id
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+        - code
+        - message
+        - data
+      required:
+        - code
+        - message
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+  securitySchemes:
+    APIPod APIKey:
+      type: bearer
+      scheme: bearer
+servers:
+  - url: https://api.apipod.ai
+    description: 正式环境
+security: []

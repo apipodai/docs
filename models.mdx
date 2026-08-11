@@ -1,0 +1,67 @@
+---
+title: "Models"
+description: "Discover APIPod model IDs and open model-specific API contracts."
+icon: "boxes"
+---
+
+Every generation request includes a public APIPod model ID in the `model` field. Use the ID exactly as documented; provider routing is handled by APIPod and is not part of the public request contract.
+
+<Card title="Browse the live model catalog" icon="external-link" href="https://www.apipod.ai/models">
+  View currently available models, playgrounds, and product metadata.
+</Card>
+
+## Media API categories
+
+| Category | Documented families | Create endpoint |
+| --- | --- | --- |
+| Image | GPT Image 2, Nano Banana, Seedream, WAN | `POST /v1/images/generations` |
+| Video | Veo, Seedance, Grok Imagine, Sora 2, Gemini Omni, MiniMax H3 | `POST /v1/videos/generations` |
+
+<CardGroup cols={2}>
+  <Card title="GPT Image 2" icon="image" href="/gpt-image-2/gpt-image-2">
+    Generation and editing with up to six reference images.
+  </Card>
+  <Card title="Nano Banana" icon="image" href="/nano-banana/nano-banana-2">
+    Gemini-based image generation and editing variants.
+  </Card>
+  <Card title="Veo 3.1" icon="video" href="/veo/3-1-fast">
+    Fast, quality, 4K, and reference-image variants.
+  </Card>
+  <Card title="Seedance 2.0" icon="video" href="/seedance/2-0-text-to-video">
+    Text, image, and reference-driven video generation.
+  </Card>
+</CardGroup>
+
+## List enabled LLM models
+
+`GET /v1/models` is public and returns enabled LLM models that expose the OpenAI or Responses API format. It is not the complete image and video catalog.
+
+```bash
+curl https://api.apipod.ai/v1/models
+```
+
+```json
+{
+  "object": "list",
+  "data": [
+    {
+      "id": "example-model-id",
+      "object": "model",
+      "created": 1786358400,
+      "owned_by": "provider",
+      "classifications": ["text"]
+    }
+  ]
+}
+```
+
+<Note>
+  The response above illustrates the shape only. Model availability changes over time, so discover live IDs from the endpoint or the model catalog instead of hardcoding this example entry.
+</Note>
+
+## Choose a media model
+
+1. Select an image or video family based on the input and output you need.
+2. Open the exact model page and verify required media inputs, duration, aspect ratio, resolution, and output limits.
+3. Use that page's JSON request body and one of its cURL, Python, Go, Rust, or JavaScript examples.
+4. Keep the public `model` value unchanged; do not substitute a provider's upstream model identifier.

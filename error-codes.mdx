@@ -1,0 +1,95 @@
+---
+title: "Error codes"
+description: "Handle APIPod HTTP, synchronous, and asynchronous errors."
+icon: "circle-alert"
+---
+
+Use the HTTP status to classify transport-level outcomes, then read the machine-readable code when one is present. Keep the human-readable message for logs and diagnostics, not control flow.
+
+## Error envelopes
+
+APIPod media and shared service errors can use the standard envelope:
+
+```json
+{
+  "code": 429,
+  "message": "Rate limit exceeded",
+  "data": {
+    "type": "rate_limit_error",
+    "error_code": "rate_limit_exceeded"
+  }
+}
+```
+
+Authentication and protocol-compatible endpoints can use an OpenAI-compatible envelope:
+
+```json
+{
+  "error": {
+    "message": "Authentication required. Please provide a valid API key or sign in.",
+    "type": "invalid_request_error",
+    "code": "invalid_api_key"
+  }
+}
+```
+
+Client normalization should check `error.code`, then `data.error_code`, while always preserving the HTTP status and message.
+
+## HTTP status codes
+
+| Status | Meaning | Typical action |
+| --- | --- | --- |
+| `400` | Invalid JSON or model parameters | Fix the request; do not retry unchanged |
+| `401` | Missing or invalid credential | Replace or correct the API key |
+| `402` | Insufficient quota | Add balance or change account limits |
+| `403` | Account, key, permission, or policy restriction | Review account and key configuration |
+| `404` | Model or task is unavailable to the caller | Verify the public model ID or task ownership |
+| `409` | Idempotency conflict or request still in progress | Follow the machine code and `Retry-After` |
+| `429` | Rate limit exceeded | Back off with jitter and honor `Retry-After` |
+| `500` | Internal error | Retry only when the operation is idempotent |
+| `503` | Service or idempotency protection unavailable | Retry with the same idempotency key |
+| `504` | Upstream timeout | Retry according to your idempotent operation policy |
+
+## Common machine codes
+
+| Code | Meaning |
+| --- | --- |
+| `invalid_api_key` | The model API credential is missing, invalid, or ineligible |
+| `invalid_request` | The request cannot be processed as supplied |
+| `insufficient_quota` | Available quota is not sufficient |
+| `rate_limit_exceeded` | The applicable request or token rate limit was exceeded |
+| `model_not_available` | The public model ID is not currently available |
+| `internal_error` | APIPod could not complete the synchronous operation |
+| `invalid_idempotency_key` | The key is malformed or longer than 255 characters |
+| `idempotency_conflict` | The same key was used with a different request body |
+| `idempotency_in_progress` | The first request using the key has not finished creating its response |
+| `idempotency_unavailable` | APIPod cannot currently guarantee idempotency protection |
+
+Provider and model-specific failures can expose additional codes. Treat unknown codes as forward-compatible values and fall back to the HTTP status class.
+
+## Asynchronous failures
+
+A task may be accepted successfully and fail later. Polling and webhook payloads expose the terminal task status separately from the original create response.
+
+```json
+{
+  "code": 200,
+  "message": "success",
+  "data": {
+    "task_id": "img_example_task_id",
+    "status": "failed",
+    "error_code": "UPSTREAM_CAPACITY_EXHAUSTED",
+    "error_message": "Upstream request failed. Please retry later."
+  }
+}
+```
+
+Do not convert capacity or service failures into moderation errors. Preserve an unknown asynchronous `error_code`, show the safe message to operators, and decide retry behavior from the semantic code and task state.
+
+## Retry checklist
+
+- Retry `429`, `503`, and transient `5xx` responses with exponential backoff and jitter.
+- Reuse the original `Idempotency-Key` and unchanged body when retrying an ambiguous media create request.
+- Do not automatically retry `400`, `401`, `402`, `403`, or `404` without first changing the condition that caused them.
+- Put an upper bound on attempts and total elapsed time.
+- Log `X-Request-ID`, `task_id`, HTTP status, machine code, and attempt number.

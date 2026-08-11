@@ -1,0 +1,294 @@
+openapi: 3.0.1
+info:
+  title: ''
+  description: ''
+  version: 1.0.0
+paths:
+  /v1/images/generations:
+    post:
+      summary: WAN 2.7 Image to Image Pro
+      deprecated: false
+      description: >
+        The WAN 2.7 Image Edit model can edit and optimize images through
+        precise and controllable adjustments while maintaining the consistency
+        of their structure and main subjects.
+
+
+        ## Query Task Details
+
+
+        After submitting a task, you can check the task progress and obtain the
+        generated results through the unified query endpoint:
+
+
+
+        <Card title="Get Image Task Details" icon="lucide-search"
+        href="/query-image-task">Learn how to query task status and obtain
+        generated results</Card>
+
+
+
+        ::: tip[]
+
+
+        In a production environment, it is recommended to use the `callback_url`
+        parameter to receive automatic notifications upon generation completion
+        instead of polling the status endpoint.
+
+
+        :::
+      tags:
+        - Image Models/WAN 2.7
+        - wan
+        - image to image
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-apidog-refs:
+                01KNDP8QEGNKJWETVPTZBV7KGQ:
+                  $ref: '#/components/schemas/WAN2.7ImageEditPro'
+                  x-apidog-overrides: {}
+              properties:
+                model:
+                  type: string
+                  description: Model Id, fixed wan2.7-image-pro-edit
+                  const: wan2.7-image-pro-edit
+                prompt:
+                  type: string
+                  description: The positive prompt for the edit image generation.
+                image_urls:
+                  type: array
+                  items:
+                    type: string
+                  description: Input images to transform or use as reference (1-9 images)
+                  minItems: 1
+                  maxItems: 9
+                size:
+                  type: string
+                  description: Output image resolution.
+                  enum:
+                    - 1K
+                    - 2K
+                  x-apidog-enum:
+                    - value: 1K
+                      name: ''
+                      description: ''
+                    - value: 2K
+                      name: ''
+                      description: ''
+                watermark:
+                  type: boolean
+                  description: >-
+                    Whether to add a watermark, which will be placed in the
+                    bottom right corner of the image.
+                  default: false
+                'n':
+                  type: integer
+                  description: Number of images
+                  minimum: 1
+                  maximum: 4
+                  enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                  x-apidog-enum:
+                    - value: 1
+                      name: ''
+                      description: ''
+                    - value: 2
+                      name: ''
+                      description: ''
+                    - value: 3
+                      name: ''
+                      description: ''
+                    - value: 4
+                      name: ''
+                      description: ''
+              required:
+                - model
+                - prompt
+                - image_urls
+                - size
+                - watermark
+                - 'n'
+              x-apidog-orders:
+                - model
+                - 01KNDP8QEGNKJWETVPTZBV7KGQ
+              x-apidog-ignore-properties:
+                - prompt
+                - image_urls
+                - size
+                - watermark
+                - 'n'
+            examples: {}
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitTaskResponse'
+          headers: {}
+          x-apidog-name: 成功
+      security:
+        - APIPod APIKey: []
+          x-apidog:
+            required: true
+            schemeGroups:
+              - id: ZfoCoDE7ixmnOS-QxEr5K
+                schemeIds:
+                  - APIPod APIKey
+            use:
+              id: ZfoCoDE7ixmnOS-QxEr5K
+      x-apidog-folder: Image Models/WAN 2.7
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/1247502/apis/api-32498889-run
+components:
+  schemas:
+    WAN2.7ImageEditPro:
+      type: object
+      properties:
+        prompt:
+          type: string
+          description: The positive prompt for the edit image generation.
+        image_urls:
+          type: array
+          items:
+            type: string
+          description: Input images to transform or use as reference (1-9 images)
+          minItems: 1
+          maxItems: 9
+        size:
+          type: string
+          description: Output image resolution.
+          enum:
+            - 1K
+            - 2K
+          x-apidog-enum:
+            - value: 1K
+              name: ''
+              description: ''
+            - value: 2K
+              name: ''
+              description: ''
+        watermark:
+          type: boolean
+          description: >-
+            Whether to add a watermark, which will be placed in the bottom right
+            corner of the image.
+          default: false
+        'n':
+          type: integer
+          description: Number of images
+          minimum: 1
+          maximum: 4
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+          x-apidog-enum:
+            - value: 1
+              name: ''
+              description: ''
+            - value: 2
+              name: ''
+              description: ''
+            - value: 3
+              name: ''
+              description: ''
+            - value: 4
+              name: ''
+              description: ''
+      x-apidog-refs: {}
+      x-apidog-orders:
+        - prompt
+        - image_urls
+        - size
+        - watermark
+        - 'n'
+      required:
+        - prompt
+        - image_urls
+        - size
+        - watermark
+        - 'n'
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SubmitTaskResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Response status code
+          enum:
+            - 200
+            - 401
+            - 500
+            - 400
+            - 403
+            - 402
+            - 404
+            - 429
+          x-apidog-enum:
+            - value: 200
+              name: Success
+              description: Request has been processed successfully
+            - value: 401
+              name: Unauthorized
+              description: Authentication credentials are missing or invalid
+            - value: 500
+              name: Authentication credentials are missing or invalid
+              description: An unexpected error occurred while processing the request
+            - value: 400
+              name: Bad Request
+              description: This is a bad request
+            - value: 403
+              name: Forbidden
+              description: Forbidden response
+            - value: 402
+              name: Insufficient quota
+              description: Account does not have enough credits to perform the operation
+            - value: 404
+              name: Not Found
+              description: The requested resource or endpoint does not exist
+            - value: 429
+              name: Rate limit
+              description: Request limit has been exceeded for this resource
+        message:
+          type: string
+          description: Response message, error description when failed
+        data:
+          type: object
+          properties:
+            task_id:
+              type: string
+              description: >-
+                Unique identifier for asynchronous tasks.can be used with Get
+                Task Details endpoint to query task status
+          x-apidog-orders:
+            - task_id
+          required:
+            - task_id
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+        - code
+        - message
+        - data
+      required:
+        - code
+        - message
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+  securitySchemes:
+    APIPod APIKey:
+      type: bearer
+      scheme: bearer
+servers:
+  - url: https://api.apipod.ai
+    description: 正式环境
+security: []

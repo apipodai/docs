@@ -1,0 +1,17 @@
+---
+title: "Query video task"
+description: "Retrieve status, progress, results, and errors for an asynchronous video generation task by task_id."
+openapi: "api-reference/openapi/query-video-task.yaml GET /v1/videos/status/{task_id}"
+---
+
+After creating a video task, call this endpoint with the returned `task_id`. Poll at a reasonable interval until the task reaches a terminal state; for production workloads, prefer `callback_url` on the create request.
+
+## Task statuses
+
+| `status` | Meaning | Recommended action |
+| --- | --- | --- |
+| `pending` | The task is queued. | Wait and poll again. |
+| `processing` | The provider is generating the result. | Wait and poll again. |
+| `completed` | The task completed; outputs are in `data.result`. | Download and persist the outputs. |
+| `failed` | The task failed. | Inspect the error fields and request log. |
+| `cancelled` | The task was cancelled. | Stop polling. |

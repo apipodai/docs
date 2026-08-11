@@ -1,0 +1,204 @@
+openapi: 3.0.1
+info:
+  title: ''
+  description: ''
+  version: 1.0.0
+paths:
+  /v1/videos/generations:
+    post:
+      summary: MiniMax H3 Reference to Video
+      deprecated: false
+      description: >-
+        MiniMax H3, opensource, unifies text, image, video, and audio for 2K
+        video generation, multimodal referencing, native stereo sound, motion
+        transfer, and precise editing.
+
+
+        MiniMax H3 Reference to Video supports reference images, reference
+        videos and reference audios, with a maximum of 9 images, 3 videos and 3
+        audios. Audio cannot be used independently; at least one reference image
+        or one reference video is required. First frame/last frame fields are
+        not allowed!
+      tags:
+        - Video Models/MiniMax H3
+        - text to video
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MiniMaxH3R2V'
+            example:
+              model: minimax-h3-r2v
+              prompt: minim dolor
+              image_urls: []
+              video_urls: []
+              audio_urls:
+                - https://limping-comparison.us/
+                - https://dark-convection.biz/
+              aspect_ratio: ad
+              duration: 10
+              resolution: 2K
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitTaskResponse'
+          headers: {}
+          x-apidog-name: 成功
+      security:
+        - APIPod APIKey: []
+          x-apidog:
+            required: true
+            schemeGroups:
+              - id: uvL-QlG9gqxCUnkcdyegW
+                schemeIds:
+                  - APIPod APIKey
+            use:
+              id: uvL-QlG9gqxCUnkcdyegW
+      x-apidog-folder: Video Models/MiniMax H3
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/1247502/apis/api-41035329-run
+components:
+  schemas:
+    MiniMaxH3R2V:
+      type: object
+      properties:
+        model:
+          type: string
+          description: Model ID, value fixed `minimax-h3-r2v`
+          const: minimax-h3-r2v
+        prompt:
+          type: string
+          minLength: 1
+          maxLength: 7000
+          description: Video generate prompt
+        image_urls:
+          type: array
+          items:
+            type: string
+          minItems: 0
+          maxItems: 9
+        video_urls:
+          type: array
+          items:
+            type: string
+          minItems: 0
+          maxItems: 3
+        audio_urls:
+          type: array
+          items:
+            type: string
+          minItems: 0
+          maxItems: 3
+        aspect_ratio:
+          type: string
+          description: Aspect ratio of the generated video.
+        duration:
+          type: integer
+          description: 'Duration of the generated video in seconds. Available values: 4-15.'
+          minimum: 4
+          maximum: 15
+          default: 4
+        resolution:
+          type: string
+          description: 'Video resolution. Currently available: 2K.'
+          enum:
+            - 2K
+          x-apidog-enum:
+            - value: 2K
+              name: ''
+              description: ''
+          default: 2K
+      required:
+        - model
+        - prompt
+        - aspect_ratio
+        - duration
+        - resolution
+      x-apidog-orders:
+        - model
+        - prompt
+        - image_urls
+        - video_urls
+        - audio_urls
+        - aspect_ratio
+        - duration
+        - resolution
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SubmitTaskResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Response status code
+          enum:
+            - 200
+            - 401
+            - 500
+            - 400
+            - 403
+            - 402
+            - 404
+            - 429
+          x-apidog-enum:
+            - value: 200
+              name: Success
+              description: Request has been processed successfully
+            - value: 401
+              name: Unauthorized
+              description: Authentication credentials are missing or invalid
+            - value: 500
+              name: Authentication credentials are missing or invalid
+              description: An unexpected error occurred while processing the request
+            - value: 400
+              name: Bad Request
+              description: This is a bad request
+            - value: 403
+              name: Forbidden
+              description: Forbidden response
+            - value: 402
+              name: Insufficient quota
+              description: Account does not have enough credits to perform the operation
+            - value: 404
+              name: Not Found
+              description: The requested resource or endpoint does not exist
+            - value: 429
+              name: Rate limit
+              description: Request limit has been exceeded for this resource
+        message:
+          type: string
+          description: Response message, error description when failed
+        data:
+          type: object
+          properties:
+            task_id:
+              type: string
+              description: >-
+                Unique identifier for asynchronous tasks.can be used with Get
+                Task Details endpoint to query task status
+          x-apidog-orders:
+            - task_id
+          required:
+            - task_id
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+        - code
+        - message
+        - data
+      required:
+        - code
+        - message
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+  securitySchemes:
+    APIPod APIKey:
+      type: bearer
+      scheme: bearer
+servers:
+  - url: https://api.apipod.ai
+    description: 正式环境
+security: []

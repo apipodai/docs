@@ -1,0 +1,94 @@
+openapi: 3.1.0
+info:
+  title: 查询视频任务 API
+  version: 1.0.0
+servers:
+  - url: https://api.apipod.ai
+    description: 生产环境
+paths:
+  /v1/videos/status/{task_id}:
+    get:
+      summary: 查询生成任务
+      operationId: get-query-video-task
+      tags:
+        - 视频任务
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: 创建接口返回的 APIPod 异步任务 ID。
+          schema:
+            type: string
+          example: vid_task_01JEXAMPLE
+      responses:
+        "200":
+          description: 任务状态
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP 状态码。
+                    const: 200
+                  message:
+                    type: string
+                    description: 响应消息。
+                    const: success
+                  data:
+                    type: object
+                    properties:
+                      task_id:
+                        type: string
+                        description: 用于查询任务状态的 APIPod 任务 ID。
+                      status:
+                        type: string
+                        description: 任务当前状态。
+                        enum:
+                          - pending
+                          - processing
+                          - completed
+                          - failed
+                          - cancelled
+                      progress:
+                        type: integer
+                        description: 任务完成进度（提供商返回时可用）。 最小值：0。 最大值：100。
+                      result:
+                        type: array
+                        items:
+                          type: string
+                        description: 任务完成后返回的生成结果 URL 列表。
+                      completed_at:
+                        type: integer
+                        description: 任务完成时间，Unix 秒级时间戳。
+                      error:
+                        type: string
+                        description: 可安全返回给客户端的异步错误信息。
+                    required:
+                      - task_id
+                      - status
+                    description: 响应数据。
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+                  status: completed
+                  progress: 100
+                  result:
+                    - https://cdn.example.com/generated.mp4
+                  completed_at: 1786358400
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。

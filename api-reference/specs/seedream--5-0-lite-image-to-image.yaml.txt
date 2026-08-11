@@ -1,0 +1,254 @@
+openapi: 3.0.1
+info:
+  title: ''
+  description: ''
+  version: 1.0.0
+paths:
+  /v1/images/generations:
+    post:
+      summary: Seedream 5.0 Lite Image to Image
+      deprecated: false
+      description: >
+        Seedream 5.0 Lite image to image model.
+
+
+
+        ## Query Task Details
+
+
+        After submitting a task, you can check the task progress and obtain the
+        generated results through the unified query endpoint:
+
+
+
+        <Card title="Get Image Task Details" icon="lucide-search"
+        href="/query-image-task">Learn how to query task status and obtain
+        generated results</Card>
+
+
+
+        ::: tip[]
+
+
+        In a production environment, it is recommended to use the `callback_url`
+        parameter to receive automatic notifications upon generation completion
+        instead of polling the status endpoint.
+
+
+        :::
+      tags:
+        - Image Models/Seedream 5.0 Lite
+        - seedream
+        - text to image
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-apidog-refs:
+                01KNCB0R2EQA6F3B8SASVG88VW:
+                  $ref: '#/components/schemas/Seedream5.0'
+                  x-apidog-overrides: {}
+              properties:
+                model:
+                  type: string
+                  description: Model ID, fixed seedream-5.0-lite-edit
+                  const: seedream-5.0-lite-edit
+                image_urls:
+                  type: array
+                  items:
+                    type: string
+                  description: Input images to transform or use as reference (1-14 images)
+                  minItems: 1
+                  maxItems: 14
+              required:
+                - model
+                - image_urls
+              x-apidog-orders:
+                - model
+                - image_urls
+                - 01KNCB0R2EQA6F3B8SASVG88VW
+              x--orders:
+                - model
+                - image_urls
+              x--ignore-properties: []
+            examples: {}
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitTaskResponse'
+          headers: {}
+          x-apidog-name: 成功
+      security:
+        - APIPod APIKey: []
+          x-apidog:
+            required: true
+            schemeGroups:
+              - id: jxP-_1zGNwNQBs4swriui
+                schemeIds:
+                  - APIPod APIKey
+            use:
+              id: jxP-_1zGNwNQBs4swriui
+      x-apidog-folder: Image Models/Seedream 5.0 Lite
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/1247502/apis/api-32485024-run
+components:
+  schemas:
+    Seedream5.0:
+      type: object
+      properties:
+        aspect_ratio:
+          type: string
+          description: The generated image's width and height aspect ratio.
+          enum:
+            - '1:1'
+            - '2:3'
+            - '3:2'
+            - '3:4'
+            - '4:3'
+            - '9:16'
+            - '16:9'
+            - '21:9'
+          x-apidog-enum:
+            - value: '1:1'
+              name: ''
+              description: ''
+            - value: '2:3'
+              name: ''
+              description: ''
+            - value: '3:2'
+              name: ''
+              description: ''
+            - value: '3:4'
+              name: ''
+              description: ''
+            - value: '4:3'
+              name: ''
+              description: ''
+            - value: '9:16'
+              name: ''
+              description: ''
+            - value: '16:9'
+              name: ''
+              description: ''
+            - value: '21:9'
+              name: ''
+              description: ''
+        callback_url:
+          type: string
+          description: Callback Notifications URL.
+        prompt:
+          type: string
+          description: 'Describe the content of the image to be edit.(Max: 4000)'
+        quality:
+          type: string
+          description: Output image resolution.
+          enum:
+            - 2K
+            - 3K
+          x-apidog-enum:
+            - value: 2K
+              name: ''
+              description: ''
+            - value: 3K
+              name: ''
+              description: ''
+      required:
+        - aspect_ratio
+        - prompt
+        - quality
+      x-apidog-orders:
+        - prompt
+        - aspect_ratio
+        - callback_url
+        - quality
+      x--orders:
+        - aspect_ratio
+        - callback_url
+        - prompt
+        - quality
+      x--ignore-properties: []
+      x-apidog-folder: ''
+    SubmitTaskResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Response status code
+          enum:
+            - 200
+            - 401
+            - 500
+            - 400
+            - 403
+            - 402
+            - 404
+            - 429
+          x-apidog-enum:
+            - value: 200
+              name: Success
+              description: Request has been processed successfully
+            - value: 401
+              name: Unauthorized
+              description: Authentication credentials are missing or invalid
+            - value: 500
+              name: Authentication credentials are missing or invalid
+              description: An unexpected error occurred while processing the request
+            - value: 400
+              name: Bad Request
+              description: This is a bad request
+            - value: 403
+              name: Forbidden
+              description: Forbidden response
+            - value: 402
+              name: Insufficient quota
+              description: Account does not have enough credits to perform the operation
+            - value: 404
+              name: Not Found
+              description: The requested resource or endpoint does not exist
+            - value: 429
+              name: Rate limit
+              description: Request limit has been exceeded for this resource
+        message:
+          type: string
+          description: Response message, error description when failed
+        data:
+          type: object
+          properties:
+            task_id:
+              type: string
+              description: >-
+                Unique identifier for asynchronous tasks.can be used with Get
+                Task Details endpoint to query task status
+          x-apidog-orders:
+            - task_id
+          required:
+            - task_id
+          x--orders:
+            - task_id
+          x--ignore-properties: []
+      x-apidog-orders:
+        - code
+        - message
+        - data
+      required:
+        - code
+        - message
+      x--orders:
+        - code
+        - message
+        - data
+      x--ignore-properties: []
+      x-apidog-folder: ''
+  securitySchemes:
+    APIPod APIKey:
+      type: bearer
+      scheme: bearer
+servers:
+  - url: https://api.apipod.ai
+    description: 正式环境
+security: []

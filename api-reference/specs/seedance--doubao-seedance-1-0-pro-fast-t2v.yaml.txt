@@ -1,0 +1,65 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Seedance 1.0 Pro Fast Text to Video",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "doubao-seedance-1.0-pro-fast-t2v",
+      "modelType": "video"
+    }
+  },
+  "components": {
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "const": "doubao-seedance-1.0-pro-fast-t2v",
+            "description": "Public APIPod model ID."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Generation instructions."
+          }
+        },
+        "required": [
+          "model",
+          "prompt"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/videos/generations": {
+      "post": {
+        "summary": "Seedance 1.0 Pro Fast Text to Video",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Task accepted"
+          }
+        }
+      }
+    },
+    "/v1/videos/status/{task_id}": {
+      "get": {
+        "summary": "Seedance 1.0 Pro Fast Text to Video task status",
+        "responses": {
+          "200": {
+            "description": "Task status"
+          }
+        }
+      }
+    }
+  }
+}

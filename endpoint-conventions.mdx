@@ -1,0 +1,72 @@
+---
+title: "Endpoint conventions"
+description: "Understand APIPod URLs, headers, envelopes, request IDs, and idempotency."
+icon: "route"
+---
+
+## Base URL and versioning
+
+All endpoints in this documentation use:
+
+```text
+https://api.apipod.ai
+```
+
+Stable public APIs are mounted below `/v1`. Send JSON request bodies as UTF-8 with `Content-Type: application/json`.
+
+## Media endpoints
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `POST` | `/v1/images/generations` | Create an asynchronous image task |
+| `GET` | `/v1/images/status/{task_id}` | Read an image task owned by the authenticated account |
+| `POST` | `/v1/videos/generations` | Create an asynchronous video task |
+| `GET` | `/v1/videos/status/{task_id}` | Read a video task owned by the authenticated account |
+
+## Headers
+
+| Header | Requirement | Description |
+| --- | --- | --- |
+| `Authorization` | Required on model and task endpoints | `Bearer <APIPOD_API_KEY>` |
+| `Content-Type` | Required for JSON bodies | `application/json` |
+| `Idempotency-Key` | Recommended on media create endpoints | Prevents duplicate task creation across retries |
+| `X-Request-ID` | Response | Trace identifier generated for the API request |
+| `X-Request-Cost` | Response on supported billable endpoints | Formatted request cost when available |
+| `X-Idempotent-Replay` | Response on replay | `true` when a stored create response was replayed |
+| `Retry-After` | Some retryable errors | Suggested wait in seconds |
+
+## Response envelopes
+
+Image and video endpoints generally return an APIPod envelope:
+
+```json
+{
+  "code": 200,
+  "message": "success",
+  "data": {}
+}
+```
+
+Protocol-compatible endpoints can preserve their native response shapes. For example, `/v1/models` returns an OpenAI-compatible model list, and authentication can return an OpenAI-compatible `error` object. Clients should use the contract for the endpoint family they call.
+
+## Idempotent media creation
+
+`Idempotency-Key` is optional but strongly recommended for `POST /v1/images/generations` and `POST /v1/videos/generations`.
+
+- Maximum key length is 255 characters.
+- The key is scoped to the authenticated API key, HTTP method, and route.
+- Repeating the same key with an equivalent JSON body replays the stored response.
+- Reusing the key with a different request returns HTTP `409` and `idempotency_conflict`.
+- Retrying while the first request is still being processed returns HTTP `409`, `idempotency_in_progress`, and `Retry-After: 1`.
+- Completed idempotency records are retained for seven days by the current service implementation.
+
+<Warning>
+  A brand-new HTTP request is protected only when it carries the original `Idempotency-Key`. Persist the key with the logical operation before sending the first request.
+</Warning>
+
+## IDs and timestamps
+
+- `task_id` identifies the public asynchronous media task and is required for status queries.
+- `X-Request-ID` identifies the HTTP request and should be included in operational logs.
+- `completed_at` in task status responses is a Unix timestamp in seconds.
+- Webhook `created_at` and `completed_at` values are JSON timestamps.

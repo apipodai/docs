@@ -1,0 +1,279 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Kling 2.6 Motion Control",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "kling-2.6-motion-control",
+      "modelType": "video",
+      "provider": "kling"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "Kling 2.6 Motion Control",
+        "properties": {
+          "character_orientation": {
+            "type": "string",
+            "title": "Character Orientation",
+            "description": "Generate the orientation of the characters in the video. 'image': same orientation as the person in the picture (max 10s video). 'video': consistent with the orientation of the characters in the video (max 30s video).",
+            "enum": [
+              "image",
+              "video"
+            ],
+            "default": "image",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "image_url": {
+            "type": "string",
+            "title": "Reference image",
+            "description": "Reference image. The characters, backgrounds, and other elements in the generated video are based on the reference image. Supports .jpg/.jpeg/.png, max 10MB, size needs to be greater than 300px, aspect ratio 2:5 to 5:2.",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "single-image"
+            }
+          },
+          "keep_original_sound": {
+            "type": "boolean",
+            "title": "Keep Original Sound",
+            "description": "Whether to keep the original audio of the video.",
+            "default": "true",
+            "x-apipod-ui": {
+              "component": "switch"
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "A text description of the desired output. ",
+            "default": "No distortion, the character's movements are consistent with the video.",
+            "maxLength": 2500,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "quality": {
+            "type": "string",
+            "title": "Video Quallity",
+            "description": "Quality of generating videos.",
+            "enum": [
+              "std",
+              "pro"
+            ],
+            "default": "std",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "video_url": {
+            "type": "string",
+            "title": "Reference video",
+            "description": "Reference video. The character actions in the generated video are consistent with the reference video. Supports .mp4/.mov, max 100MB, 3-30 seconds duration depending on character_orientation.",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "video-input",
+              "accept": ".mp4"
+            }
+          }
+        },
+        "required": [
+          "model",
+          "prompt",
+          "image_url",
+          "video_url"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_url",
+          "video_url",
+          "character_orientation",
+          "keep_original_sound",
+          "quality"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "video"
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              },
+              "result": {
+                "type": "array",
+                "description": "generated video url list",
+                "items": {
+                  "type": "string",
+                  "description": "video url"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "task status",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/videos/generations": {
+      "post": {
+        "summary": "video API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/videos/status/{task_id}",
+          "polling": {
+            "interval": 3000,
+            "maxAttempts": 600,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/videos/status/{task_id}": {
+      "get": {
+        "summary": "Kling 2.6 Motion Control Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

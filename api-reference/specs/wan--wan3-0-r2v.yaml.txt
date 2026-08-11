@@ -1,0 +1,334 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "WAN 3.0 参考生视频",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "wan3.0-r2v",
+      "modelType": "video",
+      "provider": "alibaba"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "WAN 3.0 参考生视频",
+        "properties": {
+          "aspect_ratio": {
+            "type": "string",
+            "title": "Aspect Ratio",
+            "enum": [
+              "adaptive",
+              "16:9",
+              "4:3",
+              "1:1",
+              "3:4",
+              "9:16"
+            ],
+            "default": "adaptive",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "audio_urls": {
+            "type": "array",
+            "title": "Reference Audio",
+            "description": "Refer to the audio, with a maximum of 5 segments and a total duration no more than 15 seconds.",
+            "x-apipod-ui": {
+              "component": "audio-upload",
+              "maxSize": 15728640,
+              "maxCount": 5
+            }
+          },
+          "duration": {
+            "type": "integer",
+            "title": "Duration",
+            "enum": [
+              "-1"
+            ],
+            "default": 5,
+            "minimum": 2,
+            "maximum": 51,
+            "x-apipod-ui": {
+              "component": "slider"
+            }
+          },
+          "file_url": {
+            "type": "string",
+            "title": "Reference File",
+            "description": "Reference File, maximum one, cannot be input together with link url. support format：docx、doc、xlsx、xls、pptx、ppt、pdf、txt、key、pages、numbers、md。",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "single-file"
+            }
+          },
+          "generate_audio": {
+            "type": "boolean",
+            "title": "Generate Audio",
+            "default": true,
+            "x-apipod-ui": {
+              "component": "switch"
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "title": "Reference Images",
+            "description": "Refer to the images, up to 10.",
+            "x-apipod-ui": {
+              "component": "image-upload",
+              "maxSize": 20971520,
+              "maxCount": 10
+            }
+          },
+          "link_url": {
+            "type": "string",
+            "title": "Reference Link",
+            "description": "The URL address of the public web page. Only public web pages that do not require login are supported for parsing. Cannot be input together with file.",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "text"
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "Text prompt used to describe the expected generated video content.",
+            "default": "",
+            "minLength": 0,
+            "maxLength": 20000,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "resolution": {
+            "type": "string",
+            "title": "Resolution",
+            "enum": [
+              "480P",
+              "720P",
+              "1080P"
+            ],
+            "default": "1080P",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "video_urls": {
+            "type": "array",
+            "title": "Reference Videos",
+            "description": "Reference videos. Maximum 5 clips, total duration no more than 15 seconds.",
+            "x-apipod-ui": {
+              "component": "video-upload",
+              "maxSize": 104857600,
+              "maxCount": 5
+            }
+          },
+          "watermark": {
+            "type": "boolean",
+            "title": "Watermark",
+            "default": false,
+            "x-apipod-ui": {
+              "component": "switch"
+            }
+          }
+        },
+        "required": [
+          "model"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_urls",
+          "video_urls",
+          "audio_urls",
+          "file_url",
+          "link_url",
+          "duration",
+          "resolution",
+          "aspect_ratio",
+          "generate_audio",
+          "watermark"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "video"
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              },
+              "result": {
+                "type": "array",
+                "description": "generated video url list",
+                "items": {
+                  "type": "string",
+                  "description": "video url"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "task status",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/videos/generations": {
+      "post": {
+        "summary": "video API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/videos/status/{task_id}",
+          "polling": {
+            "interval": 3000,
+            "maxAttempts": 900,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/videos/status/{task_id}": {
+      "get": {
+        "summary": "WAN 3.0 参考生视频 Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

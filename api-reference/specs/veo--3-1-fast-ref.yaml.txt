@@ -1,0 +1,266 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "VEO 3.1 Fast Reference",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "veo3-1-fast-ref",
+      "modelType": "video",
+      "provider": "google"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "VEO 3.1 Fast Reference",
+        "properties": {
+          "aspect_ratio": {
+            "type": "string",
+            "title": "Aspect ratio",
+            "description": "the generated video width and height aspect ratio.",
+            "enum": [
+              "16:9",
+              "9:16"
+            ],
+            "default": "16:9",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "callback_url": {
+            "type": "string",
+            "title": "Callback URL",
+            "description": "Callback Notifications URL.",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "hidden"
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "title": "Reference images",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "triple-image"
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "Describe the content of the video to be generated.",
+            "default": "",
+            "maxLength": 4000,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          }
+        },
+        "required": [
+          "model",
+          "prompt",
+          "image_urls"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_urls",
+          "aspect_ratio",
+          "callback_url"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "video"
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "任务唯一标识"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "完成时间戳"
+              },
+              "result": {
+                "type": "object",
+                "description": "生成的视频信息",
+                "properties": {
+                  "duration": {
+                    "type": "number",
+                    "description": "视频时长（秒）"
+                  },
+                  "height": {
+                    "type": "integer",
+                    "description": "视频高度"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "视频 URL"
+                  },
+                  "width": {
+                    "type": "integer",
+                    "description": "视频宽度"
+                  }
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "任务状态",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "任务唯一标识"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/videos/generations": {
+      "post": {
+        "summary": "video API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/videos/status/{task_id}",
+          "polling": {
+            "interval": 3000,
+            "maxAttempts": 200,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/videos/status/{task_id}": {
+      "get": {
+        "summary": "VEO 3.1 Fast Reference Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

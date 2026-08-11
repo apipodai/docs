@@ -1,0 +1,211 @@
+openapi: 3.0.1
+info:
+  title: ''
+  description: ''
+  version: 1.0.0
+paths:
+  /v1/videos/generations:
+    post:
+      summary: MiniMax H3 Text to Video
+      deprecated: false
+      description: >-
+        MiniMax H3, opensource, unifies text, image, video, and audio for 2K
+        video generation, multimodal referencing, native stereo sound, motion
+        transfer, and precise editing.
+      tags:
+        - Video Models/MiniMax H3
+        - text to video
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MiniMaxH3T2V'
+            example:
+              aspect_ratio: '16:9'
+              duration: 4
+              prompt: A cinematic shot of a robot exploring a neon city at night
+              resolution: 2K
+              model: minimax-h3-t2v
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitTaskResponse'
+          headers: {}
+          x-apidog-name: 成功
+      security:
+        - APIPod APIKey: []
+          x-apidog:
+            required: true
+            schemeGroups:
+              - id: uvL-QlG9gqxCUnkcdyegW
+                schemeIds:
+                  - APIPod APIKey
+            use:
+              id: uvL-QlG9gqxCUnkcdyegW
+      x-apidog-folder: Video Models/MiniMax H3
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/1247502/apis/api-41035323-run
+components:
+  schemas:
+    MiniMaxH3T2V:
+      type: object
+      properties:
+        aspect_ratio:
+          type: string
+          description: Aspect ratio of the generated video.
+          enum:
+            - '1:1'
+            - '3:4'
+            - '4:3'
+            - '9:16'
+            - '16:9'
+            - '21:9'
+          x-apidog-enum:
+            - value: '1:1'
+              name: ''
+              description: ''
+            - value: '3:4'
+              name: ''
+              description: ''
+            - value: '4:3'
+              name: ''
+              description: ''
+            - value: '9:16'
+              name: ''
+              description: ''
+            - value: '16:9'
+              name: ''
+              description: ''
+            - value: '21:9'
+              name: ''
+              description: ''
+          default: '16:9'
+        duration:
+          type: integer
+          description: 'Duration of the generated video in seconds. Available values: 4-15.'
+          minimum: 4
+          maximum: 15
+          default: 4
+        prompt:
+          type: string
+          minLength: 1
+          maxLength: 7000
+          description: Video generate prompt
+        resolution:
+          type: string
+          description: 'Video resolution. Currently available: 2K.'
+          enum:
+            - 2K
+          x-apidog-enum:
+            - value: 2K
+              name: ''
+              description: ''
+          default: 2K
+        model:
+          type: string
+          description: Model ID, value fixed `minimax-h3-t2v`
+          const: minimax-h3-t2v
+          default: minimax-h3-t2v
+      required:
+        - aspect_ratio
+        - duration
+        - prompt
+        - resolution
+        - model
+      x-apidog-orders:
+        - model
+        - prompt
+        - aspect_ratio
+        - duration
+        - resolution
+      x--orders:
+        - aspect_ratio
+        - duration
+        - prompt
+        - resolution
+        - model
+      x--ignore-properties: []
+      x-apidog-folder: ''
+    SubmitTaskResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Response status code
+          enum:
+            - 200
+            - 401
+            - 500
+            - 400
+            - 403
+            - 402
+            - 404
+            - 429
+          x-apidog-enum:
+            - value: 200
+              name: Success
+              description: Request has been processed successfully
+            - value: 401
+              name: Unauthorized
+              description: Authentication credentials are missing or invalid
+            - value: 500
+              name: Authentication credentials are missing or invalid
+              description: An unexpected error occurred while processing the request
+            - value: 400
+              name: Bad Request
+              description: This is a bad request
+            - value: 403
+              name: Forbidden
+              description: Forbidden response
+            - value: 402
+              name: Insufficient quota
+              description: Account does not have enough credits to perform the operation
+            - value: 404
+              name: Not Found
+              description: The requested resource or endpoint does not exist
+            - value: 429
+              name: Rate limit
+              description: Request limit has been exceeded for this resource
+        message:
+          type: string
+          description: Response message, error description when failed
+        data:
+          type: object
+          properties:
+            task_id:
+              type: string
+              description: >-
+                Unique identifier for asynchronous tasks.can be used with Get
+                Task Details endpoint to query task status
+          x-apidog-orders:
+            - task_id
+          required:
+            - task_id
+          x--orders:
+            - task_id
+          x--ignore-properties: []
+      x-apidog-orders:
+        - code
+        - message
+        - data
+      required:
+        - code
+        - message
+      x--orders:
+        - code
+        - message
+        - data
+      x--ignore-properties: []
+      x-apidog-folder: ''
+  securitySchemes:
+    APIPod APIKey:
+      type: bearer
+      scheme: bearer
+servers:
+  - url: https://api.apipod.ai
+    description: 正式环境
+security: []

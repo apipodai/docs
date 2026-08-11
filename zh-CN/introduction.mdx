@@ -1,0 +1,86 @@
+---
+title: "欢迎使用 APIPod"
+description: "用一套 API 接入 APIPod 的语言、音频、图片和视频模型。"
+icon: "house"
+---
+
+APIPod 是面向已启用模型的统一 API 网关。对于同步工作负载，它提供熟悉的 OpenAI、Anthropic 和 Gemini 兼容协议；对于图片和视频生成，则提供异步任务 API。应用只需要选择公开的 APIPod 模型 ID，供应商选择、鉴权、计费和请求追踪由 APIPod 在同一个 API 地址后完成。
+
+```text
+https://api.apipod.ai
+```
+
+<CardGroup cols={2}>
+  <Card title="快速开始" icon="rocket" href="/zh-CN/quickstart">
+    使用完整可运行的请求创建并轮询 GPT Image 2 任务。
+  </Card>
+  <Card title="身份认证" icon="key-round" href="/zh-CN/authentication">
+    创建 API Key、检查账户访问权限并安全发送凭据。
+  </Card>
+  <Card title="模型" icon="boxes" href="/zh-CN/models">
+    发现已启用的 LLM，并浏览图片与视频模型目录。
+  </Card>
+  <Card title="API 约定" icon="book-open" href="/zh-CN/endpoint-conventions">
+    了解公共请求头、响应 ID、错误结构和兼容协议规则。
+  </Card>
+</CardGroup>
+
+## 能做什么
+
+| 工作负载 | APIPod 入口 | 请求行为 |
+| --- | --- | --- |
+| 对话与多模态文本 | `POST /v1/chat/completions` | OpenAI 兼容的同步或流式响应 |
+| Responses 与 Agent 工作流 | `POST /v1/responses` | 支持响应 ID、检索、取消、压缩和 WebSocket 模式 |
+| Anthropic 客户端 | `POST /v1/messages` | Anthropic Messages 兼容的请求和响应结构 |
+| Gemini 客户端 | `POST /v1beta/models/{model}:generateContent` | Gemini 兼容的内容生成和流式生成 |
+| Embeddings | `POST /v1/embeddings` | OpenAI 兼容的向量嵌入接口 |
+| 音频 | `POST /v1/audio/transcriptions`、`/translations`、`/speech` | 语音转文字、翻译和文字转语音 |
+| 图片生成 | `POST /v1/images/generations` | 接受请求并返回用于轮询的 `task_id` |
+| 视频生成 | `POST /v1/videos/generations` | 接受请求并返回用于轮询的 `task_id` |
+| 价格估算 | `POST /v1/pricing/estimate` | 执行前估算请求成本 |
+
+LLM、Embedding 和音频请求会在当前 API 请求内完成（或流式返回）；图片和视频请求是明确的异步流程：创建响应只确认任务已受理，之后通过状态响应交付生成结果。
+
+## 如何选择接口风格
+
+优先使用你的 SDK 或应用已经支持的协议。同一个公开模型是否支持某种协议，以对应模型页面列出的能力为准，不能直接根据上游供应商文档推断。
+
+- **OpenAI Chat Completions**：适合对话、视觉和工具调用客户端，兼容性最广。
+- **OpenAI Responses**：需要响应 ID、输入项查询、会话压缩、取消操作或 WebSocket 交付时使用。
+- **Anthropic Messages**：客户端已经使用 `system`、`messages` 和内容块结构时使用。
+- **Gemini `v1beta`**：需要 Gemini SDK 风格的 `generateContent` 或 `streamGenerateContent` 时使用。
+- **媒体任务 API**：图片和视频模型使用该入口。请打开具体模型页面，确认 prompt、图片、宽高比、时长和分辨率字段。
+
+## 与 APIPod 一致的请求生命周期
+
+1. **认证。** 在服务端发送 `Authorization: Bearer <API_KEY>`。`GET /v1/account/status` 可作为轻量的凭据和账户探针。
+2. **发现。** 使用 `GET /v1/models` 获取已启用的 LLM ID；图片和视频模型的 ID 以及专属 schema 以 `/public/models` 和 API Reference 为准。
+3. **选择契约。** 严格使用文档中的模型 ID，并按模型页面右侧 OpenAPI 面板校验。即使属于同一系列，不同模型支持的字段和限制也可能不同。
+4. **执行。** LLM/音频使用同步请求；图片/视频创建请求应携带 `Idempotency-Key`。
+5. **完成。** 轮询 `GET /v1/images/status/{task_id}` 或 `GET /v1/videos/status/{task_id}`，也可以配置 Webhook 接收终态事件。
+6. **持久化与观测。** 将结果资源保存到自己的持久化存储，并记录 `task_id`、`X-Request-ID`、HTTP 状态码和机器可读错误码。
+
+<Note>
+  媒体创建接口返回成功，只表示 APIPod 已受理任务，并不表示生成已完成。`pending` 和 `processing` 都是非终态，只有 `completed`、`failed` 或 `cancelled` 才应停止轮询。
+</Note>
+
+## 生产环境检查清单
+
+- API Key 只保存在后端，不要提交到代码仓库或打包进浏览器资源。
+- 只在操作可安全重试时重试。媒体创建请求结果不明确时，复用相同的 `Idempotency-Key` 和完全不变的 JSON 请求体。
+- 对轮询以及临时性的 `429`、`503` 或 `5xx` 使用带抖动的有上限指数退避。
+- 在启动后台轮询前先持久化 `task_id`，并将结果 URL 复制到自己控制的存储中。
+- 先根据状态判断成功或失败，再读取 `result` 或错误字段；未知机器码也应保留以兼容未来扩展。
+- 不适合持续轮询时使用 [Webhook](/zh-CN/webhooks)，错误和重试语义参见[错误处理](/zh-CN/error-codes)。
+
+<CardGroup cols={3}>
+  <Card title="异步任务" icon="clock-3" href="/zh-CN/asynchronous-tasks">
+    图片和视频生成的轮询、终态和结果交付。
+  </Card>
+  <Card title="API Reference" icon="file-code-2" href="/zh-CN/models">
+    模型专属 schema，以及 cURL、Python、Go、Rust 和 JavaScript 示例。
+  </Card>
+  <Card title="价格估算" icon="calculator" href="https://www.apipod.ai/pricing">
+    查看价格，并在消耗额度前估算请求成本。
+  </Card>
+</CardGroup>

@@ -1,0 +1,95 @@
+---
+title: "错误码"
+description: "处理 APIPod HTTP、同步和异步错误。"
+icon: "circle-alert"
+---
+
+先使用 HTTP 状态码判断传输层结果，再读取可用的机器可读错误码。人类可读消息适合日志和诊断，不应直接用于程序分支。
+
+## 错误结构
+
+APIPod 媒体和共享服务错误可以使用标准结构：
+
+```json
+{
+  "code": 429,
+  "message": "Rate limit exceeded",
+  "data": {
+    "type": "rate_limit_error",
+    "error_code": "rate_limit_exceeded"
+  }
+}
+```
+
+认证和协议兼容端点可以使用 OpenAI 兼容结构：
+
+```json
+{
+  "error": {
+    "message": "Authentication required. Please provide a valid API key or sign in.",
+    "type": "invalid_request_error",
+    "code": "invalid_api_key"
+  }
+}
+```
+
+客户端归一化时依次检查 `error.code` 和 `data.error_code`，同时始终保留 HTTP 状态码与消息。
+
+## HTTP 状态码
+
+| 状态码 | 含义 | 典型处理方式 |
+| --- | --- | --- |
+| `400` | JSON 或模型参数无效 | 修正请求，不要原样重试 |
+| `401` | 凭证缺失或无效 | 更换或修正 API Key |
+| `402` | 额度不足 | 充值或调整账号限制 |
+| `403` | 账号、密钥、权限或策略限制 | 检查账号和密钥配置 |
+| `404` | 调用方无法使用该模型或任务 | 核对公开模型 ID 或任务归属 |
+| `409` | 幂等冲突或请求仍在处理 | 根据机器码和 `Retry-After` 处理 |
+| `429` | 超出速率限制 | 带随机抖动退避，并遵循 `Retry-After` |
+| `500` | 内部错误 | 仅在操作具备幂等保护时重试 |
+| `503` | 服务或幂等保护暂不可用 | 使用同一个幂等键重试 |
+| `504` | 上游超时 | 按业务幂等策略重试 |
+
+## 常见机器码
+
+| 错误码 | 含义 |
+| --- | --- |
+| `invalid_api_key` | 模型 API 凭证缺失、无效或不满足使用条件 |
+| `invalid_request` | 无法按当前请求处理 |
+| `insufficient_quota` | 可用额度不足 |
+| `rate_limit_exceeded` | 超出请求或 Token 速率限制 |
+| `model_not_available` | 公开模型 ID 当前不可用 |
+| `internal_error` | APIPod 无法完成同步操作 |
+| `invalid_idempotency_key` | 幂等键格式无效或超过 255 个字符 |
+| `idempotency_conflict` | 同一个键被用于不同请求体 |
+| `idempotency_in_progress` | 首次使用该键的请求尚未生成响应 |
+| `idempotency_unavailable` | APIPod 当前无法保证幂等保护 |
+
+提供商和模型错误可能返回其他代码。客户端应把未知代码视为可向前兼容的值，并回退到 HTTP 状态类别处理。
+
+## 异步失败
+
+任务可能在创建成功后才失败。轮询和 Webhook 会独立于原始创建响应返回任务终态。
+
+```json
+{
+  "code": 200,
+  "message": "success",
+  "data": {
+    "task_id": "img_example_task_id",
+    "status": "failed",
+    "error_code": "UPSTREAM_CAPACITY_EXHAUSTED",
+    "error_message": "Upstream request failed. Please retry later."
+  }
+}
+```
+
+不要把容量或服务错误转换为内容审核错误。保留未知异步 `error_code`，向运维人员展示安全消息，并根据语义错误码和任务状态决定是否重试。
+
+## 重试检查表
+
+- 对 `429`、`503` 和瞬时 `5xx` 使用带随机抖动的指数退避。
+- 重试结果不确定的媒体创建请求时，复用原始 `Idempotency-Key` 和未修改的请求体。
+- 对 `400`、`401`、`402`、`403`、`404`，在导致错误的条件未改变前不要自动重试。
+- 为重试次数和总耗时设置上限。
+- 记录 `X-Request-ID`、`task_id`、HTTP 状态码、机器码和重试次数。

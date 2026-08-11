@@ -1,0 +1,332 @@
+openapi: 3.0.1
+info:
+  title: ''
+  description: ''
+  version: 1.0.0
+paths:
+  /v1/videos/status/{task_id}:
+    get:
+      summary: Query Video Task
+      deprecated: false
+      description: >-
+        Query the create video task status and results. This is a unified query
+        interface that works with all images models.
+
+
+        ::: info[]
+
+        This endpoint is applicable to all video generation models, including
+        sora-2, veo3, seedance, etc., as well as any image models to be added in
+        the future.
+
+        :::
+
+
+
+        ## Task Status
+
+
+        | Status | Description | Action |
+
+        | --- | --- | --- |
+
+        | `pending` | Task is waiting to be processed | Continue polling |
+
+        | `processing` | Task is being processed | Continue polling |
+
+        | `completed` | Task execution completed | Directly obtain results from
+        the `result` array list |
+
+        | `failed` | Task execution failed | Check `code` and `message` for
+        details |
+
+        | `cancelled` | Task has been cancelled | Task cancelled, exit without
+        further processing |
+
+
+        ## Polling Practice
+
+
+        <AccordionGroup>
+
+
+        <Accordion title="Recommended polling interval">
+          - **Initial Polling (First 30 Seconds)**: Every 2–3 seconds  
+          - **After 30 Seconds**: Every 5–10 seconds  
+          - **After 2 Minutes**: Every 15–30 seconds
+
+        ::: tip[]
+          Use exponential backoff to reduce server load and API costs.
+        :::
+
+
+        </Accordion>
+
+
+
+        <Accordion title="Use callbacks instead of polling">
+          For production applications, we strongly recommend using the `callback_url` parameter when creating tasks:
+        - **No polling required**: Your server automatically receives
+        notifications
+
+        - **Reduced API costs**: Eliminates continuous polling requests
+
+        - **Better performance**: Instant notification upon task completion
+
+        - **Lower latency**: No delay between task completion and notification
+
+
+        The data received via the callback is consistent with the `data`
+        returned by the current interface.
+
+        </Accordion>
+
+
+
+        <Accordion title="Process completed tasks">
+          When `status` is `completed`: 
+            
+            1. Extract the data from the `result` array 
+            2. Download the generated content immediately 
+            3. Store the content in your own storage 
+            
+            **⚠️Note**: The generated content URL usually expires after 24 hours.
+        </Accordion>
+
+
+        </AccordionGroup>
+
+
+        ## Example: Complete polling process
+
+
+
+        ```javascript Node.js
+
+
+        async function pollTaskStatus(taskId, maxAttempts = 60, interval = 5000)
+
+        {
+
+        for (let attempt = 0; attempt < maxAttempts; attempt++) {
+
+        const response = await fetch(
+          `https://api.apipod.ai/v1/videso/status/${taskId}`,
+          {
+            headers: { 'Authorization': 'Bearer YOUR_APIPOD_API_KEY' }
+          }
+        );
+
+
+        const res = await response.json();
+
+        const { status, result, error } = res.data;
+
+
+        console.log(`try ${attempt + 1}: status = ${status}`);
+
+
+        if (state === 'completed') {
+          console.log('✅ status completed!');
+          console.log('result:', result);
+          return result;
+        }
+
+
+        if (state === 'failed') {
+          console.error('❌ task failed:', error);
+          throw new Error(error);
+        }
+
+
+        // processing, waiting next polling
+
+        await new Promise(resolve => setTimeout(resolve, interval));
+
+        }
+
+
+        throw new Error('task timeout');
+
+        }
+
+
+
+        // how to use
+
+
+        try {
+
+        const result = await pollTaskStatus('task_12345678');
+
+        console.log('generate videos urls:', result);
+
+        } catch (error) {
+
+        console.error('error:', error.message);
+
+        }
+
+
+        ```
+      tags:
+        - Video Models
+        - task
+      parameters:
+        - name: task_id
+          in: path
+          description: The unique task identifier returned when you created the task.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskDetailResponse'
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: 2f0392df-7da1-4128-8e30-7ea3d81446b3
+                  status: completed
+                  result:
+                    - https://s.apipod.ai/videos/demo.mp4
+                  completed_at: 1775137415
+          headers: {}
+          x-apidog-name: 成功
+      security:
+        - APIPod APIKey: []
+          x-apidog:
+            required: true
+            schemeGroups:
+              - id: Db2e8PFQgEvBSq9q__E29
+                schemeIds:
+                  - APIPod APIKey
+            use:
+              id: Db2e8PFQgEvBSq9q__E29
+      x-apidog-folder: Video Models
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/1247502/apis/api-33068714-run
+components:
+  schemas:
+    TaskDetailResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Response status code
+          enum:
+            - 200
+            - 401
+            - 500
+            - 400
+            - 403
+            - 402
+            - 404
+            - 429
+          x-apidog-enum:
+            - value: 200
+              name: Success
+              description: Request has been processed successfully
+            - value: 401
+              name: Unauthorized
+              description: Authentication credentials are missing or invalid
+            - value: 500
+              name: Authentication credentials are missing or invalid
+              description: An unexpected error occurred while processing the request
+            - value: 400
+              name: Bad Request
+              description: This is a bad request
+            - value: 403
+              name: Forbidden
+              description: Forbidden response
+            - value: 402
+              name: Insufficient quota
+              description: Account does not have enough credits to perform the operation
+            - value: 404
+              name: Not Found
+              description: The requested resource or endpoint does not exist
+            - value: 429
+              name: Rate limit
+              description: Request limit has been exceeded for this resource
+        message:
+          type: string
+          description: Response message, error description when failed
+        data:
+          type: object
+          properties:
+            task_id:
+              type: string
+              description: The unique identifier for this task
+            status:
+              type: string
+              description: Current state of the task
+              enum:
+                - pending
+                - processing
+                - completed
+                - failed
+                - cancelled
+              x-apidog-enum:
+                - value: pending
+                  name: ''
+                  description: ''
+                - value: processing
+                  name: ''
+                  description: ''
+                - value: completed
+                  name: ''
+                  description: ''
+                - value: failed
+                  name: ''
+                  description: ''
+                - value: cancelled
+                  name: ''
+                  description: ''
+              examples:
+                - completed
+            result:
+              type: array
+              items:
+                type: string
+              description: The generated content result array
+            completed_at:
+              type: integer
+              description: Completion timestamp (Unix timestamp in milliseconds)
+              examples:
+                - 1775137415
+            error:
+              type: string
+              description: Error detail messages
+          required:
+            - task_id
+            - status
+          x-apidog-orders:
+            - task_id
+            - status
+            - result
+            - completed_at
+            - error
+          description: The task data object containing all task information
+          x-apidog-ignore-properties: []
+      required:
+        - code
+        - message
+        - data
+      x-apidog-orders:
+        - code
+        - message
+        - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+  securitySchemes:
+    APIPod APIKey:
+      type: bearer
+      scheme: bearer
+servers:
+  - url: https://api.apipod.ai
+    description: 正式环境
+security: []

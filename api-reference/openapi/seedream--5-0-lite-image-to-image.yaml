@@ -1,0 +1,308 @@
+openapi: 3.1.0
+info:
+  title: Seedream 5.0 Lite Image to Image API
+  version: 1.0.0
+  description: Seedream 5.0 Lite Edit is APIPod's efficiency-oriented Seedream 5
+    route for reference-guided image editing and subject-consistent
+    transformations. In APIPod, the public model ID is seedream-5.0-lite-edit.
+    It supports image generation and editing, accepts text and image inputs, and
+    returns results through asynchronous image tasks.
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/images/generations:
+    post:
+      summary: Create Generation Task
+      description: Seedream 5.0 Lite Edit is APIPod's efficiency-oriented Seedream 5
+        route for reference-guided image editing and subject-consistent
+        transformations. In APIPod, the public model ID is
+        seedream-5.0-lite-edit. It supports image generation and editing,
+        accepts text and image inputs, and returns results through asynchronous
+        image tasks.
+      operationId: create-seedream-5-0-lite-image-to-image
+      tags:
+        - Seedream 5.0 Lite Image to Image
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  description: Public APIPod model ID.
+                  const: seedream-5.0-lite-edit
+                prompt:
+                  type: string
+                  description: Describe the image or requested edit.
+                  maxLength: 2000
+                image_urls:
+                  type: array
+                  items:
+                    type: string
+                  description: Source or reference images.
+                  maxItems: 14
+                aspect_ratio:
+                  type: string
+                  description: Output aspect ratio.
+                  default: 1:1
+                  enum:
+                    - 1:1
+                    - 4:3
+                    - 3:4
+                    - 16:9
+                    - 9:16
+                    - 3:2
+                    - 2:3
+                    - 21:9
+                quality:
+                  type: string
+                  description: Output resolution tier.
+                  default: 2K
+                  enum:
+                    - 2K
+                    - 3K
+                size:
+                  type: string
+                  description: Optional explicit output size accepted by the selected channel.
+                output_format:
+                  type: string
+                  description: Output format.
+                  enum:
+                    - png
+                    - jpeg
+                n:
+                  type: integer
+                  description: Number of images to generate. Seedream 5.0 Lite supports up to 15.
+                  minimum: 1
+                  maximum: 15
+                  default: 1
+                callback_url:
+                  type: string
+                  description: HTTPS endpoint that receives task completion notifications.
+              required:
+                - model
+                - prompt
+                - image_urls
+            example:
+              model: seedream-5.0-lite-edit
+              prompt: Animate the subject with a slow camera push-in, natural motion, and soft
+                cinematic lighting.
+              image_urls:
+                - https://cdn.example.com/reference-1.jpg
+              aspect_ratio: 16:9
+              quality: 2K
+              size: 2K
+              n: 1
+      responses:
+        "200":
+          description: Task accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP status code.
+                    const: 200
+                  message:
+                    type: string
+                    description: Response message.
+                    const: success
+                  data:
+                    type: object
+                    properties:
+                      task_id:
+                        type: string
+                        description: Public APIPod task ID used for status queries.
+                    required:
+                      - task_id
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: img_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/images/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "seedream-5.0-lite-edit",
+              "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "aspect_ratio": "16:9",
+              "quality": "2K",
+              "size": "2K",
+              "n": 1
+            }'
+        - lang: Python
+          label: Python
+          source: >-
+            import os
+
+            import requests
+
+
+            payload = {
+              "model": "seedream-5.0-lite-edit",
+              "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "aspect_ratio": "16:9",
+              "quality": "2K",
+              "size": "2K",
+              "n": 1
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/images/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+        - lang: Go
+          label: Go
+          source: >-
+            package main
+
+
+            import (
+                "bytes"
+                "encoding/json"
+                "fmt"
+                "net/http"
+                "os"
+            )
+
+
+            func main() {
+                payload := map[string]any{}
+                if err := json.Unmarshal([]byte(`{
+              "model": "seedream-5.0-lite-edit",
+              "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "aspect_ratio": "16:9",
+              "quality": "2K",
+              "size": "2K",
+              "n": 1
+            }`), &payload); err != nil {
+                    panic(err)
+                }
+                body, err := json.Marshal(payload)
+                if err != nil {
+                    panic(err)
+                }
+
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/images/generations", bytes.NewReader(body))
+                if err != nil {
+                    panic(err)
+                }
+                req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+                req.Header.Set("Content-Type", "application/json")
+
+                resp, err := http.DefaultClient.Do(req)
+                if err != nil {
+                    panic(err)
+                }
+                defer resp.Body.Close()
+                fmt.Println(resp.Status)
+            }
+        - lang: Rust
+          label: Rust
+          source: >-
+            use reqwest::Client;
+
+            use serde_json::json;
+
+            use std::env;
+
+
+            #[tokio::main]
+
+            async fn main() -> Result<(), Box<dyn std::error::Error>> {
+                let payload = json!({
+              "model": "seedream-5.0-lite-edit",
+              "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "aspect_ratio": "16:9",
+              "quality": "2K",
+              "size": "2K",
+              "n": 1
+            });
+                let response = Client::new()
+                    .post("https://api.apipod.ai/v1/images/generations")
+                    .bearer_auth(env::var("APIPOD_API_KEY")?)
+                    .json(&payload)
+                    .send()
+                    .await?
+                    .error_for_status()?;
+
+                println!("{}", response.text().await?);
+                Ok(())
+            }
+        - lang: JavaScript
+          label: JavaScript
+          source: >-
+            const response = await
+            fetch("https://api.apipod.ai/v1/images/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(
+              {
+                "model": "seedream-5.0-lite-edit",
+                "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+                "image_urls": [
+                  "https://cdn.example.com/reference-1.jpg"
+                ],
+                "aspect_ratio": "16:9",
+                "quality": "2K",
+                "size": "2K",
+                "n": 1
+              }
+              ),
+            });
+
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+
+            console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

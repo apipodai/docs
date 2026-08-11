@@ -1,0 +1,13 @@
+---
+title: "Grok Imagine Image to Video"
+description: "Grok Imagine 是 xAI Grok Imagine 视频系列的图生视频路由，用于生成带连贯运动和同步音频的短视频。"
+openapi: "api-reference/openapi/grok-imagine--grok-imagine-i2v.zh.yaml POST /v1/videos/generations"
+---
+
+## APIPod 支持
+
+在 APIPod 中，公开模型 ID 为 grok-imagine-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。
+
+<Warning title="条件校验">`image_url`/`image_urls` 与 `task_id` 二选一；两种来源不能同时使用。`index` 仅可与 `task_id` 一起使用。</Warning>
+
+<Card title="查询任务状态" icon="search" href="/zh-CN/query-video-task">使用创建接口返回的 task_id 查询进度和结果。</Card>

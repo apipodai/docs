@@ -1,0 +1,93 @@
+---
+title: "Webhook"
+description: "接收 APIPod 图片和视频任务完成回调。"
+icon: "webhook"
+---
+
+在图片或视频生成请求中加入 `callback_url`，即可在任务变为 `completed` 或 `failed` 时接收 POST 请求。
+
+```json
+{
+  "model": "gpt-image-2",
+  "prompt": "A technical cutaway illustration of a compact camera",
+  "callback_url": "https://api.example.com/webhooks/apipod/opaque-route-token"
+}
+```
+
+## 回调请求
+
+APIPod 发送 `Content-Type: application/json` 和 `User-Agent: APIPod-Callback/1.0`。
+
+```json
+{
+  "task_id": "img_example_task_id",
+  "request_id": "req_example_request_id",
+  "status": "completed",
+  "result": [
+    "https://example.com/generated-image.png"
+  ],
+  "created_at": "2026-08-10T09:00:00Z",
+  "completed_at": "2026-08-10T09:01:30Z"
+}
+```
+
+失败任务使用相同结构：
+
+```json
+{
+  "task_id": "img_example_task_id",
+  "request_id": "req_example_request_id",
+  "status": "failed",
+  "error": "Upstream request failed. Please retry later.",
+  "error_code": "UPSTREAM_CAPACITY_EXHAUSTED",
+  "created_at": "2026-08-10T09:00:00Z",
+  "completed_at": "2026-08-10T09:01:30Z"
+}
+```
+
+`error_code` 是可选字段，不能根据它是否存在判断成功；请使用 `status`。
+
+## 投递行为
+
+- HTTP `200` 到 `299` 均视为回调已确认。
+- 非 2xx 响应和网络错误会触发重试。
+- APIPod 当前最多投递 5 次，并使用指数退避。
+- 可能发生重复投递，因此接收端必须具备幂等性。
+- 回调投递是异步行为，不会改变任务终态。
+
+## 保护接收端
+
+<Warning>
+  当前公开回调契约不包含签名请求头。不能只因为 JSON 结构看起来正确就认定回调已通过身份认证。
+</Warning>
+
+- 使用 HTTPS，并在回调路径中加入高熵、不可猜测的令牌。
+- 回调 URL 只保存在服务端，不要暴露给客户端应用。
+- 将 `task_id` 和 `request_id` 与系统实际创建的任务匹配。
+- 保存已处理事件键，使重复回调返回相同成功结果。
+- 校验字段类型，并拒绝异常大的请求体。
+- 只有在持久化接收成功后才返回 2xx；耗时处理应转入后台。
+- 对真实性要求很高时，在执行不可逆业务操作前，通过带认证的状态端点复核任务。
+
+## 最小接收端示例
+
+```javascript
+import express from "express";
+
+const app = express();
+app.use(express.json({ limit: "64kb" }));
+
+app.post("/webhooks/apipod/:token", async (req, res) => {
+  if (req.params.token !== process.env.APIPOD_WEBHOOK_TOKEN) {
+    return res.sendStatus(404);
+  }
+
+  const { task_id, request_id, status } = req.body;
+  if (!task_id || !request_id || !["completed", "failed"].includes(status)) {
+    return res.sendStatus(400);
+  }
+
+  await persistIdempotently({ task_id, request_id, payload: req.body });
+  return res.sendStatus(204);
+});
+```

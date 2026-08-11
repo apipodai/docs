@@ -1,0 +1,306 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "WAN 2.7 Image to Video",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "wan2.7-i2v",
+      "modelType": "video",
+      "provider": "alibaba"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "WAN 2.7 Image to Video",
+        "properties": {
+          "audio_url": {
+            "type": "string",
+            "title": "Audio Url",
+            "x-apipod-ui": {
+              "component": "single-audio"
+            }
+          },
+          "duration": {
+            "type": "integer",
+            "title": "Duration",
+            "description": "Duration of the generated video.",
+            "default": "5",
+            "minimum": 2,
+            "maximum": 15,
+            "x-apipod-ui": {
+              "component": "slider"
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "title": "Image Urls",
+            "description": "The image address of the first frame or the first and last frames.",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "double-image"
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "negative_prompt": {
+            "type": "string",
+            "title": "Negative Prompt",
+            "description": "Whether to enable intelligent prompt rewriting. After enabling, a large model will be used to intelligently rewrite the input prompt. The generation effect is significantly improved for short prompts, but it will increase time consumption.",
+            "default": "low resolution, errors, worst quality, poor quality, incomplete, extra fingers, poor aspect ratio.",
+            "maxLength": 500,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "Describe the content of the video to be generated.",
+            "default": "",
+            "maxLength": 5000,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "prompt_extend": {
+            "type": "boolean",
+            "title": "Prompt Extend",
+            "description": "Whether to enable intelligent prompt rewriting. After enabling, a large model will be used to intelligently rewrite the input prompt. The generation effect is significantly improved for short prompts, but it will increase time consumption.",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "switch"
+            }
+          },
+          "resolution": {
+            "type": "string",
+            "title": "Resolution",
+            "description": "Duration of the generated video.",
+            "enum": [
+              "720P",
+              "1080P"
+            ],
+            "default": "1080P",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "video_url": {
+            "type": "string",
+            "title": "Extend Video",
+            "description": "Extend generating content based on the given video, with the maximum duration of the continuation controlled by the `duration` parameter. For example: when `duration=15` and the input video is 3 seconds long, the model will generate a 12-second continuation, resulting in a final output video with a total duration of 15 seconds, which will be charged as 15 seconds. Video duration: 2–10s.",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "single-file",
+              "accept": "*.mp4",
+              "maxSize": 104857600
+            }
+          },
+          "watermark": {
+            "type": "boolean",
+            "title": "Watermark",
+            "description": "Whether to add a watermark logo, with the watermark positioned at the bottom right corner of the video.",
+            "default": false,
+            "x-apipod-ui": {
+              "component": "switch"
+            }
+          }
+        },
+        "required": [
+          "model",
+          "prompt",
+          "image_urls"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "prompt_extend",
+          "negative_prompt",
+          "image_urls",
+          "audio_url",
+          "video_url",
+          "resolution",
+          "duration",
+          "watermark"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "video"
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              },
+              "result": {
+                "type": "array",
+                "description": "generated video url list",
+                "items": {
+                  "type": "string",
+                  "description": "video url"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "task status",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/videos/generations": {
+      "post": {
+        "summary": "video API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/videos/status/{task_id}",
+          "polling": {
+            "interval": 3000,
+            "maxAttempts": 900,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/videos/status/{task_id}": {
+      "get": {
+        "summary": "WAN 2.7 Image to Video Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

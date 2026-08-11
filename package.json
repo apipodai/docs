@@ -1,0 +1,19 @@
+{
+  "name": "apipod-docs",
+  "private": true,
+  "engines": {
+    "node": ">=22 <25"
+  },
+  "scripts": {
+    "dev": "mint dev --port 3333",
+    "sync:live": "node scripts/sync-live-async-models.mjs && node scripts/enhance-model-pages.mjs && node scripts/generate-config.mjs",
+    "sync": "node scripts/migrate-apidog.mjs --translate && node scripts/enhance-model-pages.mjs && node scripts/generate-config.mjs",
+    "sync:resume": "node scripts/migrate-apidog.mjs --translate --resume && node scripts/enhance-model-pages.mjs && node scripts/generate-config.mjs",
+    "validate": "node scripts/generate-config.mjs && node scripts/validate-docs.mjs && mint validate && mint broken-links",
+    "validate:rendered": "node scripts/validate-rendered.mjs"
+  },
+  "devDependencies": {
+    "mint": "^4.2.788",
+    "yaml": "2.8.0"
+  }
+}

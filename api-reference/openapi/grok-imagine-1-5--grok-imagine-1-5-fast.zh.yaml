@@ -1,0 +1,277 @@
+openapi: 3.1.0
+info:
+  title: Grok Imagine Video 1.5 Fast API
+  version: 1.0.0
+  description: Grok Imagine 1.5 Fast 是 xAI Grok Imagine
+    视频系列的面向较长片段和多参考图的快速路由，用于生成带连贯运动和同步音频的短视频。在 APIPod 中，公开模型 ID 为
+    grok-imagine-1.5-fast，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。
+servers:
+  - url: https://api.apipod.ai
+    description: 生产环境
+paths:
+  /v1/videos/generations:
+    post:
+      summary: 创建生成任务
+      description: Grok Imagine 1.5 Fast 是 xAI Grok Imagine
+        视频系列的面向较长片段和多参考图的快速路由，用于生成带连贯运动和同步音频的短视频。在 APIPod 中，公开模型 ID 为
+        grok-imagine-1.5-fast，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。
+      operationId: create-grok-imagine-1-5-grok-imagine-1-5-fast
+      tags:
+        - Grok Imagine Video 1.5 Fast
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  description: APIPod 公开模型 ID。
+                  const: grok-imagine-1.5-fast
+                prompt:
+                  type: string
+                  description: 描述运动、场景和镜头行为。 最大字符串长度：4096。
+                image_url:
+                  type: string
+                  description: 单张源图片。
+                image_urls:
+                  type: array
+                  items:
+                    type: string
+                  description: 源图片或参考图片。 最多项目数：7。
+                task_id:
+                  type: string
+                  description: 要复用为输入素材的历史 APIPod 任务 ID；提供后无需再传图片 URL。
+                index:
+                  type: integer
+                  description: task_id 对应结果中的索引，范围为 0 到 5。 最小值：0。 最大值：5。
+                aspect_ratio:
+                  type: string
+                  description: 视频宽高比。
+                  default: 16:9
+                  enum:
+                    - 16:9
+                    - 9:16
+                    - 1:1
+                    - 3:2
+                    - 2:3
+                duration:
+                  type: integer
+                  description: 视频片段时长，单位为秒。 最小值：6。 最大值：30。
+                  default: 10
+                resolution:
+                  type: string
+                  description: 输出分辨率。
+                  default: 720p
+                  enum:
+                    - 480p
+                    - 720p
+                mode:
+                  type: string
+                  description: 基础 Grok Imagine 模型使用的生成模式。
+                  enum:
+                    - normal
+                    - fun
+                    - spicy
+              required:
+                - model
+                - prompt
+            example:
+              model: grok-imagine-1.5-fast
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
+                motion, synchronized ambient sound.
+              aspect_ratio: 16:9
+              duration: 10
+              resolution: 720p
+      responses:
+        "200":
+          description: 任务已受理
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP 状态码。
+                    const: 200
+                  message:
+                    type: string
+                    description: 响应消息。
+                    const: success
+                  data:
+                    type: object
+                    properties:
+                      task_id:
+                        type: string
+                        description: 用于查询任务状态的 APIPod 任务 ID。
+                    required:
+                      - task_id
+                    description: 响应数据。
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "grok-imagine-1.5-fast",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "aspect_ratio": "16:9",
+              "duration": 10,
+              "resolution": "720p"
+            }'
+        - lang: Python
+          label: Python
+          source: >-
+            import os
+
+            import requests
+
+
+            payload = {
+              "model": "grok-imagine-1.5-fast",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "aspect_ratio": "16:9",
+              "duration": 10,
+              "resolution": "720p"
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+        - lang: Go
+          label: Go
+          source: >-
+            package main
+
+
+            import (
+                "bytes"
+                "encoding/json"
+                "fmt"
+                "net/http"
+                "os"
+            )
+
+
+            func main() {
+                payload := map[string]any{}
+                if err := json.Unmarshal([]byte(`{
+              "model": "grok-imagine-1.5-fast",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "aspect_ratio": "16:9",
+              "duration": 10,
+              "resolution": "720p"
+            }`), &payload); err != nil {
+                    panic(err)
+                }
+                body, err := json.Marshal(payload)
+                if err != nil {
+                    panic(err)
+                }
+
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+                if err != nil {
+                    panic(err)
+                }
+                req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+                req.Header.Set("Content-Type", "application/json")
+
+                resp, err := http.DefaultClient.Do(req)
+                if err != nil {
+                    panic(err)
+                }
+                defer resp.Body.Close()
+                fmt.Println(resp.Status)
+            }
+        - lang: Rust
+          label: Rust
+          source: >-
+            use reqwest::Client;
+
+            use serde_json::json;
+
+            use std::env;
+
+
+            #[tokio::main]
+
+            async fn main() -> Result<(), Box<dyn std::error::Error>> {
+                let payload = json!({
+              "model": "grok-imagine-1.5-fast",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "aspect_ratio": "16:9",
+              "duration": 10,
+              "resolution": "720p"
+            });
+                let response = Client::new()
+                    .post("https://api.apipod.ai/v1/videos/generations")
+                    .bearer_auth(env::var("APIPOD_API_KEY")?)
+                    .json(&payload)
+                    .send()
+                    .await?
+                    .error_for_status()?;
+
+                println!("{}", response.text().await?);
+                Ok(())
+            }
+        - lang: JavaScript
+          label: JavaScript
+          source: >-
+            const response = await
+            fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(
+              {
+                "model": "grok-imagine-1.5-fast",
+                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+                "aspect_ratio": "16:9",
+                "duration": 10,
+                "resolution": "720p"
+              }
+              ),
+            });
+
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+
+            console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。

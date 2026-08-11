@@ -1,0 +1,13 @@
+---
+title: "Gemini Omni Reference to Video"
+description: "Gemini Omni R2V 是 APIPod 为已配置 Gemini Omni 通道提供的参考生视频路由模式，支持使用 1 至 5 张参考图引导主体和视觉一致性。"
+openapi: "api-reference/openapi/gemini-omni--gemini-omni-r2v.zh.yaml POST /v1/videos/generations"
+---
+
+## APIPod 支持
+
+在 APIPod 中，公开模型 ID 为 gemini-omni-r2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。
+
+<Warning title="条件校验">必须提供 1–5 张参考图。</Warning>
+
+<Card title="查询任务状态" icon="search" href="/zh-CN/query-video-task">使用创建接口返回的 task_id 查询进度和结果。</Card>

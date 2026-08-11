@@ -1,0 +1,350 @@
+openapi: 3.1.0
+info:
+  title: WAN 2.7 Text to Video API
+  version: 1.0.0
+  description: Wan 2.7 Text to Video is a dedicated task mode in Alibaba's Wan
+    video family that creates video directly from text prompts without source
+    media. In APIPod, the public model ID is wan2.7-t2v. It supports
+    text-to-video, accepts text inputs, and returns results through asynchronous
+    video tasks.
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/videos/generations:
+    post:
+      summary: Create Generation Task
+      description: Wan 2.7 Text to Video is a dedicated task mode in Alibaba's Wan
+        video family that creates video directly from text prompts without
+        source media. In APIPod, the public model ID is wan2.7-t2v. It supports
+        text-to-video, accepts text inputs, and returns results through
+        asynchronous video tasks.
+      operationId: create-wan-wan2-7-t2v
+      tags:
+        - WAN 2.7 Text to Video
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  description: Public APIPod model ID.
+                  const: wan2.7-t2v
+                prompt:
+                  type: string
+                  description: Describe the scene, motion, camera, and sound.
+                  maxLength: 5000
+                image_urls:
+                  type: array
+                  items:
+                    type: string
+                  description: Reference image URLs, if supported by the selected channel.
+                  maxItems: 2
+                video_urls:
+                  type: array
+                  items:
+                    type: string
+                  description: Reference video URLs.
+                  maxItems: 1
+                audio_urls:
+                  type: array
+                  items:
+                    type: string
+                  description: Reference audio URLs.
+                  maxItems: 1
+                file_urls:
+                  type: array
+                  items:
+                    type: string
+                  description: Reference file URLs.
+                  maxItems: 1
+                aspect_ratio:
+                  type: string
+                  description: Video aspect ratio.
+                  default: 16:9
+                  enum:
+                    - adaptive
+                    - 16:9
+                    - 9:16
+                    - 1:1
+                resolution:
+                  type: string
+                  description: Output resolution.
+                  default: 1080P
+                  enum:
+                    - 480P
+                    - 720P
+                    - 1080P
+                    - 480p
+                    - 720p
+                    - 1080p
+                duration:
+                  type: integer
+                  description: Clip duration in seconds.
+                  default: 5
+                  minimum: 2
+                  maximum: 30
+                audio:
+                  type: boolean
+                  description: Generate or preserve audio when supported.
+                  default: true
+                seed:
+                  type: integer
+                  description: Optional deterministic random seed.
+                callback_url:
+                  type: string
+                  description: HTTPS endpoint that receives task completion notifications.
+              required:
+                - model
+                - prompt
+            example:
+              model: wan2.7-t2v
+              prompt: A premium product photograph on a dark studio set, precise typography,
+                soft rim lighting, highly detailed.
+              image_urls:
+                - https://cdn.example.com/reference-1.jpg
+              video_urls:
+                - https://cdn.example.com/reference.mp4
+              audio_urls:
+                - https://cdn.example.com/reference.mp3
+              aspect_ratio: 16:9
+              resolution: 1080P
+              duration: 5
+      responses:
+        "200":
+          description: Task accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP status code.
+                    const: 200
+                  message:
+                    type: string
+                    description: Response message.
+                    const: success
+                  data:
+                    type: object
+                    properties:
+                      task_id:
+                        type: string
+                        description: Public APIPod task ID used for status queries.
+                    required:
+                      - task_id
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "wan2.7-t2v",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "audio_urls": [
+                "https://cdn.example.com/reference.mp3"
+              ],
+              "aspect_ratio": "16:9",
+              "resolution": "1080P",
+              "duration": 5
+            }'
+        - lang: Python
+          label: Python
+          source: >-
+            import os
+
+            import requests
+
+
+            payload = {
+              "model": "wan2.7-t2v",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "audio_urls": [
+                "https://cdn.example.com/reference.mp3"
+              ],
+              "aspect_ratio": "16:9",
+              "resolution": "1080P",
+              "duration": 5
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+        - lang: Go
+          label: Go
+          source: >-
+            package main
+
+
+            import (
+                "bytes"
+                "encoding/json"
+                "fmt"
+                "net/http"
+                "os"
+            )
+
+
+            func main() {
+                payload := map[string]any{}
+                if err := json.Unmarshal([]byte(`{
+              "model": "wan2.7-t2v",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "audio_urls": [
+                "https://cdn.example.com/reference.mp3"
+              ],
+              "aspect_ratio": "16:9",
+              "resolution": "1080P",
+              "duration": 5
+            }`), &payload); err != nil {
+                    panic(err)
+                }
+                body, err := json.Marshal(payload)
+                if err != nil {
+                    panic(err)
+                }
+
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+                if err != nil {
+                    panic(err)
+                }
+                req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+                req.Header.Set("Content-Type", "application/json")
+
+                resp, err := http.DefaultClient.Do(req)
+                if err != nil {
+                    panic(err)
+                }
+                defer resp.Body.Close()
+                fmt.Println(resp.Status)
+            }
+        - lang: Rust
+          label: Rust
+          source: >-
+            use reqwest::Client;
+
+            use serde_json::json;
+
+            use std::env;
+
+
+            #[tokio::main]
+
+            async fn main() -> Result<(), Box<dyn std::error::Error>> {
+                let payload = json!({
+              "model": "wan2.7-t2v",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "audio_urls": [
+                "https://cdn.example.com/reference.mp3"
+              ],
+              "aspect_ratio": "16:9",
+              "resolution": "1080P",
+              "duration": 5
+            });
+                let response = Client::new()
+                    .post("https://api.apipod.ai/v1/videos/generations")
+                    .bearer_auth(env::var("APIPOD_API_KEY")?)
+                    .json(&payload)
+                    .send()
+                    .await?
+                    .error_for_status()?;
+
+                println!("{}", response.text().await?);
+                Ok(())
+            }
+        - lang: JavaScript
+          label: JavaScript
+          source: >-
+            const response = await
+            fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(
+              {
+                "model": "wan2.7-t2v",
+                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+                "image_urls": [
+                  "https://cdn.example.com/reference-1.jpg"
+                ],
+                "video_urls": [
+                  "https://cdn.example.com/reference.mp4"
+                ],
+                "audio_urls": [
+                  "https://cdn.example.com/reference.mp3"
+                ],
+                "aspect_ratio": "16:9",
+                "resolution": "1080P",
+                "duration": 5
+              }
+              ),
+            });
+
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+
+            console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

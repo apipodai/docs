@@ -1,0 +1,17 @@
+---
+title: "查询图片任务"
+description: "使用 task_id 查询异步图片生成任务的状态、进度、结果和错误信息。"
+openapi: "api-reference/openapi/query-image-task.zh.yaml GET /v1/images/status/{task_id}"
+---
+
+创建图片任务后，使用响应中的 `task_id` 调用本接口。任务完成前可以按合理间隔轮询；生产环境优先在创建请求中设置 `callback_url`。
+
+## 任务状态
+
+| `status` | 含义 | 建议动作 |
+| --- | --- | --- |
+| `pending` | 任务正在排队。 | 继续等待或轮询。 |
+| `processing` | 提供商正在生成。 | 继续等待或轮询。 |
+| `completed` | 任务完成，结果位于 `data.result`。 | 下载并持久化结果。 |
+| `failed` | 任务失败。 | 检查错误字段和请求日志。 |
+| `cancelled` | 任务已取消。 | 停止轮询。 |

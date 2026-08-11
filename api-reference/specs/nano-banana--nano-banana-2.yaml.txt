@@ -1,0 +1,276 @@
+openapi: 3.0.1
+info:
+  title: ''
+  description: ''
+  version: 1.0.0
+paths:
+  /v1/images/generations:
+    post:
+      summary: Nano Banana 2
+      deprecated: false
+      description: >-
+        **Nano Banana 2** model is Google's latest image generation model offers
+        advanced world knowledge, production-ready specs, subject consistency
+        and more, all at Flash speed.
+
+
+        ## Query Task Details
+
+
+        After submitting a task, you can check the task progress and obtain the
+        generated results through the unified query endpoint:
+
+
+
+        <Card title="Get Image Task Details" icon="lucide-search"
+        href="/query-image-task">Learn how to query task status and obtain
+        generated results</Card>
+
+
+
+        ::: tip[]
+
+
+        In a production environment, it is recommended to use the `callback_url`
+        parameter to receive automatic notifications upon generation completion
+        instead of polling the status endpoint.
+
+
+        :::
+      operationId: createNanoBanana2
+      tags:
+        - Image Models/Nano Banana
+        - nano banana
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NanoBanana2'
+            example:
+              model: nano-banana-2
+              aspect_ratio: '1:1'
+              prompt: >-
+                A humanoid figure with a vintage television set for a head,
+                featuring a green-tinted screen displaying a `Hello APIPod.ai`
+                writing in ASCII font. The figure is wearing a yellow raincoat,
+                and there are various wires and components attached to the
+                television. The background is cloudy and indistinct, suggesting
+                an outdoor setting
+              image_urls: []
+              quality: 1K
+              callback_url: https://www.apipod.ai/demo/callback
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitTaskResponse'
+          headers: {}
+          x-apidog-name: 成功
+      security:
+        - APIPod APIKey: []
+          x-apidog:
+            required: true
+            schemeGroups:
+              - id: FmeQ9BDQzTqrMiPYyXWmN
+                schemeIds:
+                  - APIPod APIKey
+            use:
+              id: FmeQ9BDQzTqrMiPYyXWmN
+      x-apidog-folder: Image Models/Nano Banana
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/1247502/apis/api-32455625-run
+components:
+  schemas:
+    NanoBanana2:
+      type: object
+      properties:
+        prompt:
+          type: string
+          description: Describe the content of the image to be generated.
+          maxLength: 4000
+        model:
+          type: string
+          const: nano-banana-2
+          description: Model ID, fixed nano-banana-2
+        image_urls:
+          type: array
+          items:
+            type: string
+            description: It must be a publicly accessible image address.
+          description: Input images to transform or use as reference(Max support 8 images).
+          maxItems: 14
+        aspect_ratio:
+          type: string
+          description: The generated image's width and height aspect ratio.
+          enum:
+            - '1:1'
+            - '1:4'
+            - '1:8'
+            - '2:3'
+            - '3:2'
+            - '3:4'
+            - '4:1'
+            - '4:3'
+            - '4:5'
+            - '5:4'
+            - '8:1'
+            - '9:16'
+            - '16:9'
+            - '21:9'
+          x-apidog-enum:
+            - value: '1:1'
+              name: ''
+              description: ''
+            - value: '1:4'
+              name: ''
+              description: ''
+            - value: '1:8'
+              name: ''
+              description: ''
+            - value: '2:3'
+              name: ''
+              description: ''
+            - value: '3:2'
+              name: ''
+              description: ''
+            - value: '3:4'
+              name: ''
+              description: ''
+            - value: '4:1'
+              name: ''
+              description: ''
+            - value: '4:3'
+              name: ''
+              description: ''
+            - value: '4:5'
+              name: ''
+              description: ''
+            - value: '5:4'
+              name: ''
+              description: ''
+            - value: '8:1'
+              name: ''
+              description: ''
+            - value: '9:16'
+              name: ''
+              description: ''
+            - value: '16:9'
+              name: ''
+              description: ''
+            - value: '21:9'
+              name: ''
+              description: ''
+          default: '1:1'
+        quality:
+          type: string
+          description: Output image resolution, support 4K.
+          enum:
+            - 512px
+            - 1K
+            - 2K
+            - 4K
+          x-apidog-enum:
+            - value: 512px
+              name: ''
+              description: ''
+            - value: 1K
+              name: ''
+              description: ''
+            - value: 2K
+              name: ''
+              description: ''
+            - value: 4K
+              name: ''
+              description: ''
+          default: 1K
+        callback_url:
+          type: string
+          description: Callback Notifications URL.
+      required:
+        - prompt
+        - model
+      x-apidog-orders:
+        - prompt
+        - model
+        - image_urls
+        - aspect_ratio
+        - quality
+        - callback_url
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SubmitTaskResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Response status code
+          enum:
+            - 200
+            - 401
+            - 500
+            - 400
+            - 403
+            - 402
+            - 404
+            - 429
+          x-apidog-enum:
+            - value: 200
+              name: Success
+              description: Request has been processed successfully
+            - value: 401
+              name: Unauthorized
+              description: Authentication credentials are missing or invalid
+            - value: 500
+              name: Authentication credentials are missing or invalid
+              description: An unexpected error occurred while processing the request
+            - value: 400
+              name: Bad Request
+              description: This is a bad request
+            - value: 403
+              name: Forbidden
+              description: Forbidden response
+            - value: 402
+              name: Insufficient quota
+              description: Account does not have enough credits to perform the operation
+            - value: 404
+              name: Not Found
+              description: The requested resource or endpoint does not exist
+            - value: 429
+              name: Rate limit
+              description: Request limit has been exceeded for this resource
+        message:
+          type: string
+          description: Response message, error description when failed
+        data:
+          type: object
+          properties:
+            task_id:
+              type: string
+              description: >-
+                Unique identifier for asynchronous tasks.can be used with Get
+                Task Details endpoint to query task status
+          x-apidog-orders:
+            - task_id
+          required:
+            - task_id
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+        - code
+        - message
+        - data
+      required:
+        - code
+        - message
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+  securitySchemes:
+    APIPod APIKey:
+      type: bearer
+      scheme: bearer
+servers:
+  - url: https://api.apipod.ai
+    description: 正式环境
+security: []

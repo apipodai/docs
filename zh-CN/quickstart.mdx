@@ -1,0 +1,90 @@
+---
+title: "快速开始"
+description: "创建并轮询第一个 APIPod 图片任务。"
+icon: "rocket"
+---
+
+本快速开始将创建一个 GPT Image 2 任务，保存 APIPod 任务 ID，并轮询结果接口。
+
+<Steps>
+  <Step title="创建 API Key">
+    登录 [APIPod 控制台](https://www.apipod.ai/console/api-keys)，创建 API Key，并在显示时妥善保存。
+  </Step>
+  <Step title="设置本地环境变量">
+
+    ```bash
+    export APIPOD_API_KEY="your-api-key"
+    export APIPOD_IDEMPOTENCY_KEY="image-$(date +%s)"
+    ```
+
+    每次逻辑创建操作使用一个稳定且唯一的幂等键。如果网络故障导致结果不确定，请使用同一个键和完全相同的 JSON 请求体重试。
+  </Step>
+  <Step title="创建图片任务">
+
+    ```bash
+    curl https://api.apipod.ai/v1/images/generations \
+      -H "Authorization: Bearer $APIPOD_API_KEY" \
+      -H "Content-Type: application/json" \
+      -H "Idempotency-Key: $APIPOD_IDEMPOTENCY_KEY" \
+      -d '{
+        "model": "gpt-image-2",
+        "prompt": "A clean product photograph of a translucent glass speaker, soft studio lighting",
+        "aspect_ratio": "1:1",
+        "resolution": "1K"
+      }'
+    ```
+
+    创建成功时返回以下结构：
+
+    ```json
+    {
+      "code": 200,
+      "message": "success",
+      "data": {
+        "task_id": "img_example_task_id"
+      }
+    }
+    ```
+  </Step>
+  <Step title="轮询任务">
+
+    ```bash
+    export APIPOD_TASK_ID="img_example_task_id"
+
+    curl "https://api.apipod.ai/v1/images/status/$APIPOD_TASK_ID" \
+      -H "Authorization: Bearer $APIPOD_API_KEY"
+    ```
+
+    状态为 `pending` 或 `processing` 时继续轮询；状态变为 `completed`、`failed` 或 `cancelled` 时停止。
+  </Step>
+</Steps>
+
+## 完成响应
+
+```json
+{
+  "code": 200,
+  "message": "success",
+  "data": {
+    "task_id": "img_example_task_id",
+    "status": "completed",
+    "result": [
+      "https://example.com/generated-image.png"
+    ],
+    "completed_at": 1786358400
+  }
+}
+```
+
+<Warning>
+  创建接口返回 HTTP `200` 只表示任务已受理，并不表示图片或视频已经生成完成。
+</Warning>
+
+<CardGroup cols={2}>
+  <Card title="GPT Image 2 参数" icon="image" href="/zh-CN/gpt-image-2/gpt-image-2">
+    查看全部支持字段和五种语言请求示例。
+  </Card>
+  <Card title="任务生命周期" icon="clock-3" href="/zh-CN/asynchronous-tasks">
+    补齐生产级轮询、Webhook 和终态处理。
+  </Card>
+</CardGroup>

@@ -1,0 +1,13 @@
+---
+title: "Seedance 2.0 Fast Reference to Video"
+description: "Seedance 2.0 Fast 参考生视频是低延迟路由，使用参考图片、视频或音频引导主体、动作、视觉风格和声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。"
+openapi: "api-reference/openapi/seedance--2-0-fast-reference-to-video.zh.yaml POST /v1/videos/generations"
+---
+
+## APIPod 支持
+
+在 APIPod 中，公开模型 ID 为 seedance-2.0-fast-r2v，支持文生视频、图生视频、视频到视频；接受文本、图片、音频、视频输入，并通过异步视频任务返回结果。
+
+<Warning title="条件校验">必须至少提供一种参考素材；图片、视频和音频的数量上限以 API 参数定义为准。</Warning>
+
+<Card title="查询任务状态" icon="search" href="/zh-CN/query-video-task">使用创建接口返回的 task_id 查询进度和结果。</Card>

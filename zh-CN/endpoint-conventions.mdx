@@ -1,0 +1,72 @@
+---
+title: "端点约定"
+description: "了解 APIPod URL、请求头、响应结构、请求 ID 和幂等语义。"
+icon: "route"
+---
+
+## 基础地址与版本
+
+本文档中的所有端点均使用：
+
+```text
+https://api.apipod.ai
+```
+
+稳定公开 API 位于 `/v1` 下。JSON 请求体使用 UTF-8 编码，并发送 `Content-Type: application/json`。
+
+## 媒体端点
+
+| 方法 | 路径 | 用途 |
+| --- | --- | --- |
+| `POST` | `/v1/images/generations` | 创建异步图片任务 |
+| `GET` | `/v1/images/status/{task_id}` | 查询当前认证账号拥有的图片任务 |
+| `POST` | `/v1/videos/generations` | 创建异步视频任务 |
+| `GET` | `/v1/videos/status/{task_id}` | 查询当前认证账号拥有的视频任务 |
+
+## 请求头与响应头
+
+| 请求头/响应头 | 要求 | 说明 |
+| --- | --- | --- |
+| `Authorization` | 模型和任务端点必填 | `Bearer <APIPOD_API_KEY>` |
+| `Content-Type` | JSON 请求体必填 | `application/json` |
+| `Idempotency-Key` | 媒体创建端点建议发送 | 防止跨重试重复创建任务 |
+| `X-Request-ID` | 响应 | API 请求追踪标识 |
+| `X-Request-Cost` | 支持的计费端点响应 | 可用时返回格式化请求成本 |
+| `X-Idempotent-Replay` | 重放响应 | 重放已保存的创建响应时为 `true` |
+| `Retry-After` | 部分可重试错误 | 建议等待秒数 |
+
+## 响应结构
+
+图片和视频端点通常返回 APIPod 标准结构：
+
+```json
+{
+  "code": 200,
+  "message": "success",
+  "data": {}
+}
+```
+
+协议兼容端点可能保留原生响应格式。例如 `/v1/models` 返回 OpenAI 兼容模型列表，认证失败也可能返回 OpenAI 兼容的 `error` 对象。客户端应以当前调用的端点类别契约为准。
+
+## 媒体创建幂等性
+
+`Idempotency-Key` 是 `POST /v1/images/generations` 和 `POST /v1/videos/generations` 的可选请求头，但生产环境强烈建议使用。
+
+- 最大长度为 255 个字符。
+- 幂等范围包含当前 API Key、HTTP 方法和路由。
+- 使用相同键和等价 JSON 请求体时会重放已保存响应。
+- 相同键配合不同请求会返回 HTTP `409` 和 `idempotency_conflict`。
+- 首次请求仍在处理时重试会返回 HTTP `409`、`idempotency_in_progress` 和 `Retry-After: 1`。
+- 当前服务实现会保留已完成幂等记录 7 天。
+
+<Warning>
+  新 HTTP 请求只有携带原始 `Idempotency-Key` 才能受到幂等保护。发送首次请求前，应先把该键与业务操作持久化保存。
+</Warning>
+
+## ID 与时间戳
+
+- `task_id` 标识公开异步媒体任务，是状态查询的必需参数。
+- `X-Request-ID` 标识 HTTP 请求，应写入运行日志。
+- 任务状态响应中的 `completed_at` 是 Unix 秒级时间戳。
+- Webhook 中的 `created_at` 和 `completed_at` 是 JSON 时间戳。

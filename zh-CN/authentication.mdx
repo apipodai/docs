@@ -1,0 +1,53 @@
+---
+title: "身份认证"
+description: "认证 APIPod API 请求并保护访问凭证。"
+icon: "key-round"
+---
+
+在 [APIPod 控制台](https://www.apipod.ai/console/api-keys)创建和管理 API Key。服务端客户端应通过标准 Bearer 请求头发送密钥。
+
+```http
+Authorization: Bearer <APIPOD_API_KEY>
+```
+
+```bash
+curl https://api.apipod.ai/v1/account/status \
+  -H "Authorization: Bearer $APIPOD_API_KEY"
+```
+
+## 支持的凭证请求头
+
+| 方式 | 适用场景 |
+| --- | --- |
+| `Authorization: Bearer <key>` | APIPod 和 OpenAI 兼容客户端的推荐方式 |
+| `x-api-key: <key>` | Anthropic 兼容客户端 |
+| `x-goog-api-key: <key>` | Gemini 兼容客户端 |
+| `?key=<key>` | Gemini 兼容回退方式；可使用请求头时应避免放入 URL |
+
+<Note>
+  APIPod 管理令牌是另一类凭证，不能用于模型 API。
+</Note>
+
+## 安全保存密钥
+
+- 从服务端环境变量或密钥管理服务读取 API Key。
+- 不要把密钥写入浏览器 JavaScript、移动端二进制、公开仓库、日志或 URL。
+- 开发、预发布和生产环境使用不同密钥。
+- 一旦怀疑泄露，立即撤销并更换密钥。
+- 根据需要配置过期时间、模型或功能权限、额度限制、速率限制和 IP 白名单。
+
+## 认证失败
+
+认证失败通常使用 OpenAI 兼容错误结构：
+
+```json
+{
+  "error": {
+    "message": "Authentication required. Please provide a valid API key or sign in.",
+    "type": "invalid_request_error",
+    "code": "invalid_api_key"
+  }
+}
+```
+
+无效、已撤销、已过期、IP 不允许或不满足限制的 API Key 会在模型请求分发前被拒绝。客户端处理方式请参阅[错误码](/zh-CN/error-codes)。

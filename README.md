@@ -1,43 +1,81 @@
-# Mintlify Starter Kit
+# APIPod Documentation
 
-Use the starter kit to get your docs deployed and ready to customize.
-
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
-
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
-
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
+This repository contains the bilingual Mintlify documentation published at
+[`https://docs.apipod.ai`](https://docs.apipod.ai). English is the default
+language and lives at the repository root without a URL prefix. Simplified
+Chinese content lives under `zh-CN/` and is published with the `/zh-CN` URL
+prefix. Both languages use the same navigation and page structure.
 
 ## Development
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
+Use Node.js 22 LTS, then install the locked project dependencies and run the
+preview from this directory:
 
-```
-npm i -g mint
-```
-
-Run the following command at the root of your documentation, where your `docs.json` is located:
-
-```
-mint dev
+```bash
+npm ci
+npm run dev
 ```
 
-View your local preview at `http://localhost:3000`.
+View the preview at `http://localhost:3333`.
 
-## Publishing changes
+## Validation
 
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
+Run the repository checks before opening a pull request:
 
-## Need help?
+```bash
+npm run validate
+```
 
-### Troubleshooting
+The custom validator checks source coverage, bilingual page parity, navigation
+targets, redirects, internal links, frontmatter, code fences, and translation
+placeholder leaks.
 
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
+With `npm run dev -- --port 3333` running, validate that the bilingual pages,
+OpenAPI request schemas, code examples, and responses are present in rendered
+HTML:
 
-### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+```bash
+npm run validate:rendered
+```
+
+## Synchronizing the legacy source
+
+The initial content was migrated from the former Apidog-hosted site. Model pages
+are then rebuilt by `scripts/enhance-model-pages.mjs` using the current APIPod
+CUE/Go contract and curated authoritative model sources. To refresh
+the checked-in snapshot while that legacy source remains available:
+
+```bash
+npm run sync
+```
+
+To discover the currently enabled asynchronous image and video models from a
+local APIPod API (`http://localhost:8080` by default), fetch their public schemas,
+and regenerate the bilingual pages, run:
+
+```bash
+npm run sync:live
+```
+
+Set `APIPOD_API_ORIGIN` when the API is running elsewhere. If a public model has
+no database schema yet, the sync command records a small source snapshot and the
+page generator fills its request contract from the APIPod CUE/adapter rules.
+
+Use `npm run sync:resume` to continue after a transient network failure. The
+migration manifest records exact sitemap coverage. Extracted OpenAPI fragments
+are stored as `.yaml.txt` snapshots under `api-reference/specs/` for
+traceability. The normalized OpenAPI 3.1 sources used by Mintlify's interactive
+API Reference are generated under `api-reference/openapi/` from the current
+APIPod request contract.
+
+## Publishing
+
+Connect this repository from the Mintlify dashboard. Changes on the configured
+production branch deploy automatically.
+
+## Troubleshooting
+
+- If the preview does not start, confirm `node --version` reports Node 22 and
+  run `npm ci` again.
+- If a page returns 404, run `node scripts/validate-docs.mjs` and verify its
+  route is present in `docs.json`.

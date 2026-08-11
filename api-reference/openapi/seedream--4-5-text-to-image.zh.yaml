@@ -1,0 +1,280 @@
+openapi: 3.1.0
+info:
+  title: Seedream V4.5 Text to Image API
+  version: 1.0.0
+  description: Seedream 4.5 是字节跳动的文生图模型，重点提升提示词遵循、画面构图、视觉风格和文字渲染能力。在 APIPod 中，公开模型
+    ID 为 seedream-v4.5，支持文生图；接受文本输入，并通过异步图片任务返回结果。
+servers:
+  - url: https://api.apipod.ai
+    description: 生产环境
+paths:
+  /v1/images/generations:
+    post:
+      summary: 创建生成任务
+      description: Seedream 4.5 是字节跳动的文生图模型，重点提升提示词遵循、画面构图、视觉风格和文字渲染能力。在 APIPod 中，公开模型
+        ID 为 seedream-v4.5，支持文生图；接受文本输入，并通过异步图片任务返回结果。
+      operationId: create-seedream-4-5-text-to-image
+      tags:
+        - Seedream V4.5 Text to Image
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  description: APIPod 公开模型 ID。
+                  const: seedream-v4.5
+                prompt:
+                  type: string
+                  description: 描述要生成的图片或编辑要求。 最大字符串长度：4000。
+                image_urls:
+                  type: array
+                  items:
+                    type: string
+                  description: 源图片或参考图片。 最多项目数：14。
+                aspect_ratio:
+                  type: string
+                  description: 输出宽高比。
+                  default: 1:1
+                  enum:
+                    - 1:1
+                    - 2:3
+                    - 3:2
+                    - 3:4
+                    - 4:3
+                    - 16:9
+                    - 9:16
+                    - 21:9
+                quality:
+                  type: string
+                  description: 输出分辨率档位。
+                  default: 2K
+                  enum:
+                    - 2K
+                    - 4K
+                size:
+                  type: string
+                  description: 所选通道接受的可选明确输出尺寸。
+                output_format:
+                  type: string
+                  description: 输出格式。
+                  enum:
+                    - png
+                    - jpeg
+                n:
+                  type: integer
+                  description: 要生成的图片数量；Seedream 5.0 Lite 最多支持 15 张。 最小值：1。 最大值：1。
+                  default: 1
+                callback_url:
+                  type: string
+                  description: 接收任务完成通知的 HTTPS 地址。
+              required:
+                - model
+                - prompt
+            example:
+              model: seedream-v4.5
+              prompt: A premium product photograph on a dark studio set, precise typography,
+                soft rim lighting, highly detailed.
+              aspect_ratio: 16:9
+              quality: 2K
+              size: 2K
+              n: 1
+      responses:
+        "200":
+          description: 任务已受理
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP 状态码。
+                    const: 200
+                  message:
+                    type: string
+                    description: 响应消息。
+                    const: success
+                  data:
+                    type: object
+                    properties:
+                      task_id:
+                        type: string
+                        description: 用于查询任务状态的 APIPod 任务 ID。
+                    required:
+                      - task_id
+                    description: 响应数据。
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: img_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/images/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "seedream-v4.5",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "aspect_ratio": "16:9",
+              "quality": "2K",
+              "size": "2K",
+              "n": 1
+            }'
+        - lang: Python
+          label: Python
+          source: >-
+            import os
+
+            import requests
+
+
+            payload = {
+              "model": "seedream-v4.5",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "aspect_ratio": "16:9",
+              "quality": "2K",
+              "size": "2K",
+              "n": 1
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/images/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+        - lang: Go
+          label: Go
+          source: >-
+            package main
+
+
+            import (
+                "bytes"
+                "encoding/json"
+                "fmt"
+                "net/http"
+                "os"
+            )
+
+
+            func main() {
+                payload := map[string]any{}
+                if err := json.Unmarshal([]byte(`{
+              "model": "seedream-v4.5",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "aspect_ratio": "16:9",
+              "quality": "2K",
+              "size": "2K",
+              "n": 1
+            }`), &payload); err != nil {
+                    panic(err)
+                }
+                body, err := json.Marshal(payload)
+                if err != nil {
+                    panic(err)
+                }
+
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/images/generations", bytes.NewReader(body))
+                if err != nil {
+                    panic(err)
+                }
+                req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+                req.Header.Set("Content-Type", "application/json")
+
+                resp, err := http.DefaultClient.Do(req)
+                if err != nil {
+                    panic(err)
+                }
+                defer resp.Body.Close()
+                fmt.Println(resp.Status)
+            }
+        - lang: Rust
+          label: Rust
+          source: >-
+            use reqwest::Client;
+
+            use serde_json::json;
+
+            use std::env;
+
+
+            #[tokio::main]
+
+            async fn main() -> Result<(), Box<dyn std::error::Error>> {
+                let payload = json!({
+              "model": "seedream-v4.5",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "aspect_ratio": "16:9",
+              "quality": "2K",
+              "size": "2K",
+              "n": 1
+            });
+                let response = Client::new()
+                    .post("https://api.apipod.ai/v1/images/generations")
+                    .bearer_auth(env::var("APIPOD_API_KEY")?)
+                    .json(&payload)
+                    .send()
+                    .await?
+                    .error_for_status()?;
+
+                println!("{}", response.text().await?);
+                Ok(())
+            }
+        - lang: JavaScript
+          label: JavaScript
+          source: >-
+            const response = await
+            fetch("https://api.apipod.ai/v1/images/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(
+              {
+                "model": "seedream-v4.5",
+                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+                "aspect_ratio": "16:9",
+                "quality": "2K",
+                "size": "2K",
+                "n": 1
+              }
+              ),
+            });
+
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+
+            console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。

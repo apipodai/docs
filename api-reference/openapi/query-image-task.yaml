@@ -1,0 +1,98 @@
+openapi: 3.1.0
+info:
+  title: Query Image Task API
+  version: 1.0.0
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/images/status/{task_id}:
+    get:
+      summary: Get Generation Task
+      operationId: get-query-image-task
+      tags:
+        - Image tasks
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: APIPod asynchronous task ID returned by the create endpoint.
+          schema:
+            type: string
+          example: img_task_01JEXAMPLE
+      responses:
+        "200":
+          description: Task status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP status code.
+                    const: 200
+                  message:
+                    type: string
+                    description: Response message.
+                    const: success
+                  data:
+                    type: object
+                    properties:
+                      task_id:
+                        type: string
+                        description: Public APIPod task ID.
+                      status:
+                        type: string
+                        description: Public task status.
+                        enum:
+                          - pending
+                          - processing
+                          - completed
+                          - failed
+                          - cancelled
+                      progress:
+                        type: integer
+                        description: Completion progress when available.
+                        minimum: 0
+                        maximum: 100
+                      result:
+                        type: array
+                        items:
+                          type: string
+                        description: Generated artifact URLs returned after completion.
+                      completed_at:
+                        type: integer
+                        description: Unix completion timestamp in seconds.
+                      error_code:
+                        type: string
+                        description: Stable machine-readable asynchronous error code.
+                      error_message:
+                        type: string
+                        description: Client-safe asynchronous error message.
+                    required:
+                      - task_id
+                      - status
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: img_task_01JEXAMPLE
+                  status: completed
+                  progress: 100
+                  result:
+                    - https://cdn.example.com/generated.png
+                  completed_at: 1786358400
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.
