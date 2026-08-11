@@ -68,7 +68,7 @@ function profile(page) {
     if (video) {
       const i2v = /(?:i2v|r2v)/.test(page.modelId || slug);
       const r2v = /r2v/.test(page.modelId || slug);
-      return { source: sources.wan, en: `${title} exposes Alibaba's Wan video generation workflow through APIPod's asynchronous video API. Alibaba's Wan family covers text-to-video, image-to-video, reference-to-video, and video editing with controllable motion and scene consistency. This public ID selects ${r2v ? "reference-to-video with image, video, audio, or file references" : i2v ? "image-to-video with a required first frame and optional last frame" : "text-to-video without reference media"}; the exact duration, resolution, audio, and reference-file limits follow APIPod's CUE contract and configured channel.`, zh: `${title} 通过 APIPod 异步视频接口提供阿里 Wan Video生成工作流。Wan 系列覆盖文生视频、图生视频、参考生视频和视频编辑，并支持可控运动与场景一致性。该公开 ID 对应${r2v ? "支持图片、视频、音频或文件参考素材的参考生视频" : i2v ? "必须提供首帧、可选提供尾帧的图生视频" : "不使用参考素材的文生视频"}；具体时长、分辨率、音频和参考文件限制以 APIPod CUE 契约及已配置通道为准。` };
+      return { source: sources.wan, en: `${title} exposes Alibaba's Wan video generation workflow through APIPod's asynchronous video API. Alibaba's Wan family covers text-to-video, image-to-video, reference-to-video, and video editing with controllable motion and scene consistency. This public ID selects ${r2v ? "reference-to-video with image, video, audio, or file references" : i2v ? "image-to-video with a required first frame and optional last frame" : "text-to-video without reference media"}; the exact duration, resolution, audio, and reference-file limits follow the configured APIPod model Schema.`, zh: `${title} 通过 APIPod 异步视频接口提供阿里 Wan Video生成工作流。Wan 系列覆盖文生视频、图生视频、参考生视频和视频编辑，并支持可控运动与场景一致性。该公开 ID 对应${r2v ? "支持图片、视频、音频或文件参考素材的参考生视频" : i2v ? "必须提供首帧、可选提供尾帧的图生视频" : "不使用参考素材的文生视频"}；具体时长、分辨率、音频和参考文件限制以配置的 APIPod 模型 Schema 为准。` };
     }
     const edit = slug.includes("image-to-image");
     const pro = slug.endsWith("-pro");
@@ -79,7 +79,7 @@ function profile(page) {
     const ref = slug.endsWith("fast-ref");
     const quality = slug.includes("quality");
     const k4 = slug.endsWith("4k");
-    return { source: sources.veo, en: `${title} provides Google Veo 3.1 through APIPod's async video endpoint. Google's current Gemini documentation describes Veo 3.1 as video generation with native audio, first/last-frame control, image-based direction, and extension. In APIPod, this public ID selects the ${quality ? "quality-focused" : "fast"} route${k4 ? " with a 4K target" : ""}; the exposed contract supports ${ref ? "up to three subject or style reference images and an 8-second clip" : "optional first/last-frame images and 4, 6, or 8-second clips"} at 16:9 or 9:16.`, zh: `${title} 通过 APIPod 异步视频接口提供 Google Veo 3.1。Google 当前 Gemini 文档将 Veo 3.1 定位为支持原生音频、首尾帧控制、图片引导和视频续写的视频生成模型。在 APIPod 中，该公开 ID 选择${quality ? "质量优先" : "快速"}路由${k4 ? "并以 4K 为目标" : ""}；当前契约${ref ? "支持最多 3 张主体或风格参考图，并固定生成 8 秒视频" : "支持可选首尾帧图片，生成 4、6 或 8 秒视频"}，宽高比为 16:9 或 9:16。` };
+    return { source: sources.veo, en: `${title} provides Google Veo 3.1 through APIPod's async video endpoint. Google's current Gemini documentation describes Veo 3.1 as video generation with native audio, first/last-frame control, image-based direction, and extension. In APIPod, this public ID selects the ${quality ? "quality-focused" : "fast"} route${k4 ? " with a 4K target" : ""}; the configured Schema exposes ${ref ? "up to three subject or style reference images" : "optional first/last-frame images"} at 16:9 or 9:16, while clip duration is fixed at 8 seconds and is not a request field.`, zh: `${title} 通过 APIPod 异步视频接口提供 Google Veo 3.1。Google 当前 Gemini 文档将 Veo 3.1 定位为支持原生音频、首尾帧控制、图片引导和视频续写的视频生成模型。在 APIPod 中，该公开 ID 选择${quality ? "质量优先" : "快速"}路由${k4 ? "并以 4K 为目标" : ""}；配置 Schema ${ref ? "开放最多 3 张主体或风格参考图" : "开放可选首尾帧图片"}以及 16:9、9:16 宽高比，视频时长固定为 8 秒，因此不作为请求字段暴露。` };
   }
   if (slug.startsWith("seedance/")) {
     const modelID = page.modelId || "";
@@ -110,10 +110,10 @@ function profile(page) {
   if (slug.startsWith("minimax-h3/")) {
     const mode = slug.endsWith("t2v") ? "pure text-to-video; reference media is rejected" : slug.endsWith("i2v") ? "first-frame generation with one required image and one optional last frame" : "reference-to-video with up to nine images, three videos, and three audio files";
     const modeZh = slug.endsWith("t2v") ? "纯文生视频，不允许参考素材" : slug.endsWith("i2v") ? "首帧生视频，必须提供首帧并可选提供尾帧" : "参考生视频，最多支持 9 张图片、3 个视频和 3 个音频";
-    return { source: sources.minimax, en: `${title} exposes MiniMax H3 through APIPod's asynchronous multimodal video endpoint. MiniMax describes H3 as an open general-purpose model that understands text, image, video, and audio together, supports text-to-video, first/last-frame image-to-video, reference generation, and video editing, with 768P/2K output and 4-15 second clips. APIPod's public contract fixes resolution at 2K and this ID is for ${mode}.`, zh: `${title} 通过 APIPod 异步多模态视频接口接入 MiniMax H3。MiniMax 将 H3 定位为可统一理解文本、图片、视频和音频的开放通用模型，支持文生视频、首尾帧图生视频、参考生成和视频编辑，官方输出规格为 768P/2K、4–15 秒。APIPod 公开契约将分辨率固定为 2K，本 ID 对应${modeZh}。` };
+    return { source: sources.minimax, en: `${title} exposes MiniMax H3 through APIPod's asynchronous multimodal video endpoint. MiniMax describes H3 as an open general-purpose model that understands text, image, video, and audio together, supports text-to-video, first/last-frame image-to-video, reference generation, and video editing, with 768P/2K output and 4-15 second clips. APIPod's public contract supports both 768P and 2K, and this ID is for ${mode}.`, zh: `${title} 通过 APIPod 异步多模态视频接口接入 MiniMax H3。MiniMax 将 H3 定位为可统一理解文本、图片、视频和音频的开放通用模型，支持文生视频、首尾帧图生视频、参考生成和视频编辑，官方输出规格为 768P/2K、4–15 秒。APIPod 公开契约同时支持 768P 和 2K，本 ID 对应${modeZh}。` };
   }
   if (slug.startsWith("kling/")) return { source: sources.kling, en: `${title} exposes Kling's motion-control workflow through APIPod's asynchronous video API. The model transfers the motion and timing of a reference video to a character or subject in a reference image while preserving the source audio when requested. APIPod requires one image and one video, accepts character orientation and standard/pro quality controls, and applies the model's media size and duration limits.`, zh: `${title} 通过 APIPod 异步视频接口提供 Kling 动作控制工作流。该模型将参考视频中的动作和节奏迁移到参考图片中的人物或主体，并可按请求保留原始音频。APIPod 要求同时提供 1 张图片和 1 个视频，支持人物朝向、标准/专业质量控制，并遵循模型的素材大小及时长限制。` };
-  if (slug.startsWith("motion-control/")) return { source: sources.motionControl, en: `${title} is an APIPod public video-to-video motion-control route. It combines a reference image with a motion video and returns an asynchronous generation task; use the task status endpoint to retrieve the generated artifact. Input validation and provider-specific limits are defined by the current APIPod CUE and adapter contract.`, zh: `${title} 是 APIPod 的公开视频到视频动作控制路由。它结合参考图片和动作视频创建异步生成任务，完成后通过任务状态接口获取结果。输入校验和提供商特定限制以当前 APIPod CUE 规范及适配器契约为准。` };
+  if (slug.startsWith("motion-control/")) return { source: sources.motionControl, en: `${title} is an APIPod public video-to-video motion-control route. It combines a reference image with a motion video and returns an asynchronous generation task; use the task status endpoint to retrieve the generated artifact. Public fields and limits are defined by the configured APIPod model Schema.`, zh: `${title} 是 APIPod 的公开视频到视频动作控制路由。它结合参考图片和动作视频创建异步生成任务，完成后通过任务状态接口获取结果。公开字段和限制以配置的 APIPod 模型 Schema 为准。` };
   return null;
 }
 
@@ -126,229 +126,58 @@ function resolve(spec, schema) {
   return schema.$ref.split("/").slice(1).reduce((value, key) => value?.[key], spec) || {};
 }
 
+function normalizeConfiguredValue(value, type) {
+  if (type === "integer" || type === "number") {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : value;
+  }
+  if (type === "boolean" && typeof value === "string") {
+    if (value === "true") return true;
+    if (value === "false") return false;
+  }
+  return value;
+}
+
+function configuredSchema(spec, source, page, { request = false } = {}) {
+  const dereference = (schema, seen = new Set()) => {
+    if (!schema || typeof schema !== "object") return schema;
+    if (schema.$ref) {
+      if (seen.has(schema.$ref)) return {};
+      return dereference(resolve(spec, schema), new Set([...seen, schema.$ref]));
+    }
+
+    const normalized = structuredClone(schema);
+    const order = normalized["x-apipod-order-properties"] || Object.keys(normalized.properties || {});
+    if (normalized.properties) {
+      const names = [...new Set([...order, ...Object.keys(normalized.properties)])].filter((name) => normalized.properties[name]);
+      normalized.properties = Object.fromEntries(names.map((name) => [name, dereference(normalized.properties[name], seen)]));
+    }
+    if (normalized.items) normalized.items = dereference(normalized.items, seen);
+    if (normalized.type === "array" && !normalized.items) normalized.items = { type: "string" };
+    if (normalized.enum) normalized.enum = normalized.enum.map((value) => normalizeConfiguredValue(value, normalized.type));
+    if (normalized.default !== undefined) {
+      normalized.default = normalizeConfiguredValue(normalized.default, normalized.type);
+      if (normalized.type === "array" && !Array.isArray(normalized.default)) delete normalized.default;
+    }
+    for (const key of Object.keys(normalized)) if (key.startsWith("x-apipod-")) delete normalized[key];
+    return normalized;
+  };
+
+  const schema = dereference(source);
+  if (request && schema.properties?.model) {
+    schema.properties.model.const = page.modelId;
+    schema.properties.model.description = "Public APIPod model ID.";
+    delete schema.properties.model.default;
+  }
+  return schema;
+}
+
 const string = (description, extra = {}) => ({ type: "string", description, ...extra });
 const integer = (description, extra = {}) => ({ type: "integer", description, ...extra });
-const boolean = (description, extra = {}) => ({ type: "boolean", description, ...extra });
 const strings = (description, extra = {}) => ({ type: "array", items: { type: "string" }, description, ...extra });
 
 function objectSchema(properties, required = []) {
   return { type: "object", properties, required };
-}
-
-function modelField(model) {
-  return string("Public APIPod model ID.", { const: model });
-}
-
-function currentRequestSchema(page, raw) {
-  const slug = page.slug;
-  const model = {
-    "gpt-image-2/gpt-image-2": "gpt-image-2",
-    "gpt-image-2/gpt-image-2-lite": "gpt-image-2-lite",
-    "gpt-image-2/gpt-image-2-fast": "gpt-image-2-fast",
-    "veo/3-1-fast": "veo3-1-fast",
-    "veo/3-1-fast-4k": "veo3-1-fast-4k",
-    "veo/3-1-fast-ref": "veo3-1-fast-ref",
-    "veo/3-1-quality": "veo3-1-quality",
-    "veo/3-1-quality-4k": "veo3-1-quality-4k",
-    "gemini-omni/gemini-omni-t2v": "gemini-omni-t2v",
-    "gemini-omni/gemini-omni-i2v": "gemini-omni-i2v",
-    "gemini-omni/gemini-omni-r2v": "gemini-omni-r2v",
-    "gemini-omni/gemini-omni-extend": "gemini-omni-extend",
-    "grok-imagine-1-5/grok-imagine-1-5-fast": "grok-imagine-1.5-fast",
-    "grok-imagine-1-5/grok-imagine-1-5-preview": "grok-imagine-1.5-preview",
-    "sora-2/sora-2-vip": "sora-2-vip",
-  }[slug] || page.modelId || raw?.properties?.model?.const;
-
-  if (slug.startsWith("gpt-image-2/")) {
-    const edit = slug.endsWith("-edit");
-    return objectSchema({
-      model: modelField(model),
-      prompt: string("Describe the image to generate or the edit to apply.", { maxLength: 4000 }),
-      image_urls: strings("Publicly accessible reference images. The main model supports both generation and editing.", { maxItems: 6 }),
-      aspect_ratio: string("Output aspect ratio.", { default: "auto", enum: ["auto", "1:1", "1:2", "1:3", "2:1", "2:3", "3:1", "3:2", "3:4", "4:3", "4:5", "5:4", "16:9", "9:16", "21:9", "9:21"] }),
-      resolution: string("Output resolution tier.", { enum: ["1K", "2K", "4K"] }),
-      quality: string("Rendering fidelity. Legacy 1K/2K/4K values remain accepted on gpt-image-2 when resolution is omitted.", { default: "auto", enum: ["auto", "low", "medium", "high"] }),
-      output_format: string("Output image format.", { enum: ["png", "jpeg", "webp"] }),
-      output_compression: integer("Compression percentage for formats that support it.", { minimum: 0, maximum: 100 }),
-      background: string("Background handling.", { enum: ["auto", "opaque"] }),
-    }, edit ? ["model", "prompt", "image_urls"] : ["model", "prompt"]);
-  }
-
-  if (slug.startsWith("nano-banana/")) {
-    const is2 = slug.endsWith("nano-banana-2");
-    return objectSchema({
-      model: modelField(model),
-      prompt: string("Describe the image to create or the edit to apply.", { maxLength: 4000 }),
-      image_urls: strings("Reference images for editing, composition, or subject consistency.", { maxItems: is2 ? 14 : 8 }),
-      aspect_ratio: string("Output aspect ratio.", { default: "auto", enum: is2 ? ["auto", "1:1", "1:4", "1:8", "2:3", "3:2", "3:4", "4:1", "4:3", "4:5", "5:4", "8:1", "16:9", "9:16", "21:9"] : ["auto", "1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "16:9", "9:16", "21:9"] }),
-      quality: string("Output resolution tier.", { default: "1K", enum: is2 ? ["512px", "1K", "2K", "4K"] : ["1K", "2K", "4K"] }),
-      resolution: string("Alias for the output resolution tier.", { enum: is2 ? ["512", "512px", "1K", "2K", "4K"] : ["1K", "2K", "4K"] }),
-      google_search: boolean("Allow the model to use Google Search grounding when the selected channel supports it.", { default: false }),
-      callback_url: string("HTTPS endpoint that receives task completion notifications."),
-    }, ["model", "prompt"]);
-  }
-
-  if (slug.startsWith("seedream/")) {
-    const v5 = slug.includes("5-0") || page.modelId?.startsWith("seedream-5");
-    const edit = slug.includes("image-to-image") || slug.endsWith("-edit") || page.modelId?.endsWith("-edit");
-    return objectSchema({
-      model: modelField(model),
-      prompt: string("Describe the image or requested edit.", { maxLength: v5 ? 2000 : 4000 }),
-      image_urls: strings("Source or reference images.", { maxItems: 14 }),
-      aspect_ratio: string("Output aspect ratio.", { default: "1:1", enum: v5 ? ["1:1", "4:3", "3:4", "16:9", "9:16", "3:2", "2:3", "21:9"] : ["1:1", "2:3", "3:2", "3:4", "4:3", "16:9", "9:16", "21:9"] }),
-      quality: string("Output resolution tier.", { default: "2K", enum: v5 ? ["2K", "3K"] : ["2K", "4K"] }),
-      size: string("Optional explicit output size accepted by the selected channel."),
-      output_format: string("Output format.", { enum: ["png", "jpeg"] }),
-      n: integer("Number of images to generate. Seedream 5.0 Lite supports up to 15.", { minimum: 1, maximum: v5 ? 15 : 1, default: 1 }),
-      callback_url: string("HTTPS endpoint that receives task completion notifications."),
-    }, edit ? ["model", "prompt", "image_urls"] : ["model", "prompt"]);
-  }
-
-  if (slug.startsWith("wan/")) {
-    const video = /(?:t2v|i2v|r2v|videoedit)/.test(page.modelId || slug);
-    if (video) {
-      const modelID = page.modelId || model;
-      const i2v = /i2v/.test(modelID);
-      const r2v = /r2v/.test(modelID);
-      return objectSchema({
-        model: modelField(modelID),
-        prompt: string("Describe the scene, motion, camera, and sound.", { maxLength: 5000 }),
-        image_urls: strings(i2v || r2v ? "Reference image URLs." : "Reference image URLs, if supported by the selected channel.", { minItems: i2v ? 1 : undefined, maxItems: r2v ? 5 : 2 }),
-        video_urls: strings("Reference video URLs.", { maxItems: r2v ? 3 : 1 }),
-        audio_urls: strings("Reference audio URLs.", { maxItems: r2v ? 3 : 1 }),
-        file_urls: strings("Reference file URLs.", { maxItems: 1 }),
-        aspect_ratio: string("Video aspect ratio.", { default: "16:9", enum: ["adaptive", "16:9", "9:16", "1:1"] }),
-        resolution: string("Output resolution.", { default: "1080P", enum: ["480P", "720P", "1080P", "480p", "720p", "1080p"] }),
-        duration: integer("Clip duration in seconds.", { default: 5, minimum: 2, maximum: 30 }),
-        audio: boolean("Generate or preserve audio when supported.", { default: true }),
-        seed: integer("Optional deterministic random seed."),
-        callback_url: string("HTTPS endpoint that receives task completion notifications."),
-      }, ["model", "prompt", ...(i2v || r2v ? ["image_urls"] : [])]);
-    }
-    const edit = slug.includes("image-to-image");
-    const pro = slug.endsWith("-pro");
-    return objectSchema({
-      model: modelField(model),
-      prompt: string("Describe the image to generate or the edit to perform.", { maxLength: 5000 }),
-      image_urls: strings("Source images for editing.", { minItems: 1, maxItems: 9 }),
-      size: string("Output size or resolution shorthand.", { default: "2K" }),
-      quality: string("Output quality tier.", { enum: pro && !edit ? ["1K", "2K", "4K"] : ["1K", "2K"] }),
-      aspect_ratio: string("Output aspect ratio.", { enum: ["1:1", "1:4", "1:8", "2:3", "3:2", "3:4", "4:1", "4:3", "4:5", "5:4", "8:1", "16:9", "9:16", "21:9"] }),
-      n: integer("Number of images to generate.", { default: 1, minimum: 1, maximum: 4 }),
-      thinking_mode: boolean("Allow reasoning before rendering in text-to-image mode.", { default: true }),
-      color_palette: { type: "array", description: "Optional palette of 3-10 colors with hexadecimal values and target ratios.", items: { type: "object" }, minItems: 3, maxItems: 10 },
-      seed: integer("Optional deterministic random seed."),
-      watermark: boolean("Add an upstream watermark to the result.", { default: false }),
-    }, edit ? ["model", "prompt", "image_urls"] : ["model", "prompt"]);
-  }
-
-  if (slug.startsWith("veo/")) {
-    const ref = slug.endsWith("fast-ref");
-    const k4 = slug.endsWith("4k");
-    return objectSchema({
-      model: modelField(model),
-      prompt: string("Describe the scene, action, camera, and audio.", { maxLength: 4000 }),
-      image_urls: strings(ref ? "Up to three subject or style reference images." : "Optional first and last frame images.", { maxItems: ref ? 3 : 2 }),
-      aspect_ratio: string("Video aspect ratio.", { default: "16:9", enum: ["16:9", "9:16"] }),
-      resolution: string("Output resolution.", { default: k4 ? "4k" : "720p", enum: ["720p", "1080p", "4k"] }),
-      duration: integer("Clip duration in seconds.", { default: 8, enum: ref ? [8] : [4, 6, 8] }),
-      callback_url: string("HTTPS endpoint that receives task completion notifications."),
-    }, ["model", "prompt"]);
-  }
-
-  if (slug.startsWith("seedance/")) {
-    const fast = slug.includes("fast");
-    const modelID = page.modelId || model;
-    const image = /i2v/.test(modelID) || slug.includes("image-to");
-    const ref = /r2v/.test(modelID) || slug.includes("reference-to");
-    return objectSchema({
-      model: modelField(model),
-      prompt: string("Describe the content, motion, camera, and audio.", { maxLength: 2000 }),
-      image_urls: strings(image ? "One required first frame and one optional last frame." : "Reference images.", { minItems: image ? 1 : undefined, maxItems: image ? 2 : 9 }),
-      video_urls: strings("Reference videos.", { maxItems: 3 }),
-      audio_urls: strings("Reference audio files.", { maxItems: 3 }),
-      aspect_ratio: string("Output aspect ratio, or adaptive selection.", { default: "adaptive", enum: ["adaptive", "16:9", "4:3", "1:1", "3:4", "9:16", "21:9"] }),
-      resolution: string("Output resolution.", { default: "720p", enum: fast ? ["480p", "720p"] : ["480p", "720p", "1080p", "4k"] }),
-      duration: integer("Clip duration in seconds. Use -1 only for automatic duration on supported routes.", { default: 5, enum: [-1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] }),
-      generate_audio: boolean("Generate synchronized audio.", { default: true }),
-      return_last_frame: boolean("Include the generated last frame as the first result item.", { default: false }),
-      web_search: boolean("Allow the model to retrieve current information when needed.", { default: false }),
-      watermark: boolean("Add an upstream watermark.", { default: false }),
-      callback_url: string("HTTPS endpoint that receives task completion notifications."),
-    }, ["model", ...(ref ? [] : ["prompt"]), ...(image ? ["image_urls"] : [])]);
-  }
-
-  if (slug.startsWith("grok-imagine")) {
-    const preview = slug.includes("preview");
-    const fast = slug.includes("fast");
-    const vip = slug.includes("1-5-vip");
-    const i2v = slug.endsWith("i2v") || preview;
-    return objectSchema({
-      model: modelField(model),
-      prompt: string("Describe the motion, scene, and camera behavior.", { maxLength: fast ? 4096 : 4000 }),
-      image_url: string("Single source image.", preview ? {} : undefined),
-      image_urls: strings("Source or reference images.", { minItems: i2v && !preview ? 1 : undefined, maxItems: preview ? 1 : fast ? 7 : 7 }),
-      task_id: string("Prior APIPod task ID to reuse as the source instead of image URLs."),
-      index: integer("Result index from task_id, from 0 through 5.", { minimum: 0, maximum: 5 }),
-      aspect_ratio: string("Video aspect ratio.", { default: "16:9", enum: ["16:9", "9:16", "1:1", "3:2", "2:3"] }),
-      duration: integer("Clip duration in seconds.", { default: fast ? 10 : 6, minimum: fast ? 6 : 1, maximum: fast ? 30 : preview || vip ? 15 : 30 }),
-      resolution: string("Output resolution.", { default: "720p", enum: ["480p", "720p"] }),
-      mode: string("Generation mode for the base Grok Imagine models.", { enum: ["normal", "fun", "spicy"] }),
-    }, ["model", ...(!i2v || preview || fast || vip ? ["prompt"] : []), ...(preview || vip ? ["image_url"] : [])]);
-  }
-
-  if (slug.startsWith("sora-2/")) return objectSchema({
-    model: modelField(model),
-    prompt: string("Describe the scene, action, camera, and sound.", { maxLength: 4000 }),
-    image_url: string("Optional first-frame image URL."),
-    aspect_ratio: string("Video aspect ratio.", { default: "9:16", enum: ["9:16", "16:9"] }),
-    duration: integer("Clip duration in seconds.", { default: 8, enum: [4, 8, 10, 12, 15] }),
-    callback_url: string("HTTPS endpoint that receives task completion notifications."),
-  }, ["model", "prompt"]);
-
-  if (slug.startsWith("gemini-omni/")) {
-    const i2v = slug.endsWith("i2v");
-    const r2v = slug.endsWith("r2v");
-    const extend = slug.endsWith("extend");
-    return objectSchema({
-      model: modelField(model),
-      prompt: string("Describe the desired scene, motion, or extension.", { maxLength: 4000 }),
-      image_urls: strings(i2v ? "First frame and optional last frame." : "Reference images.", { minItems: i2v || r2v ? 1 : undefined, maxItems: i2v ? 2 : 5 }),
-      video_url: string("Source video URL required for extension."),
-      aspect_ratio: string("Video aspect ratio.", { default: "16:9", enum: ["16:9", "9:16", "1:1"] }),
-      resolution: string("Output resolution supported by the selected channel.", { enum: ["720p", "1080p"] }),
-      duration: integer("Clip duration in seconds.", { default: 10, minimum: 1, maximum: 30 }),
-      callback_url: string("HTTPS endpoint that receives task completion notifications."),
-    }, ["model", "prompt", ...(i2v || r2v ? ["image_urls"] : []), ...(extend ? ["video_url"] : [])]);
-  }
-
-  if (slug.startsWith("minimax-h3/")) {
-    const i2v = slug.endsWith("i2v");
-    const r2v = slug.endsWith("r2v");
-    return objectSchema({
-      model: modelField(model),
-      prompt: string("Describe the scene, motion, camera, dialogue, and sound.", { maxLength: 7000 }),
-      image_urls: strings(i2v ? "Required first frame and optional last frame." : "Reference images.", { minItems: i2v || r2v ? 1 : undefined, maxItems: i2v ? 2 : 9 }),
-      video_urls: strings("Reference videos.", { maxItems: 3 }),
-      audio_urls: strings("Reference audio files.", { maxItems: 3 }),
-      aspect_ratio: string("Required output ratio for text and reference modes.", { enum: ["16:9", "9:16", "1:1"] }),
-      duration: integer("Clip duration in seconds.", { minimum: 4, maximum: 15 }),
-      resolution: string("MiniMax H3 currently requires native 2K output.", { const: "2K" }),
-      callback_url: string("HTTPS endpoint that receives task completion notifications."),
-    }, ["model", "prompt", "duration", "resolution", ...(!i2v ? ["aspect_ratio"] : []), ...(i2v || r2v ? ["image_urls"] : [])]);
-  }
-
-  if (slug.startsWith("kling/") || slug.startsWith("motion-control/")) return objectSchema({
-    model: modelField(model),
-    prompt: string("Describe the desired motion and output behavior.", { maxLength: 2500 }),
-    image_url: string("Reference image URL."),
-    video_url: string("Reference motion video URL."),
-    character_orientation: string("Whether to follow the image or video character orientation.", { enum: ["image", "video"], default: "image" }),
-    keep_original_sound: boolean("Keep the original audio of the reference video.", { default: true }),
-    quality: string("Video generation quality.", { enum: ["std", "pro"], default: "std" }),
-  }, ["model", "prompt", "image_url", "video_url"]);
-
-  return raw;
 }
 
 function displayType(schema) {
@@ -359,6 +188,10 @@ function displayType(schema) {
 function exampleValue(name, schema, page) {
   const slug = page.slug;
   if (schema.const !== undefined) return schema.const;
+  const configuredExample = schema.example ?? schema.examples?.[0] ?? schema.default;
+  if (configuredExample !== undefined && configuredExample !== "") {
+    return normalizeConfiguredValue(configuredExample, schema.type);
+  }
   if (name === "prompt") return slug.includes("image-to") || slug.endsWith("i2v") ? "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting." : slug.includes("image") || slug.includes("nano") || slug.includes("seedream") || slug.startsWith("wan/") || slug.startsWith("gpt-") ? "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed." : "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.";
   if (name === "image_url") return "https://cdn.example.com/reference.jpg";
   if (name === "image_urls") return ["https://cdn.example.com/reference-1.jpg"];
@@ -372,7 +205,6 @@ function exampleValue(name, schema, page) {
   if (name === "aspect_ratio") return schema.default === "adaptive" ? "adaptive" : schema.enum?.includes("16:9") ? "16:9" : schema.default || schema.enum?.[0];
   if (name === "size") return schema.default || "2K";
   if (name === "n") return 1;
-  if (schema.default !== undefined) return schema.default;
   if (schema.enum?.length) return schema.enum[0];
   if (schema.type === "boolean") return name === "generate_audio";
   if (schema.type === "integer" || schema.type === "number") return schema.minimum || 1;
@@ -419,6 +251,12 @@ const fieldDescriptions = {
   duration: ["Video duration in seconds.", "视频时长，单位为秒。"],
   generate_audio: ["Generate synchronized audio with the video.", "为视频生成同步音频。"],
   audio: ["Generate or preserve audio when supported.", "在模型支持时生成或保留音频。"],
+  audio_setting: ["Video audio handling mode.", "视频音频处理方式。"],
+  audio_url: ["Publicly accessible source audio URL.", "可公开访问的源音频 URL。"],
+  camera_fixed: ["Keep the camera view fixed.", "是否保持镜头视角固定。"],
+  file_url: ["Publicly accessible reference file URL.", "可公开访问的参考文件 URL。"],
+  link_url: ["Public web page URL used as reference context.", "作为参考上下文的公开网页 URL。"],
+  prompt_extend: ["Enable intelligent prompt rewriting.", "是否启用智能提示词改写。"],
   return_last_frame: ["Return the generated last frame for continuation workflows.", "返回生成视频的尾帧，用于续作工作流。"],
   web_search: ["Allow retrieval of current information when supported.", "在通道支持时允许检索实时信息。"],
   google_search: ["Allow Google Search grounding when supported.", "在通道支持时允许使用 Google Search 联网。"],
@@ -461,11 +299,14 @@ const zhDescriptionTranslations = {
   "Allow the model to use Google Search grounding when the selected channel supports it.": "所选通道支持时，允许模型使用 Google Search 联网增强。",
   "Background handling.": "背景处理方式。",
   "Client-safe asynchronous error message.": "可安全返回给客户端的异步错误信息。",
+  "Enable to keep the camera view static and stable. Disable for dynamic camera movement.": "启用后保持镜头视角静止稳定；关闭后允许动态镜头运动。",
   "Clip duration in seconds.": "视频片段时长，单位为秒。",
+  "Clip duration in seconds. Veo output is fixed at 8 seconds.": "视频片段时长固定为 8 秒。",
   "Clip duration in seconds. Use -1 only for automatic duration on supported routes.": "视频片段时长，单位为秒；仅在支持自动时长的路由中可使用 -1。",
   "Completion progress when available.": "任务完成进度（提供商返回时可用）。",
   "Compression percentage for formats that support it.": "支持压缩的输出格式所使用的压缩百分比。",
   "Describe the content, motion, camera, and audio.": "描述视频内容、运动、镜头和音频。",
+  "Describe the content you do not wish to see in the video frame, which can be used to restrict the video frame.": "描述不希望出现在视频画面中的内容，用于限制生成画面。",
   "Describe the desired scene, motion, or extension.": "描述目标场景、运动效果或视频续写要求。",
   "Describe the image or requested edit.": "描述要生成的图片或编辑要求。",
   "Describe the image to create or the edit to apply.": "描述要创建的图片或要执行的编辑。",
@@ -478,11 +319,13 @@ const zhDescriptionTranslations = {
   "First frame and optional last frame.": "首帧图片，以及可选的尾帧图片。",
   "Generate synchronized audio.": "生成与视频同步的音频。",
   "Generated artifact URLs returned after completion.": "任务完成后返回的生成结果 URL 列表。",
+  "Reference File, maximum one, cannot be input together with link url. support format：docx、doc、xlsx、xls、pptx、ppt、pdf、txt、key、pages、numbers、md。": "参考文件最多一个，不能与 link_url 同时提供；支持 docx、doc、xlsx、xls、pptx、ppt、pdf、txt、key、pages、numbers 和 md 格式。",
   "Generation mode for the base Grok Imagine models.": "基础 Grok Imagine 模型使用的生成模式。",
   "HTTP status code.": "HTTP 状态码。",
   "HTTPS endpoint that receives task completion notifications.": "接收任务完成通知的 HTTPS 地址。",
   "Include the generated last frame as the first result item.": "将生成视频的尾帧作为结果列表的第一项返回。",
   "MiniMax H3 currently requires native 2K output.": "MiniMax H3 当前要求使用原生 2K 输出。",
+  "Video resolution. Available values: 768P and 2K.": "视频分辨率，可选 768P 或 2K。",
   "Number of images to generate.": "要生成的图片数量。",
   "Number of images to generate. Seedream 5.0 Lite supports up to 15.": "要生成的图片数量；Seedream 5.0 Lite 最多支持 15 张。",
   "One required first frame and one optional last frame.": "必须提供一张首帧图片，可选提供一张尾帧图片。",
@@ -519,6 +362,10 @@ const zhDescriptionTranslations = {
   "Source images for editing.": "用于编辑的源图片。",
   "Source or reference images.": "源图片或参考图片。",
   "Source video URL required for extension.": "视频续写必填的源视频 URL。",
+  "The URL address of the public web page. Only public web pages that do not require login are supported for parsing. Cannot be input together with file.": "公开网页 URL，仅支持无需登录即可访问的页面，不能与 file_url 同时提供。",
+  "The model will generate a video using this audio. If the audio length exceeds the duration value (e.g., 5 seconds), the first 5 seconds will be automatically captured and the rest discarded. If the audio length is shorter than the video duration, the part beyond the audio length will be silent video. For example, if the audio is 3 seconds long and the video duration is 5 seconds, the output video will have sound in the first 3 seconds and be silent in the remaining 2 seconds.": "模型使用该音频生成视频。音频长于视频时长时会截取前段，音频短于视频时长时，超出音频长度的部分将保持静音。",
+  "Video audio settings. auto (default): The model makes an intelligent judgment based on the prompt content. If the prompt involves audio descriptions, it may regenerate the audio; otherwise, it may retain the original audio of the input material. origin: Forcefully retain the original audio of the input video without regeneration.": "视频音频设置。auto（默认）会根据提示词判断是重新生成音频还是保留输入素材的原音；origin 强制保留输入视频的原音，不重新生成。",
+  "Whether to enable intelligent prompt rewriting. After enabling, a large model will be used to intelligently rewrite the input prompt. The generation effect is significantly improved for short prompts, but it will increase time consumption.": "是否启用智能提示词改写。启用后会使用大模型改写输入提示词，可改善短提示词的生成效果，但会增加处理时间。",
   "Stable machine-readable asynchronous error code.": "稳定、可供程序识别的异步错误代码。",
   "Unix completion timestamp in seconds.": "任务完成时间，Unix 秒级时间戳。",
   "Up to three subject or style reference images.": "最多三张主体或风格参考图片。",
@@ -615,69 +462,19 @@ function requestCodeExamples(route, json) {
   return Object.fromEntries(Object.entries(examples).map(([name, source]) => [name, source.replace(/^\+/gm, "")]));
 }
 
-function renderCodeTabs(route, json) {
-  const examples = requestCodeExamples(route, json);
-  return `<Tabs>\n+  <Tab title="cURL">\n+\n+\`\`\`bash\n+${examples.curl}\n+\`\`\`\n+\n+  </Tab>\n+  <Tab title="Python">\n+\n+\`\`\`python\n+${examples.python}\n+\`\`\`\n+\n+  </Tab>\n+  <Tab title="Go">\n+\n+\`\`\`go\n+${examples.go}\n+\`\`\`\n+\n+  </Tab>\n+  <Tab title="Rust">\n+\n+\`\`\`rust\n+${examples.rust}\n+\`\`\`\n+\n+  </Tab>\n+  <Tab title="JavaScript">\n+\n+\`\`\`javascript\n+${examples.javascript}\n+\`\`\`\n+\n+  </Tab>\n+</Tabs>`.replace(/^\+/gm, "");
-}
-
-function pageBodyWithInlineApiReference(page, language, spec) {
+function pageBody(page, language) {
   const p = profile(page);
-  const found = operation(spec);
-  const requestSchema = currentRequestSchema(page, resolve(spec, found.op.requestBody?.content?.["application/json"]?.schema));
-  const response = Object.entries(found.op.responses || {}).find(([code]) => /^2/.test(code))?.[1];
-  const responseSchema = resolve(spec, response?.content?.["application/json"]?.schema);
-  const example = requestExample(requestSchema, spec, page);
-  const json = JSON.stringify(example, null, 2);
-  const curl = `curl https://api.apipod.ai${found.route} \\\n  -H "Authorization: Bearer $APIPOD_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  -d '${json}'`;
-  const zh = language === "zh";
-  const query = localizedPagePath(language, found.route.includes("images") ? "query-image-task" : "query-video-task");
-  const conditions = [];
-  if (page.slug.endsWith("/grok-imagine-i2v")) conditions.push(zh ? "`image_url`/`image_urls` 与 `task_id` 二选一；两种来源不能同时使用。`index` 仅可与 `task_id` 一起使用。" : "Provide either `image_url`/`image_urls` or `task_id`, but not both. `index` is valid only with `task_id`.");
-  if (page.slug.includes("reference-to-video") || page.slug.endsWith("minimax-h3-r2v")) conditions.push(zh ? "必须至少提供一种参考素材；图片、视频和音频的数量上限以参数表为准。" : "Provide at least one reference asset. The per-media limits are listed in the table.");
-  if (page.slug.endsWith("gemini-omni-r2v")) conditions.push(zh ? "必须提供 1–5 张参考图。" : "Provide between one and five reference images.");
-  const conditionBlock = conditions.length ? `\n\n<Warning title=${JSON.stringify(zh ? "条件校验" : "Conditional validation")}>${conditions.join(" ")}</Warning>` : "";
-  return `---\ntitle: ${JSON.stringify(page.title)}\ndescription: ${JSON.stringify(metaDescription(p[language]))}\n---\n\n**${zh ? "接口" : "Endpoint"}:** \`${found.method.toUpperCase()} ${found.route}\`\n\n${p[language]}\n\n<Note>${zh ? "以下参数边界以当前 APIPod 项目中的 CUE 校验和适配器实现为准；上游模型可能支持更多能力，但未必已通过本公开模型 ID 开放。" : "The limits below follow APIPod's current CUE validation and adapter implementation. An upstream model may support additional features that are not exposed by this public model ID."}</Note>\n\n## ${zh ? "请求体" : "Request body"}\n\n${fieldRows(requestSchema, spec, language)}${conditionBlock}\n\n## ${zh ? "JSON 请求示例" : "JSON request example"}\n\n\`\`\`json\n${json}\n\`\`\`\n\n## cURL\n\n\`\`\`bash\n${curl}\n\`\`\`\n\n## ${zh ? "响应体" : "Response body"}\n\n${fieldRows(responseSchema, spec, language)}\n\n<Card title=${JSON.stringify(zh ? "查询任务状态" : "Query task status")} icon="search" href="/${query}">${zh ? "使用创建接口返回的 task_id 查询进度和结果。" : "Use the task_id returned by the create endpoint to retrieve progress and results."}</Card>\n\n## ${zh ? "资料来源" : "Sources"}\n\n- [${p.source[0]}](${p.source[1]})\n- ${zh ? "APIPod 项目中的 CUE 请求规范、Go 业务校验与提供商适配器" : "APIPod CUE request specifications, Go validation, and provider adapters"}\n`;
-}
-
-function withMultiLanguageExamples(body, page, language, spec) {
-  const found = operation(spec);
-  const requestSchema = currentRequestSchema(page, resolve(spec, found.op.requestBody?.content?.["application/json"]?.schema));
-  const json = JSON.stringify(requestExample(requestSchema, spec, page), null, 2);
-  const replacement = language === "zh"
-    ? `## JSON 请求体\n\n\`\`\`json\n${json}\n\`\`\`\n\n## 请求代码\n\n${renderCodeTabs(found.route, json)}\n\n## 响应体`
-    : `## JSON request body\n\n\`\`\`json\n${json}\n\`\`\`\n\n## Request examples\n\n${renderCodeTabs(found.route, json)}\n\n## Response body`;
-  return body.replace(
-    /## (?:JSON 请求示例|JSON request example)[\s\S]*?## (?:响应体|Response body)/,
-    replacement,
-  );
-}
-
-function pageBody(page, language, spec) {
-  const p = profile(page);
-  const found = operation(spec);
   const zh = language === "zh";
   const introduction = modelIntroductionSections(p[language], language);
-  const query = localizedPagePath(language, found.route.includes("images") ? "query-image-task" : "query-video-task");
   const conditions = [];
   if (page.slug.endsWith("/grok-imagine-i2v")) conditions.push(zh ? "`image_url`/`image_urls` 与 `task_id` 二选一；两种来源不能同时使用。`index` 仅可与 `task_id` 一起使用。" : "Provide either `image_url`/`image_urls` or `task_id`, but not both. `index` is valid only with `task_id`.");
   if (page.slug.includes("reference-to-video") || page.slug.endsWith("minimax-h3-r2v")) conditions.push(zh ? "必须至少提供一种参考素材；图片、视频和音频的数量上限以 API 参数定义为准。" : "Provide at least one reference asset. The per-media limits are defined by the API schema.");
   if (page.slug.endsWith("gemini-omni-r2v")) conditions.push(zh ? "必须提供 1–5 张参考图。" : "Provide between one and five reference images.");
-  const conditionBlock = conditions.length ? `\n\n<Warning title=${JSON.stringify(zh ? "条件校验" : "Conditional validation")}>${conditions.join(" ")}</Warning>` : "";
+  const conditionBlock = conditions.length
+    ? `\n\n<Warning title=${JSON.stringify(zh ? "条件校验" : "Conditional validation")}>${conditions.join(" ")}</Warning>\n`
+    : "\n";
 
-  const support = introduction.support
-    ? `## ${zh ? "APIPod 支持" : "APIPod support"}\n\n${introduction.support}`
-    : "";
-  return `---\ntitle: ${JSON.stringify(page.title)}\ndescription: ${JSON.stringify(introduction.summary)}\n---\n\n${support}${conditionBlock}\n\n<Card title=${JSON.stringify(zh ? "查询任务状态" : "Query task status")} icon="search" href="/${query}">${zh ? "使用创建接口返回的 task_id 查询进度和结果。" : "Use the task_id returned by the create endpoint to retrieve progress and results."}</Card>\n`;
-}
-
-function acceptedTaskSchema() {
-  return objectSchema({
-    code: integer("HTTP status code.", { const: 200 }),
-    message: string("Response message.", { const: "success" }),
-    data: objectSchema({
-      task_id: string("Public APIPod task ID used for status queries."),
-    }, ["task_id"]),
-  }, ["code", "message", "data"]);
+  return `---\ntitle: ${JSON.stringify(page.title)}\ndescription: ${JSON.stringify(introduction.summary)}\n---${conditionBlock}`;
 }
 
 function statusResponseSchema(media) {
@@ -714,11 +511,15 @@ function codeSamples(route, example) {
 
 function mintlifyCreateSpec(page, sourceSpec, language) {
   const found = operation(sourceSpec);
-  const requestSchema = currentRequestSchema(page, resolve(sourceSpec, found.op.requestBody?.content?.["application/json"]?.schema));
+  const requestSchema = configuredSchema(sourceSpec, found.op.requestBody?.content?.["application/json"]?.schema, page, { request: true });
   const example = requestExample(requestSchema, sourceSpec, page);
   const media = found.route.includes("images") ? "image" : "video";
   const taskID = media === "image" ? "img_task_01JEXAMPLE" : "vid_task_01JEXAMPLE";
   const zh = language === "zh";
+  const sourceResponse = Object.entries(found.op.responses || {}).find(([code]) => /^2/.test(code))?.[1];
+  const sourceResponseSchema = sourceResponse?.content?.["application/json"]?.schema;
+  if (!sourceResponseSchema) throw new Error(`Configured response schema missing for ${page.modelId}`);
+  const responseSchema = configuredSchema(sourceSpec, sourceResponseSchema, page);
   return {
     openapi: "3.1.0",
     info: { title: `${page.title} API`, version: "1.0.0", description: profile(page)[language] },
@@ -740,7 +541,7 @@ function mintlifyCreateSpec(page, sourceSpec, language) {
               description: zh ? "任务已受理" : "Task accepted",
               content: {
                 "application/json": {
-                  schema: localizedSchema(acceptedTaskSchema(), language, "response"),
+                  schema: localizedSchema(responseSchema, language, "response"),
                   example: { code: 200, message: "success", data: { task_id: taskID } },
                 },
               },
@@ -839,8 +640,8 @@ for (const page of manifest.pages.filter((item) => item.schema && !item.slug.sta
   };
   await fs.mkdir(path.dirname(path.join(root, `${page.slug}.mdx`)), { recursive: true });
   await fs.mkdir(path.dirname(path.join(root, `zh-CN/${page.slug}.mdx`)), { recursive: true });
-  await fs.writeFile(path.join(root, `${page.slug}.mdx`), addOpenAPI(pageBody(page, "en", spec), mintlifySpecName));
-  await fs.writeFile(path.join(root, `zh-CN/${page.slug}.mdx`), addOpenAPI(pageBody(page, "zh", spec), zhMintlifySpecName));
+  await fs.writeFile(path.join(root, `${page.slug}.mdx`), addOpenAPI(pageBody(page, "en"), mintlifySpecName));
+  await fs.writeFile(path.join(root, `zh-CN/${page.slug}.mdx`), addOpenAPI(pageBody(page, "zh"), zhMintlifySpecName));
 }
 
 function queryPageWithInlineApiReference(page, language, spec) {

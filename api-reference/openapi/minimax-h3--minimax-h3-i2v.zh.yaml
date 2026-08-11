@@ -3,7 +3,7 @@ info:
   title: MiniMax H3 Image to Video API
   version: 1.0.0
   description: MiniMax H3 图生视频是 MiniMax H3 多模态视频系列的独立模式，使用必填首帧和可选尾帧；APIPod
-    当前为该系列提供 2K、4 至 15 秒的异步生成契约。在 APIPod 中，公开模型 ID 为
+    当前为该系列提供 768P 或 2K、4 至 15 秒的异步生成契约。在 APIPod 中，公开模型 ID 为
     minimax-h3-i2v，支持图生视频；接受文本、视频、图片输入，并通过异步视频任务返回结果。
 servers:
   - url: https://api.apipod.ai
@@ -13,7 +13,7 @@ paths:
     post:
       summary: 创建生成任务
       description: MiniMax H3 图生视频是 MiniMax H3 多模态视频系列的独立模式，使用必填首帧和可选尾帧；APIPod
-        当前为该系列提供 2K、4 至 15 秒的异步生成契约。在 APIPod 中，公开模型 ID 为
+        当前为该系列提供 768P 或 2K、4 至 15 秒的异步生成契约。在 APIPod 中，公开模型 ID 为
         minimax-h3-i2v，支持图生视频；接受文本、视频、图片输入，并通过异步视频任务返回结果。
       operationId: create-minimax-h3-minimax-h3-i2v
       tags:
@@ -26,60 +26,49 @@ paths:
           application/json:
             schema:
               type: object
+              title: MiniMax H3 Image to Video
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: minimax-h3-i2v
                 prompt:
                   type: string
-                  description: 描述场景、运动、镜头、对白和声音。 最大字符串长度：7000。
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 必须提供首帧图片，可选提供尾帧图片。 最少项目数：1。 最多项目数：2。
-                video_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 参考视频。 最多项目数：3。
-                audio_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 参考音频文件。 最多项目数：3。
-                aspect_ratio:
+                  title: Prompt
+                  default: ""
+                  description: 生成或编辑指令。 最大字符串长度：7000。 最小字符串长度：1。
+                first_frame_image:
                   type: string
-                  description: 文生视频和参考生成模式必填的输出宽高比。
-                  enum:
-                    - 16:9
-                    - 9:16
-                    - 1:1
+                  title: First Frame Image
+                  default: ""
+                last_frame_image:
+                  type: string
+                  title: Last Frame Image
+                  default: ""
                 duration:
                   type: integer
-                  description: 视频片段时长，单位为秒。 最小值：4。 最大值：15。
+                  title: Duration
+                  description: 视频时长，单位为秒。 最小值：4。 最大值：15。
+                  default: 0
                 resolution:
                   type: string
-                  description: MiniMax H3 当前要求使用原生 2K 输出。
-                  const: 2K
-                callback_url:
-                  type: string
-                  description: 接收任务完成通知的 HTTPS 地址。
+                  title: Resolution
+                  description: 视频分辨率，可选 768P 或 2K。
+                  enum:
+                    - 768P
+                    - 2K
+                  default: 2K
               required:
                 - model
                 - prompt
                 - duration
                 - resolution
-                - image_urls
             example:
               model: minimax-h3-i2v
               prompt: Animate the subject with a slow camera push-in, natural motion, and soft
                 cinematic lighting.
-              image_urls:
-                - https://cdn.example.com/reference-1.jpg
-              aspect_ratio: 16:9
-              duration: 8
+              duration: 0
               resolution: 2K
       responses:
         "200":
@@ -88,24 +77,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -125,11 +113,7 @@ paths:
               -d '{
               "model": "minimax-h3-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "aspect_ratio": "16:9",
-              "duration": 8,
+              "duration": 0,
               "resolution": "2K"
             }'
         - lang: Python
@@ -143,11 +127,7 @@ paths:
             payload = {
               "model": "minimax-h3-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "aspect_ratio": "16:9",
-              "duration": 8,
+              "duration": 0,
               "resolution": "2K"
             }
 
@@ -185,11 +165,7 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "minimax-h3-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "aspect_ratio": "16:9",
-              "duration": 8,
+              "duration": 0,
               "resolution": "2K"
             }`), &payload); err != nil {
                     panic(err)
@@ -229,11 +205,7 @@ paths:
                 let payload = json!({
               "model": "minimax-h3-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "aspect_ratio": "16:9",
-              "duration": 8,
+              "duration": 0,
               "resolution": "2K"
             });
                 let response = Client::new()
@@ -261,11 +233,7 @@ paths:
               {
                 "model": "minimax-h3-i2v",
                 "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-                "image_urls": [
-                  "https://cdn.example.com/reference-1.jpg"
-                ],
-                "aspect_ratio": "16:9",
-                "duration": 8,
+                "duration": 0,
                 "resolution": "2K"
               }
               ),

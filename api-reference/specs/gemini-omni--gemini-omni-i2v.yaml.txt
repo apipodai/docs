@@ -1,191 +1,279 @@
-openapi: 3.0.1
-info:
-  title: ''
-  description: ''
-  version: 1.0.0
-paths:
-  /v1/videos/generations:
-    post:
-      summary: Gemini Omni Image to Video
-      deprecated: false
-      description: >
-        **Google Gemini Omni** is a multimodal video generation and editing
-        model. It can convert text, images and reference videos into coherent
-        videos, and delivers stable scene consistency, world understanding
-        capability and natural language control.
-
-
-        Google Gemini Omni Image to Video Model supports video fusion with
-        reference to the first frame, the first and last frames.
-      tags:
-        - Video Models/Google Gemini Omni
-        - image to video
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Gemini%20Omni%20Image%20to%20Video'
-            examples: {}
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SubmitTaskResponse'
-          headers: {}
-          x-apidog-name: 成功
-      security:
-        - APIPod APIKey: []
-          x-apidog:
-            required: true
-            schemeGroups:
-              - id: uvL-QlG9gqxCUnkcdyegW
-                schemeIds:
-                  - APIPod APIKey
-            use:
-              id: uvL-QlG9gqxCUnkcdyegW
-      x-apidog-folder: Video Models/Google Gemini Omni
-      x-apidog-status: released
-      x-run-in-apidog: https://app.apidog.com/web/project/1247502/apis/api-37875001-run
-components:
-  schemas:
-    Gemini Omni Image to Video:
-      type: object
-      properties:
-        model:
-          type: string
-          description: Model Id, fixed gemini-omni-i2v
-          const: gemini-omni-t2v
-        prompt:
-          type: string
-          description: Generate video prompts
-        image_urls:
-          type: array
-          items:
-            type: string
-          minItems: 1
-          maxItems: 2
-          uniqueItems: true
-          description: First and last frame image urls, first frame must be upload.
-        duration:
-          type: integer
-          description: Video output duration, current only support 10s.
-          const: 10
-          default: 10
-        aspect_ratio:
-          type: string
-          enum:
-            - '16:9'
-            - '9:16'
-          x-apidog-enum:
-            - value: '16:9'
-              name: ''
-              description: ''
-            - value: '9:16'
-              name: ''
-              description: ''
-          default: '16:9'
-        resolution:
-          type: string
-          enum:
-            - 720p
-            - 1080p
-          x-apidog-enum:
-            - value: 720p
-              name: ''
-              description: ''
-            - value: 1080p
-              name: ''
-              description: ''
-          default: 720p
-      required:
-        - model
-        - prompt
-        - image_urls
-        - duration
-        - aspect_ratio
-        - resolution
-      x-apidog-orders:
-        - model
-        - prompt
-        - image_urls
-        - duration
-        - aspect_ratio
-        - resolution
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SubmitTaskResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: Response status code
-          enum:
-            - 200
-            - 401
-            - 500
-            - 400
-            - 403
-            - 402
-            - 404
-            - 429
-          x-apidog-enum:
-            - value: 200
-              name: Success
-              description: Request has been processed successfully
-            - value: 401
-              name: Unauthorized
-              description: Authentication credentials are missing or invalid
-            - value: 500
-              name: Authentication credentials are missing or invalid
-              description: An unexpected error occurred while processing the request
-            - value: 400
-              name: Bad Request
-              description: This is a bad request
-            - value: 403
-              name: Forbidden
-              description: Forbidden response
-            - value: 402
-              name: Insufficient quota
-              description: Account does not have enough credits to perform the operation
-            - value: 404
-              name: Not Found
-              description: The requested resource or endpoint does not exist
-            - value: 429
-              name: Rate limit
-              description: Request limit has been exceeded for this resource
-        message:
-          type: string
-          description: Response message, error description when failed
-        data:
-          type: object
-          properties:
-            task_id:
-              type: string
-              description: >-
-                Unique identifier for asynchronous tasks.can be used with Get
-                Task Details endpoint to query task status
-          x-apidog-orders:
-            - task_id
-          required:
-            - task_id
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-        - code
-        - message
-        - data
-      required:
-        - code
-        - message
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-  securitySchemes:
-    APIPod APIKey:
-      type: bearer
-      scheme: bearer
-servers:
-  - url: https://api.apipod.ai
-    description: 正式环境
-security: []
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Gemini omni image to video",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "gemini-omni-i2v",
+      "modelType": "video",
+      "provider": "google"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "Gemini omni image to video",
+        "properties": {
+          "aspect_ratio": {
+            "type": "string",
+            "title": "Aspect Ratio",
+            "enum": [
+              "16:9",
+              "9:16"
+            ],
+            "default": "16:9",
+            "x-apipod-ui": {
+              "component": "button-group",
+              "labels": {
+                "1": "[object Object]",
+                "9": ",,,,,,,,,,,,,,,,",
+                "16": "[object Object]",
+                "16:": "[object Object]",
+                "9:": ",,,,,,,,,,,,,,,,",
+                "9:1": ",,,,,,,,,,,,,,,,"
+              }
+            }
+          },
+          "duration": {
+            "type": "integer",
+            "title": "Duration",
+            "description": "Output video duration,current only support 10s.",
+            "enum": [
+              "10"
+            ],
+            "default": 10,
+            "x-apipod-ui": {
+              "component": "button-group",
+              "labels": {
+                "1": ",,,,,,,,,,,,,,"
+              }
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "title": "Image Urls",
+            "description": "First and last frame urls, first frame image is must be provided.",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "double-image",
+              "maxSize": 5242880
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "default": "",
+            "maxLength": 4000,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "resolution": {
+            "type": "string",
+            "title": "Resolution",
+            "enum": [
+              "720p",
+              "1080p"
+            ],
+            "default": "720p",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          }
+        },
+        "required": [
+          "model",
+          "prompt",
+          "image_urls"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_urls",
+          "duration",
+          "resolution",
+          "aspect_ratio"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "video"
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              },
+              "result": {
+                "type": "array",
+                "description": "generated video url list",
+                "items": {
+                  "type": "string",
+                  "description": "video url"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "task status",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/videos/generations": {
+      "post": {
+        "summary": "video API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/videos/status/{task_id}",
+          "polling": {
+            "interval": 4000,
+            "maxAttempts": 900,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/videos/status/{task_id}": {
+      "get": {
+        "summary": "Gemini omni image to video Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

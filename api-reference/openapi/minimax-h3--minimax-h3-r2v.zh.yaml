@@ -3,17 +3,17 @@ info:
   title: MiniMax H3 Reference to Video API
   version: 1.0.0
   description: MiniMax H3 参考生视频是 MiniMax H3 多模态视频系列的独立模式，组合图片、视频和音频参考素材；APIPod
-    当前为该系列提供 2K、4 至 15 秒的异步生成契约。在 APIPod 中，公开模型 ID 为
+    当前为该系列提供 768P 或 2K、4 至 15 秒的异步生成契约。在 APIPod 中，公开模型 ID 为
     minimax-h3-r2v，支持图生视频、视频到视频；接受文本、图片、音频、视频输入，并通过异步视频任务返回结果。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
 paths:
-  /v1/videos/generations:
+  /v1/videos/genertions:
     post:
       summary: 创建生成任务
       description: MiniMax H3 参考生视频是 MiniMax H3 多模态视频系列的独立模式，组合图片、视频和音频参考素材；APIPod
-        当前为该系列提供 2K、4 至 15 秒的异步生成契约。在 APIPod 中，公开模型 ID 为
+        当前为该系列提供 768P 或 2K、4 至 15 秒的异步生成契约。在 APIPod 中，公开模型 ID 为
         minimax-h3-r2v，支持图生视频、视频到视频；接受文本、图片、音频、视频输入，并通过异步视频任务返回结果。
       operationId: create-minimax-h3-minimax-h3-r2v
       tags:
@@ -26,53 +26,66 @@ paths:
           application/json:
             schema:
               type: object
+              title: MiniMax H3 Reference to Video
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: minimax-h3-r2v
                 prompt:
                   type: string
-                  description: 描述场景、运动、镜头、对白和声音。 最大字符串长度：7000。
+                  title: Prompt
+                  default: ""
+                  description: 生成或编辑指令。 最大字符串长度：7000。 最小字符串长度：1。
                 image_urls:
                   type: array
+                  title: Reference Images
                   items:
                     type: string
-                  description: 参考图片。 最少项目数：1。 最多项目数：9。
+                  description: 可公开访问的源图片或参考图 URL。
                 video_urls:
                   type: array
+                  title: Reference Videos
                   items:
                     type: string
-                  description: 参考视频。 最多项目数：3。
+                  description: 可公开访问的参考视频 URL。
                 audio_urls:
                   type: array
+                  title: Reference Audio
+                  description: 可公开访问的参考音频 URL。
                   items:
                     type: string
-                  description: 参考音频文件。 最多项目数：3。
-                aspect_ratio:
-                  type: string
-                  description: 文生视频和参考生成模式必填的输出宽高比。
-                  enum:
-                    - 16:9
-                    - 9:16
-                    - 1:1
-                duration:
-                  type: integer
-                  description: 视频片段时长，单位为秒。 最小值：4。 最大值：15。
                 resolution:
                   type: string
-                  description: MiniMax H3 当前要求使用原生 2K 输出。
-                  const: 2K
-                callback_url:
+                  title: Resolution
+                  description: 视频分辨率，可选 768P 或 2K。
+                  enum:
+                    - 768P
+                    - 2K
+                  default: 2K
+                duration:
+                  type: integer
+                  title: Duration
+                  description: 视频时长，单位为秒。 最小值：4。 最大值：15。
+                  default: 4
+                aspect_ratio:
                   type: string
-                  description: 接收任务完成通知的 HTTPS 地址。
+                  title: Aspect Ratio
+                  description: 输出宽高比。
+                  enum:
+                    - adaptive
+                    - 21:9
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                  default: adaptive
               required:
                 - model
                 - prompt
                 - duration
-                - resolution
-                - aspect_ratio
-                - image_urls
             example:
               model: minimax-h3-r2v
               prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
@@ -83,9 +96,9 @@ paths:
                 - https://cdn.example.com/reference.mp4
               audio_urls:
                 - https://cdn.example.com/reference.mp3
-              aspect_ratio: 16:9
-              duration: 8
               resolution: 2K
+              duration: 4
+              aspect_ratio: adaptive
       responses:
         "200":
           description: 任务已受理
@@ -93,24 +106,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -124,7 +136,7 @@ paths:
         - lang: Shell
           label: cURL
           source: >-
-            curl https://api.apipod.ai/v1/videos/generations \
+            curl https://api.apipod.ai/v1/videos/genertions \
               -H "Authorization: Bearer $APIPOD_API_KEY" \
               -H "Content-Type: application/json" \
               -d '{
@@ -139,9 +151,9 @@ paths:
               "audio_urls": [
                 "https://cdn.example.com/reference.mp3"
               ],
-              "aspect_ratio": "16:9",
-              "duration": 8,
-              "resolution": "2K"
+              "resolution": "2K",
+              "duration": 4,
+              "aspect_ratio": "adaptive"
             }'
         - lang: Python
           label: Python
@@ -163,14 +175,14 @@ paths:
               "audio_urls": [
                 "https://cdn.example.com/reference.mp3"
               ],
-              "aspect_ratio": "16:9",
-              "duration": 8,
-              "resolution": "2K"
+              "resolution": "2K",
+              "duration": 4,
+              "aspect_ratio": "adaptive"
             }
 
 
             response = requests.post(
-                "https://api.apipod.ai/v1/videos/generations",
+                "https://api.apipod.ai/v1/videos/genertions",
                 headers={
                     "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
                     "Content-Type": "application/json",
@@ -211,9 +223,9 @@ paths:
               "audio_urls": [
                 "https://cdn.example.com/reference.mp3"
               ],
-              "aspect_ratio": "16:9",
-              "duration": 8,
-              "resolution": "2K"
+              "resolution": "2K",
+              "duration": 4,
+              "aspect_ratio": "adaptive"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -222,7 +234,7 @@ paths:
                     panic(err)
                 }
 
-                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/genertions", bytes.NewReader(body))
                 if err != nil {
                     panic(err)
                 }
@@ -261,12 +273,12 @@ paths:
               "audio_urls": [
                 "https://cdn.example.com/reference.mp3"
               ],
-              "aspect_ratio": "16:9",
-              "duration": 8,
-              "resolution": "2K"
+              "resolution": "2K",
+              "duration": 4,
+              "aspect_ratio": "adaptive"
             });
                 let response = Client::new()
-                    .post("https://api.apipod.ai/v1/videos/generations")
+                    .post("https://api.apipod.ai/v1/videos/genertions")
                     .bearer_auth(env::var("APIPOD_API_KEY")?)
                     .json(&payload)
                     .send()
@@ -280,7 +292,7 @@ paths:
           label: JavaScript
           source: >-
             const response = await
-            fetch("https://api.apipod.ai/v1/videos/generations", {
+            fetch("https://api.apipod.ai/v1/videos/genertions", {
               method: "POST",
               headers: {
                 Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
@@ -299,9 +311,9 @@ paths:
                 "audio_urls": [
                   "https://cdn.example.com/reference.mp3"
                 ],
-                "aspect_ratio": "16:9",
-                "duration": 8,
-                "resolution": "2K"
+                "resolution": "2K",
+                "duration": 4,
+                "aspect_ratio": "adaptive"
               }
               ),
             });

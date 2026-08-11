@@ -1,251 +1,281 @@
-openapi: 3.0.1
-info:
-  title: ''
-  description: ''
-  version: 1.0.0
-paths:
-  /v1/images/generations:
-    post:
-      summary: Nano Banana Pro
-      deprecated: false
-      description: >-
-        Built upon the robust architecture of Gemini 3 Pro, **Nano Banana Pro
-        (Gemini 3 Pro Image Preview)** stands as Google’s flagship solution for
-        image generation and editing. 
-
-
-
-        ## Query Task Details
-
-
-        After submitting a task, you can check the task progress and obtain the
-        generated results through the unified query endpoint:
-
-
-
-        <Card title="Get Image Task Details" icon="lucide-search"
-        href="/query-image-task">Learn how to query task status and obtain
-        generated results</Card>
-
-
-
-        ::: tip[]
-
-
-        In a production environment, it is recommended to use the `callback_url`
-        parameter to receive automatic notifications upon generation completion
-        instead of polling the status endpoint.
-
-
-        :::
-      operationId: createNanoBananaPro
-      tags:
-        - Image Models/Nano Banana
-        - nano banana
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NanoBanana'
-            example:
-              model: nano-banana-pro
-              aspect_ratio: '1:1'
-              prompt: >-
-                A humanoid figure with a vintage television set for a head,
-                featuring a green-tinted screen displaying a `Hello APIPod.ai`
-                writing in ASCII font. The figure is wearing a yellow raincoat,
-                and there are various wires and components attached to the
-                television. The background is cloudy and indistinct, suggesting
-                an outdoor setting
-              image_urls: []
-              quality: 1K
-              callback_url: https://www.apipod.ai/demo/callback
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SubmitTaskResponse'
-          headers: {}
-          x-apidog-name: 成功
-      security:
-        - APIPod APIKey: []
-          x-apidog:
-            required: true
-            schemeGroups:
-              - id: HZ9Paaoj9VbMZHqop3ATm
-                schemeIds:
-                  - APIPod APIKey
-            use:
-              id: HZ9Paaoj9VbMZHqop3ATm
-      x-apidog-folder: Image Models/Nano Banana
-      x-apidog-status: released
-      x-run-in-apidog: https://app.apidog.com/web/project/1247502/apis/api-32456329-run
-components:
-  schemas:
-    NanoBanana:
-      type: object
-      properties:
-        prompt:
-          type: string
-          description: Describe the content of the image to be generated.
-          maxLength: 4000
-        model:
-          type: string
-          const: nano-banana-pro
-          description: Model ID, fixed nano-banana-pro
-        image_urls:
-          type: array
-          items:
-            type: string
-            description: It must be a publicly accessible image address.
-          description: Input images to transform or use as reference(Max support 8 images).
-          maxItems: 8
-        aspect_ratio:
-          type: string
-          description: The generated image's width and height aspect ratio.
-          enum:
-            - '1:1'
-            - '2:3'
-            - '3:2'
-            - '3:4'
-            - '4:3'
-            - '4:5'
-            - '5:4'
-            - '9:16'
-            - '16:9'
-          x-apidog-enum:
-            - value: '1:1'
-              name: ''
-              description: ''
-            - value: '2:3'
-              name: ''
-              description: ''
-            - value: '3:2'
-              name: ''
-              description: ''
-            - value: '3:4'
-              name: ''
-              description: ''
-            - value: '4:3'
-              name: ''
-              description: ''
-            - value: '4:5'
-              name: ''
-              description: ''
-            - value: '5:4'
-              name: ''
-              description: ''
-            - value: '9:16'
-              name: ''
-              description: ''
-            - value: '16:9'
-              name: ''
-              description: ''
-        quality:
-          type: string
-          description: Output image resolution, support 4K.
-          enum:
-            - 1K
-            - 2K
-            - 4K
-          x-apidog-enum:
-            - value: 1K
-              name: ''
-              description: ''
-            - value: 2K
-              name: ''
-              description: ''
-            - value: 4K
-              name: ''
-              description: ''
-        callback_url:
-          type: string
-          description: Callback Notifications URL.
-      required:
-        - prompt
-        - model
-      x-apidog-orders:
-        - prompt
-        - model
-        - image_urls
-        - aspect_ratio
-        - quality
-        - callback_url
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SubmitTaskResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: Response status code
-          enum:
-            - 200
-            - 401
-            - 500
-            - 400
-            - 403
-            - 402
-            - 404
-            - 429
-          x-apidog-enum:
-            - value: 200
-              name: Success
-              description: Request has been processed successfully
-            - value: 401
-              name: Unauthorized
-              description: Authentication credentials are missing or invalid
-            - value: 500
-              name: Authentication credentials are missing or invalid
-              description: An unexpected error occurred while processing the request
-            - value: 400
-              name: Bad Request
-              description: This is a bad request
-            - value: 403
-              name: Forbidden
-              description: Forbidden response
-            - value: 402
-              name: Insufficient quota
-              description: Account does not have enough credits to perform the operation
-            - value: 404
-              name: Not Found
-              description: The requested resource or endpoint does not exist
-            - value: 429
-              name: Rate limit
-              description: Request limit has been exceeded for this resource
-        message:
-          type: string
-          description: Response message, error description when failed
-        data:
-          type: object
-          properties:
-            task_id:
-              type: string
-              description: >-
-                Unique identifier for asynchronous tasks.can be used with Get
-                Task Details endpoint to query task status
-          x-apidog-orders:
-            - task_id
-          required:
-            - task_id
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-        - code
-        - message
-        - data
-      required:
-        - code
-        - message
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-  securitySchemes:
-    APIPod APIKey:
-      type: bearer
-      scheme: bearer
-servers:
-  - url: https://api.apipod.ai
-    description: 正式环境
-security: []
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Gemini 3 Pro Image (Nano Banana Pro)",
+    "version": "1.0.0",
+    "description": "Google 最强的图片生成模型",
+    "x-apipod-metadata": {
+      "modelId": "nano-banana-pro",
+      "modelType": "image",
+      "provider": "google",
+      "category": "文生图、图生图"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "Gemini 3 Pro Image (Nano Banana Pro)",
+        "description": "Google 最强的图片生成模型",
+        "properties": {
+          "aspect_ratio": {
+            "type": "string",
+            "title": "Aspect ratio",
+            "description": "the generated image's width and height aspect ratio.",
+            "enum": [
+              "1:1",
+              "2:3",
+              "3:2",
+              "3:4",
+              "4:3",
+              "4:5",
+              "5:4",
+              "9:16",
+              "16:9",
+              "21:9"
+            ],
+            "default": "1:1",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "callback_url": {
+            "type": "string",
+            "title": "Callback URL",
+            "description": "Callback Notifications URL.",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "hidden"
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "title": "Input Images",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "image-upload"
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "Describe the content of the image to be generated.",
+            "default": "A humanoid figure with a vintage television set for a head, featuring a green-tinted screen displaying a `Hello APIPod.ai` writing in ASCII font. The figure is wearing a yellow raincoat, and there are various wires and components attached to the television. The background is cloudy and indistinct, suggesting an outdoor setting",
+            "maxLength": 4000,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "quality": {
+            "type": "string",
+            "title": "Quality",
+            "description": "Output image resolution.",
+            "enum": [
+              "1K",
+              "2K",
+              "4K"
+            ],
+            "default": "1K",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          }
+        },
+        "required": [
+          "model",
+          "prompt"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_urls",
+          "quality",
+          "aspect_ratio",
+          "callback_url"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "image",
+          "previewMedia": [
+            "https://s.apipod.ai/images/2025/12/06/0e2cb92b-2313-4dd1-928c-22582cd38084.png"
+          ]
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "任务唯一标识"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "完成时间戳"
+              },
+              "result": {
+                "type": "array",
+                "description": "生成的图片 URL 列表",
+                "items": {
+                  "type": "string",
+                  "description": "图片 URL"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "任务状态",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "任务唯一标识"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/images/generations": {
+      "post": {
+        "summary": "image API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/images/status/{task_id}",
+          "polling": {
+            "interval": 3000,
+            "maxAttempts": 400,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed",
+              "succeeded"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/images/status/{task_id}": {
+      "get": {
+        "summary": "Gemini 3 Pro Image (Nano Banana Pro) Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

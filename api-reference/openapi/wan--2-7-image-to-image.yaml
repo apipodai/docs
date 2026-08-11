@@ -30,75 +30,50 @@ paths:
           application/json:
             schema:
               type: object
+              title: WAN 2.7 Image Edit
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: wan2.7-image-edit
                 prompt:
                   type: string
-                  description: Describe the image to generate or the edit to perform.
+                  title: Prompt
+                  default: ""
+                  minLength: 1
                   maxLength: 5000
                 image_urls:
                   type: array
+                  title: Image Urls
+                  description: The positive prompt for the edit image generation.
                   items:
                     type: string
-                  description: Source images for editing.
-                  minItems: 1
-                  maxItems: 9
                 size:
                   type: string
-                  description: Output size or resolution shorthand.
-                  default: 2K
-                quality:
-                  type: string
-                  description: Output quality tier.
+                  title: Size
+                  description: Output image resolution parameters.
                   enum:
                     - 1K
                     - 2K
-                aspect_ratio:
-                  type: string
-                  description: Output aspect ratio.
-                  enum:
-                    - 1:1
-                    - 1:4
-                    - 1:8
-                    - 2:3
-                    - 3:2
-                    - 3:4
-                    - 4:1
-                    - 4:3
-                    - 4:5
-                    - 5:4
-                    - 8:1
-                    - 16:9
-                    - 9:16
-                    - 21:9
+                  default: 1K
+                watermark:
+                  type: boolean
+                  title: Watermark
+                  description: Whether to add a watermark, which will be placed in the bottom
+                    right corner of the image.
+                  default: false
                 n:
                   type: integer
-                  description: Number of images to generate.
+                  title: Number of  images
+                  enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
                   default: 1
                   minimum: 1
                   maximum: 4
-                thinking_mode:
-                  type: boolean
-                  description: Allow reasoning before rendering in text-to-image mode.
-                  default: true
-                color_palette:
-                  type: array
-                  description: Optional palette of 3-10 colors with hexadecimal values and target
-                    ratios.
-                  items:
-                    type: object
-                  minItems: 3
-                  maxItems: 10
-                seed:
-                  type: integer
-                  description: Optional deterministic random seed.
-                watermark:
-                  type: boolean
-                  description: Add an upstream watermark to the result.
-                  default: false
               required:
                 - model
                 - prompt
@@ -109,9 +84,7 @@ paths:
                 cinematic lighting.
               image_urls:
                 - https://cdn.example.com/reference-1.jpg
-              size: 2K
-              quality: 2K
-              aspect_ratio: 16:9
+              size: 1K
               n: 1
       responses:
         "200":
@@ -120,23 +93,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -159,9 +130,7 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "size": "2K",
-              "quality": "2K",
-              "aspect_ratio": "16:9",
+              "size": "1K",
               "n": 1
             }'
         - lang: Python
@@ -178,9 +147,7 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "size": "2K",
-              "quality": "2K",
-              "aspect_ratio": "16:9",
+              "size": "1K",
               "n": 1
             }
 
@@ -221,9 +188,7 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "size": "2K",
-              "quality": "2K",
-              "aspect_ratio": "16:9",
+              "size": "1K",
               "n": 1
             }`), &payload); err != nil {
                     panic(err)
@@ -266,9 +231,7 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "size": "2K",
-              "quality": "2K",
-              "aspect_ratio": "16:9",
+              "size": "1K",
               "n": 1
             });
                 let response = Client::new()
@@ -299,9 +262,7 @@ paths:
                 "image_urls": [
                   "https://cdn.example.com/reference-1.jpg"
                 ],
-                "size": "2K",
-                "quality": "2K",
-                "aspect_ratio": "16:9",
+                "size": "1K",
                 "n": 1
               }
               ),

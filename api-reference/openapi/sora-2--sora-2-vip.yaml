@@ -30,48 +30,54 @@ paths:
           application/json:
             schema:
               type: object
+              title: Sora 2(VIP)
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: sora-2-vip
                 prompt:
                   type: string
-                  description: Describe the scene, action, camera, and sound.
+                  title: Prompt
+                  description: Describe the content of the video to be generated.
+                  default: Two mountain explorers in bright technical shells, ice crusted faces,
+                    eyes narrowed with urgency shout in the snow, one at a time
                   maxLength: 4000
                 image_url:
                   type: string
-                  description: Optional first-frame image URL.
+                  title: Image Url
+                  description: URL of the image to use as the first frame. Please do not upload
+                    real portrait images, as this will most likely result in
+                    failure. The image format must be consistent with the ratio,
+                    and only 1280×720 (16:9 landscape) and 720×1280 (9:16
+                    portrait) are supported.
+                duration:
+                  type: integer
+                  title: Duration
+                  description: The video durations
+                  enum:
+                    - 8
+                    - 12
+                  default: 8
                 aspect_ratio:
                   type: string
-                  description: Video aspect ratio.
-                  default: 9:16
+                  title: Aspect Ratio
+                  description: This parameter defines the aspect ratio of the video.
                   enum:
                     - 9:16
                     - 16:9
-                duration:
-                  type: integer
-                  description: Clip duration in seconds.
-                  default: 8
-                  enum:
-                    - 4
-                    - 8
-                    - 10
-                    - 12
-                    - 15
-                callback_url:
-                  type: string
-                  description: HTTPS endpoint that receives task completion notifications.
+                  default: 9:16
               required:
                 - model
                 - prompt
             example:
               model: sora-2-vip
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
-                motion, synchronized ambient sound.
+              prompt: Two mountain explorers in bright technical shells, ice crusted faces,
+                eyes narrowed with urgency shout in the snow, one at a time
               image_url: https://cdn.example.com/reference.jpg
-              aspect_ratio: 16:9
               duration: 8
+              aspect_ratio: 9:16
       responses:
         "200":
           description: Task accepted
@@ -79,23 +85,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -114,10 +118,10 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "sora-2-vip",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "aspect_ratio": "16:9",
-              "duration": 8
+              "duration": 8,
+              "aspect_ratio": "9:16"
             }'
         - lang: Python
           label: Python
@@ -129,10 +133,10 @@ paths:
 
             payload = {
               "model": "sora-2-vip",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "aspect_ratio": "16:9",
-              "duration": 8
+              "duration": 8,
+              "aspect_ratio": "9:16"
             }
 
 
@@ -168,10 +172,10 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "sora-2-vip",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "aspect_ratio": "16:9",
-              "duration": 8
+              "duration": 8,
+              "aspect_ratio": "9:16"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -209,10 +213,10 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "sora-2-vip",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "aspect_ratio": "16:9",
-              "duration": 8
+              "duration": 8,
+              "aspect_ratio": "9:16"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -238,10 +242,10 @@ paths:
               body: JSON.stringify(
               {
                 "model": "sora-2-vip",
-                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+                "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
                 "image_url": "https://cdn.example.com/reference.jpg",
-                "aspect_ratio": "16:9",
-                "duration": 8
+                "duration": 8,
+                "aspect_ratio": "9:16"
               }
               ),
             });

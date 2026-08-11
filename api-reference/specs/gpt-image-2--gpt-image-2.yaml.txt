@@ -1,320 +1,328 @@
-openapi: 3.0.1
-info:
-  title: ''
-  description: ''
-  version: 1.0.0
-paths:
-  /v1/images/generations:
-    post:
-      summary: GPT Image 2
-      deprecated: false
-      description: >-
-        **GPT Image 2** is a new-generation image model developed by OpenAI,
-        featuring enhanced realism, more refined image editing capabilities,
-        sharper text rendering, and superior product rendering performance.
-        Built specifically for advanced visual workflows, it not only breaks
-        through the limitations of basic text-to-image generation but also fully
-        meets the demands for high-quality creative, commercial, and
-        professional design-level applications.
-
-
-
-        ### Prompt Writing Tips
-
-
-        <Steps>
-
-        <Step>
-         **Describe Subject**
-
-         Clearly describe the main subject of the image, including people, objects, or scenes.
-         ```
-         A young woman wearing a white dress, standing under cherry blossom trees
-         ```
-        </Step>
-
-        <Step>
-         **Add Details**
-
-         Supplement with lighting, colors, style, and other details.
-         ```
-         Soft natural light, pink tones, Japanese fresh style
-         ```
-        </Step>
-
-        <Step>
-         **Specify Style**
-
-         Clearly specify the artistic or photography style.
-         ```
-         Cinematic, shallow depth of field, medium format shot, 35mm film texture
-         ```
-        </Step>
-
-        </Steps>
-
-
-        **Complete Prompt Example:**
-
-
-        ```text
-
-        A vibrant close-up editorial portrait, model with intense gaze, wearing
-        a sculptural hat (with an APIPod.ai LOGO on the hat),
-
-        rich color blocking, sharp eye focus, shallow depth of field, Vogue
-        magazine cover aesthetic, medium format shot, intense studio lighting.
-
-        ```
-
-
-        ## Query Task Details
-
-
-        After submitting a task, you can check the task progress and obtain the
-        generated results through the unified query endpoint:
-
-
-
-        <Card title="Get Image Task Details" icon="lucide-search"
-        href="/query-image-task">Learn how to query task status and obtain
-        generated results</Card>
-
-
-
-        ::: tip[]
-
-
-        In a production environment, it is recommended to use the `callback_url`
-        parameter to receive automatic notifications upon generation completion
-        instead of polling the status endpoint.
-
-
-        :::
-      tags:
-        - Image Models/GPT Image 2
-        - text to image
-        - gpt image 2
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/GPTImage2'
-            examples: {}
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SubmitTaskResponse'
-          headers: {}
-          x-apidog-name: 成功
-      security:
-        - APIPod APIKey: []
-          x-apidog:
-            required: true
-            schemeGroups:
-              - id: CGLgv8Iu_fOR3-w0g-ra7
-                schemeIds:
-                  - APIPod APIKey
-            use:
-              id: CGLgv8Iu_fOR3-w0g-ra7
-      x-apidog-folder: Image Models/GPT Image 2
-      x-apidog-status: released
-      x-run-in-apidog: https://app.apidog.com/web/project/1247502/apis/api-33894533-run
-components:
-  schemas:
-    GPTImage2:
-      type: object
-      properties:
-        model:
-          type: string
-          description: Model ID, fixed gpt-image-2
-          const: gpt-image-2
-        prompt:
-          type: string
-          maxLength: 32000
-          description: generated image prompt.
-        image_urls:
-          type: array
-          items:
-            type: string
-          description: reference images, max 16 images
-          maxItems: 16
-        aspect_ratio:
-          type: string
-          enum:
-            - auto
-            - '1:1'
-            - '2:3'
-            - '3:2'
-            - '3:4'
-            - '4:3'
-            - '4:5'
-            - '5:4'
-            - '9:16'
-            - '16:9'
-            - '21:9'
-          x-apidog-enum:
-            - value: auto
-              name: ''
-              description: ''
-            - value: '1:1'
-              name: ''
-              description: ''
-            - value: '2:3'
-              name: ''
-              description: ''
-            - value: '3:2'
-              name: ''
-              description: ''
-            - value: '3:4'
-              name: ''
-              description: ''
-            - value: '4:3'
-              name: ''
-              description: ''
-            - value: '4:5'
-              name: ''
-              description: ''
-            - value: '5:4'
-              name: ''
-              description: ''
-            - value: '9:16'
-              name: ''
-              description: ''
-            - value: '16:9'
-              name: ''
-              description: ''
-            - value: '21:9'
-              name: ''
-              description: ''
-          default: auto
-          description: output image aspect ratio
-        resolution:
-          type: string
-          default: 1K
-          enum:
-            - 1K
-            - 2K
-            - 4K
-          x-apidog-enum:
-            - value: 1K
-              name: ''
-              description: ''
-            - value: 2K
-              name: ''
-              description: ''
-            - value: 4K
-              name: ''
-              description: ''
-          description: output image resolution,support 1K 2K 4K
-        quality:
-          type: string
-          enum:
-            - auto
-            - low
-            - medium
-            - high
-          x-apidog-enum:
-            - value: auto
-              name: ''
-              description: ''
-            - value: low
-              name: ''
-              description: ''
-            - value: medium
-              name: ''
-              description: ''
-            - value: high
-              name: ''
-              description: ''
-          default: auto
-          description: output image quality, support auto low medium high
-      required:
-        - model
-        - prompt
-      x-apidog-orders:
-        - model
-        - prompt
-        - image_urls
-        - aspect_ratio
-        - resolution
-        - quality
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SubmitTaskResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: Response status code
-          enum:
-            - 200
-            - 401
-            - 500
-            - 400
-            - 403
-            - 402
-            - 404
-            - 429
-          x-apidog-enum:
-            - value: 200
-              name: Success
-              description: Request has been processed successfully
-            - value: 401
-              name: Unauthorized
-              description: Authentication credentials are missing or invalid
-            - value: 500
-              name: Authentication credentials are missing or invalid
-              description: An unexpected error occurred while processing the request
-            - value: 400
-              name: Bad Request
-              description: This is a bad request
-            - value: 403
-              name: Forbidden
-              description: Forbidden response
-            - value: 402
-              name: Insufficient quota
-              description: Account does not have enough credits to perform the operation
-            - value: 404
-              name: Not Found
-              description: The requested resource or endpoint does not exist
-            - value: 429
-              name: Rate limit
-              description: Request limit has been exceeded for this resource
-        message:
-          type: string
-          description: Response message, error description when failed
-        data:
-          type: object
-          properties:
-            task_id:
-              type: string
-              description: >-
-                Unique identifier for asynchronous tasks.can be used with Get
-                Task Details endpoint to query task status
-          x-apidog-orders:
-            - task_id
-          required:
-            - task_id
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-        - code
-        - message
-        - data
-      required:
-        - code
-        - message
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-  securitySchemes:
-    APIPod APIKey:
-      type: bearer
-      scheme: bearer
-servers:
-  - url: https://api.apipod.ai
-    description: 正式环境
-security: []
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "GPT Image 2 ",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "gpt-image-2",
+      "modelType": "image",
+      "provider": "openai"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "GPT Image 2 ",
+        "properties": {
+          "aspect_ratio": {
+            "type": "string",
+            "title": "Aspect Ratio",
+            "description": "This parameter defines the aspect ratio of the image.",
+            "enum": [
+              "auto",
+              "1:1",
+              "2:3",
+              "3:2",
+              "3:4",
+              "4:3",
+              "4:5",
+              "5:4",
+              "9:16",
+              "16:9",
+              "21:9"
+            ],
+            "default": "auto",
+            "x-apipod-ui": {
+              "component": "button-group",
+              "labels": {
+                "1": "[object Object]",
+                "2": "[object Object]",
+                "3": "[object Object]",
+                "4": "[object Object]",
+                "5": "[object Object]",
+                "9": "[object Object]",
+                "16": "[object Object]",
+                "21": "[object Object]",
+                "16:": "[object Object]",
+                "1:": "[object Object]",
+                "21:": "[object Object]",
+                "2:": "[object Object]",
+                "3:": "[object Object]",
+                "4:": "[object Object]",
+                "5:": "[object Object]",
+                "9:": "[object Object]",
+                "9:1": "[object Object]",
+                "a": "[object Object]",
+                "au": "[object Object]",
+                "aut": "[object Object]"
+              }
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "title": "Image Urls",
+            "x-apipod-ui": {
+              "component": "image-upload",
+              "maxCount": 16
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "Used to describe the generated images.",
+            "default": "Capture an Instagram Story photo of a cosplay of Albedo; squatting on the ground facing the camera, making exaggerated rebellious hand gestures with both hands, rolling eyes, with an arrogant and disdainful expression",
+            "maxLength": 32000,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "quality": {
+            "type": "string",
+            "title": "Quality",
+            "enum": [
+              "auto",
+              "low",
+              "medium",
+              "high"
+            ],
+            "default": "auto",
+            "x-apipod-ui": {
+              "component": "button-group",
+              "labels": {
+                "2": ",",
+                "4": ",,,",
+                "a": "[object Object]",
+                "au": "[object Object]",
+                "aut": "[object Object]",
+                "h": "[object Object]",
+                "hi": "[object Object]",
+                "hig": "[object Object]",
+                "l": "[object Object]",
+                "li": "[object Object]",
+                "liw": "[object Object]",
+                "lo": "[object Object]",
+                "m": "[object Object]",
+                "me": "[object Object]",
+                "med": "[object Object]",
+                "medi": "[object Object]",
+                "mediu": "[object Object]"
+              }
+            }
+          },
+          "resolution": {
+            "type": "string",
+            "title": "Resolution",
+            "description": "The resolution of the generated images.",
+            "enum": [
+              "1K",
+              "2K",
+              "4K"
+            ],
+            "default": "1K",
+            "x-apipod-ui": {
+              "component": "button-group",
+              "labels": {
+                "2": ",",
+                "4": ",,,"
+              }
+            }
+          }
+        },
+        "required": [
+          "model",
+          "prompt"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_urls",
+          "quality",
+          "aspect_ratio",
+          "resolution"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "image",
+          "previewMedia": [
+            "https://s.apipod.ai/images/2026/04/23/5957e13c-339d-4488-98c1-9ad66d7e35c7.png"
+          ]
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              },
+              "result": {
+                "type": "array",
+                "description": "generated image url list",
+                "items": {
+                  "type": "string",
+                  "description": "image url"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "task status",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/images/generations": {
+      "post": {
+        "summary": "image API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/images/status/{task_id}",
+          "polling": {
+            "interval": 3000,
+            "maxAttempts": 900,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/images/status/{task_id}": {
+      "get": {
+        "summary": "GPT Image 2  Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

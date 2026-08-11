@@ -32,27 +32,29 @@ paths:
           application/json:
             schema:
               type: object
+              title: Nano Banana 2
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: nano-banana-2
                 prompt:
                   type: string
-                  description: Describe the image to create or the edit to apply.
-                  maxLength: 4000
+                  title: Prompt
+                  description: Describe the content of the image to be generated.
+                  default: ""
+                  maxLength: 3993
                 image_urls:
                   type: array
+                  title: Input Images
                   items:
                     type: string
-                  description: Reference images for editing, composition, or subject consistency.
-                  maxItems: 14
                 aspect_ratio:
                   type: string
-                  description: Output aspect ratio.
-                  default: auto
+                  title: Aspect Ratio
+                  description: the generated image's width and height aspect ratio.
                   enum:
-                    - auto
                     - 1:1
                     - 1:4
                     - 1:8
@@ -64,35 +66,20 @@ paths:
                     - 4:5
                     - 5:4
                     - 8:1
-                    - 16:9
                     - 9:16
+                    - 16:9
                     - 21:9
+                  default: 1:1
                 quality:
                   type: string
-                  description: Output resolution tier.
+                  title: Quality
+                  description: Output image resolution.
+                  enum:
+                    - 512px
+                    - 1K
+                    - 2K
+                    - 4K
                   default: 1K
-                  enum:
-                    - 512px
-                    - 1K
-                    - 2K
-                    - 4K
-                resolution:
-                  type: string
-                  description: Alias for the output resolution tier.
-                  enum:
-                    - "512"
-                    - 512px
-                    - 1K
-                    - 2K
-                    - 4K
-                google_search:
-                  type: boolean
-                  description: Allow the model to use Google Search grounding when the selected
-                    channel supports it.
-                  default: false
-                callback_url:
-                  type: string
-                  description: HTTPS endpoint that receives task completion notifications.
               required:
                 - model
                 - prompt
@@ -100,9 +87,8 @@ paths:
               model: nano-banana-2
               prompt: A premium product photograph on a dark studio set, precise typography,
                 soft rim lighting, highly detailed.
-              aspect_ratio: 16:9
+              aspect_ratio: 1:1
               quality: 1K
-              resolution: 2K
       responses:
         "200":
           description: Task accepted
@@ -110,23 +96,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -146,9 +130,8 @@ paths:
               -d '{
               "model": "nano-banana-2",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "quality": "1K",
-              "resolution": "2K"
+              "aspect_ratio": "1:1",
+              "quality": "1K"
             }'
         - lang: Python
           label: Python
@@ -161,9 +144,8 @@ paths:
             payload = {
               "model": "nano-banana-2",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "quality": "1K",
-              "resolution": "2K"
+              "aspect_ratio": "1:1",
+              "quality": "1K"
             }
 
 
@@ -200,9 +182,8 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "nano-banana-2",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "quality": "1K",
-              "resolution": "2K"
+              "aspect_ratio": "1:1",
+              "quality": "1K"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -241,9 +222,8 @@ paths:
                 let payload = json!({
               "model": "nano-banana-2",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "quality": "1K",
-              "resolution": "2K"
+              "aspect_ratio": "1:1",
+              "quality": "1K"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/images/generations")
@@ -270,9 +250,8 @@ paths:
               {
                 "model": "nano-banana-2",
                 "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "aspect_ratio": "16:9",
-                "quality": "1K",
-                "resolution": "2K"
+                "aspect_ratio": "1:1",
+                "quality": "1K"
               }
               ),
             });

@@ -31,47 +31,44 @@ paths:
           application/json:
             schema:
               type: object
+              title: Gemini Omni Extend
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: gemini-omni-extend
                 prompt:
                   type: string
-                  description: Describe the desired scene, motion, or extension.
+                  title: Prompt
+                  default: ""
                   maxLength: 4000
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference images.
-                  maxItems: 5
                 video_url:
                   type: string
-                  description: Source video URL required for extension.
-                aspect_ratio:
-                  type: string
-                  description: Video aspect ratio.
-                  default: 16:9
-                  enum:
-                    - 16:9
-                    - 9:16
-                    - 1:1
+                  title: Video Url
+                  description: Video to be edited. The duration of the output video follows that
+                    of the source video. If the source video lasts more than 10
+                    seconds, the output video will be capped at 10 seconds.
+                image_urls:
+                  type: array
+                  title: Reference images
+                  description: Optional,you can provide 0-5 reference images to extend video.
+                  items:
+                    type: string
                 resolution:
                   type: string
-                  description: Output resolution supported by the selected channel.
+                  title: Resolution
                   enum:
                     - 720p
                     - 1080p
-                duration:
-                  type: integer
-                  description: Clip duration in seconds.
-                  default: 10
-                  minimum: 1
-                  maximum: 30
-                callback_url:
+                  default: 720p
+                aspect_ratio:
                   type: string
-                  description: HTTPS endpoint that receives task completion notifications.
+                  title: Aspect Ratio
+                  enum:
+                    - 16:9
+                    - 9:16
+                  default: 16:9
               required:
                 - model
                 - prompt
@@ -81,9 +78,8 @@ paths:
               prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
                 motion, synchronized ambient sound.
               video_url: https://cdn.example.com/source.mp4
-              aspect_ratio: 16:9
               resolution: 720p
-              duration: 10
+              aspect_ratio: 16:9
       responses:
         "200":
           description: Task accepted
@@ -91,23 +87,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -128,9 +122,8 @@ paths:
               "model": "gemini-omni-extend",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "video_url": "https://cdn.example.com/source.mp4",
-              "aspect_ratio": "16:9",
               "resolution": "720p",
-              "duration": 10
+              "aspect_ratio": "16:9"
             }'
         - lang: Python
           label: Python
@@ -144,9 +137,8 @@ paths:
               "model": "gemini-omni-extend",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "video_url": "https://cdn.example.com/source.mp4",
-              "aspect_ratio": "16:9",
               "resolution": "720p",
-              "duration": 10
+              "aspect_ratio": "16:9"
             }
 
 
@@ -184,9 +176,8 @@ paths:
               "model": "gemini-omni-extend",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "video_url": "https://cdn.example.com/source.mp4",
-              "aspect_ratio": "16:9",
               "resolution": "720p",
-              "duration": 10
+              "aspect_ratio": "16:9"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -226,9 +217,8 @@ paths:
               "model": "gemini-omni-extend",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "video_url": "https://cdn.example.com/source.mp4",
-              "aspect_ratio": "16:9",
               "resolution": "720p",
-              "duration": 10
+              "aspect_ratio": "16:9"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -256,9 +246,8 @@ paths:
                 "model": "gemini-omni-extend",
                 "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
                 "video_url": "https://cdn.example.com/source.mp4",
-                "aspect_ratio": "16:9",
                 "resolution": "720p",
-                "duration": 10
+                "aspect_ratio": "16:9"
               }
               ),
             });

@@ -9,6 +9,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const config = JSON.parse(await fs.readFile(path.join(root, "docs.json"), "utf8"));
 const manifest = JSON.parse(await fs.readFile(path.join(root, "migration-manifest.json"), "utf8"));
 const errors = [];
+const expectedBrandColors = { primary: "#7F22FE", light: "#A684FF", dark: "#7008E7" };
 
 async function exists(page) {
   try {
@@ -52,12 +53,54 @@ async function readSourceSpec(slug) {
   throw new Error(`Source OpenAPI snapshot missing for ${slug}`);
 }
 
+function resolveSchema(spec, schema) {
+  if (!schema?.$ref) return schema || {};
+  return schema.$ref.split("/").slice(1).reduce((value, key) => value?.[key], spec) || {};
+}
+
+function primaryOperation(spec) {
+  for (const item of Object.values(spec.paths || {})) {
+    for (const method of ["post", "get"]) if (item?.[method]?.requestBody) return item[method];
+  }
+  return null;
+}
+
+function normalizeContractValue(value, type) {
+  if (type === "integer" || type === "number") {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : value;
+  }
+  if (type === "boolean" && typeof value === "string") {
+    if (value === "true") return true;
+    if (value === "false") return false;
+  }
+  return value;
+}
+
+function schemaContract(spec, source, propertyName = "", { localized = false } = {}) {
+  const schema = resolveSchema(spec, source);
+  const contract = {};
+  for (const key of ["type", "format", "minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum", "minLength", "maxLength", "minItems", "maxItems", "pattern"]) {
+    if (localized && ["minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum", "minLength", "maxLength", "minItems", "maxItems"].includes(key)) continue;
+    if (schema[key] !== undefined) contract[key] = schema[key];
+  }
+  if (schema.const !== undefined && propertyName !== "model") contract.const = normalizeContractValue(schema.const, schema.type);
+  if (schema.enum) contract.enum = schema.enum.map((value) => normalizeContractValue(value, schema.type));
+  if (schema.default !== undefined && !(schema.type === "array" && !Array.isArray(schema.default))) {
+    contract.default = normalizeContractValue(schema.default, schema.type);
+  }
+  if (schema.required) contract.required = [...schema.required].sort();
+  if (schema.properties) {
+    contract.properties = Object.fromEntries(Object.keys(schema.properties).sort().map((name) => [name, schemaContract(spec, schema.properties[name], name, { localized })]));
+  }
+  return contract;
+}
+
 const guidePages = [
   "introduction",
   "quickstart",
   "authentication",
   "endpoint-conventions",
-  "models",
   "asynchronous-tasks",
   "webhooks",
   "error-codes",
@@ -67,6 +110,9 @@ const expectedPagePaths = new Set([
   ...guidePages.flatMap((slug) => [pagePath("en", slug), pagePath("zh", slug)]),
 ]);
 const navigationPages = [...new Set(collectPages(config.navigation.languages).filter((page) => expectedPagePaths.has(page)))];
+if (JSON.stringify(config.colors) !== JSON.stringify(expectedBrandColors)) {
+  errors.push("Documentation colors do not match the APIPod violet brand palette");
+}
 for (const page of navigationPages) if (!(await exists(page))) errors.push(`Navigation page missing: ${page}`);
 if (config.navigation.global?.anchors?.some((anchor) => ["Models", "Pricing"].includes(anchor.anchor))) {
   errors.push("Models and Pricing must be rendered in the header, not the sidebar");
@@ -87,7 +133,7 @@ for (const language of ["en", "zh"]) {
   if (JSON.stringify(tabs.map((item) => item.tab)) !== JSON.stringify(expectedTabs)) {
     errors.push(`Unexpected navigation tabs for ${language}`);
   }
-  const expectedApiGroups = language === "en" ? ["LLM", "Images", "Videos", "Tasks"] : ["LLM", "图片", "视频", "任务"];
+  const expectedApiGroups = language === "en" ? ["Images", "Videos", "Tasks"] : ["图片", "视频", "任务"];
   const apiGroups = tabs.find((item) => item.tab === expectedTabs[1])?.groups || [];
   if (JSON.stringify(apiGroups.map((item) => item.group)) !== JSON.stringify(expectedApiGroups)) {
     errors.push(`Unexpected API navigation groups for ${language}`);
@@ -124,8 +170,26 @@ for (const page of openApiPages) {
         errors.push(`Invalid generated OpenAPI source: ${generatedPath}`);
       }
       if (!spec.paths || Object.keys(spec.paths).length !== 1) errors.push(`Generated OpenAPI source must contain one operation: ${generatedPath}`);
+      const operation = Object.values(Object.values(spec.paths)[0])[0];
+      if (page.modelId) {
+        const sourceSpec = await readSourceSpec(page.slug);
+        const sourceOperation = primaryOperation(sourceSpec);
+        const sourceRequest = sourceOperation?.requestBody?.content?.["application/json"]?.schema;
+        const generatedRequest = operation.requestBody?.content?.["application/json"]?.schema;
+        const localizedContract = language === "zh";
+        if (!sourceRequest || JSON.stringify(schemaContract(sourceSpec, sourceRequest, "", { localized: localizedContract })) !== JSON.stringify(schemaContract(spec, generatedRequest, "", { localized: localizedContract }))) {
+          errors.push(`Generated request contract differs from configured model schema: ${generatedPath}`);
+        }
+        const sourceResponse = Object.entries(sourceOperation?.responses || {}).find(([code]) => /^2/.test(code))?.[1]?.content?.["application/json"]?.schema;
+        const generatedResponse = Object.entries(operation.responses || {}).find(([code]) => /^2/.test(code))?.[1]?.content?.["application/json"]?.schema;
+        if (!sourceResponse || JSON.stringify(schemaContract(sourceSpec, sourceResponse, "", { localized: localizedContract })) !== JSON.stringify(schemaContract(spec, generatedResponse, "", { localized: localizedContract }))) {
+          errors.push(`Generated response contract differs from configured model schema: ${generatedPath}`);
+        }
+        if (page.source !== `localhost:8080/public/schemas/${page.modelId}`) {
+          errors.push(`Model page is not sourced from its configured schema: ${page.slug}`);
+        }
+      }
       if (language === "zh") {
-        const operation = Object.values(Object.values(spec.paths)[0])[0];
         const descriptions = [];
         const collectPropertyDescriptions = (schema) => {
           if (!schema || typeof schema !== "object") return;
@@ -203,9 +267,9 @@ for (const file of files) {
 }
 
 const modelPages = manifest.pages.filter((page) => page.schema && !page.slug.startsWith("query-"));
-if (modelPages.length !== 62) errors.push(`Unexpected model page count: ${modelPages.length}`);
+if (!modelPages.length) errors.push("No configured model schema pages were generated");
 if (new Set(modelPages.map((page) => page.modelId).filter(Boolean)).size !== modelPages.length) errors.push("Every model page must have a unique public model ID");
-for (const retiredModelID of ["sora-2", "sora-2-pro"]) {
+for (const retiredModelID of ["sora-2", "sora-2-pro", "doubao-seedance-1.0-pro-fast-t2v"]) {
   if (modelPages.some((page) => page.modelId === retiredModelID)) errors.push(`Retired model remains documented: ${retiredModelID}`);
 }
 for (const page of modelPages) {
@@ -213,10 +277,11 @@ for (const page of modelPages) {
   if (!page.introduction?.en?.includes(page.modelId) || !page.introduction?.zh?.includes(page.modelId)) errors.push(`Model introduction does not identify the public model ID: ${page.slug}`);
   for (const language of ["en", "zh"]) {
     const source = await fs.readFile(path.join(root, `${pagePath(language, page.slug)}.mdx`), "utf8");
-    const markers = [language === "zh" ? "查询任务状态" : "Query task status"];
-    for (const marker of markers) if (!source.includes(marker)) errors.push(`Model documentation missing in ${language}/${page.slug}: ${marker}`);
     const supportHeading = language === "zh" ? "## APIPod 支持" : "## APIPod support";
-    if (!source.includes(supportHeading)) errors.push(`APIPod support section missing in ${language}/${page.slug}`);
+    const queryTaskCard = language === "zh" ? 'title="查询任务状态"' : 'title="Query task status"';
+    for (const forbidden of [supportHeading, queryTaskCard]) {
+      if (source.includes(forbidden)) errors.push(`Redundant model-page content remains in ${language}/${page.slug}: ${forbidden}`);
+    }
     const frontmatterDescription = source.match(/^description: (.+)$/m)?.[1];
     if (frontmatterDescription) {
       const description = JSON.parse(frontmatterDescription);

@@ -30,93 +30,72 @@ paths:
           application/json:
             schema:
               type: object
+              title: WAN 3.0 图生视频
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: wan3.0-i2v
                 prompt:
                   type: string
-                  description: Describe the scene, motion, camera, and sound.
-                  maxLength: 5000
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference image URLs.
-                  minItems: 1
-                  maxItems: 2
-                video_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference video URLs.
-                  maxItems: 1
-                audio_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference audio URLs.
-                  maxItems: 1
-                file_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference file URLs.
-                  maxItems: 1
-                aspect_ratio:
+                  title: Prompt
+                  default: ""
+                  minLength: 0
+                  maxLength: 20000
+                first_frame_image:
                   type: string
-                  description: Video aspect ratio.
-                  default: 16:9
-                  enum:
-                    - adaptive
-                    - 16:9
-                    - 9:16
-                    - 1:1
+                  title: First Frame Image
+                  default: ""
+                last_frame_image:
+                  type: string
+                  title: Last Frame Image
+                  default: ""
                 resolution:
                   type: string
-                  description: Output resolution.
-                  default: 1080P
+                  title: Resolution
                   enum:
                     - 480P
                     - 720P
                     - 1080P
-                    - 480p
-                    - 720p
-                    - 1080p
+                  default: 1080P
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  enum:
+                    - adaptive
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                  default: adaptive
                 duration:
                   type: integer
-                  description: Clip duration in seconds.
+                  title: Duration
+                  enum:
+                    - -1
                   default: 5
                   minimum: 2
                   maximum: 30
-                audio:
+                generate_audio:
                   type: boolean
-                  description: Generate or preserve audio when supported.
+                  title: Generate Audio
                   default: true
-                seed:
-                  type: integer
-                  description: Optional deterministic random seed.
-                callback_url:
-                  type: string
-                  description: HTTPS endpoint that receives task completion notifications.
+                watermark:
+                  type: boolean
+                  title: Watermark
+                  default: false
               required:
                 - model
-                - prompt
-                - image_urls
             example:
               model: wan3.0-i2v
               prompt: Animate the subject with a slow camera push-in, natural motion, and soft
                 cinematic lighting.
-              image_urls:
-                - https://cdn.example.com/reference-1.jpg
-              video_urls:
-                - https://cdn.example.com/reference.mp4
-              audio_urls:
-                - https://cdn.example.com/reference.mp3
-              aspect_ratio: 16:9
               resolution: 1080P
+              aspect_ratio: adaptive
               duration: 5
+              generate_audio: true
       responses:
         "200":
           description: Task accepted
@@ -124,23 +103,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -160,18 +137,10 @@ paths:
               -d '{
               "model": "wan3.0-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "aspect_ratio": "adaptive",
+              "duration": 5,
+              "generate_audio": true
             }'
         - lang: Python
           label: Python
@@ -184,18 +153,10 @@ paths:
             payload = {
               "model": "wan3.0-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "aspect_ratio": "adaptive",
+              "duration": 5,
+              "generate_audio": True
             }
 
 
@@ -232,18 +193,10 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "wan3.0-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "aspect_ratio": "adaptive",
+              "duration": 5,
+              "generate_audio": true
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -282,18 +235,10 @@ paths:
                 let payload = json!({
               "model": "wan3.0-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "aspect_ratio": "adaptive",
+              "duration": 5,
+              "generate_audio": true
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -320,18 +265,10 @@ paths:
               {
                 "model": "wan3.0-i2v",
                 "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-                "image_urls": [
-                  "https://cdn.example.com/reference-1.jpg"
-                ],
-                "video_urls": [
-                  "https://cdn.example.com/reference.mp4"
-                ],
-                "audio_urls": [
-                  "https://cdn.example.com/reference.mp3"
-                ],
-                "aspect_ratio": "16:9",
                 "resolution": "1080P",
-                "duration": 5
+                "aspect_ratio": "adaptive",
+                "duration": 5,
+                "generate_audio": true
               }
               ),
             });

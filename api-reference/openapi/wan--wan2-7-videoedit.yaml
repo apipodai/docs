@@ -30,91 +30,103 @@ paths:
           application/json:
             schema:
               type: object
+              title: WAN 2.7 Video Edit
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: wan2.7-videoedit
                 prompt:
                   type: string
-                  description: Describe the scene, motion, camera, and sound.
+                  title: Prompt
+                  default: ""
                   maxLength: 5000
+                prompt_extend:
+                  type: boolean
+                  title: Prompt Extend
+                  description: Describe the content you do not wish to see in the video frame,
+                    which can be used to restrict the video frame.
+                  default: ""
+                negative_prompt:
+                  type: string
+                  title: Negative Prompt
+                  description: Describe the content you do not wish to see in the video frame,
+                    which can be used to restrict the video frame.
+                  default: low resolution, errors, worst quality, poor quality, incomplete, extra
+                    fingers, poor aspect ratio.
+                  maxLength: 500
+                video_url:
+                  type: string
+                  title: Edit Video
+                  description: Video file to be edited, 2-10s
+                  default: ""
                 image_urls:
                   type: array
+                  title: Images
+                  description: The first frame or reference image.
                   items:
                     type: string
-                  description: Reference image URLs, if supported by the selected channel.
-                  maxItems: 2
-                video_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference video URLs.
-                  maxItems: 1
-                audio_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference audio URLs.
-                  maxItems: 1
-                file_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference file URLs.
-                  maxItems: 1
-                aspect_ratio:
-                  type: string
-                  description: Video aspect ratio.
-                  default: 16:9
-                  enum:
-                    - adaptive
-                    - 16:9
-                    - 9:16
-                    - 1:1
                 resolution:
                   type: string
-                  description: Output resolution.
-                  default: 1080P
+                  title: Resolution
+                  description: Describe the content you do not wish to see in the video frame,
+                    which can be used to restrict the video frame.
                   enum:
-                    - 480P
                     - 720P
                     - 1080P
-                    - 480p
-                    - 720p
-                    - 1080p
+                  default: 1080P
                 duration:
                   type: integer
-                  description: Clip duration in seconds.
-                  default: 5
-                  minimum: 2
-                  maximum: 30
-                audio:
-                  type: boolean
-                  description: Generate or preserve audio when supported.
-                  default: true
-                seed:
-                  type: integer
-                  description: Optional deterministic random seed.
-                callback_url:
+                  title: Duration
+                  description: This parameter only needs to be configured when video truncation is
+                    required. If you want the output video to have the same
+                    duration as the input video, no setting is needed (or pass
+                    the default value 0).
+                  enum:
+                    - 0
+                    - 2
+                    - 3
+                    - 4
+                    - 5
+                    - 6
+                    - 7
+                    - 8
+                    - 9
+                    - 10
+                  default: 0
+                audio_setting:
                   type: string
-                  description: HTTPS endpoint that receives task completion notifications.
+                  title: Audio Setting
+                  description: "Video audio settings. auto (default): The model makes an
+                    intelligent judgment based on the prompt content. If the
+                    prompt involves audio descriptions, it may regenerate the
+                    audio; otherwise, it may retain the original audio of the
+                    input material. origin: Forcefully retain the original audio
+                    of the input video without regeneration."
+                  enum:
+                    - auto
+                    - origin
+                  default: auto
+                watermark:
+                  type: boolean
+                  title: Watermark
+                  description: Whether to add a watermark logo, with the watermark positioned at
+                    the bottom right corner of the video.
+                  default: false
               required:
                 - model
                 - prompt
+                - video_url
             example:
               model: wan2.7-videoedit
               prompt: A premium product photograph on a dark studio set, precise typography,
                 soft rim lighting, highly detailed.
+              video_url: https://cdn.example.com/source.mp4
               image_urls:
                 - https://cdn.example.com/reference-1.jpg
-              video_urls:
-                - https://cdn.example.com/reference.mp4
-              audio_urls:
-                - https://cdn.example.com/reference.mp3
-              aspect_ratio: 16:9
               resolution: 1080P
-              duration: 5
+              duration: 0
       responses:
         "200":
           description: Task accepted
@@ -122,23 +134,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -158,18 +168,12 @@ paths:
               -d '{
               "model": "wan2.7-videoedit",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "video_url": "https://cdn.example.com/source.mp4",
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "duration": 0
             }'
         - lang: Python
           label: Python
@@ -182,18 +186,12 @@ paths:
             payload = {
               "model": "wan2.7-videoedit",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "video_url": "https://cdn.example.com/source.mp4",
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "duration": 0
             }
 
 
@@ -230,18 +228,12 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "wan2.7-videoedit",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "video_url": "https://cdn.example.com/source.mp4",
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "duration": 0
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -280,18 +272,12 @@ paths:
                 let payload = json!({
               "model": "wan2.7-videoedit",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "video_url": "https://cdn.example.com/source.mp4",
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "duration": 0
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -318,18 +304,12 @@ paths:
               {
                 "model": "wan2.7-videoedit",
                 "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+                "video_url": "https://cdn.example.com/source.mp4",
                 "image_urls": [
                   "https://cdn.example.com/reference-1.jpg"
                 ],
-                "video_urls": [
-                  "https://cdn.example.com/reference.mp4"
-                ],
-                "audio_urls": [
-                  "https://cdn.example.com/reference.mp3"
-                ],
-                "aspect_ratio": "16:9",
                 "resolution": "1080P",
-                "duration": 5
+                "duration": 0
               }
               ),
             });

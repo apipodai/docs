@@ -26,47 +26,49 @@ paths:
           application/json:
             schema:
               type: object
+              title: Sora 2(VIP)
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: sora-2-vip
                 prompt:
                   type: string
-                  description: 描述场景、动作、镜头和声音。 最大字符串长度：4000。
+                  title: Prompt
+                  description: 生成或编辑指令。 最大字符串长度：4000。
+                  default: Two mountain explorers in bright technical shells, ice crusted faces,
+                    eyes narrowed with urgency shout in the snow, one at a time
                 image_url:
                   type: string
+                  title: Image Url
                   description: 可公开访问的源图片 URL。
+                duration:
+                  type: integer
+                  title: Duration
+                  description: 视频时长，单位为秒。
+                  enum:
+                    - 8
+                    - 12
+                  default: 8
                 aspect_ratio:
                   type: string
-                  description: 视频宽高比。
-                  default: 9:16
+                  title: Aspect Ratio
+                  description: 输出宽高比。
                   enum:
                     - 9:16
                     - 16:9
-                duration:
-                  type: integer
-                  description: 视频片段时长，单位为秒。
-                  default: 8
-                  enum:
-                    - 4
-                    - 8
-                    - 10
-                    - 12
-                    - 15
-                callback_url:
-                  type: string
-                  description: 接收任务完成通知的 HTTPS 地址。
+                  default: 9:16
               required:
                 - model
                 - prompt
             example:
               model: sora-2-vip
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
-                motion, synchronized ambient sound.
+              prompt: Two mountain explorers in bright technical shells, ice crusted faces,
+                eyes narrowed with urgency shout in the snow, one at a time
               image_url: https://cdn.example.com/reference.jpg
-              aspect_ratio: 16:9
               duration: 8
+              aspect_ratio: 9:16
       responses:
         "200":
           description: 任务已受理
@@ -74,24 +76,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -110,10 +111,10 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "sora-2-vip",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "aspect_ratio": "16:9",
-              "duration": 8
+              "duration": 8,
+              "aspect_ratio": "9:16"
             }'
         - lang: Python
           label: Python
@@ -125,10 +126,10 @@ paths:
 
             payload = {
               "model": "sora-2-vip",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "aspect_ratio": "16:9",
-              "duration": 8
+              "duration": 8,
+              "aspect_ratio": "9:16"
             }
 
 
@@ -164,10 +165,10 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "sora-2-vip",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "aspect_ratio": "16:9",
-              "duration": 8
+              "duration": 8,
+              "aspect_ratio": "9:16"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -205,10 +206,10 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "sora-2-vip",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "aspect_ratio": "16:9",
-              "duration": 8
+              "duration": 8,
+              "aspect_ratio": "9:16"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -234,10 +235,10 @@ paths:
               body: JSON.stringify(
               {
                 "model": "sora-2-vip",
-                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+                "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
                 "image_url": "https://cdn.example.com/reference.jpg",
-                "aspect_ratio": "16:9",
-                "duration": 8
+                "duration": 8,
+                "aspect_ratio": "9:16"
               }
               ),
             });

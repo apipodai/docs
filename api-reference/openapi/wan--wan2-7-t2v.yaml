@@ -30,90 +30,89 @@ paths:
           application/json:
             schema:
               type: object
+              title: WAN 2.7 Text to Video
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: wan2.7-t2v
                 prompt:
                   type: string
-                  description: Describe the scene, motion, camera, and sound.
+                  title: Prompt
+                  description: Describe the content of the video to be generated.
+                  default: ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。
                   maxLength: 5000
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference image URLs, if supported by the selected channel.
-                  maxItems: 2
-                video_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference video URLs.
-                  maxItems: 1
-                audio_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference audio URLs.
-                  maxItems: 1
-                file_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference file URLs.
-                  maxItems: 1
+                prompt_extend:
+                  type: boolean
+                  title: Prompt Extend
+                  description: Whether to enable intelligent prompt rewriting. After enabling, a
+                    large model will be used to intelligently rewrite the input
+                    prompt. The generation effect is significantly improved for
+                    short prompts, but it will increase time consumption.
+                  default: true
+                negative_prompt:
+                  type: string
+                  title: Negative Prompt
+                  description: "Describe the content you do not wish to see in the video frame,
+                    which can be used to restrict the video frame. "
+                  default: low resolution, errors, worst quality, poor quality, incomplete, extra
+                    fingers, poor aspect ratio.
+                  maxLength: 500
+                audio_url:
+                  type: string
+                  title: Audio Url
+                  description: The model will generate a video using this audio. If the audio
+                    length exceeds the duration value (e.g., 5 seconds), the
+                    first 5 seconds will be automatically captured and the rest
+                    discarded. If the audio length is shorter than the video
+                    duration, the part beyond the audio length will be silent
+                    video. For example, if the audio is 3 seconds long and the
+                    video duration is 5 seconds, the output video will have
+                    sound in the first 3 seconds and be silent in the remaining
+                    2 seconds.
+                  default: ""
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: Resolution levels for video generation, used to control the clarity
+                    (total pixels) of the video
+                  enum:
+                    - 720P
+                    - 1080P
+                  default: 1080P
                 aspect_ratio:
                   type: string
-                  description: Video aspect ratio.
-                  default: 16:9
+                  title: Aspect Ratio
+                  description: Aspect ratio of the generated video.
                   enum:
-                    - adaptive
                     - 16:9
                     - 9:16
                     - 1:1
-                resolution:
-                  type: string
-                  description: Output resolution.
-                  default: 1080P
-                  enum:
-                    - 480P
-                    - 720P
-                    - 1080P
-                    - 480p
-                    - 720p
-                    - 1080p
+                    - 4:3
+                    - 3:4
+                  default: 16:9
                 duration:
                   type: integer
-                  description: Clip duration in seconds.
+                  title: Duration
+                  description: Duration of the generated video.
                   default: 5
                   minimum: 2
-                  maximum: 30
-                audio:
+                  maximum: 15
+                watermark:
                   type: boolean
-                  description: Generate or preserve audio when supported.
-                  default: true
-                seed:
-                  type: integer
-                  description: Optional deterministic random seed.
-                callback_url:
-                  type: string
-                  description: HTTPS endpoint that receives task completion notifications.
+                  title: Watermark
+                  description: Whether to add a watermark logo, with the watermark positioned at
+                    the bottom right corner of the video
+                  default: false
               required:
                 - model
                 - prompt
             example:
               model: wan2.7-t2v
-              prompt: A premium product photograph on a dark studio set, precise typography,
-                soft rim lighting, highly detailed.
-              image_urls:
-                - https://cdn.example.com/reference-1.jpg
-              video_urls:
-                - https://cdn.example.com/reference.mp4
-              audio_urls:
-                - https://cdn.example.com/reference.mp3
-              aspect_ratio: 16:9
+              prompt: ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。
               resolution: 1080P
+              aspect_ratio: 16:9
               duration: 5
       responses:
         "200":
@@ -122,23 +121,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -157,18 +154,9 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "wan2.7-t2v",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
+              "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
               "resolution": "1080P",
+              "aspect_ratio": "16:9",
               "duration": 5
             }'
         - lang: Python
@@ -181,18 +169,9 @@ paths:
 
             payload = {
               "model": "wan2.7-t2v",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
+              "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
               "resolution": "1080P",
+              "aspect_ratio": "16:9",
               "duration": 5
             }
 
@@ -229,18 +208,9 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "wan2.7-t2v",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
+              "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
               "resolution": "1080P",
+              "aspect_ratio": "16:9",
               "duration": 5
             }`), &payload); err != nil {
                     panic(err)
@@ -279,18 +249,9 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "wan2.7-t2v",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
+              "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
               "resolution": "1080P",
+              "aspect_ratio": "16:9",
               "duration": 5
             });
                 let response = Client::new()
@@ -317,18 +278,9 @@ paths:
               body: JSON.stringify(
               {
                 "model": "wan2.7-t2v",
-                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "image_urls": [
-                  "https://cdn.example.com/reference-1.jpg"
-                ],
-                "video_urls": [
-                  "https://cdn.example.com/reference.mp4"
-                ],
-                "audio_urls": [
-                  "https://cdn.example.com/reference.mp3"
-                ],
-                "aspect_ratio": "16:9",
+                "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
                 "resolution": "1080P",
+                "aspect_ratio": "16:9",
                 "duration": 5
               }
               ),

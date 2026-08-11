@@ -4,10 +4,10 @@ info:
   version: 1.0.0
   description: MiniMax H3 Image to Video is a dedicated mode in MiniMax's
     multimodal H3 video family that uses a required first frame and an optional
-    last frame. APIPod currently exposes a 2K, 4-to-15-second asynchronous
-    contract for this family. In APIPod, the public model ID is minimax-h3-i2v.
-    It supports image-to-video, accepts text, video and image inputs, and
-    returns results through asynchronous video tasks.
+    last frame. APIPod currently exposes a 768P or 2K, 4-to-15-second
+    asynchronous contract for this family. In APIPod, the public model ID is
+    minimax-h3-i2v. It supports image-to-video, accepts text, video and image
+    inputs, and returns results through asynchronous video tasks.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -17,10 +17,11 @@ paths:
       summary: Create Generation Task
       description: MiniMax H3 Image to Video is a dedicated mode in MiniMax's
         multimodal H3 video family that uses a required first frame and an
-        optional last frame. APIPod currently exposes a 2K, 4-to-15-second
-        asynchronous contract for this family. In APIPod, the public model ID is
-        minimax-h3-i2v. It supports image-to-video, accepts text, video and
-        image inputs, and returns results through asynchronous video tasks.
+        optional last frame. APIPod currently exposes a 768P or 2K,
+        4-to-15-second asynchronous contract for this family. In APIPod, the
+        public model ID is minimax-h3-i2v. It supports image-to-video, accepts
+        text, video and image inputs, and returns results through asynchronous
+        video tasks.
       operationId: create-minimax-h3-minimax-h3-i2v
       tags:
         - MiniMax H3 Image to Video
@@ -32,67 +33,53 @@ paths:
           application/json:
             schema:
               type: object
+              title: MiniMax H3 Image to Video
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: minimax-h3-i2v
                 prompt:
                   type: string
-                  description: Describe the scene, motion, camera, dialogue, and sound.
+                  title: Prompt
+                  default: ""
+                  minLength: 1
                   maxLength: 7000
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Required first frame and optional last frame.
-                  minItems: 1
-                  maxItems: 2
-                video_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference videos.
-                  maxItems: 3
-                audio_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference audio files.
-                  maxItems: 3
-                aspect_ratio:
+                first_frame_image:
                   type: string
-                  description: Required output ratio for text and reference modes.
-                  enum:
-                    - 16:9
-                    - 9:16
-                    - 1:1
+                  title: First Frame Image
+                  default: ""
+                last_frame_image:
+                  type: string
+                  title: Last Frame Image
+                  default: ""
                 duration:
                   type: integer
-                  description: Clip duration in seconds.
+                  title: Duration
+                  description: "Duration of the generated video in seconds. Available values:
+                    4-15."
+                  default: 0
                   minimum: 4
                   maximum: 15
                 resolution:
                   type: string
-                  description: MiniMax H3 currently requires native 2K output.
-                  const: 2K
-                callback_url:
-                  type: string
-                  description: HTTPS endpoint that receives task completion notifications.
+                  title: Resolution
+                  description: "Video resolution. Available values: 768P and 2K."
+                  enum:
+                    - 768P
+                    - 2K
+                  default: 2K
               required:
                 - model
                 - prompt
                 - duration
                 - resolution
-                - image_urls
             example:
               model: minimax-h3-i2v
               prompt: Animate the subject with a slow camera push-in, natural motion, and soft
                 cinematic lighting.
-              image_urls:
-                - https://cdn.example.com/reference-1.jpg
-              aspect_ratio: 16:9
-              duration: 8
+              duration: 0
               resolution: 2K
       responses:
         "200":
@@ -101,23 +88,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -137,11 +122,7 @@ paths:
               -d '{
               "model": "minimax-h3-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "aspect_ratio": "16:9",
-              "duration": 8,
+              "duration": 0,
               "resolution": "2K"
             }'
         - lang: Python
@@ -155,11 +136,7 @@ paths:
             payload = {
               "model": "minimax-h3-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "aspect_ratio": "16:9",
-              "duration": 8,
+              "duration": 0,
               "resolution": "2K"
             }
 
@@ -197,11 +174,7 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "minimax-h3-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "aspect_ratio": "16:9",
-              "duration": 8,
+              "duration": 0,
               "resolution": "2K"
             }`), &payload); err != nil {
                     panic(err)
@@ -241,11 +214,7 @@ paths:
                 let payload = json!({
               "model": "minimax-h3-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "aspect_ratio": "16:9",
-              "duration": 8,
+              "duration": 0,
               "resolution": "2K"
             });
                 let response = Client::new()
@@ -273,11 +242,7 @@ paths:
               {
                 "model": "minimax-h3-i2v",
                 "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-                "image_urls": [
-                  "https://cdn.example.com/reference-1.jpg"
-                ],
-                "aspect_ratio": "16:9",
-                "duration": 8,
+                "duration": 0,
                 "resolution": "2K"
               }
               ),

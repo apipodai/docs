@@ -30,48 +30,44 @@ paths:
           application/json:
             schema:
               type: object
+              title: Gemini Omni r2v
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: gemini-omni-r2v
                 prompt:
                   type: string
-                  description: Describe the desired scene, motion, or extension.
+                  title: Prompt
+                  default: ""
                   maxLength: 4000
                 image_urls:
                   type: array
+                  title: Reference images
                   items:
                     type: string
-                  description: Reference images.
-                  minItems: 1
-                  maxItems: 5
-                video_url:
-                  type: string
-                  description: Source video URL required for extension.
+                duration:
+                  type: integer
+                  title: Duration
+                  description: Video duration,current only support 10s.
+                  enum:
+                    - 10
+                  default: 10
                 aspect_ratio:
                   type: string
-                  description: Video aspect ratio.
-                  default: 16:9
+                  title: Aspect Ratio
                   enum:
                     - 16:9
                     - 9:16
-                    - 1:1
+                  default: 16:9
                 resolution:
                   type: string
-                  description: Output resolution supported by the selected channel.
+                  title: Resolution
                   enum:
                     - 720p
                     - 1080p
-                duration:
-                  type: integer
-                  description: Clip duration in seconds.
-                  default: 10
-                  minimum: 1
-                  maximum: 30
-                callback_url:
-                  type: string
-                  description: HTTPS endpoint that receives task completion notifications.
+                  default: 720p
               required:
                 - model
                 - prompt
@@ -82,9 +78,9 @@ paths:
                 motion, synchronized ambient sound.
               image_urls:
                 - https://cdn.example.com/reference-1.jpg
+              duration: 10
               aspect_ratio: 16:9
               resolution: 720p
-              duration: 10
       responses:
         "200":
           description: Task accepted
@@ -92,23 +88,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -131,9 +125,9 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
+              "duration": 10,
               "aspect_ratio": "16:9",
-              "resolution": "720p",
-              "duration": 10
+              "resolution": "720p"
             }'
         - lang: Python
           label: Python
@@ -149,9 +143,9 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
+              "duration": 10,
               "aspect_ratio": "16:9",
-              "resolution": "720p",
-              "duration": 10
+              "resolution": "720p"
             }
 
 
@@ -191,9 +185,9 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
+              "duration": 10,
               "aspect_ratio": "16:9",
-              "resolution": "720p",
-              "duration": 10
+              "resolution": "720p"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -235,9 +229,9 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
+              "duration": 10,
               "aspect_ratio": "16:9",
-              "resolution": "720p",
-              "duration": 10
+              "resolution": "720p"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -267,9 +261,9 @@ paths:
                 "image_urls": [
                   "https://cdn.example.com/reference-1.jpg"
                 ],
+                "duration": 10,
                 "aspect_ratio": "16:9",
-                "resolution": "720p",
-                "duration": 10
+                "resolution": "720p"
               }
               ),
             });

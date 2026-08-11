@@ -31,59 +31,46 @@ paths:
           application/json:
             schema:
               type: object
+              title: Seedream 5.0 Lite Edit
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: seedream-5.0-lite-edit
                 prompt:
                   type: string
-                  description: Describe the image or requested edit.
+                  title: Prompt
+                  description: Describe the content of the image to be edit.
+                  default: ""
                   maxLength: 2000
                 image_urls:
                   type: array
+                  title: Image Urls
                   items:
                     type: string
-                  description: Source or reference images.
-                  maxItems: 14
-                aspect_ratio:
-                  type: string
-                  description: Output aspect ratio.
-                  default: 1:1
-                  enum:
-                    - 1:1
-                    - 4:3
-                    - 3:4
-                    - 16:9
-                    - 9:16
-                    - 3:2
-                    - 2:3
-                    - 21:9
                 quality:
                   type: string
-                  description: Output resolution tier.
-                  default: 2K
+                  title: Quality
+                  description: Output image resolution.
                   enum:
                     - 2K
                     - 3K
-                size:
+                  default: 2K
+                aspect_ratio:
                   type: string
-                  description: Optional explicit output size accepted by the selected channel.
-                output_format:
-                  type: string
-                  description: Output format.
+                  title: Aspect Ratio
+                  description: The generated image's width and height aspect ratio.
                   enum:
-                    - png
-                    - jpeg
-                n:
-                  type: integer
-                  description: Number of images to generate. Seedream 5.0 Lite supports up to 15.
-                  minimum: 1
-                  maximum: 15
-                  default: 1
-                callback_url:
-                  type: string
-                  description: HTTPS endpoint that receives task completion notifications.
+                    - 1:1
+                    - 2:3
+                    - 3:2
+                    - 3:4
+                    - 4:3
+                    - 16:9
+                    - 9:16
+                    - 21:9
+                  default: 1:1
               required:
                 - model
                 - prompt
@@ -94,10 +81,8 @@ paths:
                 cinematic lighting.
               image_urls:
                 - https://cdn.example.com/reference-1.jpg
-              aspect_ratio: 16:9
               quality: 2K
-              size: 2K
-              n: 1
+              aspect_ratio: 1:1
       responses:
         "200":
           description: Task accepted
@@ -105,23 +90,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -144,10 +127,8 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "16:9",
               "quality": "2K",
-              "size": "2K",
-              "n": 1
+              "aspect_ratio": "1:1"
             }'
         - lang: Python
           label: Python
@@ -163,10 +144,8 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "16:9",
               "quality": "2K",
-              "size": "2K",
-              "n": 1
+              "aspect_ratio": "1:1"
             }
 
 
@@ -206,10 +185,8 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "16:9",
               "quality": "2K",
-              "size": "2K",
-              "n": 1
+              "aspect_ratio": "1:1"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -251,10 +228,8 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "16:9",
               "quality": "2K",
-              "size": "2K",
-              "n": 1
+              "aspect_ratio": "1:1"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/images/generations")
@@ -284,10 +259,8 @@ paths:
                 "image_urls": [
                   "https://cdn.example.com/reference-1.jpg"
                 ],
-                "aspect_ratio": "16:9",
                 "quality": "2K",
-                "size": "2K",
-                "n": 1
+                "aspect_ratio": "1:1"
               }
               ),
             });

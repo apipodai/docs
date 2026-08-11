@@ -32,57 +32,48 @@ paths:
           application/json:
             schema:
               type: object
+              title: VEO 3.1 Lite
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: veo3-1-lite
                 prompt:
                   type: string
-                  description: Describe the scene, action, camera, and audio.
+                  title: Prompt
+                  description: Describe the content of the video to be generated.
+                  default: The camera performs a smooth 180-degree arc shot, starting with the
+                    front-facing view of the singer and circling around her to
+                    seamlessly end on the POV shot from behind her on stage. The
+                    singer sings “when you look me in the eyes, I can see a
+                    million stars.
                   maxLength: 4000
                 image_urls:
                   type: array
+                  title: Reference frame
+                  description: The referenced start frame or end frame image.
                   items:
                     type: string
-                  description: Optional first and last frame images.
-                  maxItems: 2
                 aspect_ratio:
                   type: string
-                  description: Video aspect ratio.
-                  default: 16:9
+                  title: Aspect ratio
+                  description: the generated video width and height aspect ratio.
                   enum:
                     - 16:9
                     - 9:16
-                resolution:
-                  type: string
-                  description: Output resolution.
-                  default: 720p
-                  enum:
-                    - 720p
-                    - 1080p
-                    - 4k
-                duration:
-                  type: integer
-                  description: Clip duration in seconds.
-                  default: 8
-                  enum:
-                    - 4
-                    - 6
-                    - 8
-                callback_url:
-                  type: string
-                  description: HTTPS endpoint that receives task completion notifications.
+                  default: 16:9
               required:
                 - model
                 - prompt
             example:
               model: veo3-1-lite
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
-                motion, synchronized ambient sound.
+              prompt: The camera performs a smooth 180-degree arc shot, starting with the
+                front-facing view of the singer and circling around her to
+                seamlessly end on the POV shot from behind her on stage. The
+                singer sings “when you look me in the eyes, I can see a million
+                stars.
               aspect_ratio: 16:9
-              resolution: 720p
-              duration: 8
       responses:
         "200":
           description: Task accepted
@@ -90,23 +81,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: 任务唯一标识
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -125,10 +114,8 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "veo3-1-lite",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "16:9",
-              "resolution": "720p",
-              "duration": 8
+              "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+              "aspect_ratio": "16:9"
             }'
         - lang: Python
           label: Python
@@ -140,10 +127,8 @@ paths:
 
             payload = {
               "model": "veo3-1-lite",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "16:9",
-              "resolution": "720p",
-              "duration": 8
+              "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+              "aspect_ratio": "16:9"
             }
 
 
@@ -179,10 +164,8 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "veo3-1-lite",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "16:9",
-              "resolution": "720p",
-              "duration": 8
+              "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+              "aspect_ratio": "16:9"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -220,10 +203,8 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "veo3-1-lite",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "16:9",
-              "resolution": "720p",
-              "duration": 8
+              "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+              "aspect_ratio": "16:9"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -249,10 +230,8 @@ paths:
               body: JSON.stringify(
               {
                 "model": "veo3-1-lite",
-                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-                "aspect_ratio": "16:9",
-                "resolution": "720p",
-                "duration": 8
+                "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+                "aspect_ratio": "16:9"
               }
               ),
             });

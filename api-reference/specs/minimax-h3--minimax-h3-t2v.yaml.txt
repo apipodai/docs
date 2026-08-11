@@ -1,211 +1,280 @@
-openapi: 3.0.1
-info:
-  title: ''
-  description: ''
-  version: 1.0.0
-paths:
-  /v1/videos/generations:
-    post:
-      summary: MiniMax H3 Text to Video
-      deprecated: false
-      description: >-
-        MiniMax H3, opensource, unifies text, image, video, and audio for 2K
-        video generation, multimodal referencing, native stereo sound, motion
-        transfer, and precise editing.
-      tags:
-        - Video Models/MiniMax H3
-        - text to video
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MiniMaxH3T2V'
-            example:
-              aspect_ratio: '16:9'
-              duration: 4
-              prompt: A cinematic shot of a robot exploring a neon city at night
-              resolution: 2K
-              model: minimax-h3-t2v
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SubmitTaskResponse'
-          headers: {}
-          x-apidog-name: 成功
-      security:
-        - APIPod APIKey: []
-          x-apidog:
-            required: true
-            schemeGroups:
-              - id: uvL-QlG9gqxCUnkcdyegW
-                schemeIds:
-                  - APIPod APIKey
-            use:
-              id: uvL-QlG9gqxCUnkcdyegW
-      x-apidog-folder: Video Models/MiniMax H3
-      x-apidog-status: released
-      x-run-in-apidog: https://app.apidog.com/web/project/1247502/apis/api-41035323-run
-components:
-  schemas:
-    MiniMaxH3T2V:
-      type: object
-      properties:
-        aspect_ratio:
-          type: string
-          description: Aspect ratio of the generated video.
-          enum:
-            - '1:1'
-            - '3:4'
-            - '4:3'
-            - '9:16'
-            - '16:9'
-            - '21:9'
-          x-apidog-enum:
-            - value: '1:1'
-              name: ''
-              description: ''
-            - value: '3:4'
-              name: ''
-              description: ''
-            - value: '4:3'
-              name: ''
-              description: ''
-            - value: '9:16'
-              name: ''
-              description: ''
-            - value: '16:9'
-              name: ''
-              description: ''
-            - value: '21:9'
-              name: ''
-              description: ''
-          default: '16:9'
-        duration:
-          type: integer
-          description: 'Duration of the generated video in seconds. Available values: 4-15.'
-          minimum: 4
-          maximum: 15
-          default: 4
-        prompt:
-          type: string
-          minLength: 1
-          maxLength: 7000
-          description: Video generate prompt
-        resolution:
-          type: string
-          description: 'Video resolution. Currently available: 2K.'
-          enum:
-            - 2K
-          x-apidog-enum:
-            - value: 2K
-              name: ''
-              description: ''
-          default: 2K
-        model:
-          type: string
-          description: Model ID, value fixed `minimax-h3-t2v`
-          const: minimax-h3-t2v
-          default: minimax-h3-t2v
-      required:
-        - aspect_ratio
-        - duration
-        - prompt
-        - resolution
-        - model
-      x-apidog-orders:
-        - model
-        - prompt
-        - aspect_ratio
-        - duration
-        - resolution
-      x--orders:
-        - aspect_ratio
-        - duration
-        - prompt
-        - resolution
-        - model
-      x--ignore-properties: []
-      x-apidog-folder: ''
-    SubmitTaskResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: Response status code
-          enum:
-            - 200
-            - 401
-            - 500
-            - 400
-            - 403
-            - 402
-            - 404
-            - 429
-          x-apidog-enum:
-            - value: 200
-              name: Success
-              description: Request has been processed successfully
-            - value: 401
-              name: Unauthorized
-              description: Authentication credentials are missing or invalid
-            - value: 500
-              name: Authentication credentials are missing or invalid
-              description: An unexpected error occurred while processing the request
-            - value: 400
-              name: Bad Request
-              description: This is a bad request
-            - value: 403
-              name: Forbidden
-              description: Forbidden response
-            - value: 402
-              name: Insufficient quota
-              description: Account does not have enough credits to perform the operation
-            - value: 404
-              name: Not Found
-              description: The requested resource or endpoint does not exist
-            - value: 429
-              name: Rate limit
-              description: Request limit has been exceeded for this resource
-        message:
-          type: string
-          description: Response message, error description when failed
-        data:
-          type: object
-          properties:
-            task_id:
-              type: string
-              description: >-
-                Unique identifier for asynchronous tasks.can be used with Get
-                Task Details endpoint to query task status
-          x-apidog-orders:
-            - task_id
-          required:
-            - task_id
-          x--orders:
-            - task_id
-          x--ignore-properties: []
-      x-apidog-orders:
-        - code
-        - message
-        - data
-      required:
-        - code
-        - message
-      x--orders:
-        - code
-        - message
-        - data
-      x--ignore-properties: []
-      x-apidog-folder: ''
-  securitySchemes:
-    APIPod APIKey:
-      type: bearer
-      scheme: bearer
-servers:
-  - url: https://api.apipod.ai
-    description: 正式环境
-security: []
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "MiniMax H3 文生视频",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "MiniMax-H3",
+      "modelType": "video",
+      "provider": "minimax"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "MiniMax H3 文生视频",
+        "properties": {
+          "aspect_ratio": {
+            "type": "string",
+            "title": "Aspect Ratio",
+            "description": "Aspect ratio of the generated video.",
+            "enum": [
+              "1:1",
+              "3:4",
+              "4:3",
+              "9:16",
+              "16:9",
+              "21:9"
+            ],
+            "default": "16:9",
+            "x-apipod-ui": {
+              "component": "button-group",
+              "labels": {
+                "2": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "3": ",",
+                "4": ",,,,",
+                "9": ",,,,,,,,,",
+                "21": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "21:": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "3:": ",",
+                "4:": ",,,,",
+                "9:": ",,,,,,,,,",
+                "9:1": ",,,,,,,,,"
+              }
+            }
+          },
+          "duration": {
+            "type": "integer",
+            "title": "Duration",
+            "description": "Duration of the generated video in seconds. Available values: 4-15.",
+            "default": "4",
+            "minimum": 4,
+            "maximum": 15,
+            "x-apipod-ui": {
+              "component": "slider"
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "default": "A cinematic shot of a robot exploring a neon city at night",
+            "minLength": 1,
+            "maxLength": 7000,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "resolution": {
+            "type": "string",
+            "title": "Resolution",
+            "description": "Video resolution. Available values: 768P and 2K.",
+            "enum": [
+              "768P",
+              "2K"
+            ],
+            "default": "2K",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          }
+        },
+        "required": [
+          "model",
+          "prompt",
+          "resolution",
+          "duration",
+          "aspect_ratio"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "resolution",
+          "duration",
+          "aspect_ratio"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "video",
+          "previewMedia": [
+            "https://video-product.cdn.minimax.io/inference_output/rollout/2026-08-01/6973d72a-a84f-445d-a8bc-4549b5903922/output.mp4"
+          ]
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              },
+              "result": {
+                "type": "array",
+                "description": "generated video url list",
+                "items": {
+                  "type": "string",
+                  "description": "video url"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "task status",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/videos/generations": {
+      "post": {
+        "summary": "video API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/videos/status/{task_id}",
+          "polling": {
+            "interval": 3000,
+            "maxAttempts": 900,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/videos/status/{task_id}": {
+      "get": {
+        "summary": "MiniMax H3 文生视频 Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

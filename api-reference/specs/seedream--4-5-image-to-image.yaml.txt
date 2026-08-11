@@ -1,358 +1,274 @@
-openapi: 3.0.1
-info:
-  title: ''
-  description: ''
-  version: 1.0.0
-paths:
-  /v1/images/generations:
-    post:
-      summary: Seedream V4.5 Image to Image
-      deprecated: false
-      description: >
-        The **Seedream 4.5 image editing** model has achieved an all-round
-        improvement based on the overall scaling of the model: it can accurately
-        identify and stably lock the main subject in multi-image combinations,
-        and maximize the retention of the original image's features and detailed
-        textures.
-
-
-        ## Prompt Writing Tips for Image Editing
-
-
-        <Steps>
-
-        <Step>
-         **Describe the Transformation**
-
-         Clearly describe how you want to transform the source image.
-         ```
-         Transform this photo into a watercolor painting style
-         ```
-        </Step>
-
-        <Step>
-         **Specify Style Details**
-
-         Add specific style characteristics you want to apply.
-         ```
-         with soft edges, pastel colors, and visible brush strokes
-         ```
-        </Step>
-
-        <Step>
-         **Preserve or Modify Elements**
-
-         Specify what to keep and what to change from the original.
-         ```
-         keep the original composition but change the background to a sunset scene
-         ```
-        </Step>
-
-        </Steps>
-
-
-        **Complete Prompt Example:**
-
-
-        ```text
-
-        Transform this portrait into an oil painting style, keeping the original
-        composition and facial features,
-
-        but adding vibrant brush strokes, rich textures, and warm golden
-        lighting reminiscent of Renaissance portraits.
-
-        ```
-
-
-        ## Query Task Details
-
-
-        After submitting a task, you can check the task progress and obtain the
-        generated results through the unified query endpoint:
-
-
-
-        <Card title="Get Image Task Details" icon="lucide-search"
-        href="/query-image-task">Learn how to query task status and obtain
-        generated results</Card>
-
-
-
-        ::: tip[]
-
-
-        In a production environment, it is recommended to use the `callback_url`
-        parameter to receive automatic notifications upon generation completion
-        instead of polling the status endpoint.
-
-
-        :::
-      tags:
-        - Image Models/Seedream 4.5
-        - seedream
-        - image to image
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              x-apidog-refs:
-                01KNCA10VYJ6GEXQD3PDTZNKJW:
-                  $ref: '#/components/schemas/Seedream4.5'
-                  x-apidog-overrides: {}
-              properties:
-                model:
-                  type: string
-                  description: Model ID, fixed seedream-v4.5-edit
-                  const: seedream-v4.5-edit
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                    description: >-
-                      It must be an image address accessible from the public
-                      network.
-                  description: Input images to transform or use as reference (1-14 images)
-                  minItems: 1
-                  maxItems: 14
-                prompt:
-                  type: string
-                  description: 'Describe the content of the image to be edit.(Max: 4000)'
-                aspect_ratio:
-                  type: string
-                  description: The generated image's width and height aspect ratio.
-                  enum:
-                    - '1:1'
-                    - '2:3'
-                    - '3:2'
-                    - '3:4'
-                    - '4:3'
-                    - '9:16'
-                    - '16:9'
-                    - '21:9'
-                  x-apidog-enum:
-                    - value: '1:1'
-                      name: ''
-                      description: ''
-                    - value: '2:3'
-                      name: ''
-                      description: ''
-                    - value: '3:2'
-                      name: ''
-                      description: ''
-                    - value: '3:4'
-                      name: ''
-                      description: ''
-                    - value: '4:3'
-                      name: ''
-                      description: ''
-                    - value: '9:16'
-                      name: ''
-                      description: ''
-                    - value: '16:9'
-                      name: ''
-                      description: ''
-                    - value: '21:9'
-                      name: ''
-                      description: ''
-                callback_url:
-                  type: string
-                  description: Callback Notifications URL.
-                quality:
-                  type: string
-                  enum:
-                    - 2K
-                    - 4K
-                  x-apidog-enum:
-                    - value: 2K
-                      name: ''
-                      description: ''
-                    - value: 4K
-                      name: ''
-                      description: ''
-                  description: Output image resolution.
-              required:
-                - model
-                - image_urls
-                - prompt
-                - aspect_ratio
-                - quality
-              x-apidog-orders:
-                - model
-                - image_urls
-                - 01KNCA10VYJ6GEXQD3PDTZNKJW
-              x-apidog-ignore-properties:
-                - prompt
-                - aspect_ratio
-                - callback_url
-                - quality
-            examples: {}
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SubmitTaskResponse'
-          headers: {}
-          x-apidog-name: 成功
-      security:
-        - APIPod APIKey: []
-          x-apidog:
-            required: true
-            schemeGroups:
-              - id: soQWjejNppbW8-r8o6d9U
-                schemeIds:
-                  - APIPod APIKey
-            use:
-              id: soQWjejNppbW8-r8o6d9U
-      x-apidog-folder: Image Models/Seedream 4.5
-      x-apidog-status: released
-      x-run-in-apidog: https://app.apidog.com/web/project/1247502/apis/api-32484623-run
-components:
-  schemas:
-    Seedream4.5:
-      type: object
-      properties:
-        prompt:
-          type: string
-          description: 'Describe the content of the image to be edit.(Max: 4000)'
-        aspect_ratio:
-          type: string
-          description: The generated image's width and height aspect ratio.
-          enum:
-            - '1:1'
-            - '2:3'
-            - '3:2'
-            - '3:4'
-            - '4:3'
-            - '9:16'
-            - '16:9'
-            - '21:9'
-          x-apidog-enum:
-            - value: '1:1'
-              name: ''
-              description: ''
-            - value: '2:3'
-              name: ''
-              description: ''
-            - value: '3:2'
-              name: ''
-              description: ''
-            - value: '3:4'
-              name: ''
-              description: ''
-            - value: '4:3'
-              name: ''
-              description: ''
-            - value: '9:16'
-              name: ''
-              description: ''
-            - value: '16:9'
-              name: ''
-              description: ''
-            - value: '21:9'
-              name: ''
-              description: ''
-        callback_url:
-          type: string
-          description: Callback Notifications URL.
-        quality:
-          type: string
-          enum:
-            - 2K
-            - 4K
-          x-apidog-enum:
-            - value: 2K
-              name: ''
-              description: ''
-            - value: 4K
-              name: ''
-              description: ''
-          description: Output image resolution.
-      required:
-        - prompt
-        - aspect_ratio
-        - quality
-      x-apidog-orders:
-        - prompt
-        - aspect_ratio
-        - callback_url
-        - quality
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SubmitTaskResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: Response status code
-          enum:
-            - 200
-            - 401
-            - 500
-            - 400
-            - 403
-            - 402
-            - 404
-            - 429
-          x-apidog-enum:
-            - value: 200
-              name: Success
-              description: Request has been processed successfully
-            - value: 401
-              name: Unauthorized
-              description: Authentication credentials are missing or invalid
-            - value: 500
-              name: Authentication credentials are missing or invalid
-              description: An unexpected error occurred while processing the request
-            - value: 400
-              name: Bad Request
-              description: This is a bad request
-            - value: 403
-              name: Forbidden
-              description: Forbidden response
-            - value: 402
-              name: Insufficient quota
-              description: Account does not have enough credits to perform the operation
-            - value: 404
-              name: Not Found
-              description: The requested resource or endpoint does not exist
-            - value: 429
-              name: Rate limit
-              description: Request limit has been exceeded for this resource
-        message:
-          type: string
-          description: Response message, error description when failed
-        data:
-          type: object
-          properties:
-            task_id:
-              type: string
-              description: >-
-                Unique identifier for asynchronous tasks.can be used with Get
-                Task Details endpoint to query task status
-          x-apidog-orders:
-            - task_id
-          required:
-            - task_id
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-        - code
-        - message
-        - data
-      required:
-        - code
-        - message
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-  securitySchemes:
-    APIPod APIKey:
-      type: bearer
-      scheme: bearer
-servers:
-  - url: https://api.apipod.ai
-    description: 正式环境
-security: []
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Seedream V4.5 Edit",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "seedream-v4.5-edit",
+      "modelType": "image",
+      "provider": "bytedance"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "Seedream V4.5 Edit",
+        "properties": {
+          "aspect_ratio": {
+            "type": "string",
+            "title": "Aspect ratio",
+            "description": "The generated image's width and height aspect ratio.",
+            "enum": [
+              "1:1",
+              "2:3",
+              "3:2",
+              "3:4",
+              "4:3",
+              "16:9",
+              "9:16",
+              "21:9"
+            ],
+            "default": "1:1",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "callback_url": {
+            "type": "string",
+            "title": "Callback URL",
+            "description": "Callback Notifications URL.",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "hidden"
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "title": "Input Images",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "image-upload",
+              "maxSize": 10485760,
+              "maxCount": 14
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "Describe the content of the image to be edit.",
+            "default": "",
+            "maxLength": 4000,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "quality": {
+            "type": "string",
+            "title": "Quality",
+            "description": "Output image resolution.",
+            "enum": [
+              "2K",
+              "4K"
+            ],
+            "default": "2K",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          }
+        },
+        "required": [
+          "model",
+          "prompt",
+          "image_urls"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_urls",
+          "quality",
+          "aspect_ratio",
+          "callback_url"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "image"
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              },
+              "result": {
+                "type": "array",
+                "description": "generated image url list",
+                "items": {
+                  "type": "string",
+                  "description": "image url"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "task status",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/images/generations": {
+      "post": {
+        "summary": "image API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/images/status/{task_id}",
+          "polling": {
+            "interval": 2000,
+            "maxAttempts": 90,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/images/status/{task_id}": {
+      "get": {
+        "summary": "Seedream V4.5 Edit Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

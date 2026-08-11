@@ -26,55 +26,40 @@ paths:
           application/json:
             schema:
               type: object
+              title: Seedream 5.0 Lite
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: seedream-5.0-lite
                 prompt:
                   type: string
-                  description: 描述要生成的图片或编辑要求。 最大字符串长度：2000。
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 源图片或参考图片。 最多项目数：14。
-                aspect_ratio:
-                  type: string
-                  description: 输出宽高比。
-                  default: 1:1
-                  enum:
-                    - 1:1
-                    - 4:3
-                    - 3:4
-                    - 16:9
-                    - 9:16
-                    - 3:2
-                    - 2:3
-                    - 21:9
+                  title: Prompt
+                  description: 生成或编辑指令。 最大字符串长度：2000。
+                  default: ""
                 quality:
                   type: string
-                  description: 输出分辨率档位。
-                  default: 2K
+                  title: Quality
+                  description: 输出质量或图片分辨率档位。
                   enum:
                     - 2K
                     - 3K
-                size:
+                  default: 2K
+                aspect_ratio:
                   type: string
-                  description: 所选通道接受的可选明确输出尺寸。
-                output_format:
-                  type: string
-                  description: 输出格式。
+                  title: Aspect Ratio
+                  description: 输出宽高比。
                   enum:
-                    - png
-                    - jpeg
-                n:
-                  type: integer
-                  description: 要生成的图片数量；Seedream 5.0 Lite 最多支持 15 张。 最小值：1。 最大值：15。
-                  default: 1
-                callback_url:
-                  type: string
-                  description: 接收任务完成通知的 HTTPS 地址。
+                    - 1:1
+                    - 2:3
+                    - 3:2
+                    - 3:4
+                    - 4:3
+                    - 16:9
+                    - 9:16
+                    - 21:9
+                  default: 1:1
               required:
                 - model
                 - prompt
@@ -82,10 +67,8 @@ paths:
               model: seedream-5.0-lite
               prompt: A premium product photograph on a dark studio set, precise typography,
                 soft rim lighting, highly detailed.
-              aspect_ratio: 16:9
               quality: 2K
-              size: 2K
-              n: 1
+              aspect_ratio: 1:1
       responses:
         "200":
           description: 任务已受理
@@ -93,24 +76,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -130,10 +112,8 @@ paths:
               -d '{
               "model": "seedream-5.0-lite",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
               "quality": "2K",
-              "size": "2K",
-              "n": 1
+              "aspect_ratio": "1:1"
             }'
         - lang: Python
           label: Python
@@ -146,10 +126,8 @@ paths:
             payload = {
               "model": "seedream-5.0-lite",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
               "quality": "2K",
-              "size": "2K",
-              "n": 1
+              "aspect_ratio": "1:1"
             }
 
 
@@ -186,10 +164,8 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "seedream-5.0-lite",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
               "quality": "2K",
-              "size": "2K",
-              "n": 1
+              "aspect_ratio": "1:1"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -228,10 +204,8 @@ paths:
                 let payload = json!({
               "model": "seedream-5.0-lite",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
               "quality": "2K",
-              "size": "2K",
-              "n": 1
+              "aspect_ratio": "1:1"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/images/generations")
@@ -258,10 +232,8 @@ paths:
               {
                 "model": "seedream-5.0-lite",
                 "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "aspect_ratio": "16:9",
                 "quality": "2K",
-                "size": "2K",
-                "n": 1
+                "aspect_ratio": "1:1"
               }
               ),
             });

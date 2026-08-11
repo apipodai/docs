@@ -26,25 +26,44 @@ paths:
           application/json:
             schema:
               type: object
+              title: Gemini 3 Pro Image (Nano Banana Pro)
+              description: Google 最强的图片生成模型
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: nano-banana-pro
                 prompt:
                   type: string
-                  description: 描述要创建的图片或要执行的编辑。 最大字符串长度：4000。
+                  title: Prompt
+                  description: 生成或编辑指令。 最大字符串长度：4000。
+                  default: A humanoid figure with a vintage television set for a head, featuring a
+                    green-tinted screen displaying a `Hello APIPod.ai` writing
+                    in ASCII font. The figure is wearing a yellow raincoat, and
+                    there are various wires and components attached to the
+                    television. The background is cloudy and indistinct,
+                    suggesting an outdoor setting
                 image_urls:
                   type: array
+                  title: Input Images
                   items:
                     type: string
-                  description: 用于编辑、构图或保持主体一致性的参考图片。 最多项目数：8。
+                  description: 可公开访问的源图片或参考图 URL。
+                quality:
+                  type: string
+                  title: Quality
+                  description: 输出质量或图片分辨率档位。
+                  enum:
+                    - 1K
+                    - 2K
+                    - 4K
+                  default: 1K
                 aspect_ratio:
                   type: string
+                  title: Aspect ratio
                   description: 输出宽高比。
-                  default: auto
                   enum:
-                    - auto
                     - 1:1
                     - 2:3
                     - 3:2
@@ -52,41 +71,28 @@ paths:
                     - 4:3
                     - 4:5
                     - 5:4
-                    - 16:9
                     - 9:16
+                    - 16:9
                     - 21:9
-                quality:
-                  type: string
-                  description: 输出分辨率档位。
-                  default: 1K
-                  enum:
-                    - 1K
-                    - 2K
-                    - 4K
-                resolution:
-                  type: string
-                  description: 输出分辨率档位的兼容别名。
-                  enum:
-                    - 1K
-                    - 2K
-                    - 4K
-                google_search:
-                  type: boolean
-                  description: 所选通道支持时，允许模型使用 Google Search 联网增强。
-                  default: false
+                  default: 1:1
                 callback_url:
                   type: string
+                  title: Callback URL
                   description: 接收任务完成通知的 HTTPS 地址。
+                  default: ""
               required:
                 - model
                 - prompt
             example:
               model: nano-banana-pro
-              prompt: A premium product photograph on a dark studio set, precise typography,
-                soft rim lighting, highly detailed.
-              aspect_ratio: 16:9
+              prompt: A humanoid figure with a vintage television set for a head, featuring a
+                green-tinted screen displaying a `Hello APIPod.ai` writing in
+                ASCII font. The figure is wearing a yellow raincoat, and there
+                are various wires and components attached to the television. The
+                background is cloudy and indistinct, suggesting an outdoor
+                setting
               quality: 1K
-              resolution: 2K
+              aspect_ratio: 1:1
       responses:
         "200":
           description: 任务已受理
@@ -94,24 +100,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -130,10 +135,9 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "nano-banana-pro",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
+              "prompt": "A humanoid figure with a vintage television set for a head, featuring a green-tinted screen displaying a `Hello APIPod.ai` writing in ASCII font. The figure is wearing a yellow raincoat, and there are various wires and components attached to the television. The background is cloudy and indistinct, suggesting an outdoor setting",
               "quality": "1K",
-              "resolution": "2K"
+              "aspect_ratio": "1:1"
             }'
         - lang: Python
           label: Python
@@ -145,10 +149,9 @@ paths:
 
             payload = {
               "model": "nano-banana-pro",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
+              "prompt": "A humanoid figure with a vintage television set for a head, featuring a green-tinted screen displaying a `Hello APIPod.ai` writing in ASCII font. The figure is wearing a yellow raincoat, and there are various wires and components attached to the television. The background is cloudy and indistinct, suggesting an outdoor setting",
               "quality": "1K",
-              "resolution": "2K"
+              "aspect_ratio": "1:1"
             }
 
 
@@ -184,10 +187,9 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "nano-banana-pro",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
+              "prompt": "A humanoid figure with a vintage television set for a head, featuring a green-tinted screen displaying a `Hello APIPod.ai` writing in ASCII font. The figure is wearing a yellow raincoat, and there are various wires and components attached to the television. The background is cloudy and indistinct, suggesting an outdoor setting",
               "quality": "1K",
-              "resolution": "2K"
+              "aspect_ratio": "1:1"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -225,10 +227,9 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "nano-banana-pro",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
+              "prompt": "A humanoid figure with a vintage television set for a head, featuring a green-tinted screen displaying a `Hello APIPod.ai` writing in ASCII font. The figure is wearing a yellow raincoat, and there are various wires and components attached to the television. The background is cloudy and indistinct, suggesting an outdoor setting",
               "quality": "1K",
-              "resolution": "2K"
+              "aspect_ratio": "1:1"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/images/generations")
@@ -254,10 +255,9 @@ paths:
               body: JSON.stringify(
               {
                 "model": "nano-banana-pro",
-                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "aspect_ratio": "16:9",
+                "prompt": "A humanoid figure with a vintage television set for a head, featuring a green-tinted screen displaying a `Hello APIPod.ai` writing in ASCII font. The figure is wearing a yellow raincoat, and there are various wires and components attached to the television. The background is cloudy and indistinct, suggesting an outdoor setting",
                 "quality": "1K",
-                "resolution": "2K"
+                "aspect_ratio": "1:1"
               }
               ),
             });

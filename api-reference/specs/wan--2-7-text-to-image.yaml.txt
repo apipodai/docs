@@ -1,310 +1,318 @@
-openapi: 3.0.1
-info:
-  title: ''
-  description: ''
-  version: 1.0.0
-paths:
-  /v1/images/generations:
-    post:
-      summary: WAN 2.7 Text to Image
-      deprecated: false
-      description: >
-        The WAN 2.7 text-to-image model generates high-quality images from text
-        prompts through its built-in thinking mode, enabling smarter composition
-        and precise alignment with prompt requirements.
-
-
-
-        ## Query Task Details
-
-
-        After submitting a task, you can check the task progress and obtain the
-        generated results through the unified query endpoint:
-
-
-
-        <Card title="Get Image Task Details" icon="lucide-search"
-        href="/query-image-task">Learn how to query task status and obtain
-        generated results</Card>
-
-
-
-        ::: tip[]
-
-
-        In a production environment, it is recommended to use the `callback_url`
-        parameter to receive automatic notifications upon generation completion
-        instead of polling the status endpoint.
-
-
-        :::
-      tags:
-        - Image Models/WAN 2.7
-        - wan
-        - text to image
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              x-apidog-refs:
-                01KNCCR5Y8YPM9T7PQPFGMMA18:
-                  $ref: '#/components/schemas/WAN2.7Image'
-                  x-apidog-overrides: {}
-              properties:
-                model:
-                  type: string
-                  description: Model ID, value fixed wan2.7-image
-                  const: wan2.7-image
-              required:
-                - model
-              x-apidog-orders:
-                - model
-                - 01KNCCR5Y8YPM9T7PQPFGMMA18
-              x--orders:
-                - model
-              x--ignore-properties: []
-            examples: {}
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SubmitTaskResponse'
-          headers: {}
-          x-apidog-name: 成功
-      security:
-        - APIPod APIKey: []
-          x-apidog:
-            required: true
-            schemeGroups:
-              - id: ZfoCoDE7ixmnOS-QxEr5K
-                schemeIds:
-                  - APIPod APIKey
-            use:
-              id: ZfoCoDE7ixmnOS-QxEr5K
-      x-apidog-folder: Image Models/WAN 2.7
-      x-apidog-status: released
-      x-run-in-apidog: https://app.apidog.com/web/project/1247502/apis/api-32486823-run
-components:
-  schemas:
-    WAN2.7Image:
-      type: object
-      properties:
-        aspect_ratio:
-          type: string
-          enum:
-            - '1:1'
-            - '1:4'
-            - '1:8'
-            - '2:3'
-            - '3:2'
-            - '3:4'
-            - '4:1'
-            - '4:3'
-            - '4:5'
-            - '5:4'
-            - '8:1'
-            - '9:16'
-            - '16:9'
-            - '21:9'
-          x-apidog-enum:
-            - value: '1:1'
-              name: ''
-              description: ''
-            - value: '1:4'
-              name: ''
-              description: ''
-            - value: '1:8'
-              name: ''
-              description: ''
-            - value: '2:3'
-              name: ''
-              description: ''
-            - value: '3:2'
-              name: ''
-              description: ''
-            - value: '3:4'
-              name: ''
-              description: ''
-            - value: '4:1'
-              name: ''
-              description: ''
-            - value: '4:3'
-              name: ''
-              description: ''
-            - value: '4:5'
-              name: ''
-              description: ''
-            - value: '5:4'
-              name: ''
-              description: ''
-            - value: '8:1'
-              name: ''
-              description: ''
-            - value: '9:16'
-              name: ''
-              description: ''
-            - value: '16:9'
-              name: ''
-              description: ''
-            - value: '21:9'
-              name: ''
-              description: ''
-          description: The output image's aspect ratio.
-        'n':
-          type: integer
-          description: Number of images
-          minimum: 1
-          maximum: 4
-          enum:
-            - 1
-            - 2
-            - 3
-            - 4
-          x-apidog-enum:
-            - value: 1
-              name: ''
-              description: ''
-            - value: 2
-              name: ''
-              description: ''
-            - value: 3
-              name: ''
-              description: ''
-            - value: 4
-              name: ''
-              description: ''
-        prompt:
-          type: string
-          description: The positive prompt for the generation images.
-        size:
-          type: string
-          description: Output image resolution.
-          enum:
-            - 1K
-            - 2K
-          x-apidog-enum:
-            - value: 1K
-              name: ''
-              description: ''
-            - value: 2K
-              name: ''
-              description: ''
-        thinking_mode:
-          type: boolean
-          description: >-
-            when enabled, the model will enhance reasoning capabilities to
-            improve image generation quality, but it will increase generation
-            time.
-          default: true
-        watermark:
-          type: boolean
-          description: >-
-            Whether to add a watermark, which will be placed in the bottom right
-            corner of the image.
-          default: false
-      required:
-        - aspect_ratio
-        - 'n'
-        - prompt
-        - size
-        - thinking_mode
-        - watermark
-      x-apidog-orders:
-        - prompt
-        - aspect_ratio
-        - size
-        - thinking_mode
-        - watermark
-        - 'n'
-      x--orders:
-        - aspect_ratio
-        - 'n'
-        - prompt
-        - size
-        - thinking_mode
-        - watermark
-      x--ignore-properties: []
-      x-apidog-folder: ''
-    SubmitTaskResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: Response status code
-          enum:
-            - 200
-            - 401
-            - 500
-            - 400
-            - 403
-            - 402
-            - 404
-            - 429
-          x-apidog-enum:
-            - value: 200
-              name: Success
-              description: Request has been processed successfully
-            - value: 401
-              name: Unauthorized
-              description: Authentication credentials are missing or invalid
-            - value: 500
-              name: Authentication credentials are missing or invalid
-              description: An unexpected error occurred while processing the request
-            - value: 400
-              name: Bad Request
-              description: This is a bad request
-            - value: 403
-              name: Forbidden
-              description: Forbidden response
-            - value: 402
-              name: Insufficient quota
-              description: Account does not have enough credits to perform the operation
-            - value: 404
-              name: Not Found
-              description: The requested resource or endpoint does not exist
-            - value: 429
-              name: Rate limit
-              description: Request limit has been exceeded for this resource
-        message:
-          type: string
-          description: Response message, error description when failed
-        data:
-          type: object
-          properties:
-            task_id:
-              type: string
-              description: >-
-                Unique identifier for asynchronous tasks.can be used with Get
-                Task Details endpoint to query task status
-          x-apidog-orders:
-            - task_id
-          required:
-            - task_id
-          x--orders:
-            - task_id
-          x--ignore-properties: []
-      x-apidog-orders:
-        - code
-        - message
-        - data
-      required:
-        - code
-        - message
-      x--orders:
-        - code
-        - message
-        - data
-      x--ignore-properties: []
-      x-apidog-folder: ''
-  securitySchemes:
-    APIPod APIKey:
-      type: bearer
-      scheme: bearer
-servers:
-  - url: https://api.apipod.ai
-    description: 正式环境
-security: []
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "WAN 2.7 Image",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "wan2.7-image",
+      "modelType": "image",
+      "provider": "alibaba"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "WAN 2.7 Image",
+        "properties": {
+          "aspect_ratio": {
+            "type": "string",
+            "title": "Aspect Ratio",
+            "description": "The output image's aspect ratio.",
+            "enum": [
+              "1:1",
+              "1:4",
+              "1:8",
+              "2:3",
+              "3:2",
+              "3:4",
+              "4:1",
+              "4:3",
+              "4:5",
+              "5:4",
+              "8:1",
+              "9:16",
+              "16:9",
+              "21:9"
+            ],
+            "default": "16:9",
+            "x-apipod-ui": {
+              "component": "button-group",
+              "labels": {
+                "2": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "3": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "4": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "5": "[object Object]",
+                "8": "[object Object]",
+                "9": ",,,,,,,,,,,,,,,,",
+                "21": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "21:": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "2:": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "3:": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "4:": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "5:": "[object Object]",
+                "8:": "[object Object]",
+                "9:": ",,,,,,,,,,,,,,,,",
+                "9:1": ",,,,,,,,,,,,,,,,"
+              }
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "n": {
+            "type": "integer",
+            "title": "Number of images",
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "default": "1",
+            "minimum": 1,
+            "maximum": 4,
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "The positive prompt for the generation.",
+            "default": "fish-eye perspective forest scene with dramatic perspective distortion, ultra-detailed red fox staring into lens with piercing amber eyes, hyper-realistic fur texture showing individual guard hairs and undercoat layers, radially warped trees forming circular background patterns, watercolor painting style with translucent washes and organic pigment bleeding, soft pastel palette of moss green and earth ochre tones, painterly lighting with atmospheric glow through canopy gaps",
+            "maxLength": 5000,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "size": {
+            "type": "string",
+            "title": "Size",
+            "description": "Output image resolution parameters.",
+            "enum": [
+              "1K",
+              "2K"
+            ],
+            "default": "1K",
+            "x-apipod-ui": {
+              "component": "button-group",
+              "labels": {
+                "2": ","
+              }
+            }
+          },
+          "thinking_mode": {
+            "type": "boolean",
+            "title": "Thinking Mode",
+            "description": "when enabled, the model will enhance reasoning capabilities to improve image generation quality, but it will increase generation time.",
+            "default": true,
+            "x-apipod-ui": {
+              "component": "switch"
+            }
+          },
+          "watermark": {
+            "type": "boolean",
+            "title": "Watermark",
+            "description": "Whether to add a watermark, which will be placed in the bottom right corner of the image.",
+            "default": false,
+            "x-apipod-ui": {
+              "component": "switch"
+            }
+          }
+        },
+        "required": [
+          "model",
+          "prompt"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "size",
+          "aspect_ratio",
+          "thinking_mode",
+          "watermark",
+          "n"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "image",
+          "previewMedia": [
+            "https://apipod.fastclass.cn/images/2026/04/03/8e4390d4-daca-492c-86b5-2a6cd7bf51d3.png"
+          ]
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              },
+              "result": {
+                "type": "array",
+                "description": "generated image url list",
+                "items": {
+                  "type": "string",
+                  "description": "image url"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "task status",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/images/generations": {
+      "post": {
+        "summary": "image API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/images/status/{task_id}",
+          "polling": {
+            "interval": 2000,
+            "maxAttempts": 300,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/images/status/{task_id}": {
+      "get": {
+        "summary": "WAN 2.7 Image Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

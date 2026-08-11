@@ -38,12 +38,14 @@ HTML:
 npm run validate:rendered
 ```
 
-## Synchronizing the legacy source
+## Synchronizing model schemas
 
-The initial content was migrated from the former Apidog-hosted site. Model pages
-are then rebuilt by `scripts/enhance-model-pages.mjs` using the current APIPod
-CUE/Go contract and curated authoritative model sources. To refresh
-the checked-in snapshot while that legacy source remains available:
+The initial content was migrated from the former Apidog-hosted site. Public
+request and response contracts now come exclusively from the OpenAPI Schema
+attached to each model in APIPod. CUE validation remains a backend safeguard;
+it is not a documentation field source.
+
+To refresh the checked-in legacy source while it remains available:
 
 ```bash
 npm run sync
@@ -58,15 +60,17 @@ npm run sync:live
 ```
 
 Set `APIPOD_API_ORIGIN` when the API is running elsewhere. If a public model has
-no database schema yet, the sync command records a small source snapshot and the
-page generator fills its request contract from the APIPod CUE/adapter rules.
+no active configured Schema, synchronization fails instead of inventing a
+fallback contract. Configure the model Schema first, then rerun synchronization.
 
 Use `npm run sync:resume` to continue after a transient network failure. The
 migration manifest records exact sitemap coverage. Extracted OpenAPI fragments
 are stored as `.yaml.txt` snapshots under `api-reference/specs/` for
 traceability. The normalized OpenAPI 3.1 sources used by Mintlify's interactive
-API Reference are generated under `api-reference/openapi/` from the current
-APIPod request contract.
+API Reference are generated under `api-reference/openapi/`. Normalization fixes
+OpenAPI value types, injects the documented public model ID, localizes property
+descriptions, and creates examples without changing configured fields, required
+lists, enums, defaults, or limits.
 
 ## Publishing
 

@@ -4,9 +4,9 @@
   "name": "APIPod Docs",
   "description": "APIPod API documentation for image and video generation models.",
   "colors": {
-    "primary": "#7357FF",
-    "light": "#8B73FF",
-    "dark": "#5A3FD6"
+    "primary": "#7F22FE",
+    "light": "#A684FF",
+    "dark": "#7008E7"
   },
   "favicon": "/favicon.ico",
   "logo": {
@@ -50,13 +50,6 @@
           {
             "tab": "API Reference",
             "groups": [
-              {
-                "group": "LLM",
-                "icon": "bot",
-                "pages": [
-                  "models"
-                ]
-              },
               {
                 "group": "Images",
                 "icon": "image",
@@ -349,13 +342,6 @@
             "tab": "API 参考",
             "groups": [
               {
-                "group": "LLM",
-                "icon": "bot",
-                "pages": [
-                  "zh-CN/models"
-                ]
-              },
-              {
                 "group": "图片",
                 "icon": "image",
                 "pages": [
@@ -567,7 +553,7 @@
                     ]
                   },
                   {
-                    "group": "Wan 视频",
+                    "group": "Wan Video",
                     "icon": "cloud",
                     "pages": [
                       {
@@ -725,8 +711,6 @@
       "api-reference/openapi/motion-control--motion-control-m1.zh.yaml",
       "api-reference/openapi/seedance--doubao-seedance-1-0-pro-fast-i2v.yaml",
       "api-reference/openapi/seedance--doubao-seedance-1-0-pro-fast-i2v.zh.yaml",
-      "api-reference/openapi/seedance--doubao-seedance-1-0-pro-fast-t2v.yaml",
-      "api-reference/openapi/seedance--doubao-seedance-1-0-pro-fast-t2v.zh.yaml",
       "api-reference/openapi/seedance--seedance-1-0-lite-i2v.yaml",
       "api-reference/openapi/seedance--seedance-1-0-lite-i2v.zh.yaml",
       "api-reference/openapi/seedance--seedance-1-0-lite-i2v-ref.yaml",
@@ -875,6 +859,26 @@
     {
       "source": "/zh-CN/seedance/seedance-2-0-mini-t2v",
       "destination": "/zh-CN/seedance/2-0-mini-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/seedance/doubao-seedance-1-0-pro-fast-t2v",
+      "destination": "/seedance/seedance-1-0-pro-fast-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/doubao-seedance-1-0-pro-fast-t2v",
+      "destination": "/seedance/seedance-1-0-pro-fast-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/doubao-seedance-1-0-pro-fast-t2v",
+      "destination": "/zh-CN/seedance/seedance-1-0-pro-fast-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/seedance/doubao-seedance-1-0-pro-fast-t2v",
+      "destination": "/zh-CN/seedance/seedance-1-0-pro-fast-t2v",
       "permanent": true
     },
     {
@@ -1325,16 +1329,6 @@
     {
       "source": "/zh/seedance/doubao-seedance-1-0-pro-fast-i2v",
       "destination": "/zh-CN/seedance/doubao-seedance-1-0-pro-fast-i2v",
-      "permanent": true
-    },
-    {
-      "source": "/en/seedance/doubao-seedance-1-0-pro-fast-t2v",
-      "destination": "/seedance/doubao-seedance-1-0-pro-fast-t2v",
-      "permanent": true
-    },
-    {
-      "source": "/zh/seedance/doubao-seedance-1-0-pro-fast-t2v",
-      "destination": "/zh-CN/seedance/doubao-seedance-1-0-pro-fast-t2v",
       "permanent": true
     },
     {

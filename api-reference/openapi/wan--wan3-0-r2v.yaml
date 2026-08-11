@@ -31,79 +31,91 @@ paths:
           application/json:
             schema:
               type: object
+              title: WAN 3.0 参考生视频
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: wan3.0-r2v
                 prompt:
                   type: string
-                  description: Describe the scene, motion, camera, and sound.
-                  maxLength: 5000
+                  title: Prompt
+                  description: Text prompt used to describe the expected generated video content.
+                  default: ""
+                  minLength: 0
+                  maxLength: 20000
                 image_urls:
                   type: array
+                  title: Reference Images
+                  description: Refer to the images, up to 10.
                   items:
                     type: string
-                  description: Reference image URLs.
-                  maxItems: 5
                 video_urls:
                   type: array
+                  title: Reference Videos
+                  description: Reference videos. Maximum 5 clips, total duration no more than 15
+                    seconds.
                   items:
                     type: string
-                  description: Reference video URLs.
-                  maxItems: 3
                 audio_urls:
                   type: array
+                  title: Reference Audio
+                  description: Refer to the audio, with a maximum of 5 segments and a total
+                    duration no more than 15 seconds.
                   items:
                     type: string
-                  description: Reference audio URLs.
-                  maxItems: 3
-                file_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference file URLs.
-                  maxItems: 1
-                aspect_ratio:
+                file_url:
                   type: string
-                  description: Video aspect ratio.
-                  default: 16:9
+                  title: Reference File
+                  description: Reference File, maximum one, cannot be input together with link
+                    url. support
+                    format：docx、doc、xlsx、xls、pptx、ppt、pdf、txt、key、pages、numbers、md。
+                  default: ""
+                link_url:
+                  type: string
+                  title: Reference Link
+                  description: The URL address of the public web page. Only public web pages that
+                    do not require login are supported for parsing. Cannot be
+                    input together with file.
+                  default: ""
+                duration:
+                  type: integer
+                  title: Duration
                   enum:
-                    - adaptive
-                    - 16:9
-                    - 9:16
-                    - 1:1
+                    - -1
+                  default: 5
+                  minimum: 2
+                  maximum: 51
                 resolution:
                   type: string
-                  description: Output resolution.
-                  default: 1080P
+                  title: Resolution
                   enum:
                     - 480P
                     - 720P
                     - 1080P
-                    - 480p
-                    - 720p
-                    - 1080p
-                duration:
-                  type: integer
-                  description: Clip duration in seconds.
-                  default: 5
-                  minimum: 2
-                  maximum: 30
-                audio:
-                  type: boolean
-                  description: Generate or preserve audio when supported.
-                  default: true
-                seed:
-                  type: integer
-                  description: Optional deterministic random seed.
-                callback_url:
+                  default: 1080P
+                aspect_ratio:
                   type: string
-                  description: HTTPS endpoint that receives task completion notifications.
+                  title: Aspect Ratio
+                  enum:
+                    - adaptive
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                  default: adaptive
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  default: true
+                watermark:
+                  type: boolean
+                  title: Watermark
+                  default: false
               required:
                 - model
-                - prompt
-                - image_urls
             example:
               model: wan3.0-r2v
               prompt: A premium product photograph on a dark studio set, precise typography,
@@ -114,9 +126,10 @@ paths:
                 - https://cdn.example.com/reference.mp4
               audio_urls:
                 - https://cdn.example.com/reference.mp3
-              aspect_ratio: 16:9
-              resolution: 1080P
               duration: 5
+              resolution: 1080P
+              aspect_ratio: adaptive
+              generate_audio: true
       responses:
         "200":
           description: Task accepted
@@ -124,23 +137,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -169,9 +180,10 @@ paths:
               "audio_urls": [
                 "https://cdn.example.com/reference.mp3"
               ],
-              "aspect_ratio": "16:9",
+              "duration": 5,
               "resolution": "1080P",
-              "duration": 5
+              "aspect_ratio": "adaptive",
+              "generate_audio": true
             }'
         - lang: Python
           label: Python
@@ -193,9 +205,10 @@ paths:
               "audio_urls": [
                 "https://cdn.example.com/reference.mp3"
               ],
-              "aspect_ratio": "16:9",
+              "duration": 5,
               "resolution": "1080P",
-              "duration": 5
+              "aspect_ratio": "adaptive",
+              "generate_audio": True
             }
 
 
@@ -241,9 +254,10 @@ paths:
               "audio_urls": [
                 "https://cdn.example.com/reference.mp3"
               ],
-              "aspect_ratio": "16:9",
+              "duration": 5,
               "resolution": "1080P",
-              "duration": 5
+              "aspect_ratio": "adaptive",
+              "generate_audio": true
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -291,9 +305,10 @@ paths:
               "audio_urls": [
                 "https://cdn.example.com/reference.mp3"
               ],
-              "aspect_ratio": "16:9",
+              "duration": 5,
               "resolution": "1080P",
-              "duration": 5
+              "aspect_ratio": "adaptive",
+              "generate_audio": true
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -329,9 +344,10 @@ paths:
                 "audio_urls": [
                   "https://cdn.example.com/reference.mp3"
                 ],
-                "aspect_ratio": "16:9",
+                "duration": 5,
                 "resolution": "1080P",
-                "duration": 5
+                "aspect_ratio": "adaptive",
+                "generate_audio": true
               }
               ),
             });

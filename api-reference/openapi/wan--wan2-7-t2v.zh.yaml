@@ -2,8 +2,7 @@ openapi: 3.1.0
 info:
   title: WAN 2.7 Text to Video API
   version: 1.0.0
-  description:
-    Wan 2.7 文生视频是阿里 Wan Video模型的独立任务模式，直接根据文本提示词生成视频，不要求源媒体。在 APIPod
+  description: Wan 2.7 文生视频是阿里 Wan Video模型的独立任务模式，直接根据文本提示词生成视频，不要求源媒体。在 APIPod
     中，公开模型 ID 为 wan2.7-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
 servers:
   - url: https://api.apipod.ai
@@ -12,8 +11,7 @@ paths:
   /v1/videos/generations:
     post:
       summary: 创建生成任务
-      description:
-        Wan 2.7 文生视频是阿里 Wan Video模型的独立任务模式，直接根据文本提示词生成视频，不要求源媒体。在 APIPod
+      description: Wan 2.7 文生视频是阿里 Wan Video模型的独立任务模式，直接根据文本提示词生成视频，不要求源媒体。在 APIPod
         中，公开模型 ID 为 wan2.7-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
       operationId: create-wan-wan2-7-t2v
       tags:
@@ -26,84 +24,72 @@ paths:
           application/json:
             schema:
               type: object
+              title: WAN 2.7 Text to Video
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: wan2.7-t2v
                 prompt:
                   type: string
+                  title: Prompt
                   description: 生成或编辑指令。 最大字符串长度：5000。
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 可公开访问的源图片或参考图 URL。 最多项目数：2。
-                video_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 可公开访问的参考视频 URL。 最多项目数：1。
-                audio_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 可公开访问的参考音频 URL。 最多项目数：1。
-                file_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 可公开访问的参考文件 URL。 最多项目数：1。
+                  default: ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。
+                prompt_extend:
+                  type: boolean
+                  title: Prompt Extend
+                  description: 是否启用智能提示词改写。启用后会使用大模型改写输入提示词，可改善短提示词的生成效果，但会增加处理时间。
+                  default: true
+                negative_prompt:
+                  type: string
+                  title: Negative Prompt
+                  description: Describe the content you do not wish to see in the video frame,
+                    which can be used to restrict the video frame.  最大字符串长度：500。
+                  default: low resolution, errors, worst quality, poor quality, incomplete, extra
+                    fingers, poor aspect ratio.
+                audio_url:
+                  type: string
+                  title: Audio Url
+                  description: 模型使用该音频生成视频。音频长于视频时长时会截取前段，音频短于视频时长时，超出音频长度的部分将保持静音。
+                  default: ""
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: 输出分辨率档位。
+                  enum:
+                    - 720P
+                    - 1080P
+                  default: 1080P
                 aspect_ratio:
                   type: string
-                  description: 视频宽高比。
-                  default: 16:9
+                  title: Aspect Ratio
+                  description: 输出宽高比。
                   enum:
-                    - adaptive
                     - 16:9
                     - 9:16
                     - 1:1
-                resolution:
-                  type: string
-                  description: 输出分辨率。
-                  default: 1080P
-                  enum:
-                    - 480P
-                    - 720P
-                    - 1080P
-                    - 480p
-                    - 720p
-                    - 1080p
+                    - 4:3
+                    - 3:4
+                  default: 16:9
                 duration:
                   type: integer
-                  description: 视频片段时长，单位为秒。 最小值：2。 最大值：30。
+                  title: Duration
+                  description: 视频时长，单位为秒。 最小值：2。 最大值：15。
                   default: 5
-                audio:
+                watermark:
                   type: boolean
-                  description: 在模型支持时生成或保留音频。
-                  default: true
-                seed:
-                  type: integer
-                  description: 可选的确定性随机种子，用于复现结果。
-                callback_url:
-                  type: string
-                  description: 接收任务完成通知的 HTTPS 地址。
+                  title: Watermark
+                  description: 添加上游水印。
+                  default: false
               required:
                 - model
                 - prompt
             example:
               model: wan2.7-t2v
-              prompt:
-                A premium product photograph on a dark studio set, precise typography,
-                soft rim lighting, highly detailed.
-              image_urls:
-                - https://cdn.example.com/reference-1.jpg
-              video_urls:
-                - https://cdn.example.com/reference.mp4
-              audio_urls:
-                - https://cdn.example.com/reference.mp3
-              aspect_ratio: 16:9
+              prompt: ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。
               resolution: 1080P
+              aspect_ratio: 16:9
               duration: 5
       responses:
         "200":
@@ -112,24 +98,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -148,18 +133,9 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "wan2.7-t2v",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
+              "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
               "resolution": "1080P",
+              "aspect_ratio": "16:9",
               "duration": 5
             }'
         - lang: Python
@@ -172,18 +148,9 @@ paths:
 
             payload = {
               "model": "wan2.7-t2v",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
+              "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
               "resolution": "1080P",
+              "aspect_ratio": "16:9",
               "duration": 5
             }
 
@@ -220,18 +187,9 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "wan2.7-t2v",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
+              "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
               "resolution": "1080P",
+              "aspect_ratio": "16:9",
               "duration": 5
             }`), &payload); err != nil {
                     panic(err)
@@ -270,18 +228,9 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "wan2.7-t2v",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
+              "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
               "resolution": "1080P",
+              "aspect_ratio": "16:9",
               "duration": 5
             });
                 let response = Client::new()
@@ -308,18 +257,9 @@ paths:
               body: JSON.stringify(
               {
                 "model": "wan2.7-t2v",
-                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "image_urls": [
-                  "https://cdn.example.com/reference-1.jpg"
-                ],
-                "video_urls": [
-                  "https://cdn.example.com/reference.mp4"
-                ],
-                "audio_urls": [
-                  "https://cdn.example.com/reference.mp3"
-                ],
-                "aspect_ratio": "16:9",
+                "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
                 "resolution": "1080P",
+                "aspect_ratio": "16:9",
                 "duration": 5
               }
               ),

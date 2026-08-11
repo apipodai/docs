@@ -33,62 +33,24 @@ paths:
           application/json:
             schema:
               type: object
+              title: Seedance 1.5 Pro Image to Video
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: seedance-1.5-pro-i2v
                 prompt:
                   type: string
-                  description: Describe the content, motion, camera, and audio.
+                  title: Prompt
+                  description: The video description (4-2000 characters).
+                  default: ""
                   maxLength: 2000
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: One required first frame and one optional last frame.
-                  minItems: 1
-                  maxItems: 2
-                video_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference videos.
-                  maxItems: 3
-                audio_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference audio files.
-                  maxItems: 3
-                aspect_ratio:
-                  type: string
-                  description: Output aspect ratio, or adaptive selection.
-                  default: adaptive
-                  enum:
-                    - adaptive
-                    - 16:9
-                    - 4:3
-                    - 1:1
-                    - 3:4
-                    - 9:16
-                    - 21:9
-                resolution:
-                  type: string
-                  description: Output resolution.
-                  default: 720p
-                  enum:
-                    - 480p
-                    - 720p
-                    - 1080p
-                    - 4k
                 duration:
                   type: integer
-                  description: Clip duration in seconds. Use -1 only for automatic duration on
-                    supported routes.
-                  default: 5
+                  title: Duration
+                  description: The generated video's duration.
                   enum:
-                    - -1
                     - 4
                     - 5
                     - 6
@@ -98,41 +60,67 @@ paths:
                     - 10
                     - 11
                     - 12
-                    - 13
-                    - 14
-                    - 15
+                  default: 5
+                image_urls:
+                  type: array
+                  title: First and last frames
+                  description: First and last frame images, with support for uploading only the
+                    first frame image.
+                  items:
+                    type: string
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: The generated video's resolution.
+                  enum:
+                    - 480p
+                    - 720p
+                    - 1080p
+                  default: 720p
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  description: >
+                    The aspect ratio of the generated video. When using
+                    adaptive, the model will adaptively adjust the aspect ratio
+                    of the video according to different video generation
+                    scenarios.
+                  enum:
+                    - adaptive
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                    - 21:9
+                  default: adaptive
+                camera_fixed:
+                  type: boolean
+                  title: Camera Fixed
+                  description: Enable to keep the camera view static and stable. Disable for
+                    dynamic camera movement.
+                  default: false
                 generate_audio:
                   type: boolean
-                  description: Generate synchronized audio.
+                  title: Generate Audio
+                  description: Enable to create sound effects for the video (Additional cost
+                    applies).
                   default: true
-                return_last_frame:
-                  type: boolean
-                  description: Include the generated last frame as the first result item.
-                  default: false
-                web_search:
-                  type: boolean
-                  description: Allow the model to retrieve current information when needed.
-                  default: false
-                watermark:
-                  type: boolean
-                  description: Add an upstream watermark.
-                  default: false
-                callback_url:
-                  type: string
-                  description: HTTPS endpoint that receives task completion notifications.
               required:
                 - model
                 - prompt
+                - duration
                 - image_urls
+                - aspect_ratio
             example:
               model: seedance-1.5-pro-i2v
               prompt: Animate the subject with a slow camera push-in, natural motion, and soft
                 cinematic lighting.
+              duration: 5
               image_urls:
                 - https://cdn.example.com/reference-1.jpg
-              aspect_ratio: adaptive
               resolution: 720p
-              duration: 5
+              aspect_ratio: adaptive
               generate_audio: true
       responses:
         "200":
@@ -141,23 +129,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -177,12 +163,12 @@ paths:
               -d '{
               "model": "seedance-1.5-pro-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "duration": 5,
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "adaptive",
               "resolution": "720p",
-              "duration": 5,
+              "aspect_ratio": "adaptive",
               "generate_audio": true
             }'
         - lang: Python
@@ -196,12 +182,12 @@ paths:
             payload = {
               "model": "seedance-1.5-pro-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "duration": 5,
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "adaptive",
               "resolution": "720p",
-              "duration": 5,
+              "aspect_ratio": "adaptive",
               "generate_audio": True
             }
 
@@ -239,12 +225,12 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "seedance-1.5-pro-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "duration": 5,
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "adaptive",
               "resolution": "720p",
-              "duration": 5,
+              "aspect_ratio": "adaptive",
               "generate_audio": true
             }`), &payload); err != nil {
                     panic(err)
@@ -284,12 +270,12 @@ paths:
                 let payload = json!({
               "model": "seedance-1.5-pro-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "duration": 5,
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "adaptive",
               "resolution": "720p",
-              "duration": 5,
+              "aspect_ratio": "adaptive",
               "generate_audio": true
             });
                 let response = Client::new()
@@ -317,12 +303,12 @@ paths:
               {
                 "model": "seedance-1.5-pro-i2v",
                 "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+                "duration": 5,
                 "image_urls": [
                   "https://cdn.example.com/reference-1.jpg"
                 ],
-                "aspect_ratio": "adaptive",
                 "resolution": "720p",
-                "duration": 5,
+                "aspect_ratio": "adaptive",
                 "generate_audio": true
               }
               ),

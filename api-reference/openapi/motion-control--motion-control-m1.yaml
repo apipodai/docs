@@ -30,51 +30,29 @@ paths:
           application/json:
             schema:
               type: object
+              title: Motion Control
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: motion-control-m1
-                prompt:
-                  type: string
-                  description: Describe the desired motion and output behavior.
-                  maxLength: 2500
                 image_url:
                   type: string
-                  description: Reference image URL.
+                  title: "Add your character "
+                  default: ""
                 video_url:
                   type: string
-                  description: Reference motion video URL.
-                character_orientation:
-                  type: string
-                  description: Whether to follow the image or video character orientation.
-                  enum:
-                    - image
-                    - video
-                  default: image
-                keep_original_sound:
-                  type: boolean
-                  description: Keep the original audio of the reference video.
-                  default: true
-                quality:
-                  type: string
-                  description: Video generation quality.
-                  enum:
-                    - std
-                    - pro
-                  default: std
+                  title: Add motion video to copy
+                  default: ""
               required:
                 - model
-                - prompt
                 - image_url
                 - video_url
             example:
               model: motion-control-m1
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
-                motion, synchronized ambient sound.
               image_url: https://cdn.example.com/reference.jpg
               video_url: https://cdn.example.com/source.mp4
-              quality: std
       responses:
         "200":
           description: Task accepted
@@ -82,23 +60,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -111,33 +87,26 @@ paths:
       x-codeSamples:
         - lang: Shell
           label: cURL
-          source: >-
+          source: |-
             curl https://api.apipod.ai/v1/videos/generations \
               -H "Authorization: Bearer $APIPOD_API_KEY" \
               -H "Content-Type: application/json" \
               -d '{
               "model": "motion-control-m1",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "video_url": "https://cdn.example.com/source.mp4",
-              "quality": "std"
+              "video_url": "https://cdn.example.com/source.mp4"
             }'
         - lang: Python
           label: Python
-          source: >-
+          source: |-
             import os
-
             import requests
-
 
             payload = {
               "model": "motion-control-m1",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "video_url": "https://cdn.example.com/source.mp4",
-              "quality": "std"
+              "video_url": "https://cdn.example.com/source.mp4"
             }
-
 
             response = requests.post(
                 "https://api.apipod.ai/v1/videos/generations",
@@ -148,9 +117,7 @@ paths:
                 json=payload,
                 timeout=60,
             )
-
             response.raise_for_status()
-
             print(response.json())
         - lang: Go
           label: Go
@@ -171,10 +138,8 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "motion-control-m1",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "video_url": "https://cdn.example.com/source.mp4",
-              "quality": "std"
+              "video_url": "https://cdn.example.com/source.mp4"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -199,23 +164,17 @@ paths:
             }
         - lang: Rust
           label: Rust
-          source: >-
+          source: |-
             use reqwest::Client;
-
             use serde_json::json;
-
             use std::env;
 
-
             #[tokio::main]
-
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "motion-control-m1",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "video_url": "https://cdn.example.com/source.mp4",
-              "quality": "std"
+              "video_url": "https://cdn.example.com/source.mp4"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -241,10 +200,8 @@ paths:
               body: JSON.stringify(
               {
                 "model": "motion-control-m1",
-                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
                 "image_url": "https://cdn.example.com/reference.jpg",
-                "video_url": "https://cdn.example.com/source.mp4",
-                "quality": "std"
+                "video_url": "https://cdn.example.com/source.mp4"
               }
               ),
             });

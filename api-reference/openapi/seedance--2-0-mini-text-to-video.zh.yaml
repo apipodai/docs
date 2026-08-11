@@ -15,7 +15,7 @@ paths:
       description: Seedance 2.0 Mini 文生视频是面向规模化调用的效率型路由，根据文本指令生成视频，不要求提供源媒体。Seedance
         系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为
         seedance-2.0-mini-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
-      operationId: create-seedance-seedance-2-0-mini-t2v
+      operationId: create-seedance-2-0-mini-text-to-video
       tags:
         - Seedance 2.0 mini Text to Video
       security:
@@ -26,56 +26,28 @@ paths:
           application/json:
             schema:
               type: object
+              title: Seedance 2.0 Mini Text to Video
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: seedance-2.0-mini-t2v
                 prompt:
                   type: string
-                  description: 描述视频内容、运动、镜头和音频。 最大字符串长度：2000。
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 参考图片。 最多项目数：9。
-                video_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 参考视频。 最多项目数：3。
-                audio_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 参考音频文件。 最多项目数：3。
-                aspect_ratio:
-                  type: string
-                  description: 输出宽高比，也可由模型自适应选择。
-                  default: adaptive
-                  enum:
-                    - adaptive
-                    - 16:9
-                    - 4:3
-                    - 1:1
-                    - 3:4
-                    - 9:16
-                    - 21:9
-                resolution:
-                  type: string
-                  description: 输出分辨率。
-                  default: 720p
-                  enum:
-                    - 480p
-                    - 720p
-                    - 1080p
-                    - 4k
+                  title: Prompt
+                  description: 生成或编辑指令。 最大字符串长度：1000。
+                  default: 建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1
+                    秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4
+                    秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭
+                    / 办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 /
+                    屋顶花园）竖向 + 水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8
+                    秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感
+                    + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。
                 duration:
                   type: integer
-                  description: 视频片段时长，单位为秒；仅在支持自动时长的路由中可使用 -1。
-                  default: 5
+                  title: Duration
                   enum:
-                    - -1
                     - 4
                     - 5
                     - 6
@@ -88,35 +60,64 @@ paths:
                     - 13
                     - 14
                     - 15
-                generate_audio:
+                  default: 5
+                  description: 视频时长，单位为秒。 最小值：4。 最大值：15。
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: 输出分辨率档位。
+                  enum:
+                    - 480p
+                    - 720p
+                  default: 720p
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  description: 输出宽高比。
+                  enum:
+                    - adaptive
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                    - 21:9
+                  default: adaptive
+                watermark:
                   type: boolean
-                  description: 生成与视频同步的音频。
-                  default: true
-                return_last_frame:
-                  type: boolean
-                  description: 将生成视频的尾帧作为结果列表的第一项返回。
+                  title: Watermark
+                  description: 添加上游水印。
                   default: false
                 web_search:
                   type: boolean
-                  description: 允许模型在需要时检索实时信息。
+                  title: Web Search
+                  description: 在通道支持时允许检索实时信息。
                   default: false
-                watermark:
+                generate_audio:
                   type: boolean
-                  description: 添加上游水印。
+                  title: Generate Audio
+                  description: 为视频生成同步音频。
+                  default: true
+                return_last_frame:
+                  type: boolean
+                  title: Retrun Last Frame
+                  description: 返回生成视频的尾帧，用于续作工作流。
                   default: false
-                callback_url:
-                  type: string
-                  description: 接收任务完成通知的 HTTPS 地址。
               required:
                 - model
                 - prompt
             example:
               model: seedance-2.0-mini-t2v
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
-                motion, synchronized ambient sound.
-              aspect_ratio: adaptive
-              resolution: 720p
+              prompt: 建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1
+                秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4
+                秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭 /
+                办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 / 屋顶花园）竖向 +
+                水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8
+                秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感
+                + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。
               duration: 5
+              resolution: 720p
+              aspect_ratio: adaptive
               generate_audio: true
       responses:
         "200":
@@ -125,24 +126,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -161,10 +161,10 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "seedance-2.0-mini-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "adaptive",
-              "resolution": "720p",
+              "prompt": "建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1 秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4 秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭 / 办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 / 屋顶花园）竖向 + 水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8 秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感 + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。",
               "duration": 5,
+              "resolution": "720p",
+              "aspect_ratio": "adaptive",
               "generate_audio": true
             }'
         - lang: Python
@@ -177,10 +177,10 @@ paths:
 
             payload = {
               "model": "seedance-2.0-mini-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "adaptive",
-              "resolution": "720p",
+              "prompt": "建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1 秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4 秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭 / 办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 / 屋顶花园）竖向 + 水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8 秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感 + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。",
               "duration": 5,
+              "resolution": "720p",
+              "aspect_ratio": "adaptive",
               "generate_audio": True
             }
 
@@ -217,10 +217,10 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "seedance-2.0-mini-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "adaptive",
-              "resolution": "720p",
+              "prompt": "建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1 秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4 秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭 / 办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 / 屋顶花园）竖向 + 水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8 秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感 + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。",
               "duration": 5,
+              "resolution": "720p",
+              "aspect_ratio": "adaptive",
               "generate_audio": true
             }`), &payload); err != nil {
                     panic(err)
@@ -259,10 +259,10 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "seedance-2.0-mini-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "adaptive",
-              "resolution": "720p",
+              "prompt": "建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1 秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4 秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭 / 办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 / 屋顶花园）竖向 + 水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8 秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感 + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。",
               "duration": 5,
+              "resolution": "720p",
+              "aspect_ratio": "adaptive",
               "generate_audio": true
             });
                 let response = Client::new()
@@ -289,10 +289,10 @@ paths:
               body: JSON.stringify(
               {
                 "model": "seedance-2.0-mini-t2v",
-                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-                "aspect_ratio": "adaptive",
-                "resolution": "720p",
+                "prompt": "建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1 秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4 秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭 / 办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 / 屋顶花园）竖向 + 水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8 秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感 + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。",
                 "duration": 5,
+                "resolution": "720p",
+                "aspect_ratio": "adaptive",
                 "generate_audio": true
               }
               ),

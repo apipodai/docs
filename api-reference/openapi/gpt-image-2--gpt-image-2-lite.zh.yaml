@@ -26,82 +26,60 @@ paths:
           application/json:
             schema:
               type: object
+              title: GPT Image 2 Lite
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: gpt-image-2-lite
                 prompt:
                   type: string
-                  description: 描述要生成的图片或要执行的编辑。 最大字符串长度：4000。
+                  title: Prompt
+                  description: 生成或编辑指令。 最大字符串长度：32000。
+                  default: 充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO
+                    在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。
                 image_urls:
                   type: array
+                  title: Image Urls
+                  description: 参考图片。
                   items:
                     type: string
-                  description: 可公开访问的参考图片；主模型同时支持图片生成和编辑。 最多项目数：6。
-                aspect_ratio:
-                  type: string
-                  description: 输出宽高比。
-                  default: auto
-                  enum:
-                    - auto
-                    - 1:1
-                    - 1:2
-                    - 1:3
-                    - 2:1
-                    - 2:3
-                    - 3:1
-                    - 3:2
-                    - 3:4
-                    - 4:3
-                    - 4:5
-                    - 5:4
-                    - 16:9
-                    - 9:16
-                    - 21:9
-                    - 9:21
                 resolution:
                   type: string
+                  title: Resolution
                   description: 输出分辨率档位。
                   enum:
                     - 1K
                     - 2K
                     - 4K
-                quality:
+                  default: 1K
+                aspect_ratio:
                   type: string
-                  description: 渲染质量；gpt-image-2 未提供 resolution 时仍兼容旧版 1K、2K、4K 值。
+                  title: Aspect Ratio
+                  enum:
+                    - auto
+                    - 1:1
+                    - 2:3
+                    - 3:2
+                    - 3:4
+                    - 4:3
+                    - 4:5
+                    - 5:4
+                    - 9:16
+                    - 16:9
+                    - 21:9
                   default: auto
-                  enum:
-                    - auto
-                    - low
-                    - medium
-                    - high
-                output_format:
-                  type: string
-                  description: 输出图片格式。
-                  enum:
-                    - png
-                    - jpeg
-                    - webp
-                output_compression:
-                  type: integer
-                  description: 支持压缩的输出格式所使用的压缩百分比。 最小值：0。 最大值：100。
-                background:
-                  type: string
-                  description: 背景处理方式。
-                  enum:
-                    - auto
-                    - opaque
+                  description: 输出宽高比。
               required:
                 - model
                 - prompt
             example:
               model: gpt-image-2-lite
-              prompt: A premium product photograph on a dark studio set, precise typography,
-                soft rim lighting, highly detailed.
-              aspect_ratio: 16:9
-              resolution: 2K
-              quality: auto
+              prompt: 充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO
+                在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。
+              resolution: 1K
+              aspect_ratio: auto
       responses:
         "200":
           description: 任务已受理
@@ -109,24 +87,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -145,10 +122,9 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "gpt-image-2-lite",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "resolution": "2K",
-              "quality": "auto"
+              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+              "resolution": "1K",
+              "aspect_ratio": "auto"
             }'
         - lang: Python
           label: Python
@@ -160,10 +136,9 @@ paths:
 
             payload = {
               "model": "gpt-image-2-lite",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "resolution": "2K",
-              "quality": "auto"
+              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+              "resolution": "1K",
+              "aspect_ratio": "auto"
             }
 
 
@@ -199,10 +174,9 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "gpt-image-2-lite",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "resolution": "2K",
-              "quality": "auto"
+              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+              "resolution": "1K",
+              "aspect_ratio": "auto"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -240,10 +214,9 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "gpt-image-2-lite",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "resolution": "2K",
-              "quality": "auto"
+              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+              "resolution": "1K",
+              "aspect_ratio": "auto"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/images/generations")
@@ -269,10 +242,9 @@ paths:
               body: JSON.stringify(
               {
                 "model": "gpt-image-2-lite",
-                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "aspect_ratio": "16:9",
-                "resolution": "2K",
-                "quality": "auto"
+                "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+                "resolution": "1K",
+                "aspect_ratio": "auto"
               }
               ),
             });

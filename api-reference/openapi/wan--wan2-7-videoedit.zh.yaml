@@ -2,9 +2,8 @@ openapi: 3.1.0
 info:
   title: WAN 2.7 Video Edit API
   version: 1.0.0
-  description:
-    Wan 2.7 视频编辑是阿里 Wan Video模型的独立任务模式，根据文本指令和可选图片参考编辑源视频。在 APIPod 中，公开模型
-    ID 为 wan2.7-videoedit，支持视频到视频；接受文本、图片、视频输入，并通过异步视频任务返回结果。
+  description: Wan 2.7 视频编辑是阿里 Wan Video模型的独立任务模式，根据文本指令和可选图片参考编辑源视频。在 APIPod
+    中，公开模型 ID 为 wan2.7-videoedit，支持视频到视频；接受文本、图片、视频输入，并通过异步视频任务返回结果。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -12,9 +11,8 @@ paths:
   /v1/videos/generations:
     post:
       summary: 创建生成任务
-      description:
-        Wan 2.7 视频编辑是阿里 Wan Video模型的独立任务模式，根据文本指令和可选图片参考编辑源视频。在 APIPod 中，公开模型
-        ID 为 wan2.7-videoedit，支持视频到视频；接受文本、图片、视频输入，并通过异步视频任务返回结果。
+      description: Wan 2.7 视频编辑是阿里 Wan Video模型的独立任务模式，根据文本指令和可选图片参考编辑源视频。在 APIPod
+        中，公开模型 ID 为 wan2.7-videoedit，支持视频到视频；接受文本、图片、视频输入，并通过异步视频任务返回结果。
       operationId: create-wan-wan2-7-videoedit
       tags:
         - WAN 2.7 Video Edit
@@ -26,85 +24,90 @@ paths:
           application/json:
             schema:
               type: object
+              title: WAN 2.7 Video Edit
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: wan2.7-videoedit
                 prompt:
                   type: string
+                  title: Prompt
+                  default: ""
                   description: 生成或编辑指令。 最大字符串长度：5000。
+                prompt_extend:
+                  type: boolean
+                  title: Prompt Extend
+                  description: 描述不希望出现在视频画面中的内容，用于限制生成画面。
+                  default: ""
+                negative_prompt:
+                  type: string
+                  title: Negative Prompt
+                  description: 描述不希望出现在视频画面中的内容，用于限制生成画面。 最大字符串长度：500。
+                  default: low resolution, errors, worst quality, poor quality, incomplete, extra
+                    fingers, poor aspect ratio.
+                video_url:
+                  type: string
+                  title: Edit Video
+                  description: 可公开访问的源视频 URL。
+                  default: ""
                 image_urls:
                   type: array
+                  title: Images
+                  description: 可公开访问的源图片或参考图 URL。
                   items:
                     type: string
-                  description: 可公开访问的源图片或参考图 URL。 最多项目数：2。
-                video_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 可公开访问的参考视频 URL。 最多项目数：1。
-                audio_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 可公开访问的参考音频 URL。 最多项目数：1。
-                file_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 可公开访问的参考文件 URL。 最多项目数：1。
-                aspect_ratio:
-                  type: string
-                  description: 视频宽高比。
-                  default: 16:9
-                  enum:
-                    - adaptive
-                    - 16:9
-                    - 9:16
-                    - 1:1
                 resolution:
                   type: string
-                  description: 输出分辨率。
-                  default: 1080P
+                  title: Resolution
+                  description: 描述不希望出现在视频画面中的内容，用于限制生成画面。
                   enum:
-                    - 480P
                     - 720P
                     - 1080P
-                    - 480p
-                    - 720p
-                    - 1080p
+                  default: 1080P
                 duration:
                   type: integer
-                  description: 视频片段时长，单位为秒。 最小值：2。 最大值：30。
-                  default: 5
-                audio:
-                  type: boolean
-                  description: 在模型支持时生成或保留音频。
-                  default: true
-                seed:
-                  type: integer
-                  description: 可选的确定性随机种子，用于复现结果。
-                callback_url:
+                  title: Duration
+                  description: 视频时长，单位为秒。
+                  enum:
+                    - 0
+                    - 2
+                    - 3
+                    - 4
+                    - 5
+                    - 6
+                    - 7
+                    - 8
+                    - 9
+                    - 10
+                  default: 0
+                audio_setting:
                   type: string
-                  description: 接收任务完成通知的 HTTPS 地址。
+                  title: Audio Setting
+                  description: 视频音频设置。auto（默认）会根据提示词判断是重新生成音频还是保留输入素材的原音；origin 强制保留输入视频的原音，不重新生成。
+                  enum:
+                    - auto
+                    - origin
+                  default: auto
+                watermark:
+                  type: boolean
+                  title: Watermark
+                  description: 添加上游水印。
+                  default: false
               required:
                 - model
                 - prompt
+                - video_url
             example:
               model: wan2.7-videoedit
-              prompt:
-                A premium product photograph on a dark studio set, precise typography,
+              prompt: A premium product photograph on a dark studio set, precise typography,
                 soft rim lighting, highly detailed.
+              video_url: https://cdn.example.com/source.mp4
               image_urls:
                 - https://cdn.example.com/reference-1.jpg
-              video_urls:
-                - https://cdn.example.com/reference.mp4
-              audio_urls:
-                - https://cdn.example.com/reference.mp3
-              aspect_ratio: 16:9
               resolution: 1080P
-              duration: 5
+              duration: 0
       responses:
         "200":
           description: 任务已受理
@@ -112,24 +115,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -149,18 +151,12 @@ paths:
               -d '{
               "model": "wan2.7-videoedit",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "video_url": "https://cdn.example.com/source.mp4",
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "duration": 0
             }'
         - lang: Python
           label: Python
@@ -173,18 +169,12 @@ paths:
             payload = {
               "model": "wan2.7-videoedit",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "video_url": "https://cdn.example.com/source.mp4",
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "duration": 0
             }
 
 
@@ -221,18 +211,12 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "wan2.7-videoedit",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "video_url": "https://cdn.example.com/source.mp4",
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "duration": 0
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -271,18 +255,12 @@ paths:
                 let payload = json!({
               "model": "wan2.7-videoedit",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "video_url": "https://cdn.example.com/source.mp4",
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "duration": 0
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -309,18 +287,12 @@ paths:
               {
                 "model": "wan2.7-videoedit",
                 "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+                "video_url": "https://cdn.example.com/source.mp4",
                 "image_urls": [
                   "https://cdn.example.com/reference-1.jpg"
                 ],
-                "video_urls": [
-                  "https://cdn.example.com/reference.mp4"
-                ],
-                "audio_urls": [
-                  "https://cdn.example.com/reference.mp3"
-                ],
-                "aspect_ratio": "16:9",
                 "resolution": "1080P",
-                "duration": 5
+                "duration": 0
               }
               ),
             });

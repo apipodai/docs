@@ -30,36 +30,30 @@ paths:
           application/json:
             schema:
               type: object
+              title: WAN 2.7 Image Pro
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: wan2.7-image-pro
                 prompt:
                   type: string
-                  description: Describe the image to generate or the edit to perform.
+                  title: Prompt
+                  default: ""
                   maxLength: 5000
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Source images for editing.
-                  minItems: 1
-                  maxItems: 9
                 size:
                   type: string
-                  description: Output size or resolution shorthand.
-                  default: 2K
-                quality:
-                  type: string
-                  description: Output quality tier.
+                  title: Size
+                  description: Output image resolution.
                   enum:
                     - 1K
                     - 2K
                     - 4K
+                  default: 2K
                 aspect_ratio:
                   type: string
-                  description: Output aspect ratio.
+                  title: Aspect Ratio
                   enum:
                     - 1:1
                     - 1:4
@@ -75,31 +69,29 @@ paths:
                     - 16:9
                     - 9:16
                     - 21:9
-                n:
-                  type: integer
-                  description: Number of images to generate.
-                  default: 1
-                  minimum: 1
-                  maximum: 4
+                  default: 16:9
                 thinking_mode:
                   type: boolean
-                  description: Allow reasoning before rendering in text-to-image mode.
+                  title: Thinking Mode
+                  description: when enabled, the model will enhance reasoning capabilities to
+                    improve image generation quality, but it will increase
+                    generation time.
                   default: true
-                color_palette:
-                  type: array
-                  description: Optional palette of 3-10 colors with hexadecimal values and target
-                    ratios.
-                  items:
-                    type: object
-                  minItems: 3
-                  maxItems: 10
-                seed:
-                  type: integer
-                  description: Optional deterministic random seed.
                 watermark:
                   type: boolean
-                  description: Add an upstream watermark to the result.
+                  title: Watermark
+                  description: Whether to add a watermark, which will be placed in the bottom
+                    right corner of the image.
                   default: false
+                n:
+                  type: integer
+                  title: Number of images
+                  enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                  default: 1
               required:
                 - model
                 - prompt
@@ -108,7 +100,6 @@ paths:
               prompt: A premium product photograph on a dark studio set, precise typography,
                 soft rim lighting, highly detailed.
               size: 2K
-              quality: 2K
               aspect_ratio: 16:9
               n: 1
       responses:
@@ -118,23 +109,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -155,7 +144,6 @@ paths:
               "model": "wan2.7-image-pro",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "size": "2K",
-              "quality": "2K",
               "aspect_ratio": "16:9",
               "n": 1
             }'
@@ -171,7 +159,6 @@ paths:
               "model": "wan2.7-image-pro",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "size": "2K",
-              "quality": "2K",
               "aspect_ratio": "16:9",
               "n": 1
             }
@@ -211,7 +198,6 @@ paths:
               "model": "wan2.7-image-pro",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "size": "2K",
-              "quality": "2K",
               "aspect_ratio": "16:9",
               "n": 1
             }`), &payload); err != nil {
@@ -253,7 +239,6 @@ paths:
               "model": "wan2.7-image-pro",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "size": "2K",
-              "quality": "2K",
               "aspect_ratio": "16:9",
               "n": 1
             });
@@ -283,7 +268,6 @@ paths:
                 "model": "wan2.7-image-pro",
                 "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
                 "size": "2K",
-                "quality": "2K",
                 "aspect_ratio": "16:9",
                 "n": 1
               }

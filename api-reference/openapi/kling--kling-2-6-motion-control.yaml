@@ -32,35 +32,55 @@ paths:
           application/json:
             schema:
               type: object
+              title: Kling 2.6 Motion Control
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: kling-2.6-motion-control
                 prompt:
                   type: string
-                  description: Describe the desired motion and output behavior.
+                  title: Prompt
+                  description: "A text description of the desired output. "
+                  default: No distortion, the character's movements are consistent with the video.
                   maxLength: 2500
                 image_url:
                   type: string
-                  description: Reference image URL.
+                  title: Reference image
+                  description: Reference image. The characters, backgrounds, and other elements in
+                    the generated video are based on the reference image.
+                    Supports .jpg/.jpeg/.png, max 10MB, size needs to be greater
+                    than 300px, aspect ratio 2:5 to 5:2.
+                  default: ""
                 video_url:
                   type: string
-                  description: Reference motion video URL.
+                  title: Reference video
+                  description: Reference video. The character actions in the generated video are
+                    consistent with the reference video. Supports .mp4/.mov, max
+                    100MB, 3-30 seconds duration depending on
+                    character_orientation.
+                  default: ""
                 character_orientation:
                   type: string
-                  description: Whether to follow the image or video character orientation.
+                  title: Character Orientation
+                  description: "Generate the orientation of the characters in the video. 'image':
+                    same orientation as the person in the picture (max 10s
+                    video). 'video': consistent with the orientation of the
+                    characters in the video (max 30s video)."
                   enum:
                     - image
                     - video
                   default: image
                 keep_original_sound:
                   type: boolean
-                  description: Keep the original audio of the reference video.
+                  title: Keep Original Sound
+                  description: Whether to keep the original audio of the video.
                   default: true
                 quality:
                   type: string
-                  description: Video generation quality.
+                  title: Video Quallity
+                  description: Quality of generating videos.
                   enum:
                     - std
                     - pro
@@ -72,8 +92,7 @@ paths:
                 - video_url
             example:
               model: kling-2.6-motion-control
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
-                motion, synchronized ambient sound.
+              prompt: No distortion, the character's movements are consistent with the video.
               image_url: https://cdn.example.com/reference.jpg
               video_url: https://cdn.example.com/source.mp4
               quality: std
@@ -84,23 +103,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -119,7 +136,7 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "kling-2.6-motion-control",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "prompt": "No distortion, the character's movements are consistent with the video.",
               "image_url": "https://cdn.example.com/reference.jpg",
               "video_url": "https://cdn.example.com/source.mp4",
               "quality": "std"
@@ -134,7 +151,7 @@ paths:
 
             payload = {
               "model": "kling-2.6-motion-control",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "prompt": "No distortion, the character's movements are consistent with the video.",
               "image_url": "https://cdn.example.com/reference.jpg",
               "video_url": "https://cdn.example.com/source.mp4",
               "quality": "std"
@@ -173,7 +190,7 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "kling-2.6-motion-control",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "prompt": "No distortion, the character's movements are consistent with the video.",
               "image_url": "https://cdn.example.com/reference.jpg",
               "video_url": "https://cdn.example.com/source.mp4",
               "quality": "std"
@@ -214,7 +231,7 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "kling-2.6-motion-control",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "prompt": "No distortion, the character's movements are consistent with the video.",
               "image_url": "https://cdn.example.com/reference.jpg",
               "video_url": "https://cdn.example.com/source.mp4",
               "quality": "std"
@@ -243,7 +260,7 @@ paths:
               body: JSON.stringify(
               {
                 "model": "kling-2.6-motion-control",
-                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+                "prompt": "No distortion, the character's movements are consistent with the video.",
                 "image_url": "https://cdn.example.com/reference.jpg",
                 "video_url": "https://cdn.example.com/source.mp4",
                 "quality": "std"

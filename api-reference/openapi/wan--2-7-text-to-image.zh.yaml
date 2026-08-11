@@ -24,31 +24,36 @@ paths:
           application/json:
             schema:
               type: object
+              title: WAN 2.7 Image
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: wan2.7-image
                 prompt:
                   type: string
-                  description: 描述要生成的图片或要执行的编辑。 最大字符串长度：5000。
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 用于编辑的源图片。 最少项目数：1。 最多项目数：9。
+                  title: Prompt
+                  description: 生成或编辑指令。 最大字符串长度：5000。
+                  default: fish-eye perspective forest scene with dramatic perspective distortion,
+                    ultra-detailed red fox staring into lens with piercing amber
+                    eyes, hyper-realistic fur texture showing individual guard
+                    hairs and undercoat layers, radially warped trees forming
+                    circular background patterns, watercolor painting style with
+                    translucent washes and organic pigment bleeding, soft pastel
+                    palette of moss green and earth ochre tones, painterly
+                    lighting with atmospheric glow through canopy gaps
                 size:
                   type: string
+                  title: Size
                   description: 输出尺寸或分辨率简写。
-                  default: 2K
-                quality:
-                  type: string
-                  description: 输出质量档位。
                   enum:
                     - 1K
                     - 2K
+                  default: 1K
                 aspect_ratio:
                   type: string
+                  title: Aspect Ratio
                   description: 输出宽高比。
                   enum:
                     - 1:1
@@ -62,38 +67,44 @@ paths:
                     - 4:5
                     - 5:4
                     - 8:1
-                    - 16:9
                     - 9:16
+                    - 16:9
                     - 21:9
-                n:
-                  type: integer
-                  description: 要生成的图片数量。 最小值：1。 最大值：4。
-                  default: 1
+                  default: 16:9
                 thinking_mode:
                   type: boolean
-                  description: 在文生图模式下允许模型先推理再渲染。
+                  title: Thinking Mode
+                  description: 允许模型在渲染前进行推理。
                   default: true
-                color_palette:
-                  type: array
-                  description: 可选色板，包含 3 到 10 个十六进制颜色值及其目标占比。 最少项目数：3。 最多项目数：10。
-                  items:
-                    type: object
-                seed:
-                  type: integer
-                  description: 可选的确定性随机种子，用于复现结果。
                 watermark:
                   type: boolean
-                  description: 为生成结果添加上游水印。
+                  title: Watermark
+                  description: 添加上游水印。
                   default: false
+                n:
+                  type: integer
+                  title: Number of images
+                  enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                  default: 1
+                  description: 生成图片数量。 最小值：1。 最大值：4。
               required:
                 - model
                 - prompt
             example:
               model: wan2.7-image
-              prompt: A premium product photograph on a dark studio set, precise typography,
-                soft rim lighting, highly detailed.
-              size: 2K
-              quality: 2K
+              prompt: fish-eye perspective forest scene with dramatic perspective distortion,
+                ultra-detailed red fox staring into lens with piercing amber
+                eyes, hyper-realistic fur texture showing individual guard hairs
+                and undercoat layers, radially warped trees forming circular
+                background patterns, watercolor painting style with translucent
+                washes and organic pigment bleeding, soft pastel palette of moss
+                green and earth ochre tones, painterly lighting with atmospheric
+                glow through canopy gaps
+              size: 1K
               aspect_ratio: 16:9
               n: 1
       responses:
@@ -103,24 +114,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -139,9 +149,8 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "wan2.7-image",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "size": "2K",
-              "quality": "2K",
+              "prompt": "fish-eye perspective forest scene with dramatic perspective distortion, ultra-detailed red fox staring into lens with piercing amber eyes, hyper-realistic fur texture showing individual guard hairs and undercoat layers, radially warped trees forming circular background patterns, watercolor painting style with translucent washes and organic pigment bleeding, soft pastel palette of moss green and earth ochre tones, painterly lighting with atmospheric glow through canopy gaps",
+              "size": "1K",
               "aspect_ratio": "16:9",
               "n": 1
             }'
@@ -155,9 +164,8 @@ paths:
 
             payload = {
               "model": "wan2.7-image",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "size": "2K",
-              "quality": "2K",
+              "prompt": "fish-eye perspective forest scene with dramatic perspective distortion, ultra-detailed red fox staring into lens with piercing amber eyes, hyper-realistic fur texture showing individual guard hairs and undercoat layers, radially warped trees forming circular background patterns, watercolor painting style with translucent washes and organic pigment bleeding, soft pastel palette of moss green and earth ochre tones, painterly lighting with atmospheric glow through canopy gaps",
+              "size": "1K",
               "aspect_ratio": "16:9",
               "n": 1
             }
@@ -195,9 +203,8 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "wan2.7-image",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "size": "2K",
-              "quality": "2K",
+              "prompt": "fish-eye perspective forest scene with dramatic perspective distortion, ultra-detailed red fox staring into lens with piercing amber eyes, hyper-realistic fur texture showing individual guard hairs and undercoat layers, radially warped trees forming circular background patterns, watercolor painting style with translucent washes and organic pigment bleeding, soft pastel palette of moss green and earth ochre tones, painterly lighting with atmospheric glow through canopy gaps",
+              "size": "1K",
               "aspect_ratio": "16:9",
               "n": 1
             }`), &payload); err != nil {
@@ -237,9 +244,8 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "wan2.7-image",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "size": "2K",
-              "quality": "2K",
+              "prompt": "fish-eye perspective forest scene with dramatic perspective distortion, ultra-detailed red fox staring into lens with piercing amber eyes, hyper-realistic fur texture showing individual guard hairs and undercoat layers, radially warped trees forming circular background patterns, watercolor painting style with translucent washes and organic pigment bleeding, soft pastel palette of moss green and earth ochre tones, painterly lighting with atmospheric glow through canopy gaps",
+              "size": "1K",
               "aspect_ratio": "16:9",
               "n": 1
             });
@@ -267,9 +273,8 @@ paths:
               body: JSON.stringify(
               {
                 "model": "wan2.7-image",
-                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "size": "2K",
-                "quality": "2K",
+                "prompt": "fish-eye perspective forest scene with dramatic perspective distortion, ultra-detailed red fox staring into lens with piercing amber eyes, hyper-realistic fur texture showing individual guard hairs and undercoat layers, radially warped trees forming circular background patterns, watercolor painting style with translucent washes and organic pigment bleeding, soft pastel palette of moss green and earth ochre tones, painterly lighting with atmospheric glow through canopy gaps",
+                "size": "1K",
                 "aspect_ratio": "16:9",
                 "n": 1
               }

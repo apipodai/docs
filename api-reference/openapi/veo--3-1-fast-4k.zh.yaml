@@ -26,55 +26,48 @@ paths:
           application/json:
             schema:
               type: object
+              title: VEO 3.1 Fast 4K
+              description: Google Veo 3.1 Fast 4K Version
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: veo3-1-fast-4k
                 prompt:
                   type: string
-                  description: 描述场景、动作、镜头和音频。 最大字符串长度：4000。
+                  title: Prompt
+                  description: 生成或编辑指令。 最大字符串长度：4000。
+                  default: The camera performs a smooth 180-degree arc shot, starting with the
+                    front-facing view of the singer and circling around her to
+                    seamlessly end on the POV shot from behind her on stage. The
+                    singer sings “when you look me in the eyes, I can see a
+                    million stars.
                 image_urls:
                   type: array
+                  title: Reference frame
+                  description: 可公开访问的源图片或参考图 URL。
                   items:
                     type: string
-                  description: 可选的首帧和尾帧图片。 最多项目数：2。
                 aspect_ratio:
                   type: string
-                  description: 视频宽高比。
-                  default: 16:9
+                  title: Aspect ratio
+                  description: 输出宽高比。
                   enum:
                     - 16:9
                     - 9:16
-                resolution:
-                  type: string
-                  description: 输出分辨率。
-                  default: 4k
-                  enum:
-                    - 720p
-                    - 1080p
-                    - 4k
-                duration:
-                  type: integer
-                  description: 视频片段时长，单位为秒。
-                  default: 8
-                  enum:
-                    - 4
-                    - 6
-                    - 8
-                callback_url:
-                  type: string
-                  description: 接收任务完成通知的 HTTPS 地址。
+                  default: 16:9
               required:
                 - model
                 - prompt
             example:
               model: veo3-1-fast-4k
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
-                motion, synchronized ambient sound.
+              prompt: The camera performs a smooth 180-degree arc shot, starting with the
+                front-facing view of the singer and circling around her to
+                seamlessly end on the POV shot from behind her on stage. The
+                singer sings “when you look me in the eyes, I can see a million
+                stars.
               aspect_ratio: 16:9
-              resolution: 4k
-              duration: 8
       responses:
         "200":
           description: 任务已受理
@@ -82,24 +75,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -118,10 +110,8 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "veo3-1-fast-4k",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "16:9",
-              "resolution": "4k",
-              "duration": 8
+              "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+              "aspect_ratio": "16:9"
             }'
         - lang: Python
           label: Python
@@ -133,10 +123,8 @@ paths:
 
             payload = {
               "model": "veo3-1-fast-4k",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "16:9",
-              "resolution": "4k",
-              "duration": 8
+              "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+              "aspect_ratio": "16:9"
             }
 
 
@@ -172,10 +160,8 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "veo3-1-fast-4k",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "16:9",
-              "resolution": "4k",
-              "duration": 8
+              "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+              "aspect_ratio": "16:9"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -213,10 +199,8 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "veo3-1-fast-4k",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "16:9",
-              "resolution": "4k",
-              "duration": 8
+              "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+              "aspect_ratio": "16:9"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -242,10 +226,8 @@ paths:
               body: JSON.stringify(
               {
                 "model": "veo3-1-fast-4k",
-                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-                "aspect_ratio": "16:9",
-                "resolution": "4k",
-                "duration": 8
+                "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+                "aspect_ratio": "16:9"
               }
               ),
             });

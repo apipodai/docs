@@ -26,56 +26,28 @@ paths:
           application/json:
             schema:
               type: object
+              title: Seedance 1.0 Lite Image to Video
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: seedance-1.0-lite-i2v
                 prompt:
                   type: string
-                  description: 描述视频内容、运动、镜头和音频。 最大字符串长度：2000。
+                  title: Prompt
+                  default: ""
+                  description: 生成或编辑指令。 最大字符串长度：2000。
                 image_urls:
                   type: array
+                  title: Start End Frames
                   items:
                     type: string
-                  description: 必须提供一张首帧图片，可选提供一张尾帧图片。 最少项目数：1。 最多项目数：2。
-                video_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 参考视频。 最多项目数：3。
-                audio_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 参考音频文件。 最多项目数：3。
-                aspect_ratio:
-                  type: string
-                  description: 输出宽高比，也可由模型自适应选择。
-                  default: adaptive
-                  enum:
-                    - adaptive
-                    - 16:9
-                    - 4:3
-                    - 1:1
-                    - 3:4
-                    - 9:16
-                    - 21:9
-                resolution:
-                  type: string
-                  description: 输出分辨率。
-                  default: 720p
-                  enum:
-                    - 480p
-                    - 720p
-                    - 1080p
-                    - 4k
+                  description: 可公开访问的源图片或参考图 URL。
                 duration:
                   type: integer
-                  description: 视频片段时长，单位为秒；仅在支持自动时长的路由中可使用 -1。
-                  default: 5
+                  title: Duration
                   enum:
-                    - -1
                     - 4
                     - 5
                     - 6
@@ -85,28 +57,35 @@ paths:
                     - 10
                     - 11
                     - 12
-                    - 13
-                    - 14
-                    - 15
-                generate_audio:
-                  type: boolean
-                  description: 生成与视频同步的音频。
-                  default: true
-                return_last_frame:
-                  type: boolean
-                  description: 将生成视频的尾帧作为结果列表的第一项返回。
-                  default: false
-                web_search:
-                  type: boolean
-                  description: 允许模型在需要时检索实时信息。
-                  default: false
-                watermark:
-                  type: boolean
-                  description: 添加上游水印。
-                  default: false
-                callback_url:
+                  default: 5
+                  description: 视频时长，单位为秒。
+                resolution:
                   type: string
-                  description: 接收任务完成通知的 HTTPS 地址。
+                  title: Resolution
+                  enum:
+                    - 480p
+                    - 720p
+                    - 1080p
+                  default: 480p
+                  description: 输出分辨率档位。
+                camera_fixed:
+                  type: boolean
+                  title: Camera Fixed
+                  default: false
+                  description: 是否保持镜头视角固定。
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  enum:
+                    - adaptive
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                    - 21:9
+                  default: adaptive
+                  description: 输出宽高比。
               required:
                 - model
                 - prompt
@@ -117,10 +96,9 @@ paths:
                 cinematic lighting.
               image_urls:
                 - https://cdn.example.com/reference-1.jpg
-              aspect_ratio: adaptive
-              resolution: 720p
               duration: 5
-              generate_audio: true
+              resolution: 480p
+              aspect_ratio: adaptive
       responses:
         "200":
           description: 任务已受理
@@ -128,24 +106,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -168,10 +145,9 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "adaptive",
-              "resolution": "720p",
               "duration": 5,
-              "generate_audio": true
+              "resolution": "480p",
+              "aspect_ratio": "adaptive"
             }'
         - lang: Python
           label: Python
@@ -187,10 +163,9 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "adaptive",
-              "resolution": "720p",
               "duration": 5,
-              "generate_audio": True
+              "resolution": "480p",
+              "aspect_ratio": "adaptive"
             }
 
 
@@ -230,10 +205,9 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "adaptive",
-              "resolution": "720p",
               "duration": 5,
-              "generate_audio": true
+              "resolution": "480p",
+              "aspect_ratio": "adaptive"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -275,10 +249,9 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "adaptive",
-              "resolution": "720p",
               "duration": 5,
-              "generate_audio": true
+              "resolution": "480p",
+              "aspect_ratio": "adaptive"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -308,10 +281,9 @@ paths:
                 "image_urls": [
                   "https://cdn.example.com/reference-1.jpg"
                 ],
-                "aspect_ratio": "adaptive",
-                "resolution": "720p",
                 "duration": 5,
-                "generate_audio": true
+                "resolution": "480p",
+                "aspect_ratio": "adaptive"
               }
               ),
             });

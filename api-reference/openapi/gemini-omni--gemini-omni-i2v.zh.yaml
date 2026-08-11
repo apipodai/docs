@@ -26,43 +26,47 @@ paths:
           application/json:
             schema:
               type: object
+              title: Gemini omni image to video
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: gemini-omni-i2v
                 prompt:
                   type: string
-                  description: 描述目标场景、运动效果或视频续写要求。 最大字符串长度：4000。
+                  title: Prompt
+                  default: ""
+                  description: 生成或编辑指令。 最大字符串长度：4000。
                 image_urls:
                   type: array
+                  title: Image Urls
+                  description: 可公开访问的源图片或参考图 URL。
                   items:
                     type: string
-                  description: 首帧图片，以及可选的尾帧图片。 最少项目数：1。 最多项目数：2。
-                video_url:
-                  type: string
-                  description: 视频续写必填的源视频 URL。
-                aspect_ratio:
-                  type: string
-                  description: 视频宽高比。
-                  default: 16:9
+                duration:
+                  type: integer
+                  title: Duration
+                  description: 视频时长，单位为秒。
                   enum:
-                    - 16:9
-                    - 9:16
-                    - 1:1
+                    - 10
+                  default: 10
                 resolution:
                   type: string
-                  description: 所选通道支持的输出分辨率。
+                  title: Resolution
                   enum:
                     - 720p
                     - 1080p
-                duration:
-                  type: integer
-                  description: 视频片段时长，单位为秒。 最小值：1。 最大值：30。
-                  default: 10
-                callback_url:
+                  default: 720p
+                  description: 输出分辨率档位。
+                aspect_ratio:
                   type: string
-                  description: 接收任务完成通知的 HTTPS 地址。
+                  title: Aspect Ratio
+                  enum:
+                    - 16:9
+                    - 9:16
+                  default: 16:9
+                  description: 输出宽高比。
               required:
                 - model
                 - prompt
@@ -73,9 +77,9 @@ paths:
                 cinematic lighting.
               image_urls:
                 - https://cdn.example.com/reference-1.jpg
-              aspect_ratio: 16:9
-              resolution: 720p
               duration: 10
+              resolution: 720p
+              aspect_ratio: 16:9
       responses:
         "200":
           description: 任务已受理
@@ -83,24 +87,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -123,9 +126,9 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "16:9",
+              "duration": 10,
               "resolution": "720p",
-              "duration": 10
+              "aspect_ratio": "16:9"
             }'
         - lang: Python
           label: Python
@@ -141,9 +144,9 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "16:9",
+              "duration": 10,
               "resolution": "720p",
-              "duration": 10
+              "aspect_ratio": "16:9"
             }
 
 
@@ -183,9 +186,9 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "16:9",
+              "duration": 10,
               "resolution": "720p",
-              "duration": 10
+              "aspect_ratio": "16:9"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -227,9 +230,9 @@ paths:
               "image_urls": [
                 "https://cdn.example.com/reference-1.jpg"
               ],
-              "aspect_ratio": "16:9",
+              "duration": 10,
               "resolution": "720p",
-              "duration": 10
+              "aspect_ratio": "16:9"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -259,9 +262,9 @@ paths:
                 "image_urls": [
                   "https://cdn.example.com/reference-1.jpg"
                 ],
-                "aspect_ratio": "16:9",
+                "duration": 10,
                 "resolution": "720p",
-                "duration": 10
+                "aspect_ratio": "16:9"
               }
               ),
             });

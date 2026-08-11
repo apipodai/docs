@@ -28,25 +28,32 @@ paths:
           application/json:
             schema:
               type: object
+              title: Seedream V4.5
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: seedream-v4.5
                 prompt:
                   type: string
-                  description: Describe the image or requested edit.
+                  title: Prompt
+                  description: Describe the content of the image to be generated.
+                  default: 充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO
+                    在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。
                   maxLength: 4000
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Source or reference images.
-                  maxItems: 14
+                quality:
+                  type: string
+                  title: Quality
+                  description: Output image resolution.
+                  enum:
+                    - 2K
+                    - 4K
+                  default: 2K
                 aspect_ratio:
                   type: string
-                  description: Output aspect ratio.
-                  default: 1:1
+                  title: Aspect Ratio
+                  description: The generated image's width and height aspect ratio.
                   enum:
                     - 1:1
                     - 2:3
@@ -56,42 +63,21 @@ paths:
                     - 16:9
                     - 9:16
                     - 21:9
-                quality:
-                  type: string
-                  description: Output resolution tier.
-                  default: 2K
-                  enum:
-                    - 2K
-                    - 4K
-                size:
-                  type: string
-                  description: Optional explicit output size accepted by the selected channel.
-                output_format:
-                  type: string
-                  description: Output format.
-                  enum:
-                    - png
-                    - jpeg
-                n:
-                  type: integer
-                  description: Number of images to generate. Seedream 5.0 Lite supports up to 15.
-                  minimum: 1
-                  maximum: 1
-                  default: 1
+                  default: 1:1
                 callback_url:
                   type: string
-                  description: HTTPS endpoint that receives task completion notifications.
+                  title: Callback URL
+                  description: CallBack Notification URL.
+                  default: ""
               required:
                 - model
                 - prompt
             example:
               model: seedream-v4.5
-              prompt: A premium product photograph on a dark studio set, precise typography,
-                soft rim lighting, highly detailed.
-              aspect_ratio: 16:9
+              prompt: 充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO
+                在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。
               quality: 2K
-              size: 2K
-              n: 1
+              aspect_ratio: 1:1
       responses:
         "200":
           description: Task accepted
@@ -99,23 +85,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -134,11 +118,9 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "seedream-v4.5",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
+              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
               "quality": "2K",
-              "size": "2K",
-              "n": 1
+              "aspect_ratio": "1:1"
             }'
         - lang: Python
           label: Python
@@ -150,11 +132,9 @@ paths:
 
             payload = {
               "model": "seedream-v4.5",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
+              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
               "quality": "2K",
-              "size": "2K",
-              "n": 1
+              "aspect_ratio": "1:1"
             }
 
 
@@ -190,11 +170,9 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "seedream-v4.5",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
+              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
               "quality": "2K",
-              "size": "2K",
-              "n": 1
+              "aspect_ratio": "1:1"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -232,11 +210,9 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "seedream-v4.5",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
+              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
               "quality": "2K",
-              "size": "2K",
-              "n": 1
+              "aspect_ratio": "1:1"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/images/generations")
@@ -262,11 +238,9 @@ paths:
               body: JSON.stringify(
               {
                 "model": "seedream-v4.5",
-                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "aspect_ratio": "16:9",
+                "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
                 "quality": "2K",
-                "size": "2K",
-                "n": 1
+                "aspect_ratio": "1:1"
               }
               ),
             });

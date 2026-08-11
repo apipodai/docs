@@ -13,8 +13,8 @@ function pagePath(language, slug) {
 
 const guidePages = {
   introduction: {
-    en: ["API families", "Quickstart", "Before production"],
-    zh: ["API 类型", "快速开始", "上线前检查"],
+    en: ["What you can build", "Media task workflow", "Production checklist"],
+    zh: ["可以构建什么", "媒体任务流程", "生产环境检查清单"],
   },
   quickstart: {
     en: ["Create an API key", "Create an image task", "Poll the task", "Idempotency-Key"],
@@ -27,10 +27,6 @@ const guidePages = {
   "endpoint-conventions": {
     en: ["Base URL and versioning", "Media endpoints", "Idempotent media creation"],
     zh: ["基础地址与版本", "媒体端点", "媒体创建幂等性"],
-  },
-  models: {
-    en: ["Media API categories", "/v1/models", "Choose a media model"],
-    zh: ["媒体 API 分类", "/v1/models", "选择媒体模型"],
   },
   "asynchronous-tasks": {
     en: ["Lifecycle", "Polling endpoints", "Polling strategy"],

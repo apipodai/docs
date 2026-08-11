@@ -32,88 +32,60 @@ paths:
           application/json:
             schema:
               type: object
+              title: GPT Image 2 Lite
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: gpt-image-2-lite
                 prompt:
                   type: string
-                  description: Describe the image to generate or the edit to apply.
-                  maxLength: 4000
+                  title: Prompt
+                  description: A text description of the desired image(s).
+                  default: 充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO
+                    在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。
+                  maxLength: 32000
                 image_urls:
                   type: array
+                  title: Image Urls
+                  description: Reference images.
                   items:
                     type: string
-                  description: Publicly accessible reference images. The main model supports both
-                    generation and editing.
-                  maxItems: 6
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: The resolution of the generated images.
+                  enum:
+                    - 1K
+                    - 2K
+                    - 4K
+                  default: 1K
                 aspect_ratio:
                   type: string
-                  description: Output aspect ratio.
-                  default: auto
+                  title: Aspect Ratio
                   enum:
                     - auto
                     - 1:1
-                    - 1:2
-                    - 1:3
-                    - 2:1
                     - 2:3
-                    - 3:1
                     - 3:2
                     - 3:4
                     - 4:3
                     - 4:5
                     - 5:4
-                    - 16:9
                     - 9:16
+                    - 16:9
                     - 21:9
-                    - 9:21
-                resolution:
-                  type: string
-                  description: Output resolution tier.
-                  enum:
-                    - 1K
-                    - 2K
-                    - 4K
-                quality:
-                  type: string
-                  description: Rendering fidelity. Legacy 1K/2K/4K values remain accepted on
-                    gpt-image-2 when resolution is omitted.
                   default: auto
-                  enum:
-                    - auto
-                    - low
-                    - medium
-                    - high
-                output_format:
-                  type: string
-                  description: Output image format.
-                  enum:
-                    - png
-                    - jpeg
-                    - webp
-                output_compression:
-                  type: integer
-                  description: Compression percentage for formats that support it.
-                  minimum: 0
-                  maximum: 100
-                background:
-                  type: string
-                  description: Background handling.
-                  enum:
-                    - auto
-                    - opaque
               required:
                 - model
                 - prompt
             example:
               model: gpt-image-2-lite
-              prompt: A premium product photograph on a dark studio set, precise typography,
-                soft rim lighting, highly detailed.
-              aspect_ratio: 16:9
-              resolution: 2K
-              quality: auto
+              prompt: 充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO
+                在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。
+              resolution: 1K
+              aspect_ratio: auto
       responses:
         "200":
           description: Task accepted
@@ -121,23 +93,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -156,10 +126,9 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "gpt-image-2-lite",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "resolution": "2K",
-              "quality": "auto"
+              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+              "resolution": "1K",
+              "aspect_ratio": "auto"
             }'
         - lang: Python
           label: Python
@@ -171,10 +140,9 @@ paths:
 
             payload = {
               "model": "gpt-image-2-lite",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "resolution": "2K",
-              "quality": "auto"
+              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+              "resolution": "1K",
+              "aspect_ratio": "auto"
             }
 
 
@@ -210,10 +178,9 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "gpt-image-2-lite",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "resolution": "2K",
-              "quality": "auto"
+              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+              "resolution": "1K",
+              "aspect_ratio": "auto"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -251,10 +218,9 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "gpt-image-2-lite",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "resolution": "2K",
-              "quality": "auto"
+              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+              "resolution": "1K",
+              "aspect_ratio": "auto"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/images/generations")
@@ -280,10 +246,9 @@ paths:
               body: JSON.stringify(
               {
                 "model": "gpt-image-2-lite",
-                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "aspect_ratio": "16:9",
-                "resolution": "2K",
-                "quality": "auto"
+                "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+                "resolution": "1K",
+                "aspect_ratio": "auto"
               }
               ),
             });

@@ -1,10 +1,10 @@
 ---
 title: "Welcome to APIPod"
-description: "One API surface for APIPod's language, audio, image, and video models."
+description: "Generate images and videos through APIPod's asynchronous media APIs."
 icon: "house"
 ---
 
-APIPod is an API gateway for the models enabled in your account. It exposes familiar OpenAI, Anthropic, and Gemini-compatible protocols for synchronous workloads, plus a task API for image and video generation. Your application chooses a public APIPod model ID; APIPod handles provider selection, authentication, billing, and request tracing behind the same API host.
+APIPod provides one asynchronous task API for the image and video models enabled in your account. Your application chooses a public APIPod model ID; APIPod handles provider selection, authentication, billing, task execution, and request tracing behind the same API host.
 
 ```text
 https://api.apipod.ai
@@ -17,11 +17,11 @@ https://api.apipod.ai
   <Card title="Authentication" icon="key-round" href="/authentication">
     Create an API key, check account access, and send credentials safely.
   </Card>
-  <Card title="Models" icon="boxes" href="/models">
-    Discover enabled LLMs and browse the documented image and video catalog.
+  <Card title="Image models" icon="image" href="/gpt-image-2/gpt-image-2">
+    Browse image-generation and image-editing models with their exact request schemas.
   </Card>
-  <Card title="API conventions" icon="book-open" href="/endpoint-conventions">
-    Learn shared headers, response IDs, error envelopes, and compatibility rules.
+  <Card title="Video models" icon="video" href="/veo/3-1-fast">
+    Browse text, image, and reference-driven video generation models.
   </Card>
 </CardGroup>
 
@@ -29,34 +29,27 @@ https://api.apipod.ai
 
 | Workload | APIPod entry point | Request behavior |
 | --- | --- | --- |
-| Chat and multimodal text | `POST /v1/chat/completions` | OpenAI-compatible synchronous or streaming response |
-| Responses and agent workflows | `POST /v1/responses` | Responses API, with retrieval, cancellation, compaction, and WebSocket mode |
-| Anthropic clients | `POST /v1/messages` | Anthropic Messages-compatible request and response shape |
-| Gemini clients | `POST /v1beta/models/{model}:generateContent` | Gemini-compatible content generation, including streaming |
-| Embeddings | `POST /v1/embeddings` | OpenAI-compatible embedding vectors |
-| Audio | `POST /v1/audio/transcriptions`, `/translations`, `/speech` | Speech-to-text, translation, and text-to-speech |
 | Image generation | `POST /v1/images/generations` | Accepts a request and returns a `task_id` for polling |
 | Video generation | `POST /v1/videos/generations` | Accepts a request and returns a `task_id` for polling |
 | Price estimate | `POST /v1/pricing/estimate` | Estimates a request cost before execution |
 
-Synchronous LLM, embedding, and audio calls finish within the API request (or stream their output). Image and video calls are deliberately asynchronous: the create response acknowledges the task, and a later status response delivers the generated asset.
+Image and video calls are deliberately asynchronous: the create response acknowledges the task, and a later status response delivers the generated asset.
 
-## Choose an API style
+## Media task workflow
 
-Use the protocol your SDK or application already speaks. The same public model may be exposed through the protocol listed on its model page; do not infer support from an upstream provider's documentation.
+Choose the endpoint that matches the generated asset, then open the exact model page before building the request:
 
-- **OpenAI Chat Completions** — the most portable choice for chat, vision, and tool-oriented clients.
-- **OpenAI Responses** — use for response IDs, input-item inspection, conversation compaction, cancellation, or WebSocket delivery.
-- **Anthropic Messages** — use when your client already sends Anthropic-style `system`, `messages`, and content blocks.
-- **Gemini `v1beta`** — use for Gemini SDK-shaped `generateContent` and `streamGenerateContent` calls.
-- **Media task API** — use for image and video models. Open the exact model page for its accepted prompt, image, aspect-ratio, duration, and resolution fields.
+- **Image tasks** use `/v1/images/generations` and `/v1/images/status/{task_id}`.
+- **Video tasks** use `/v1/videos/generations` and `/v1/videos/status/{task_id}`.
+- **Model pages** define the accepted prompt, media inputs, aspect ratio, duration, resolution, and other model-specific fields.
+- **Webhooks** can deliver terminal task events when continuous polling is not practical.
 
 ## A request lifecycle that matches APIPod
 
 1. **Authenticate.** Send `Authorization: Bearer <API_KEY>` from a server-side environment. `GET /v1/account/status` is a lightweight credential and account probe.
-2. **Discover.** Call `GET /v1/models` for enabled LLM IDs. The public catalog at `/public/models` and the API Reference contain the image and video IDs and their model-specific schemas.
+2. **Discover.** Browse the image and video groups in the API Reference or use the Models link in the header to open the live product catalog.
 3. **Select the contract.** Use the model ID exactly as documented, then validate against that page's OpenAPI panel. A model's fields and limits can differ from another model in the same family.
-4. **Execute.** Send a synchronous request for LLM/audio work, or create an image/video task with an `Idempotency-Key`.
+4. **Execute.** Create an image or video task with an `Idempotency-Key` and persist the returned `task_id`.
 5. **Complete.** Poll `GET /v1/images/status/{task_id}` or `GET /v1/videos/status/{task_id}`, or configure a webhook for terminal task events.
 6. **Persist and observe.** Store output assets in durable storage and log `task_id`, `X-Request-ID`, HTTP status, and machine-readable error codes.
 
@@ -77,7 +70,7 @@ Use the protocol your SDK or application already speaks. The same public model m
   <Card title="Async tasks" icon="clock-3" href="/asynchronous-tasks">
     Polling, terminal states, and result delivery for media generation.
   </Card>
-  <Card title="API reference" icon="file-code-2" href="/models">
+  <Card title="API reference" icon="file-code-2" href="/gpt-image-2/gpt-image-2">
     Model-specific schemas and runnable cURL, Python, Go, Rust, and JavaScript examples.
   </Card>
   <Card title="Pricing estimate" icon="calculator" href="https://www.apipod.ai/pricing">

@@ -2,8 +2,9 @@ openapi: 3.1.0
 info:
   title: MiniMax H3 Text to Video API
   version: 1.0.0
-  description: MiniMax H3 T2V 是 MiniMax H3 的纯文生视频模式；APIPod 为该公开 ID 开放原生 2K 输出和 4 至
-    15 秒视频生成。在 APIPod 中，公开模型 ID 为 minimax-h3-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
+  description: MiniMax H3 T2V 是 MiniMax H3 的纯文生视频模式；APIPod 为该公开 ID 开放 768P、原生 2K
+    输出和 4 至 15 秒视频生成。在 APIPod 中，公开模型 ID 为
+    minimax-h3-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -11,8 +12,8 @@ paths:
   /v1/videos/generations:
     post:
       summary: 创建生成任务
-      description: MiniMax H3 T2V 是 MiniMax H3 的纯文生视频模式；APIPod 为该公开 ID 开放原生 2K 输出和 4 至
-        15 秒视频生成。在 APIPod 中，公开模型 ID 为
+      description: MiniMax H3 T2V 是 MiniMax H3 的纯文生视频模式；APIPod 为该公开 ID 开放 768P、原生 2K
+        输出和 4 至 15 秒视频生成。在 APIPod 中，公开模型 ID 为
         minimax-h3-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
       operationId: create-minimax-h3-minimax-h3-t2v
       tags:
@@ -25,59 +26,55 @@ paths:
           application/json:
             schema:
               type: object
+              title: MiniMax H3 文生视频
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: minimax-h3-t2v
                 prompt:
                   type: string
-                  description: 描述场景、运动、镜头、对白和声音。 最大字符串长度：7000。
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 参考图片。 最多项目数：9。
-                video_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 参考视频。 最多项目数：3。
-                audio_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 参考音频文件。 最多项目数：3。
-                aspect_ratio:
-                  type: string
-                  description: 文生视频和参考生成模式必填的输出宽高比。
-                  enum:
-                    - 16:9
-                    - 9:16
-                    - 1:1
-                duration:
-                  type: integer
-                  description: 视频片段时长，单位为秒。 最小值：4。 最大值：15。
+                  title: Prompt
+                  default: A cinematic shot of a robot exploring a neon city at night
+                  description: 生成或编辑指令。 最大字符串长度：7000。 最小字符串长度：1。
                 resolution:
                   type: string
-                  description: MiniMax H3 当前要求使用原生 2K 输出。
-                  const: 2K
-                callback_url:
+                  title: Resolution
+                  description: 视频分辨率，可选 768P 或 2K。
+                  enum:
+                    - 768P
+                    - 2K
+                  default: 2K
+                duration:
+                  type: integer
+                  title: Duration
+                  description: 视频时长，单位为秒。 最小值：4。 最大值：15。
+                  default: 4
+                aspect_ratio:
                   type: string
-                  description: 接收任务完成通知的 HTTPS 地址。
+                  title: Aspect Ratio
+                  description: 输出宽高比。
+                  enum:
+                    - 1:1
+                    - 3:4
+                    - 4:3
+                    - 9:16
+                    - 16:9
+                    - 21:9
+                  default: 16:9
               required:
                 - model
                 - prompt
-                - duration
                 - resolution
+                - duration
                 - aspect_ratio
             example:
               model: minimax-h3-t2v
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
-                motion, synchronized ambient sound.
-              aspect_ratio: 16:9
-              duration: 8
+              prompt: A cinematic shot of a robot exploring a neon city at night
               resolution: 2K
+              duration: 4
+              aspect_ratio: 16:9
       responses:
         "200":
           description: 任务已受理
@@ -85,24 +82,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -121,10 +117,10 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "minimax-h3-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "16:9",
-              "duration": 8,
-              "resolution": "2K"
+              "prompt": "A cinematic shot of a robot exploring a neon city at night",
+              "resolution": "2K",
+              "duration": 4,
+              "aspect_ratio": "16:9"
             }'
         - lang: Python
           label: Python
@@ -136,10 +132,10 @@ paths:
 
             payload = {
               "model": "minimax-h3-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "16:9",
-              "duration": 8,
-              "resolution": "2K"
+              "prompt": "A cinematic shot of a robot exploring a neon city at night",
+              "resolution": "2K",
+              "duration": 4,
+              "aspect_ratio": "16:9"
             }
 
 
@@ -175,10 +171,10 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "minimax-h3-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "16:9",
-              "duration": 8,
-              "resolution": "2K"
+              "prompt": "A cinematic shot of a robot exploring a neon city at night",
+              "resolution": "2K",
+              "duration": 4,
+              "aspect_ratio": "16:9"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -216,10 +212,10 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "minimax-h3-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "16:9",
-              "duration": 8,
-              "resolution": "2K"
+              "prompt": "A cinematic shot of a robot exploring a neon city at night",
+              "resolution": "2K",
+              "duration": 4,
+              "aspect_ratio": "16:9"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -245,10 +241,10 @@ paths:
               body: JSON.stringify(
               {
                 "model": "minimax-h3-t2v",
-                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-                "aspect_ratio": "16:9",
-                "duration": 8,
-                "resolution": "2K"
+                "prompt": "A cinematic shot of a robot exploring a neon city at night",
+                "resolution": "2K",
+                "duration": 4,
+                "aspect_ratio": "16:9"
               }
               ),
             });

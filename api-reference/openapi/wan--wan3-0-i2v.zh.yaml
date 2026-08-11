@@ -2,8 +2,7 @@ openapi: 3.1.0
 info:
   title: WAN 3.0 Image to Video API
   version: 1.0.0
-  description:
-    Wan 3.0 图生视频是阿里 Wan Video模型的独立任务模式，将首帧图片生成视频，并在公开契约中支持尾帧控制。在 APIPod
+  description: Wan 3.0 图生视频是阿里 Wan Video模型的独立任务模式，将首帧图片生成视频，并在公开契约中支持尾帧控制。在 APIPod
     中，公开模型 ID 为 wan3.0-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。
 servers:
   - url: https://api.apipod.ai
@@ -12,8 +11,7 @@ paths:
   /v1/videos/generations:
     post:
       summary: 创建生成任务
-      description:
-        Wan 3.0 图生视频是阿里 Wan Video模型的独立任务模式，将首帧图片生成视频，并在公开契约中支持尾帧控制。在 APIPod
+      description: Wan 3.0 图生视频是阿里 Wan Video模型的独立任务模式，将首帧图片生成视频，并在公开契约中支持尾帧控制。在 APIPod
         中，公开模型 ID 为 wan3.0-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。
       operationId: create-wan-wan3-0-i2v
       tags:
@@ -26,86 +24,74 @@ paths:
           application/json:
             schema:
               type: object
+              title: WAN 3.0 图生视频
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: wan3.0-i2v
                 prompt:
                   type: string
-                  description: 生成或编辑指令。 最大字符串长度：5000。
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 可公开访问的源图片或参考图 URL。 最少项目数：1。 最多项目数：2。
-                video_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 可公开访问的参考视频 URL。 最多项目数：1。
-                audio_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 可公开访问的参考音频 URL。 最多项目数：1。
-                file_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: 可公开访问的参考文件 URL。 最多项目数：1。
-                aspect_ratio:
+                  title: Prompt
+                  default: ""
+                  description: 生成或编辑指令。 最大字符串长度：20000。 最小字符串长度：0。
+                first_frame_image:
                   type: string
-                  description: 视频宽高比。
-                  default: 16:9
-                  enum:
-                    - adaptive
-                    - 16:9
-                    - 9:16
-                    - 1:1
+                  title: First Frame Image
+                  default: ""
+                last_frame_image:
+                  type: string
+                  title: Last Frame Image
+                  default: ""
                 resolution:
                   type: string
-                  description: 输出分辨率。
-                  default: 1080P
+                  title: Resolution
                   enum:
                     - 480P
                     - 720P
                     - 1080P
-                    - 480p
-                    - 720p
-                    - 1080p
+                  default: 1080P
+                  description: 输出分辨率档位。
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  enum:
+                    - adaptive
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                  default: adaptive
+                  description: 输出宽高比。
                 duration:
                   type: integer
-                  description: 视频片段时长，单位为秒。 最小值：2。 最大值：30。
+                  title: Duration
+                  enum:
+                    - -1
                   default: 5
-                audio:
+                  description: 视频时长，单位为秒。 最小值：2。 最大值：30。
+                generate_audio:
                   type: boolean
-                  description: 在模型支持时生成或保留音频。
+                  title: Generate Audio
                   default: true
-                seed:
-                  type: integer
-                  description: 可选的确定性随机种子，用于复现结果。
-                callback_url:
-                  type: string
-                  description: 接收任务完成通知的 HTTPS 地址。
+                  description: 为视频生成同步音频。
+                watermark:
+                  type: boolean
+                  title: Watermark
+                  default: false
+                  description: 添加上游水印。
               required:
                 - model
-                - prompt
-                - image_urls
             example:
               model: wan3.0-i2v
-              prompt:
-                Animate the subject with a slow camera push-in, natural motion, and soft
+              prompt: Animate the subject with a slow camera push-in, natural motion, and soft
                 cinematic lighting.
-              image_urls:
-                - https://cdn.example.com/reference-1.jpg
-              video_urls:
-                - https://cdn.example.com/reference.mp4
-              audio_urls:
-                - https://cdn.example.com/reference.mp3
-              aspect_ratio: 16:9
               resolution: 1080P
+              aspect_ratio: adaptive
               duration: 5
+              generate_audio: true
       responses:
         "200":
           description: 任务已受理
@@ -113,24 +99,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -150,18 +135,10 @@ paths:
               -d '{
               "model": "wan3.0-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "aspect_ratio": "adaptive",
+              "duration": 5,
+              "generate_audio": true
             }'
         - lang: Python
           label: Python
@@ -174,18 +151,10 @@ paths:
             payload = {
               "model": "wan3.0-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "aspect_ratio": "adaptive",
+              "duration": 5,
+              "generate_audio": True
             }
 
 
@@ -222,18 +191,10 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "wan3.0-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "aspect_ratio": "adaptive",
+              "duration": 5,
+              "generate_audio": true
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -272,18 +233,10 @@ paths:
                 let payload = json!({
               "model": "wan3.0-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
-              "audio_urls": [
-                "https://cdn.example.com/reference.mp3"
-              ],
-              "aspect_ratio": "16:9",
               "resolution": "1080P",
-              "duration": 5
+              "aspect_ratio": "adaptive",
+              "duration": 5,
+              "generate_audio": true
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
@@ -310,18 +263,10 @@ paths:
               {
                 "model": "wan3.0-i2v",
                 "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
-                "image_urls": [
-                  "https://cdn.example.com/reference-1.jpg"
-                ],
-                "video_urls": [
-                  "https://cdn.example.com/reference.mp4"
-                ],
-                "audio_urls": [
-                  "https://cdn.example.com/reference.mp3"
-                ],
-                "aspect_ratio": "16:9",
                 "resolution": "1080P",
-                "duration": 5
+                "aspect_ratio": "adaptive",
+                "duration": 5,
+                "generate_audio": true
               }
               ),
             });

@@ -32,37 +32,39 @@ paths:
           application/json:
             schema:
               type: object
+              title: Seedance 2.0 Fast Text to Video
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: Public APIPod model ID.
                   const: seedance-2.0-fast-t2v
                 prompt:
                   type: string
-                  description: Describe the content, motion, camera, and audio.
-                  maxLength: 2000
-                image_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference images.
-                  maxItems: 9
-                video_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference videos.
-                  maxItems: 3
-                audio_urls:
-                  type: array
-                  items:
-                    type: string
-                  description: Reference audio files.
-                  maxItems: 3
+                  title: Prompt
+                  description: The generation videos prompt.
+                  default: 建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1
+                    秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4
+                    秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭
+                    / 办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 /
+                    屋顶花园）竖向 + 水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8
+                    秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感
+                    + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。
+                  maxLength: 1000
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: Generate video resolution.
+                  enum:
+                    - 480p
+                    - 720p
+                  default: 720p
                 aspect_ratio:
                   type: string
-                  description: Output aspect ratio, or adaptive selection.
-                  default: adaptive
+                  title: Aspect Ratio
+                  description: Aspect ratio of the generated video,When the ratio is configured as
+                    adaptive, the model will automatically adapt the aspect
+                    ratio according to the generation scenario.
                   enum:
                     - adaptive
                     - 16:9
@@ -71,20 +73,11 @@ paths:
                     - 3:4
                     - 9:16
                     - 21:9
-                resolution:
-                  type: string
-                  description: Output resolution.
-                  default: 720p
-                  enum:
-                    - 480p
-                    - 720p
+                  default: adaptive
                 duration:
                   type: integer
-                  description: Clip duration in seconds. Use -1 only for automatic duration on
-                    supported routes.
-                  default: 5
+                  title: Duration
                   enum:
-                    - -1
                     - 4
                     - 5
                     - 6
@@ -97,34 +90,53 @@ paths:
                     - 13
                     - 14
                     - 15
-                generate_audio:
-                  type: boolean
-                  description: Generate synchronized audio.
-                  default: true
-                return_last_frame:
-                  type: boolean
-                  description: Include the generated last frame as the first result item.
-                  default: false
+                  default: 5
+                  minimum: 4
+                  maximum: 15
                 web_search:
                   type: boolean
-                  description: Allow the model to retrieve current information when needed.
+                  title: Web Search
+                  description: After enabling, the model will independently decide whether to
+                    search Internet content (such as products, weather, etc.)
+                    based on the user's prompt. This can improve the timeliness
+                    of generated videos but will also introduce a certain degree
+                    of latency.
                   default: false
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  description: Controls whether the generated video contains audio synchronized
+                    with the visuals.
+                  default: true
                 watermark:
                   type: boolean
-                  description: Add an upstream watermark.
+                  title: Watermark
+                  description: Whether the generated video contains a watermark
                   default: false
-                callback_url:
-                  type: string
-                  description: HTTPS endpoint that receives task completion notifications.
+                return_last_frame:
+                  type: boolean
+                  title: Retrun Last Frame
+                  description: "Whether to return the last frame image of the generated video.
+                    Using this parameter enables the generation of multiple
+                    consecutive videos: taking the last frame of the previous
+                    generated video as the first frame of the next video task to
+                    quickly generate multiple consecutive videos, and the first
+                    item in the returned result is this image."
+                  default: false
               required:
                 - model
                 - prompt
             example:
               model: seedance-2.0-fast-t2v
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
-                motion, synchronized ambient sound.
-              aspect_ratio: adaptive
+              prompt: 建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1
+                秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4
+                秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭 /
+                办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 / 屋顶花园）竖向 +
+                水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8
+                秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感
+                + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。
               resolution: 720p
+              aspect_ratio: adaptive
               duration: 5
               generate_audio: true
       responses:
@@ -134,23 +146,21 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
-                    description: HTTP status code.
-                    const: 200
-                  message:
-                    type: string
-                    description: Response message.
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: Public APIPod task ID used for status queries.
-                    required:
-                      - task_id
+                        description: generatation task id
+                  message:
+                    type: string
                 required:
                   - code
                   - message
@@ -169,9 +179,9 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "seedance-2.0-fast-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "adaptive",
+              "prompt": "建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1 秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4 秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭 / 办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 / 屋顶花园）竖向 + 水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8 秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感 + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。",
               "resolution": "720p",
+              "aspect_ratio": "adaptive",
               "duration": 5,
               "generate_audio": true
             }'
@@ -185,9 +195,9 @@ paths:
 
             payload = {
               "model": "seedance-2.0-fast-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "adaptive",
+              "prompt": "建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1 秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4 秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭 / 办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 / 屋顶花园）竖向 + 水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8 秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感 + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。",
               "resolution": "720p",
+              "aspect_ratio": "adaptive",
               "duration": 5,
               "generate_audio": True
             }
@@ -225,9 +235,9 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "seedance-2.0-fast-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "adaptive",
+              "prompt": "建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1 秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4 秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭 / 办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 / 屋顶花园）竖向 + 水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8 秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感 + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。",
               "resolution": "720p",
+              "aspect_ratio": "adaptive",
               "duration": 5,
               "generate_audio": true
             }`), &payload); err != nil {
@@ -267,9 +277,9 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "seedance-2.0-fast-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "aspect_ratio": "adaptive",
+              "prompt": "建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1 秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4 秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭 / 办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 / 屋顶花园）竖向 + 水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8 秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感 + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。",
               "resolution": "720p",
+              "aspect_ratio": "adaptive",
               "duration": 5,
               "generate_audio": true
             });
@@ -297,9 +307,9 @@ paths:
               body: JSON.stringify(
               {
                 "model": "seedance-2.0-fast-t2v",
-                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-                "aspect_ratio": "adaptive",
+                "prompt": "建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1 秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4 秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭 / 办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 / 屋顶花园）竖向 + 水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8 秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感 + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。",
                 "resolution": "720p",
+                "aspect_ratio": "adaptive",
                 "duration": 5,
                 "generate_audio": true
               }

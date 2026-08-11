@@ -26,25 +26,29 @@ paths:
           application/json:
             schema:
               type: object
+              title: Nano Banana 2
               properties:
                 model:
                   type: string
+                  title: Model ID
                   description: APIPod 公开模型 ID。
                   const: nano-banana-2
                 prompt:
                   type: string
-                  description: 描述要创建的图片或要执行的编辑。 最大字符串长度：4000。
+                  title: Prompt
+                  description: 生成或编辑指令。 最大字符串长度：3993。
+                  default: ""
                 image_urls:
                   type: array
+                  title: Input Images
                   items:
                     type: string
-                  description: 用于编辑、构图或保持主体一致性的参考图片。 最多项目数：14。
+                  description: 可公开访问的源图片或参考图 URL。
                 aspect_ratio:
                   type: string
+                  title: Aspect Ratio
                   description: 输出宽高比。
-                  default: auto
                   enum:
-                    - auto
                     - 1:1
                     - 1:4
                     - 1:8
@@ -56,34 +60,20 @@ paths:
                     - 4:5
                     - 5:4
                     - 8:1
-                    - 16:9
                     - 9:16
+                    - 16:9
                     - 21:9
+                  default: 1:1
                 quality:
                   type: string
-                  description: 输出分辨率档位。
+                  title: Quality
+                  description: 输出质量或图片分辨率档位。
+                  enum:
+                    - 512px
+                    - 1K
+                    - 2K
+                    - 4K
                   default: 1K
-                  enum:
-                    - 512px
-                    - 1K
-                    - 2K
-                    - 4K
-                resolution:
-                  type: string
-                  description: 输出分辨率档位的兼容别名。
-                  enum:
-                    - "512"
-                    - 512px
-                    - 1K
-                    - 2K
-                    - 4K
-                google_search:
-                  type: boolean
-                  description: 所选通道支持时，允许模型使用 Google Search 联网增强。
-                  default: false
-                callback_url:
-                  type: string
-                  description: 接收任务完成通知的 HTTPS 地址。
               required:
                 - model
                 - prompt
@@ -91,9 +81,8 @@ paths:
               model: nano-banana-2
               prompt: A premium product photograph on a dark studio set, precise typography,
                 soft rim lighting, highly detailed.
-              aspect_ratio: 16:9
+              aspect_ratio: 1:1
               quality: 1K
-              resolution: 2K
       responses:
         "200":
           description: 任务已受理
@@ -101,24 +90,23 @@ paths:
             application/json:
               schema:
                 type: object
+                title: Task Submit Response
+                description: Standard response for task submission
                 properties:
                   code:
                     type: integer
                     description: HTTP 状态码。
-                    const: 200
-                  message:
-                    type: string
-                    description: 响应消息。
-                    const: success
                   data:
                     type: object
+                    title: Task Submit Data
+                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
-                    required:
-                      - task_id
-                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -138,9 +126,8 @@ paths:
               -d '{
               "model": "nano-banana-2",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "quality": "1K",
-              "resolution": "2K"
+              "aspect_ratio": "1:1",
+              "quality": "1K"
             }'
         - lang: Python
           label: Python
@@ -153,9 +140,8 @@ paths:
             payload = {
               "model": "nano-banana-2",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "quality": "1K",
-              "resolution": "2K"
+              "aspect_ratio": "1:1",
+              "quality": "1K"
             }
 
 
@@ -192,9 +178,8 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "nano-banana-2",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "quality": "1K",
-              "resolution": "2K"
+              "aspect_ratio": "1:1",
+              "quality": "1K"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -233,9 +218,8 @@ paths:
                 let payload = json!({
               "model": "nano-banana-2",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "aspect_ratio": "16:9",
-              "quality": "1K",
-              "resolution": "2K"
+              "aspect_ratio": "1:1",
+              "quality": "1K"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/images/generations")
@@ -262,9 +246,8 @@ paths:
               {
                 "model": "nano-banana-2",
                 "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "aspect_ratio": "16:9",
-                "quality": "1K",
-                "resolution": "2K"
+                "aspect_ratio": "1:1",
+                "quality": "1K"
               }
               ),
             });

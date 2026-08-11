@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const manifest = JSON.parse(await fs.readFile(path.join(root, "migration-manifest.json"), "utf8"));
+const brandColors = { primary: "#7F22FE", light: "#A684FF", dark: "#7008E7" };
 const openApiSources = manifest.pages
   .filter((page) => page.schema)
   .flatMap((page) => {
@@ -22,7 +23,6 @@ const guideGroups = [
 ];
 
 const apiGroups = [
-  { en: "LLM", zh: "LLM", icon: "bot", slugs: ["models"] },
   {
     en: "Images",
     zh: "图片",
@@ -212,6 +212,10 @@ const redirects = [
   { source: "/zh-CN/seedance/seedance-2-0-mini-i2v", destination: "/zh-CN/seedance/2-0-mini-image-to-video", permanent: true },
   { source: "/zh-CN/seedance/seedance-2-0-mini-r2v", destination: "/zh-CN/seedance/2-0-mini-reference-to-video", permanent: true },
   { source: "/zh-CN/seedance/seedance-2-0-mini-t2v", destination: "/zh-CN/seedance/2-0-mini-text-to-video", permanent: true },
+  { source: "/seedance/doubao-seedance-1-0-pro-fast-t2v", destination: "/seedance/seedance-1-0-pro-fast-t2v", permanent: true },
+  { source: "/en/seedance/doubao-seedance-1-0-pro-fast-t2v", destination: "/seedance/seedance-1-0-pro-fast-t2v", permanent: true },
+  { source: "/zh/seedance/doubao-seedance-1-0-pro-fast-t2v", destination: "/zh-CN/seedance/seedance-1-0-pro-fast-t2v", permanent: true },
+  { source: "/zh-CN/seedance/doubao-seedance-1-0-pro-fast-t2v", destination: "/zh-CN/seedance/seedance-1-0-pro-fast-t2v", permanent: true },
   ...manifest.pages
     .map((page) => ({ source: page.legacy, destination: `/${page.slug}`, permanent: true }))
     .filter((redirect) => redirect.source !== redirect.destination),
@@ -232,7 +236,7 @@ const config = {
   theme: "mint",
   name: "APIPod Docs",
   description: "APIPod API documentation for image and video generation models.",
-  colors: { primary: "#7357FF", light: "#8B73FF", dark: "#5A3FD6" },
+  colors: brandColors,
   favicon: "/favicon.ico",
   logo: { light: "/logo.svg", dark: "/logo.svg", href: "https://www.apipod.ai" },
   icons: { library: "lucide" },

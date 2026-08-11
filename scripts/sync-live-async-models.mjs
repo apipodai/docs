@@ -9,6 +9,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const origin = (process.env.APIPOD_API_ORIGIN || "http://localhost:8080").replace(/\/$/, "");
 const classifications = ["text_to_image", "image_to_image", "image_to_3d", "text_to_video", "image_to_video", "video_to_video"];
 const excludedPublicModelIDs = new Set(["sora-2", "sora-2-pro"]);
+const schemaLessLegacyModelIDs = new Set(["doubao-seedance-1.0-pro-fast-t2v"]);
+const excludedDocumentationModelIDs = new Set([...excludedPublicModelIDs, ...schemaLessLegacyModelIDs]);
 const legacyModelIDs = {
   "veo/3-1-fast": "veo3-1-fast",
   "veo/3-1-fast-4k": "veo3-1-fast-4k",
@@ -22,8 +24,8 @@ const legacyModelIDs = {
 const manifestPath = path.join(root, "migration-manifest.json");
 const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
 
-const excludedPages = manifest.pages.filter((page) => excludedPublicModelIDs.has(page.modelId));
-manifest.pages = manifest.pages.filter((page) => !excludedPublicModelIDs.has(page.modelId));
+const excludedPages = manifest.pages.filter((page) => excludedDocumentationModelIDs.has(page.modelId));
+manifest.pages = manifest.pages.filter((page) => !excludedDocumentationModelIDs.has(page.modelId));
 for (const page of excludedPages) {
   const basename = page.slug.replaceAll("/", "--");
   for (const artifact of [
@@ -87,42 +89,6 @@ function modelIDFromSpec(spec) {
   return spec.info?.["x-apipod-metadata"]?.modelId ||
     spec.components?.schemas?.Input?.properties?.model?.const ||
     operation(spec)?.requestBody?.content?.["application/json"]?.schema?.properties?.model?.const;
-}
-
-function fallbackSchema(model) {
-  const video = model.classifications.some((classification) => classification.includes("video"));
-  const route = video ? "/v1/videos/generations" : "/v1/images/generations";
-  const statusRoute = video ? "/v1/videos/status/{task_id}" : "/v1/images/status/{task_id}";
-  return {
-    openapi: "3.0.4",
-    info: {
-      title: model.display_name || model.model_id,
-      version: "1.0.0",
-      "x-apipod-metadata": { modelId: model.model_id, modelType: video ? "video" : "image" },
-    },
-    components: {
-      schemas: {
-        Input: {
-          type: "object",
-          properties: {
-            model: { type: "string", const: model.model_id, description: "Public APIPod model ID." },
-            prompt: { type: "string", description: "Generation instructions." },
-          },
-          required: ["model", "prompt"],
-        },
-      },
-    },
-    paths: {
-      [route]: {
-        post: {
-          summary: model.display_name || model.model_id,
-          requestBody: { required: true, content: { "application/json": { schema: { "$ref": "#/components/schemas/Input" } } } },
-          responses: { "200": { description: "Task accepted" } },
-        },
-      },
-      [statusRoute]: { get: { summary: `${model.display_name || model.model_id} task status`, responses: { "200": { description: "Task status" } } } },
-    },
-  };
 }
 
 async function fetchCatalog(language) {
@@ -220,8 +186,8 @@ const descriptionOverrides = {
     zh: "Motion Control M1 将参考视频中的动作与节奏迁移到参考图片中的主体，生成新的异步视频结果。",
   },
   "minimax-h3-t2v": {
-    en: "MiniMax H3 T2V is the prompt-only text-to-video mode of MiniMax H3. APIPod exposes native 2K output and 4-to-15-second generation for this public ID.",
-    zh: "MiniMax H3 T2V 是 MiniMax H3 的纯文生视频模式；APIPod 为该公开 ID 开放原生 2K 输出和 4 至 15 秒视频生成。",
+    en: "MiniMax H3 T2V is the prompt-only text-to-video mode of MiniMax H3. APIPod exposes 768P and native 2K output with 4-to-15-second generation for this public ID.",
+    zh: "MiniMax H3 T2V 是 MiniMax H3 的纯文生视频模式；APIPod 为该公开 ID 开放 768P、原生 2K 输出和 4 至 15 秒视频生成。",
   },
   "seedance-2.0-t2v-vip": {
     en: "Seedance 2.0 T2V VIP is APIPod's full-capability text-to-video route for Seedance 2.0, intended for prompt-driven generation with synchronized audio and the configured standard-quality channel.",
@@ -377,8 +343,8 @@ function familyDescription(modelID, language) {
       r2v: { en: "combines image, video, and audio references", zh: "组合图片、视频和音频参考素材" },
     }[mode];
     return zh
-      ? `MiniMax H3 ${mode === "t2v" ? "文生视频" : mode === "i2v" ? "图生视频" : "参考生视频"}是 MiniMax H3 多模态视频系列的独立模式，${detail.zh}；APIPod 当前为该系列提供 2K、4 至 15 秒的异步生成契约。`
-      : `MiniMax H3 ${mode === "t2v" ? "Text to Video" : mode === "i2v" ? "Image to Video" : "Reference to Video"} is a dedicated mode in MiniMax's multimodal H3 video family that ${detail.en}. APIPod currently exposes a 2K, 4-to-15-second asynchronous contract for this family.`;
+      ? `MiniMax H3 ${mode === "t2v" ? "文生视频" : mode === "i2v" ? "图生视频" : "参考生视频"}是 MiniMax H3 多模态视频系列的独立模式，${detail.zh}；APIPod 当前为该系列提供 768P 或 2K、4 至 15 秒的异步生成契约。`
+      : `MiniMax H3 ${mode === "t2v" ? "Text to Video" : mode === "i2v" ? "Image to Video" : "Reference to Video"} is a dedicated mode in MiniMax's multimodal H3 video family that ${detail.en}. APIPod currently exposes a 768P or 2K, 4-to-15-second asynchronous contract for this family.`;
   }
 
   if (modelID === "kling-2.6-motion-control") {
@@ -453,6 +419,7 @@ for (const page of manifest.pages.filter((item) => item.schema && !item.slug.sta
 }
 
 const missing = [...catalog.values()]
+  .filter((model) => !excludedDocumentationModelIDs.has(model.model_id))
   .filter((model) => !existing.has(model.model_id))
   .sort((a, b) => modelSlug(a.model_id).localeCompare(modelSlug(b.model_id)));
 
@@ -491,30 +458,15 @@ for (const page of manifest.pages.filter((item) => item.schema && !item.slug.sta
   };
 }
 
-const livePages = manifest.pages.filter((page) => page.source === "localhost:8080/public/models");
-const legacyPages = [];
-for (const page of manifest.pages) {
-  if (!legacyModelIDs[page.slug]) continue;
-  try {
-    await fs.access(sourceSnapshotPath(page.slug));
-  } catch {
-    legacyPages.push(page);
-  }
-}
-const refreshPages = [...livePages, ...legacyPages];
+const refreshPages = manifest.pages.filter((page) => page.schema && !page.slug.startsWith("query-"));
 for (const page of refreshPages) {
   const modelID = page.modelId || legacyModelIDs[page.slug];
   const model = catalog.get(modelID);
   if (!model) throw new Error(`Previously documented async model is no longer public: ${modelID}`);
-  let source;
-  try {
-    const schema = await getJSON(`/public/schemas/${encodeURIComponent(model.model_id)}`);
-    source = schema.data;
-  } catch (error) {
-    if (!error.message.includes("HTTP 404")) throw error;
-    source = fallbackSchema(model);
-  }
+  const schema = await getJSON(`/public/schemas/${encodeURIComponent(model.model_id)}`);
+  const source = schema.data;
   if (!source?.openapi || !source?.paths) throw new Error(`Schema missing for ${model.model_id}`);
+  page.source = `localhost:8080/public/schemas/${model.model_id}`;
   await fs.writeFile(sourceSnapshotPath(page.slug), `${JSON.stringify(source, null, 2)}\n`);
 }
 

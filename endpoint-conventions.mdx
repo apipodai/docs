@@ -47,7 +47,7 @@ Image and video endpoints generally return an APIPod envelope:
 }
 ```
 
-Protocol-compatible endpoints can preserve their native response shapes. For example, `/v1/models` returns an OpenAI-compatible model list, and authentication can return an OpenAI-compatible `error` object. Clients should use the contract for the endpoint family they call.
+Create and status endpoints use different `data` objects. Use the OpenAPI contract on the exact model or task page instead of assuming that every media endpoint returns the same fields.
 
 ## Idempotent media creation
 
