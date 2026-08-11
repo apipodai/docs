@@ -37,7 +37,6 @@ paths:
                   type: string
                   title: Prompt
                   description: 生成或编辑指令。 最大字符串长度：1000。
-                  default: ""
                 duration:
                   type: integer
                   title: Duration

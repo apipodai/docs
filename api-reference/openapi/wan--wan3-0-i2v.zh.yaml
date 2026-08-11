@@ -34,7 +34,6 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  default: ""
                   description: 生成或编辑指令。 最大字符串长度：20000。 最小字符串长度：0。
                 first_frame_image:
                   type: string

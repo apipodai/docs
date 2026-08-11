@@ -40,7 +40,6 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  default: A cinematic shot of a robot exploring a neon city at night
                   minLength: 1
                   maxLength: 7000
                 resolution:
@@ -79,7 +78,8 @@ paths:
                 - aspect_ratio
             example:
               model: minimax-h3-t2v
-              prompt: A cinematic shot of a robot exploring a neon city at night
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
+                motion, synchronized ambient sound.
               resolution: 2K
               duration: 4
               aspect_ratio: 16:9
@@ -123,7 +123,7 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "minimax-h3-t2v",
-              "prompt": "A cinematic shot of a robot exploring a neon city at night",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "resolution": "2K",
               "duration": 4,
               "aspect_ratio": "16:9"
@@ -138,7 +138,7 @@ paths:
 
             payload = {
               "model": "minimax-h3-t2v",
-              "prompt": "A cinematic shot of a robot exploring a neon city at night",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "resolution": "2K",
               "duration": 4,
               "aspect_ratio": "16:9"
@@ -177,7 +177,7 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "minimax-h3-t2v",
-              "prompt": "A cinematic shot of a robot exploring a neon city at night",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "resolution": "2K",
               "duration": 4,
               "aspect_ratio": "16:9"
@@ -218,7 +218,7 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "minimax-h3-t2v",
-              "prompt": "A cinematic shot of a robot exploring a neon city at night",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "resolution": "2K",
               "duration": 4,
               "aspect_ratio": "16:9"
@@ -247,7 +247,7 @@ paths:
               body: JSON.stringify(
               {
                 "model": "minimax-h3-t2v",
-                "prompt": "A cinematic shot of a robot exploring a neon city at night",
+                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
                 "resolution": "2K",
                 "duration": 4,
                 "aspect_ratio": "16:9"

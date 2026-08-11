@@ -42,7 +42,6 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  default: ""
                   maxLength: 2000
                 duration:
                   type: integer

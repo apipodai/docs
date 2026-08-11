@@ -42,7 +42,6 @@ paths:
                   type: string
                   title: Prompt
                   description: Video generation prompt.
-                  default: ""
                   maxLength: 1500
                 resolution:
                   type: string

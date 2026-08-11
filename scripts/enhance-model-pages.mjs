@@ -169,6 +169,9 @@ function configuredSchema(spec, source, page, { request = false } = {}) {
     schema.properties.model.description = "Public APIPod model ID.";
     delete schema.properties.model.default;
   }
+  if (request && schema.properties?.prompt) {
+    delete schema.properties.prompt.default;
+  }
   return schema;
 }
 

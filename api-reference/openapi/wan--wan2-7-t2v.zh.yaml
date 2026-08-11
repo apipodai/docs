@@ -35,7 +35,6 @@ paths:
                   type: string
                   title: Prompt
                   description: 生成或编辑指令。 最大字符串长度：5000。
-                  default: ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。
                 prompt_extend:
                   type: boolean
                   title: Prompt Extend
@@ -87,7 +86,8 @@ paths:
                 - prompt
             example:
               model: wan2.7-t2v
-              prompt: ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。
+              prompt: A premium product photograph on a dark studio set, precise typography,
+                soft rim lighting, highly detailed.
               resolution: 1080P
               aspect_ratio: 16:9
               duration: 5
@@ -133,7 +133,7 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "wan2.7-t2v",
-              "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "resolution": "1080P",
               "aspect_ratio": "16:9",
               "duration": 5
@@ -148,7 +148,7 @@ paths:
 
             payload = {
               "model": "wan2.7-t2v",
-              "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "resolution": "1080P",
               "aspect_ratio": "16:9",
               "duration": 5
@@ -187,7 +187,7 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "wan2.7-t2v",
-              "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "resolution": "1080P",
               "aspect_ratio": "16:9",
               "duration": 5
@@ -228,7 +228,7 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "wan2.7-t2v",
-              "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "resolution": "1080P",
               "aspect_ratio": "16:9",
               "duration": 5
@@ -257,7 +257,7 @@ paths:
               body: JSON.stringify(
               {
                 "model": "wan2.7-t2v",
-                "prompt": "ASMR，一把黑色刀具从右向左推进，切入一团白色蓬松的云朵状物体，置于浅木色砧板上。刀具接触时云朵形变，表面裂开，部分结构被切离并移位。云朵边缘持续释放轻烟向上飘散。刀具完成切割后停止，云朵被分为两部分，一侧塌陷。过程伴随轻微‘嘶’声和干冰升华的气流声。",
+                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
                 "resolution": "1080P",
                 "aspect_ratio": "16:9",
                 "duration": 5

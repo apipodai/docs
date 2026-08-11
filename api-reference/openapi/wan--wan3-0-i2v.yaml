@@ -40,7 +40,6 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  default: ""
                   minLength: 0
                   maxLength: 20000
                 first_frame_image:

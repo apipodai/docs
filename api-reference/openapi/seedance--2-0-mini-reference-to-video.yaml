@@ -46,7 +46,6 @@ paths:
                   type: string
                   title: Prompt
                   description: The generation videos prompt.
-                  default: ""
                   maxLength: 1000
                 image_urls:
                   type: array

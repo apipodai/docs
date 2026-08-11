@@ -37,8 +37,6 @@ paths:
                   type: string
                   title: Prompt
                   description: 生成或编辑指令。 最大字符串长度：32000。
-                  default: 充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO
-                    在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。
                 image_urls:
                   type: array
                   title: Image Urls
@@ -76,8 +74,8 @@ paths:
                 - prompt
             example:
               model: gpt-image-2-lite
-              prompt: 充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO
-                在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。
+              prompt: A premium product photograph on a dark studio set, precise typography,
+                soft rim lighting, highly detailed.
               resolution: 1K
               aspect_ratio: auto
       responses:
@@ -122,7 +120,7 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "gpt-image-2-lite",
-              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "resolution": "1K",
               "aspect_ratio": "auto"
             }'
@@ -136,7 +134,7 @@ paths:
 
             payload = {
               "model": "gpt-image-2-lite",
-              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "resolution": "1K",
               "aspect_ratio": "auto"
             }
@@ -174,7 +172,7 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "gpt-image-2-lite",
-              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "resolution": "1K",
               "aspect_ratio": "auto"
             }`), &payload); err != nil {
@@ -214,7 +212,7 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "gpt-image-2-lite",
-              "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "resolution": "1K",
               "aspect_ratio": "auto"
             });
@@ -242,7 +240,7 @@ paths:
               body: JSON.stringify(
               {
                 "model": "gpt-image-2-lite",
-                "prompt": "充满活力的特写编辑肖像，模特眼神犀利，头戴雕塑感帽子(有一个 APIPod.ai 的 LOGO 在帽子上)，色彩拼接丰富，眼部焦点锐利，景深较浅，具有Vogue杂志封面的美学风格，采用中画幅拍摄，工作室灯光效果强烈。",
+                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
                 "resolution": "1K",
                 "aspect_ratio": "auto"
               }

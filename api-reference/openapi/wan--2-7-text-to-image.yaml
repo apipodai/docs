@@ -41,14 +41,6 @@ paths:
                   type: string
                   title: Prompt
                   description: The positive prompt for the generation.
-                  default: fish-eye perspective forest scene with dramatic perspective distortion,
-                    ultra-detailed red fox staring into lens with piercing amber
-                    eyes, hyper-realistic fur texture showing individual guard
-                    hairs and undercoat layers, radially warped trees forming
-                    circular background patterns, watercolor painting style with
-                    translucent washes and organic pigment bleeding, soft pastel
-                    palette of moss green and earth ochre tones, painterly
-                    lighting with atmospheric glow through canopy gaps
                   maxLength: 5000
                 size:
                   type: string
@@ -107,14 +99,8 @@ paths:
                 - prompt
             example:
               model: wan2.7-image
-              prompt: fish-eye perspective forest scene with dramatic perspective distortion,
-                ultra-detailed red fox staring into lens with piercing amber
-                eyes, hyper-realistic fur texture showing individual guard hairs
-                and undercoat layers, radially warped trees forming circular
-                background patterns, watercolor painting style with translucent
-                washes and organic pigment bleeding, soft pastel palette of moss
-                green and earth ochre tones, painterly lighting with atmospheric
-                glow through canopy gaps
+              prompt: A premium product photograph on a dark studio set, precise typography,
+                soft rim lighting, highly detailed.
               size: 1K
               aspect_ratio: 16:9
               n: 1
@@ -158,7 +144,7 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "wan2.7-image",
-              "prompt": "fish-eye perspective forest scene with dramatic perspective distortion, ultra-detailed red fox staring into lens with piercing amber eyes, hyper-realistic fur texture showing individual guard hairs and undercoat layers, radially warped trees forming circular background patterns, watercolor painting style with translucent washes and organic pigment bleeding, soft pastel palette of moss green and earth ochre tones, painterly lighting with atmospheric glow through canopy gaps",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "size": "1K",
               "aspect_ratio": "16:9",
               "n": 1
@@ -173,7 +159,7 @@ paths:
 
             payload = {
               "model": "wan2.7-image",
-              "prompt": "fish-eye perspective forest scene with dramatic perspective distortion, ultra-detailed red fox staring into lens with piercing amber eyes, hyper-realistic fur texture showing individual guard hairs and undercoat layers, radially warped trees forming circular background patterns, watercolor painting style with translucent washes and organic pigment bleeding, soft pastel palette of moss green and earth ochre tones, painterly lighting with atmospheric glow through canopy gaps",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "size": "1K",
               "aspect_ratio": "16:9",
               "n": 1
@@ -212,7 +198,7 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "wan2.7-image",
-              "prompt": "fish-eye perspective forest scene with dramatic perspective distortion, ultra-detailed red fox staring into lens with piercing amber eyes, hyper-realistic fur texture showing individual guard hairs and undercoat layers, radially warped trees forming circular background patterns, watercolor painting style with translucent washes and organic pigment bleeding, soft pastel palette of moss green and earth ochre tones, painterly lighting with atmospheric glow through canopy gaps",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "size": "1K",
               "aspect_ratio": "16:9",
               "n": 1
@@ -253,7 +239,7 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "wan2.7-image",
-              "prompt": "fish-eye perspective forest scene with dramatic perspective distortion, ultra-detailed red fox staring into lens with piercing amber eyes, hyper-realistic fur texture showing individual guard hairs and undercoat layers, radially warped trees forming circular background patterns, watercolor painting style with translucent washes and organic pigment bleeding, soft pastel palette of moss green and earth ochre tones, painterly lighting with atmospheric glow through canopy gaps",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "size": "1K",
               "aspect_ratio": "16:9",
               "n": 1
@@ -282,7 +268,7 @@ paths:
               body: JSON.stringify(
               {
                 "model": "wan2.7-image",
-                "prompt": "fish-eye perspective forest scene with dramatic perspective distortion, ultra-detailed red fox staring into lens with piercing amber eyes, hyper-realistic fur texture showing individual guard hairs and undercoat layers, radially warped trees forming circular background patterns, watercolor painting style with translucent washes and organic pigment bleeding, soft pastel palette of moss green and earth ochre tones, painterly lighting with atmospheric glow through canopy gaps",
+                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
                 "size": "1K",
                 "aspect_ratio": "16:9",
                 "n": 1

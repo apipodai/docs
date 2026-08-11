@@ -41,7 +41,6 @@ paths:
                   type: string
                   title: Prompt
                   description: Describe the content of the image to be generated.
-                  default: ""
                   maxLength: 2000
                 quality:
                   type: string

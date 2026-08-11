@@ -38,12 +38,6 @@ paths:
                   type: string
                   title: Prompt
                   description: 生成或编辑指令。 最大字符串长度：4000。
-                  default: A humanoid figure with a vintage television set for a head, featuring a
-                    green-tinted screen displaying a `Hello APIPod.ai` writing
-                    in ASCII font. The figure is wearing a yellow raincoat, and
-                    there are various wires and components attached to the
-                    television. The background is cloudy and indistinct,
-                    suggesting an outdoor setting
                 image_urls:
                   type: array
                   title: Input Images
@@ -85,12 +79,8 @@ paths:
                 - prompt
             example:
               model: nano-banana-pro
-              prompt: A humanoid figure with a vintage television set for a head, featuring a
-                green-tinted screen displaying a `Hello APIPod.ai` writing in
-                ASCII font. The figure is wearing a yellow raincoat, and there
-                are various wires and components attached to the television. The
-                background is cloudy and indistinct, suggesting an outdoor
-                setting
+              prompt: A premium product photograph on a dark studio set, precise typography,
+                soft rim lighting, highly detailed.
               quality: 1K
               aspect_ratio: 1:1
       responses:
@@ -135,7 +125,7 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "nano-banana-pro",
-              "prompt": "A humanoid figure with a vintage television set for a head, featuring a green-tinted screen displaying a `Hello APIPod.ai` writing in ASCII font. The figure is wearing a yellow raincoat, and there are various wires and components attached to the television. The background is cloudy and indistinct, suggesting an outdoor setting",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "quality": "1K",
               "aspect_ratio": "1:1"
             }'
@@ -149,7 +139,7 @@ paths:
 
             payload = {
               "model": "nano-banana-pro",
-              "prompt": "A humanoid figure with a vintage television set for a head, featuring a green-tinted screen displaying a `Hello APIPod.ai` writing in ASCII font. The figure is wearing a yellow raincoat, and there are various wires and components attached to the television. The background is cloudy and indistinct, suggesting an outdoor setting",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "quality": "1K",
               "aspect_ratio": "1:1"
             }
@@ -187,7 +177,7 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "nano-banana-pro",
-              "prompt": "A humanoid figure with a vintage television set for a head, featuring a green-tinted screen displaying a `Hello APIPod.ai` writing in ASCII font. The figure is wearing a yellow raincoat, and there are various wires and components attached to the television. The background is cloudy and indistinct, suggesting an outdoor setting",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "quality": "1K",
               "aspect_ratio": "1:1"
             }`), &payload); err != nil {
@@ -227,7 +217,7 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "nano-banana-pro",
-              "prompt": "A humanoid figure with a vintage television set for a head, featuring a green-tinted screen displaying a `Hello APIPod.ai` writing in ASCII font. The figure is wearing a yellow raincoat, and there are various wires and components attached to the television. The background is cloudy and indistinct, suggesting an outdoor setting",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "quality": "1K",
               "aspect_ratio": "1:1"
             });
@@ -255,7 +245,7 @@ paths:
               body: JSON.stringify(
               {
                 "model": "nano-banana-pro",
-                "prompt": "A humanoid figure with a vintage television set for a head, featuring a green-tinted screen displaying a `Hello APIPod.ai` writing in ASCII font. The figure is wearing a yellow raincoat, and there are various wires and components attached to the television. The background is cloudy and indistinct, suggesting an outdoor setting",
+                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
                 "quality": "1K",
                 "aspect_ratio": "1:1"
               }

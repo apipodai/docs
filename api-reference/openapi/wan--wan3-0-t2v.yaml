@@ -41,7 +41,6 @@ paths:
                   type: string
                   title: Prompt
                   description: Text prompt used to describe the expected generated video content.
-                  default: ""
                   minLength: 1
                   maxLength: 20000
                 aspect_ratio:

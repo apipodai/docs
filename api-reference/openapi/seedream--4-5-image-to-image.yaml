@@ -43,7 +43,6 @@ paths:
                   type: string
                   title: Prompt
                   description: Describe the content of the image to be edit.
-                  default: ""
                   maxLength: 4000
                 image_urls:
                   type: array

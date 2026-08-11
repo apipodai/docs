@@ -36,7 +36,6 @@ paths:
                   type: string
                   title: Prompt
                   description: 生成或编辑指令。 最大字符串长度：20000。 最小字符串长度：0。
-                  default: ""
                 image_urls:
                   type: array
                   title: Reference Images

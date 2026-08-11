@@ -40,7 +40,6 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  default: ""
                   maxLength: 5000
                 size:
                   type: string

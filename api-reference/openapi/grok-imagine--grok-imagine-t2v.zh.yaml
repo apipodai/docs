@@ -35,7 +35,6 @@ paths:
                   type: string
                   title: Prompt
                   description: 生成或编辑指令。 最大字符串长度：4000。
-                  default: 三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。
                 duration:
                   type: integer
                   title: Duration
@@ -69,7 +68,8 @@ paths:
                 - prompt
             example:
               model: grok-imagine-t2v
-              prompt: 三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
+                motion, synchronized ambient sound.
               duration: 6
               resolution: 720p
               aspect_ratio: 16:9
@@ -109,30 +109,33 @@ paths:
       x-codeSamples:
         - lang: Shell
           label: cURL
-          source: |-
+          source: >-
             curl https://api.apipod.ai/v1/videos/generations \
               -H "Authorization: Bearer $APIPOD_API_KEY" \
               -H "Content-Type: application/json" \
               -d '{
               "model": "grok-imagine-t2v",
-              "prompt": "三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "duration": 6,
               "resolution": "720p",
               "aspect_ratio": "16:9"
             }'
         - lang: Python
           label: Python
-          source: |-
+          source: >-
             import os
+
             import requests
+
 
             payload = {
               "model": "grok-imagine-t2v",
-              "prompt": "三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "duration": 6,
               "resolution": "720p",
               "aspect_ratio": "16:9"
             }
+
 
             response = requests.post(
                 "https://api.apipod.ai/v1/videos/generations",
@@ -143,7 +146,9 @@ paths:
                 json=payload,
                 timeout=60,
             )
+
             response.raise_for_status()
+
             print(response.json())
         - lang: Go
           label: Go
@@ -164,7 +169,7 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "grok-imagine-t2v",
-              "prompt": "三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "duration": 6,
               "resolution": "720p",
               "aspect_ratio": "16:9"
@@ -192,16 +197,20 @@ paths:
             }
         - lang: Rust
           label: Rust
-          source: |-
+          source: >-
             use reqwest::Client;
+
             use serde_json::json;
+
             use std::env;
 
+
             #[tokio::main]
+
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "grok-imagine-t2v",
-              "prompt": "三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "duration": 6,
               "resolution": "720p",
               "aspect_ratio": "16:9"
@@ -230,7 +239,7 @@ paths:
               body: JSON.stringify(
               {
                 "model": "grok-imagine-t2v",
-                "prompt": "三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。",
+                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
                 "duration": 6,
                 "resolution": "720p",
                 "aspect_ratio": "16:9"

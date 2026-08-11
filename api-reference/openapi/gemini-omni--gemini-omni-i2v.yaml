@@ -40,7 +40,6 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  default: ""
                   maxLength: 4000
                 image_urls:
                   type: array

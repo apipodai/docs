@@ -43,7 +43,6 @@ paths:
                   type: string
                   title: Prompt
                   description: The generation videos prompt.
-                  default: 手绘漫画风格，三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。
                   maxLength: 1000
                 duration:
                   type: integer
@@ -124,7 +123,8 @@ paths:
                 - prompt
             example:
               model: seedance-2.0-t2v
-              prompt: 手绘漫画风格，三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
+                motion, synchronized ambient sound.
               duration: 5
               resolution: 720p
               aspect_ratio: adaptive
@@ -169,7 +169,7 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "seedance-2.0-t2v",
-              "prompt": "手绘漫画风格，三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "duration": 5,
               "resolution": "720p",
               "aspect_ratio": "adaptive",
@@ -185,7 +185,7 @@ paths:
 
             payload = {
               "model": "seedance-2.0-t2v",
-              "prompt": "手绘漫画风格，三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "duration": 5,
               "resolution": "720p",
               "aspect_ratio": "adaptive",
@@ -225,7 +225,7 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "seedance-2.0-t2v",
-              "prompt": "手绘漫画风格，三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "duration": 5,
               "resolution": "720p",
               "aspect_ratio": "adaptive",
@@ -267,7 +267,7 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "seedance-2.0-t2v",
-              "prompt": "手绘漫画风格，三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "duration": 5,
               "resolution": "720p",
               "aspect_ratio": "adaptive",
@@ -297,7 +297,7 @@ paths:
               body: JSON.stringify(
               {
                 "model": "seedance-2.0-t2v",
-                "prompt": "手绘漫画风格，三个人围坐在一起吃炸鸡，气氛友好愉悦，后画面逐渐模糊，画面中部显示文字“快乐尽在 APIPod”。",
+                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
                 "duration": 5,
                 "resolution": "720p",
                 "aspect_ratio": "adaptive",

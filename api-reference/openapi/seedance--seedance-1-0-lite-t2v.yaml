@@ -42,7 +42,6 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  default: ""
                 duration:
                   type: integer
                   title: Duration

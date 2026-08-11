@@ -37,7 +37,6 @@ paths:
                   type: string
                   title: Prompt
                   description: 生成或编辑指令。 最大字符串长度：2500。
-                  default: No distortion, the character's movements are consistent with the video.
                 image_url:
                   type: string
                   title: Reference image
@@ -76,7 +75,8 @@ paths:
                 - video_url
             example:
               model: kling-2.6-motion-control
-              prompt: No distortion, the character's movements are consistent with the video.
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
+                motion, synchronized ambient sound.
               image_url: https://cdn.example.com/reference.jpg
               video_url: https://cdn.example.com/source.mp4
               quality: std
@@ -122,7 +122,7 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "kling-2.6-motion-control",
-              "prompt": "No distortion, the character's movements are consistent with the video.",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
               "video_url": "https://cdn.example.com/source.mp4",
               "quality": "std"
@@ -137,7 +137,7 @@ paths:
 
             payload = {
               "model": "kling-2.6-motion-control",
-              "prompt": "No distortion, the character's movements are consistent with the video.",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
               "video_url": "https://cdn.example.com/source.mp4",
               "quality": "std"
@@ -176,7 +176,7 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "kling-2.6-motion-control",
-              "prompt": "No distortion, the character's movements are consistent with the video.",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
               "video_url": "https://cdn.example.com/source.mp4",
               "quality": "std"
@@ -217,7 +217,7 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "kling-2.6-motion-control",
-              "prompt": "No distortion, the character's movements are consistent with the video.",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
               "video_url": "https://cdn.example.com/source.mp4",
               "quality": "std"
@@ -246,7 +246,7 @@ paths:
               body: JSON.stringify(
               {
                 "model": "kling-2.6-motion-control",
-                "prompt": "No distortion, the character's movements are consistent with the video.",
+                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
                 "image_url": "https://cdn.example.com/reference.jpg",
                 "video_url": "https://cdn.example.com/source.mp4",
                 "quality": "std"

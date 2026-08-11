@@ -36,7 +36,6 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  default: A cinematic shot of a robot exploring a neon city at night
                   description: 生成或编辑指令。 最大字符串长度：4000。
                 duration:
                   type: integer
@@ -66,7 +65,8 @@ paths:
                 - prompt
             example:
               model: gemini-omni-t2v
-              prompt: A cinematic shot of a robot exploring a neon city at night
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
+                motion, synchronized ambient sound.
               duration: 10
               resolution: 720p
               aspect_ratio: 16:9
@@ -112,7 +112,7 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "gemini-omni-t2v",
-              "prompt": "A cinematic shot of a robot exploring a neon city at night",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "duration": 10,
               "resolution": "720p",
               "aspect_ratio": "16:9"
@@ -127,7 +127,7 @@ paths:
 
             payload = {
               "model": "gemini-omni-t2v",
-              "prompt": "A cinematic shot of a robot exploring a neon city at night",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "duration": 10,
               "resolution": "720p",
               "aspect_ratio": "16:9"
@@ -166,7 +166,7 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "gemini-omni-t2v",
-              "prompt": "A cinematic shot of a robot exploring a neon city at night",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "duration": 10,
               "resolution": "720p",
               "aspect_ratio": "16:9"
@@ -207,7 +207,7 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "gemini-omni-t2v",
-              "prompt": "A cinematic shot of a robot exploring a neon city at night",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "duration": 10,
               "resolution": "720p",
               "aspect_ratio": "16:9"
@@ -236,7 +236,7 @@ paths:
               body: JSON.stringify(
               {
                 "model": "gemini-omni-t2v",
-                "prompt": "A cinematic shot of a robot exploring a neon city at night",
+                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
                 "duration": 10,
                 "resolution": "720p",
                 "aspect_ratio": "16:9"

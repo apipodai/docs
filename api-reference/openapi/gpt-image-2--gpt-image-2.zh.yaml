@@ -37,10 +37,6 @@ paths:
                   type: string
                   title: Prompt
                   description: 生成或编辑指令。 最大字符串长度：32000。
-                  default: Capture an Instagram Story photo of a cosplay of Albedo; squatting on
-                    the ground facing the camera, making exaggerated rebellious
-                    hand gestures with both hands, rolling eyes, with an
-                    arrogant and disdainful expression
                 image_urls:
                   type: array
                   title: Image Urls
@@ -88,10 +84,8 @@ paths:
                 - prompt
             example:
               model: gpt-image-2
-              prompt: Capture an Instagram Story photo of a cosplay of Albedo; squatting on
-                the ground facing the camera, making exaggerated rebellious hand
-                gestures with both hands, rolling eyes, with an arrogant and
-                disdainful expression
+              prompt: A premium product photograph on a dark studio set, precise typography,
+                soft rim lighting, highly detailed.
               quality: auto
               aspect_ratio: auto
               resolution: 1K
@@ -137,7 +131,7 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "gpt-image-2",
-              "prompt": "Capture an Instagram Story photo of a cosplay of Albedo; squatting on the ground facing the camera, making exaggerated rebellious hand gestures with both hands, rolling eyes, with an arrogant and disdainful expression",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "quality": "auto",
               "aspect_ratio": "auto",
               "resolution": "1K"
@@ -152,7 +146,7 @@ paths:
 
             payload = {
               "model": "gpt-image-2",
-              "prompt": "Capture an Instagram Story photo of a cosplay of Albedo; squatting on the ground facing the camera, making exaggerated rebellious hand gestures with both hands, rolling eyes, with an arrogant and disdainful expression",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "quality": "auto",
               "aspect_ratio": "auto",
               "resolution": "1K"
@@ -191,7 +185,7 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "gpt-image-2",
-              "prompt": "Capture an Instagram Story photo of a cosplay of Albedo; squatting on the ground facing the camera, making exaggerated rebellious hand gestures with both hands, rolling eyes, with an arrogant and disdainful expression",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "quality": "auto",
               "aspect_ratio": "auto",
               "resolution": "1K"
@@ -232,7 +226,7 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "gpt-image-2",
-              "prompt": "Capture an Instagram Story photo of a cosplay of Albedo; squatting on the ground facing the camera, making exaggerated rebellious hand gestures with both hands, rolling eyes, with an arrogant and disdainful expression",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
               "quality": "auto",
               "aspect_ratio": "auto",
               "resolution": "1K"
@@ -261,7 +255,7 @@ paths:
               body: JSON.stringify(
               {
                 "model": "gpt-image-2",
-                "prompt": "Capture an Instagram Story photo of a cosplay of Albedo; squatting on the ground facing the camera, making exaggerated rebellious hand gestures with both hands, rolling eyes, with an arrogant and disdainful expression",
+                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
                 "quality": "auto",
                 "aspect_ratio": "auto",
                 "resolution": "1K"

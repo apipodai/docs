@@ -86,7 +86,7 @@ function schemaContract(spec, source, propertyName = "", { localized = false } =
   }
   if (schema.const !== undefined && propertyName !== "model") contract.const = normalizeContractValue(schema.const, schema.type);
   if (schema.enum) contract.enum = schema.enum.map((value) => normalizeContractValue(value, schema.type));
-  if (schema.default !== undefined && !(schema.type === "array" && !Array.isArray(schema.default))) {
+  if (propertyName !== "prompt" && schema.default !== undefined && !(schema.type === "array" && !Array.isArray(schema.default))) {
     contract.default = normalizeContractValue(schema.default, schema.type);
   }
   if (schema.required) contract.required = [...schema.required].sort();
@@ -176,6 +176,10 @@ for (const page of openApiPages) {
         const sourceOperation = primaryOperation(sourceSpec);
         const sourceRequest = sourceOperation?.requestBody?.content?.["application/json"]?.schema;
         const generatedRequest = operation.requestBody?.content?.["application/json"]?.schema;
+        const generatedPrompt = resolveSchema(spec, generatedRequest)?.properties?.prompt;
+        if (generatedPrompt && Object.hasOwn(generatedPrompt, "default")) {
+          errors.push(`Prompt default must not be documented: ${generatedPath}`);
+        }
         const localizedContract = language === "zh";
         if (!sourceRequest || JSON.stringify(schemaContract(sourceSpec, sourceRequest, "", { localized: localizedContract })) !== JSON.stringify(schemaContract(spec, generatedRequest, "", { localized: localizedContract }))) {
           errors.push(`Generated request contract differs from configured model schema: ${generatedPath}`);

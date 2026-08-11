@@ -41,7 +41,6 @@ paths:
                   type: string
                   title: Prompt
                   description: Describe the content of the video to be generated.
-                  default: ""
                   maxLength: 5000
                 prompt_extend:
                   type: boolean

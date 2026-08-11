@@ -37,11 +37,6 @@ paths:
                   type: string
                   title: Prompt
                   description: 生成或编辑指令。 最大字符串长度：4000。
-                  default: The camera performs a smooth 180-degree arc shot, starting with the
-                    front-facing view of the singer and circling around her to
-                    seamlessly end on the POV shot from behind her on stage. The
-                    singer sings “when you look me in the eyes, I can see a
-                    million stars.
                 image_urls:
                   type: array
                   title: Reference frame
@@ -61,11 +56,8 @@ paths:
                 - prompt
             example:
               model: veo3-1-lite
-              prompt: The camera performs a smooth 180-degree arc shot, starting with the
-                front-facing view of the singer and circling around her to
-                seamlessly end on the POV shot from behind her on stage. The
-                singer sings “when you look me in the eyes, I can see a million
-                stars.
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
+                motion, synchronized ambient sound.
               aspect_ratio: 16:9
       responses:
         "200":
@@ -109,7 +101,7 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "veo3-1-lite",
-              "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "aspect_ratio": "16:9"
             }'
         - lang: Python
@@ -122,7 +114,7 @@ paths:
 
             payload = {
               "model": "veo3-1-lite",
-              "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "aspect_ratio": "16:9"
             }
 
@@ -159,7 +151,7 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "veo3-1-lite",
-              "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "aspect_ratio": "16:9"
             }`), &payload); err != nil {
                     panic(err)
@@ -198,7 +190,7 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "veo3-1-lite",
-              "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "aspect_ratio": "16:9"
             });
                 let response = Client::new()
@@ -225,7 +217,7 @@ paths:
               body: JSON.stringify(
               {
                 "model": "veo3-1-lite",
-                "prompt": "The camera performs a smooth 180-degree arc shot, starting with the front-facing view of the singer and circling around her to seamlessly end on the POV shot from behind her on stage. The singer sings “when you look me in the eyes, I can see a million stars.",
+                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
                 "aspect_ratio": "16:9"
               }
               ),

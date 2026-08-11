@@ -41,7 +41,6 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  default: ""
                   maxLength: 4000
                 video_url:
                   type: string

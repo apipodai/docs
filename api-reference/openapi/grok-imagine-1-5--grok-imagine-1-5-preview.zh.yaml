@@ -36,7 +36,6 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  default: ""
                   description: 生成或编辑指令。 最大字符串长度：4000。
                 image_url:
                   type: string

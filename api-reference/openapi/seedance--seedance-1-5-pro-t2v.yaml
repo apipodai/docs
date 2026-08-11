@@ -42,7 +42,6 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  default: ""
                   maxLength: 2000
                 aspect_ratio:
                   type: string

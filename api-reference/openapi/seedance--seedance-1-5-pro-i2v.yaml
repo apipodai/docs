@@ -44,7 +44,6 @@ paths:
                   type: string
                   title: Prompt
                   description: The video description (4-2000 characters).
-                  default: ""
                   maxLength: 2000
                 duration:
                   type: integer

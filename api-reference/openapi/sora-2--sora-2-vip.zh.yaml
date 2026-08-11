@@ -37,8 +37,6 @@ paths:
                   type: string
                   title: Prompt
                   description: 生成或编辑指令。 最大字符串长度：4000。
-                  default: Two mountain explorers in bright technical shells, ice crusted faces,
-                    eyes narrowed with urgency shout in the snow, one at a time
                 image_url:
                   type: string
                   title: Image Url
@@ -64,8 +62,8 @@ paths:
                 - prompt
             example:
               model: sora-2-vip
-              prompt: Two mountain explorers in bright technical shells, ice crusted faces,
-                eyes narrowed with urgency shout in the snow, one at a time
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
+                motion, synchronized ambient sound.
               image_url: https://cdn.example.com/reference.jpg
               duration: 8
               aspect_ratio: 9:16
@@ -111,7 +109,7 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "sora-2-vip",
-              "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
               "duration": 8,
               "aspect_ratio": "9:16"
@@ -126,7 +124,7 @@ paths:
 
             payload = {
               "model": "sora-2-vip",
-              "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
               "duration": 8,
               "aspect_ratio": "9:16"
@@ -165,7 +163,7 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
               "model": "sora-2-vip",
-              "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
               "duration": 8,
               "aspect_ratio": "9:16"
@@ -206,7 +204,7 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
               "model": "sora-2-vip",
-              "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
               "duration": 8,
               "aspect_ratio": "9:16"
@@ -235,7 +233,7 @@ paths:
               body: JSON.stringify(
               {
                 "model": "sora-2-vip",
-                "prompt": "Two mountain explorers in bright technical shells, ice crusted faces, eyes narrowed with urgency shout in the snow, one at a time",
+                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
                 "image_url": "https://cdn.example.com/reference.jpg",
                 "duration": 8,
                 "aspect_ratio": "9:16"
