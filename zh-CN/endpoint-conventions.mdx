@@ -14,6 +14,18 @@ https://api.apipod.ai
 
 稳定公开 API 位于 `/v1` 下。JSON 请求体使用 UTF-8 编码，并发送 `Content-Type: application/json`。
 
+平台还在 `/openai/v1` 下提供 OpenAI 原生的**同步**图片接口，供直接使用 OpenAI Images API 的工具接入——参见 [OpenAI 兼容图片接口](/zh-CN/openai-image-sync)。
+
+### 长时间同步请求
+
+默认域名 `https://api.apipod.ai` 在边缘网关配置了 **120 秒 read timeout**。非流式且可能超过该时长的请求——包括 OpenAI 兼容的同步图片接口（`/openai/v1/images/*`）——必须使用专用的长请求域名：
+
+```text
+https://apid.apipod.ai
+```
+
+两个域名提供相同的路径与鉴权方式。只要请求可能运行超过两分钟，请选用 `https://apid.apipod.ai`；短请求、流式请求与异步任务请求使用 `https://api.apipod.ai`。
+
 ## 媒体端点
 
 | 方法 | 路径 | 用途 |
@@ -22,6 +34,8 @@ https://api.apipod.ai
 | `GET` | `/v1/images/status/{task_id}` | 查询当前认证账号拥有的图片任务 |
 | `POST` | `/v1/videos/generations` | 创建异步视频任务 |
 | `GET` | `/v1/videos/status/{task_id}` | 查询当前认证账号拥有的视频任务 |
+| `POST` | `/openai/v1/images/generations` | 同步生成图片并等待结果（OpenAI 原生格式） |
+| `POST` | `/openai/v1/images/edits` | 同步编辑图片并等待结果（OpenAI 原生格式） |
 
 ## 请求头与响应头
 

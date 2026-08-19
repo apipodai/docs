@@ -1,0 +1,154 @@
+---
+title: "OpenAI-compatible images API"
+description: "Generate and edit images synchronously with any OpenAI SDK or OpenAI-compatible tool."
+icon: "sparkles"
+---
+
+APIPod exposes an OpenAI-native, **synchronous** images API under a dedicated base URL. Point any OpenAI SDK, agent framework, or OpenAI-compatible software at it and the image result is returned in the HTTP response itself — no task polling required.
+
+```text
+Base URL: https://apid.apipod.ai/openai/v1
+```
+
+<Important>
+  Use **`https://apid.apipod.ai`** for non-streaming and long-running synchronous requests such as image generation. The default host `https://api.apipod.ai` applies a **120-second read timeout** at the edge, which can terminate a generation that takes longer. All examples in this page use the long-request host.
+</Important>
+
+<Note>
+  The asynchronous task API under `https://api.apipod.ai/v1` is unchanged. The `/openai/v1` prefix exists so both styles can coexist on the same API key. Short requests also work against `https://api.apipod.ai/openai/v1`.
+</Note>
+
+## Create image
+
+`POST /openai/v1/images/generations`
+
+Returns the generated images directly, in the standard OpenAI response format.
+
+```bash
+curl https://apid.apipod.ai/openai/v1/images/generations \
+  -H "Authorization: Bearer $APIPOD_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-image-2",
+    "prompt": "a watercolor castle floating above clouds",
+    "n": 1,
+    "size": "1024x1024"
+  }'
+```
+
+```json
+{
+  "created": 1724073600,
+  "data": [
+    {
+      "b64_json": "iVBORw0KGgoAAAANSUhEUgAA..."
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 12,
+    "completion_tokens": 4230,
+    "total_tokens": 4242
+  }
+}
+```
+
+### Request body
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `model` | string | Required. Any image model ID available on APIPod (for example `gpt-image-2`, `nano-banana-pro`, `seedream-v4.5`). |
+| `prompt` | string | Required. 1–4000 characters. |
+| `n` | integer | Number of images, 1–10. Defaults to `1`. |
+| `size` | string | Image size such as `1024x1024`, subject to each model's constraints. |
+| `quality` | string | Quality tier, subject to each model's constraints. |
+| `response_format` | string | `b64_json` (default) or `url`. The default returns each image inline as base64. Set `url` explicitly to receive an asset URL instead. Database task records always store asset URLs; base64 is generated only for the HTTP response. |
+| `output_format` | string | `png`, `jpeg`, or `webp` where the model supports it. |
+| `background` | string | `auto` or `opaque` where the model supports it. |
+
+Unknown fields sent by OpenAI SDKs (for example `input_fidelity`) are ignored.
+
+### Python SDK example
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="apipod-...",
+    base_url="https://apid.apipod.ai/openai/v1",
+)
+
+image = client.images.generate(
+    model="gpt-image-2",
+    prompt="a watercolor castle floating above clouds",
+)
+print(image.data[0].b64_json[:32])
+```
+
+## Edit image
+
+`POST /openai/v1/images/edits`
+
+Accepts `multipart/form-data` with the image to edit, an optional `mask` for inpainting, and a text prompt. Use an edit-capable model such as `gpt-image-2` / `gpt-image-2-edit` or a `seedream-*-edit` variant.
+
+```bash
+curl https://apid.apipod.ai/openai/v1/images/edits \
+  -H "Authorization: Bearer $APIPOD_API_KEY" \
+  -F model="gpt-image-2-edit" \
+  -F prompt="add a red wool hat to the cat" \
+  -F image="@cat.png" \
+  -F mask="@mask.png"
+```
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `image` | file | Required. The image to edit. Repeat the field or use `image[]` for multiple inputs (max 10 files, 10 MB each). |
+| `prompt` | string | Required. Describes the desired edit. |
+| `model` | string | Required. An edit-capable model ID. |
+| `mask` | file | Optional. PNG with transparent areas marking where the prompt should apply. Currently honored by models routed to OpenAI-compatible edit upstreams (the GPT Image family); other edit models apply the prompt to the whole image. |
+| `n` | integer | Number of images, 1–10. |
+| `size` / `quality` / `response_format` / `output_format` / `background` | string | Same meaning as in generations. |
+
+Uploaded `image`/`mask` files (and any base64 data URIs sent as `image_urls`) are persisted to your asset storage when the task is created. The stored task request keeps asset URLs instead of inline base64, so the same record also serves later status queries and worker retries.
+
+## Timeouts
+
+Synchronous calls block until the image is ready. If the task takes longer than the server-side wait window (default 300 seconds, tunable via `OPENAI_IMAGE_SYNC_TIMEOUT`), the API responds with HTTP `504` and a `sync_image_timeout` error whose message contains the `task_id`:
+
+```json
+{
+  "error": {
+    "message": "image task 0d1c... did not complete within 5m0s; the task is still processing and can be queried via GET /v1/images/status/0d1c...",
+    "type": "server_error",
+    "code": "sync_image_timeout"
+  }
+}
+```
+
+<Important>
+  The default host `https://api.apipod.ai` applies a **120-second read timeout** at the edge, which is shorter than the 300-second wait window. Always call these endpoints through **`https://apid.apipod.ai`** so slow generations can finish inside the wait window instead of being cut off at 120 seconds.
+</Important>
+
+The task is not cancelled — it keeps running to completion, billing settles normally, and the result can be fetched with the standard asynchronous status endpoint:
+
+```bash
+curl "https://api.apipod.ai/v1/images/status/$TASK_ID" \
+  -H "Authorization: Bearer $APIPOD_API_KEY"
+```
+
+<Warning>
+  Configure your client's HTTP timeout above the server wait window (for example 320 seconds) so slow generations surface as the API's `504` with a queryable `task_id` instead of a client-side disconnect.
+</Warning>
+
+## Errors
+
+Errors use the OpenAI error envelope:
+
+| HTTP | `code` | Meaning |
+| --- | --- | --- |
+| 400 | `invalid_request` | Invalid parameters, missing file, or model constraint violation. |
+| 401 | `invalid_api_key` | Missing or invalid API key. |
+| 402 | `insufficient_quota` | Not enough quota for the estimated cost. |
+| 404 | `model_not_found` | The model does not exist on this endpoint. |
+| 504 | `sync_image_timeout` | Exceeded the synchronous wait window; task continues in the background. |
+
+Billing, moderation, retries, failover, and asset storage behave exactly like the asynchronous API — the synchronous endpoints are a delivery-mode wrapper over the same pipeline.

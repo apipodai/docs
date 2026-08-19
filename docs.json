@@ -54,6 +54,7 @@
                 "group": "Images",
                 "icon": "image",
                 "pages": [
+                  "openai-image-sync",
                   {
                     "group": "GPT Image 2",
                     "icon": "wand-sparkles",
@@ -377,6 +378,7 @@
                 "group": "图片",
                 "icon": "image",
                 "pages": [
+                  "zh-CN/openai-image-sync",
                   {
                     "group": "GPT Image 2",
                     "icon": "wand-sparkles",

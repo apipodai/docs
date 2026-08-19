@@ -14,6 +14,18 @@ https://api.apipod.ai
 
 Stable public APIs are mounted below `/v1`. Send JSON request bodies as UTF-8 with `Content-Type: application/json`.
 
+An OpenAI-native **synchronous** images API is also available below `/openai/v1` for tools that speak the OpenAI Images API directly — see [OpenAI-compatible images API](/openai-image-sync).
+
+### Long-running synchronous requests
+
+The default host `https://api.apipod.ai` applies a **120-second read timeout** at the edge. Non-streaming requests that can take longer than that — including the OpenAI-compatible synchronous image endpoints (`/openai/v1/images/*`) — must use the dedicated long-request host:
+
+```text
+https://apid.apipod.ai
+```
+
+The same paths and authentication are served on both hosts. Choose `https://apid.apipod.ai` whenever the request can run longer than two minutes; use `https://api.apipod.ai` for short, streaming, or asynchronous task requests.
+
 ## Media endpoints
 
 | Method | Path | Purpose |
@@ -22,6 +34,8 @@ Stable public APIs are mounted below `/v1`. Send JSON request bodies as UTF-8 wi
 | `GET` | `/v1/images/status/{task_id}` | Read an image task owned by the authenticated account |
 | `POST` | `/v1/videos/generations` | Create an asynchronous video task |
 | `GET` | `/v1/videos/status/{task_id}` | Read a video task owned by the authenticated account |
+| `POST` | `/openai/v1/images/generations` | Create an image and wait for the result (OpenAI-native, synchronous) |
+| `POST` | `/openai/v1/images/edits` | Edit an image and wait for the result (OpenAI-native, synchronous) |
 
 ## Headers
 

@@ -1,0 +1,154 @@
+---
+title: "OpenAI 兼容图片接口"
+description: "使用任意 OpenAI SDK 或 OpenAI 兼容软件同步生成与编辑图片。"
+icon: "sparkles"
+---
+
+APIPod 在独立的 Base URL 下提供 OpenAI 原生的**同步**图片接口。将任意 OpenAI SDK、Agent 框架或 OpenAI 兼容软件指向该地址，图片结果会直接在 HTTP 响应中返回，无需轮询任务状态。
+
+```text
+Base URL: https://apid.apipod.ai/openai/v1
+```
+
+<Important>
+  对于**非流式请求**或图片生成这类**长时间同步请求**，请使用 **`https://apid.apipod.ai`**。默认域名 `https://api.apipod.ai` 在边缘网关配置了 **120 秒 read timeout**，图片生成耗时可能超过该值而被切断。本页所有示例均使用长请求域名。
+</Important>
+
+<Note>
+  `https://api.apipod.ai/v1` 下的异步任务接口保持不变。新增 `/openai/v1` 前缀是为了让两种接口风格在同一个 API Key 上共存。短请求也可以使用 `https://api.apipod.ai/openai/v1`。
+</Note>
+
+## 创建图片
+
+`POST /openai/v1/images/generations`
+
+直接返回生成结果，响应为标准 OpenAI 格式。
+
+```bash
+curl https://apid.apipod.ai/openai/v1/images/generations \
+  -H "Authorization: Bearer $APIPOD_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-image-2",
+    "prompt": "a watercolor castle floating above clouds",
+    "n": 1,
+    "size": "1024x1024"
+  }'
+```
+
+```json
+{
+  "created": 1724073600,
+  "data": [
+    {
+      "b64_json": "iVBORw0KGgoAAAANSUhEUgAA..."
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 12,
+    "completion_tokens": 4230,
+    "total_tokens": 4242
+  }
+}
+```
+
+### 请求参数
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `model` | string | 必填。APIPod 上的任意图片模型 ID（如 `gpt-image-2`、`nano-banana-pro`、`seedream-v4.5`）。 |
+| `prompt` | string | 必填。1–4000 字符。 |
+| `n` | integer | 生成数量，1–10，默认 `1`。 |
+| `size` | string | 图片尺寸，如 `1024x1024`，受各模型约束限制。 |
+| `quality` | string | 质量档位，受各模型约束限制。 |
+| `response_format` | string | `b64_json`（默认）或 `url`。默认将每张图片以内联 base64 返回；显式传 `url` 才返回资源地址。数据库任务记录始终只保存资源 URL，base64 仅在 HTTP 响应阶段临时生成。 |
+| `output_format` | string | `png`、`jpeg` 或 `webp`，视模型支持情况。 |
+| `background` | string | `auto` 或 `opaque`，视模型支持情况。 |
+
+OpenAI SDK 发送的未知字段（如 `input_fidelity`）会被忽略。
+
+### Python SDK 示例
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="apipod-...",
+    base_url="https://apid.apipod.ai/openai/v1",
+)
+
+image = client.images.generate(
+    model="gpt-image-2",
+    prompt="a watercolor castle floating above clouds",
+)
+print(image.data[0].b64_json[:32])
+```
+
+## 编辑图片
+
+`POST /openai/v1/images/edits`
+
+接收 `multipart/form-data`：待编辑图片、可选的 `mask` 遮罩（局部重绘）以及文本提示词。请使用支持编辑的模型，如 `gpt-image-2` / `gpt-image-2-edit` 或 `seedream-*-edit` 系列。
+
+```bash
+curl https://apid.apipod.ai/openai/v1/images/edits \
+  -H "Authorization: Bearer $APIPOD_API_KEY" \
+  -F model="gpt-image-2-edit" \
+  -F prompt="add a red wool hat to the cat" \
+  -F image="@cat.png" \
+  -F mask="@mask.png"
+```
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `image` | file | 必填。待编辑图片。重复该字段或使用 `image[]` 可上传多张（最多 10 个文件，单个不超过 10 MB）。 |
+| `prompt` | string | 必填。描述期望的编辑效果。 |
+| `model` | string | 必填。支持编辑的模型 ID。 |
+| `mask` | file | 可选。PNG 遮罩，透明区域表示提示词生效的位置。目前对路由到 OpenAI 兼容编辑上游的模型（GPT Image 系列）生效；其他编辑模型会对整图应用提示词。 |
+| `n` | integer | 生成数量，1–10。 |
+| `size` / `quality` / `response_format` / `output_format` / `background` | string | 含义与 generations 接口一致。 |
+
+上传的 `image`/`mask` 文件（以及以 `image_urls` 传入的 base64 数据）会在任务创建时落盘到你的资产存储。任务记录中保存的是资源 URL 而非内联 base64，因此同一份记录也可以服务后续的状态查询与 worker 重试。
+
+## 超时行为
+
+同步调用会阻塞直到图片就绪。若任务耗时超过服务端等待窗口（默认 300 秒，可通过 `OPENAI_IMAGE_SYNC_TIMEOUT` 调整），接口返回 HTTP `504` 与 `sync_image_timeout` 错误，错误信息中包含 `task_id`：
+
+```json
+{
+  "error": {
+    "message": "image task 0d1c... did not complete within 5m0s; the task is still processing and can be queried via GET /v1/images/status/0d1c...",
+    "type": "server_error",
+    "code": "sync_image_timeout"
+  }
+}
+```
+
+<Important>
+  默认域名 `https://api.apipod.ai` 在边缘网关配置了 **120 秒 read timeout**，比 300 秒等待窗口更短。请始终通过 **`https://apid.apipod.ai`** 调用这些接口，让慢任务能在等待窗口内完成，而不是在 120 秒时被切断。
+</Important>
+
+任务不会被取消——它会继续在后台完成、正常结算，结果可通过标准异步状态接口查询：
+
+```bash
+curl "https://api.apipod.ai/v1/images/status/$TASK_ID" \
+  -H "Authorization: Bearer $APIPOD_API_KEY"
+```
+
+<Warning>
+  请将客户端 HTTP 超时设置为高于服务端等待窗口（例如 320 秒），这样慢任务会以 API 的 `504`（附带可查询的 `task_id`）呈现，而不是客户端侧断连。
+</Warning>
+
+## 错误码
+
+错误使用 OpenAI 错误格式：
+
+| HTTP | `code` | 说明 |
+| --- | --- | --- |
+| 400 | `invalid_request` | 参数非法、缺少文件或违反模型约束。 |
+| 401 | `invalid_api_key` | 缺少或无效的 API Key。 |
+| 402 | `insufficient_quota` | 余额不足以覆盖预估费用。 |
+| 404 | `model_not_found` | 该模型在此接口不存在。 |
+| 504 | `sync_image_timeout` | 超出同步等待窗口，任务继续在后台执行。 |
+
+计费、内容审核、重试、故障转移与产物存储和异步接口完全一致——同步接口只是同一管线上的一层交付方式封装。
