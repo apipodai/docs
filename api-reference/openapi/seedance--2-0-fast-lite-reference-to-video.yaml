@@ -1,0 +1,387 @@
+openapi: 3.1.0
+info:
+  title: Seedance 2.0 Fast Lite Reference to Video API
+  version: 1.0.0
+  description: >-
+    Seedance 2.0 Fast Lite is a special-price fast route that generates video
+    from image, video, and audio references. The Seedance family emphasizes
+    prompt following, coherent motion, multi-shot storytelling, and synchronized
+    audio. In APIPod, the public model ID is seedance-2.0-fast-lite-r2v. Results
+    are returned through asynchronous video tasks. This is the special-price
+    full-capability variant: media URLs are reviewed by the asset service before
+    the task is submitted, so plain public URLs still work in requests.
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/videos/generations:
+    post:
+      summary: Create Generation Task
+      description: >-
+        Seedance 2.0 Fast Lite is a special-price fast route that generates
+        video from image, video, and audio references. The Seedance family
+        emphasizes prompt following, coherent motion, multi-shot storytelling,
+        and synchronized audio. In APIPod, the public model ID is
+        seedance-2.0-fast-lite-r2v. Results are returned through asynchronous
+        video tasks. This is the special-price full-capability variant: media
+        URLs are reviewed by the asset service before the task is submitted, so
+        plain public URLs still work in requests.
+      operationId: create-seedance-2-0-fast-lite-reference-to-video
+      tags:
+        - Seedance 2.0 Fast Lite Reference to Video
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Seedance 2.0 Fast Lite Reference to Video
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: Public APIPod model ID.
+                  const: seedance-2.0-fast-lite-r2v
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: The generation videos prompt.
+                  maxLength: 1000
+                duration:
+                  type: integer
+                  title: Duration
+                  enum:
+                    - 4
+                    - 5
+                    - 6
+                    - 7
+                    - 8
+                    - 9
+                    - 10
+                    - 11
+                    - 12
+                    - 13
+                    - 14
+                    - 15
+                  default: 5
+                  minimum: 4
+                  maximum: 15
+                watermark:
+                  type: boolean
+                  title: Watermark
+                  default: false
+                audio_urls:
+                  type: array
+                  title: Audio Urls
+                  description: Please note that audio files cannot be uploaded alone; at least one
+                    reference video or image must be included.
+                  items:
+                    type: string
+                image_urls:
+                  type: array
+                  title: Image Urls
+                  items:
+                    type: string
+                resolution:
+                  type: string
+                  title: Resolution
+                  enum:
+                    - 720p
+                  default: 720p
+                video_urls:
+                  type: array
+                  title: Video Urls
+                  items:
+                    type: string
+                web_search:
+                  type: boolean
+                  title: Web Search
+                  description: After enabling, the model will independently decide whether to
+                    search Internet content (such as products, weather, etc.)
+                    based on the user's prompt. This can improve the timeliness
+                    of generated videos but will also introduce a certain degree
+                    of latency.
+                  default: false
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  enum:
+                    - adaptive
+                    - 1:1
+                    - 3:4
+                    - 4:3
+                    - 9:16
+                    - 16:9
+                    - 21:9
+                  default: adaptive
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  description: Controls whether the generated video contains audio synchronized
+                    with the visuals.
+                  default: true
+                return_last_frame:
+                  type: boolean
+                  title: Return Last Frame
+                  description: "Whether to return the last frame image of the generated video.
+                    Using this parameter enables the generation of multiple
+                    consecutive videos: taking the last frame of the previous
+                    generated video as the first frame of the next video task to
+                    quickly generate multiple consecutive videos, and the first
+                    item in the returned result is this image."
+                  default: false
+              required:
+                - model
+                - prompt
+            example:
+              model: seedance-2.0-fast-lite-r2v
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
+                motion, synchronized ambient sound.
+              duration: 5
+              audio_urls:
+                - https://cdn.example.com/reference.mp3
+              image_urls:
+                - https://cdn.example.com/reference-1.jpg
+              resolution: 720p
+              video_urls:
+                - https://cdn.example.com/reference.mp4
+              aspect_ratio: adaptive
+              generate_audio: true
+      responses:
+        "200":
+          description: Task accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                description: Standard response for task submission
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
+                    properties:
+                      task_id:
+                        type: string
+                        description: generatation task id
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "seedance-2.0-fast-lite-r2v",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "duration": 5,
+              "audio_urls": [
+                "https://cdn.example.com/reference.mp3"
+              ],
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "resolution": "720p",
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "aspect_ratio": "adaptive",
+              "generate_audio": true
+            }'
+        - lang: Python
+          label: Python
+          source: >-
+            import os
+
+            import requests
+
+
+            payload = {
+              "model": "seedance-2.0-fast-lite-r2v",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "duration": 5,
+              "audio_urls": [
+                "https://cdn.example.com/reference.mp3"
+              ],
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "resolution": "720p",
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "aspect_ratio": "adaptive",
+              "generate_audio": True
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+        - lang: Go
+          label: Go
+          source: >-
+            package main
+
+
+            import (
+                "bytes"
+                "encoding/json"
+                "fmt"
+                "net/http"
+                "os"
+            )
+
+
+            func main() {
+                payload := map[string]any{}
+                if err := json.Unmarshal([]byte(`{
+              "model": "seedance-2.0-fast-lite-r2v",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "duration": 5,
+              "audio_urls": [
+                "https://cdn.example.com/reference.mp3"
+              ],
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "resolution": "720p",
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "aspect_ratio": "adaptive",
+              "generate_audio": true
+            }`), &payload); err != nil {
+                    panic(err)
+                }
+                body, err := json.Marshal(payload)
+                if err != nil {
+                    panic(err)
+                }
+
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+                if err != nil {
+                    panic(err)
+                }
+                req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+                req.Header.Set("Content-Type", "application/json")
+
+                resp, err := http.DefaultClient.Do(req)
+                if err != nil {
+                    panic(err)
+                }
+                defer resp.Body.Close()
+                fmt.Println(resp.Status)
+            }
+        - lang: Rust
+          label: Rust
+          source: >-
+            use reqwest::Client;
+
+            use serde_json::json;
+
+            use std::env;
+
+
+            #[tokio::main]
+
+            async fn main() -> Result<(), Box<dyn std::error::Error>> {
+                let payload = json!({
+              "model": "seedance-2.0-fast-lite-r2v",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "duration": 5,
+              "audio_urls": [
+                "https://cdn.example.com/reference.mp3"
+              ],
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "resolution": "720p",
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "aspect_ratio": "adaptive",
+              "generate_audio": true
+            });
+                let response = Client::new()
+                    .post("https://api.apipod.ai/v1/videos/generations")
+                    .bearer_auth(env::var("APIPOD_API_KEY")?)
+                    .json(&payload)
+                    .send()
+                    .await?
+                    .error_for_status()?;
+
+                println!("{}", response.text().await?);
+                Ok(())
+            }
+        - lang: JavaScript
+          label: JavaScript
+          source: >-
+            const response = await
+            fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(
+              {
+                "model": "seedance-2.0-fast-lite-r2v",
+                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+                "duration": 5,
+                "audio_urls": [
+                  "https://cdn.example.com/reference.mp3"
+                ],
+                "image_urls": [
+                  "https://cdn.example.com/reference-1.jpg"
+                ],
+                "resolution": "720p",
+                "video_urls": [
+                  "https://cdn.example.com/reference.mp4"
+                ],
+                "aspect_ratio": "adaptive",
+                "generate_audio": true
+              }
+              ),
+            });
+
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+
+            console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.
