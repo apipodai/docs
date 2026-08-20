@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: WAN 2.7 Image to Image API
+  title: WAN 2.7 图生图 API
   version: 1.0.0
   description: Wan 2.7 Image Edit 是阿里的指令式图片编辑模型，用于在保留原图结构和主要主体的同时完成可控修改。在 APIPod
     中，公开模型 ID 为 wan2.7-image-edit，支持图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。
@@ -15,7 +15,7 @@ paths:
         中，公开模型 ID 为 wan2.7-image-edit，支持图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。
       operationId: create-wan-2-7-image-to-image
       tags:
-        - WAN 2.7 Image to Image
+        - WAN 2.7 图生图
       security:
         - bearerAuth: []
       requestBody:

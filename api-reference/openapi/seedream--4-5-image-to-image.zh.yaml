@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Seedream V4.5 Image to Image API
+  title: Seedream V4.5 图生图 API
   version: 1.0.0
   description: Seedream 4.5 Edit 是字节跳动的参考图编辑模型，适合在一张或多张源图片之间保持主体和细节，并按提示词完成可控修改。在
     APIPod 中，公开模型 ID 为 seedream-v4.5-edit，支持图片生成与编辑；接受图片、文本输入，并通过异步图片任务返回结果。
@@ -15,7 +15,7 @@ paths:
         APIPod 中，公开模型 ID 为 seedream-v4.5-edit，支持图片生成与编辑；接受图片、文本输入，并通过异步图片任务返回结果。
       operationId: create-seedream-4-5-image-to-image
       tags:
-        - Seedream V4.5 Image to Image
+        - Seedream V4.5 图生图
       security:
         - bearerAuth: []
       requestBody:

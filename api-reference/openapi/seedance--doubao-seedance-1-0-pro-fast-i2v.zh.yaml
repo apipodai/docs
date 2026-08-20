@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Seedance 1.0 Pro Fast Image to Video API
+  title: Seedance 1.0 Pro Fast 图生视频 API
   version: 1.0.0
   description: Seedance 1.0 Pro Fast 图生视频是豆包供应商路由，以必填首帧图片生成视频，并在公开 schema
     允许时使用可选尾帧。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为
@@ -17,7 +17,7 @@ paths:
         doubao-seedance-1.0-pro-fast-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。
       operationId: create-seedance-doubao-seedance-1-0-pro-fast-i2v
       tags:
-        - Seedance 1.0 Pro Fast Image to Video
+        - Seedance 1.0 Pro Fast 图生视频
       security:
         - bearerAuth: []
       requestBody:
@@ -26,7 +26,7 @@ paths:
           application/json:
             schema:
               type: object
-              title: Seedance 1.0 Pro Fast Image to Video
+              title: Seedance 1.0 Pro Fast 图生视频
               properties:
                 model:
                   type: string

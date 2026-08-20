@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Seedance 2.0 Mini Lite Reference to Video API
+  title: Seedance 2.0 Mini 特价版 参考生视频 API
   version: 1.0.0
   description: >-
     Seedance 2.0 Mini Lite 特价版轻量路由，基于图片、视频与音频参考素材生成视频。Seedance
@@ -20,7 +20,7 @@ paths:
         即可。
       operationId: create-seedance-2-0-mini-lite-reference-to-video
       tags:
-        - Seedance 2.0 Mini Lite Reference to Video
+        - Seedance 2.0 Mini 特价版 参考生视频
       security:
         - bearerAuth: []
       requestBody:
@@ -29,7 +29,7 @@ paths:
           application/json:
             schema:
               type: object
-              title: Seedance 2.0 Mini Lite Reference to Video
+              title: Seedance 2.0 Mini 特价版 参考生视频
               properties:
                 model:
                   type: string

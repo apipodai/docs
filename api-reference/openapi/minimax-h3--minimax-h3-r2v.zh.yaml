@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: MiniMax H3 Reference to Video API
+  title: MiniMax H3 参考生视频 API
   version: 1.0.0
   description: MiniMax H3 参考生视频是 MiniMax H3 多模态视频系列的独立模式，组合图片、视频和音频参考素材；APIPod
     当前为该系列提供 768P 或 2K、4 至 15 秒的异步生成契约。在 APIPod 中，公开模型 ID 为
@@ -17,7 +17,7 @@ paths:
         minimax-h3-r2v，支持图生视频、视频到视频；接受文本、图片、音频、视频输入，并通过异步视频任务返回结果。
       operationId: create-minimax-h3-minimax-h3-r2v
       tags:
-        - MiniMax H3 Reference to Video
+        - MiniMax H3 参考生视频
       security:
         - bearerAuth: []
       requestBody:
@@ -26,7 +26,7 @@ paths:
           application/json:
             schema:
               type: object
-              title: MiniMax H3 Reference to Video
+              title: MiniMax H3 参考生视频
               properties:
                 model:
                   type: string

@@ -512,7 +512,7 @@
                         "group": "Seedance 2.0",
                         "pages": [
                           {
-                            "group": "Seedance 2.0 Pro",
+                            "group": "Seedance 2.0 标准版",
                             "pages": [
                               "zh-CN/seedance/2-0-text-to-video",
                               "zh-CN/seedance/2-0-image-to-video",
@@ -520,7 +520,7 @@
                             ]
                           },
                           {
-                            "group": "Seedance 2.0 Lite",
+                            "group": "Seedance 2.0 特价版",
                             "pages": [
                               "zh-CN/seedance/2-0-lite-text-to-video",
                               "zh-CN/seedance/2-0-lite-image-to-video",
@@ -536,7 +536,7 @@
                             ]
                           },
                           {
-                            "group": "Seedance 2.0 Fast Lite",
+                            "group": "Seedance 2.0 Fast 特价版",
                             "pages": [
                               "zh-CN/seedance/2-0-fast-lite-text-to-video",
                               "zh-CN/seedance/2-0-fast-lite-image-to-video",
@@ -552,7 +552,7 @@
                             ]
                           },
                           {
-                            "group": "Seedance 2.0 Mini Lite",
+                            "group": "Seedance 2.0 Mini 特价版",
                             "pages": [
                               "zh-CN/seedance/2-0-mini-lite-image-to-video",
                               "zh-CN/seedance/2-0-mini-lite-reference-to-video",

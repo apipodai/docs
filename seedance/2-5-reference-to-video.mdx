@@ -5,3 +5,18 @@ openapi: "api-reference/openapi/seedance--2-5-reference-to-video.yaml POST /v1/v
 ---
 
 <Warning title="Conditional validation">Provide at least one reference asset. The per-media limits are defined by the API schema.</Warning>
+
+## Asset and Scene Limits
+
+Seedance 2.5 reference-material mode is a full-capability route with a built-in asset library, no facial distortion, a 100% pass rate for real-person content, and long-term stability. Pricing is approximately 10% off the official price.
+
+- **Text prompt**: For Chinese, keep it under 500 characters; for English, under 1,000 words.
+- **Image input**: Supports jpeg, png, webp, bmp, tiff, gif, heic, and heif formats; each image under 30 MB; aspect ratio range (0.4, 2.5); width and height range (300px, 6000px).
+- **Image count**: No more than 30 images.
+- **Video input**: Each video 2–30 seconds; up to 10 reference videos; total video duration must not exceed 30 seconds.
+- **Audio input**: Each clip 2–30 seconds; up to 10 reference audio clips; total audio duration must not exceed 30 seconds.
+- **Audio input restriction**: Audio cannot be provided on its own; at least one reference image or reference video is required.
+
+<Note>
+Note: When video input is enabled, the unit price is lower because the billing formula differs: without video = unit price × output duration; with video = unit price × (input duration + output duration).
+</Note>

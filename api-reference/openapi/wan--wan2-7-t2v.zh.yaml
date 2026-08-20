@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: WAN 2.7 Text to Video API
+  title: WAN 2.7 文生视频 API
   version: 1.0.0
   description: Wan 2.7 文生视频是阿里 Wan Video模型的独立任务模式，直接根据文本提示词生成视频，不要求源媒体。在 APIPod
     中，公开模型 ID 为 wan2.7-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
@@ -15,7 +15,7 @@ paths:
         中，公开模型 ID 为 wan2.7-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
       operationId: create-wan-wan2-7-t2v
       tags:
-        - WAN 2.7 Text to Video
+        - WAN 2.7 文生视频
       security:
         - bearerAuth: []
       requestBody:
@@ -24,7 +24,7 @@ paths:
           application/json:
             schema:
               type: object
-              title: WAN 2.7 Text to Video
+              title: WAN 2.7 文生视频
               properties:
                 model:
                   type: string

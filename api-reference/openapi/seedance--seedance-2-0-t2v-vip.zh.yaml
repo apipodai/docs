@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Seedance 2.0 Text to Video VIP API
+  title: Seedance 2.0 文生视频 VIP API
   version: 1.0.0
   description: Seedance 2.0 T2V VIP 是 APIPod 为 Seedance 2.0
     提供的完整能力文生视频路由，面向提示词驱动、同步音频和已配置标准质量通道的生成任务。在 APIPod 中，公开模型 ID 为
@@ -17,7 +17,7 @@ paths:
         seedance-2.0-t2v-vip，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
       operationId: create-seedance-seedance-2-0-t2v-vip
       tags:
-        - Seedance 2.0 Text to Video VIP
+        - Seedance 2.0 文生视频 VIP
       security:
         - bearerAuth: []
       requestBody:
@@ -26,7 +26,7 @@ paths:
           application/json:
             schema:
               type: object
-              title: Seedance 2.0 Text to Video VIP
+              title: Seedance 2.0 文生视频 VIP
               properties:
                 model:
                   type: string

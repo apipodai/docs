@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Seedance 2.0 Mini Lite Image to Video API
+  title: Seedance 2.0 Mini 特价版 图生视频 API
   version: 1.0.0
   description: >-
     Seedance 2.0 Mini Lite 特价版轻量路由，以必填首帧图片生成视频，并在公开 schema 允许时使用可选尾帧。Seedance
@@ -20,7 +20,7 @@ paths:
         该模型为特价版满血路由：真人素材在提交生成前会经素材服务统一送审，请求中直接传入公开 URL 即可。
       operationId: create-seedance-2-0-mini-lite-image-to-video
       tags:
-        - Seedance 2.0 Mini Lite Image to Video
+        - Seedance 2.0 Mini 特价版 图生视频
       security:
         - bearerAuth: []
       requestBody:
@@ -29,7 +29,7 @@ paths:
           application/json:
             schema:
               type: object
-              title: Seedance 2.0 Mini Lite Image to Video
+              title: Seedance 2.0 Mini 特价版 图生视频
               properties:
                 model:
                   type: string

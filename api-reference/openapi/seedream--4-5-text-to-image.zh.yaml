@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Seedream V4.5 Text to Image API
+  title: Seedream V4.5 文生图 API
   version: 1.0.0
   description: Seedream 4.5 是字节跳动的文生图模型，重点提升提示词遵循、画面构图、视觉风格和文字渲染能力。在 APIPod 中，公开模型
     ID 为 seedream-v4.5，支持文生图；接受文本输入，并通过异步图片任务返回结果。
@@ -15,7 +15,7 @@ paths:
         ID 为 seedream-v4.5，支持文生图；接受文本输入，并通过异步图片任务返回结果。
       operationId: create-seedream-4-5-text-to-image
       tags:
-        - Seedream V4.5 Text to Image
+        - Seedream V4.5 文生图
       security:
         - bearerAuth: []
       requestBody:

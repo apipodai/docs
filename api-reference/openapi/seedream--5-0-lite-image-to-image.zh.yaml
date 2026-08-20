@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Seedream 5.0 Lite Image to Image API
+  title: Seedream 5.0 Lite 图生图 API
   version: 1.0.0
   description: Seedream 5.0 Lite Edit 是 APIPod 在 Seedream 5
     系列中开放的效率型图片编辑路由，用于参考图引导和保持主体一致性的图像修改。在 APIPod 中，公开模型 ID 为
@@ -17,7 +17,7 @@ paths:
         seedream-5.0-lite-edit，支持图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。
       operationId: create-seedream-5-0-lite-image-to-image
       tags:
-        - Seedream 5.0 Lite Image to Image
+        - Seedream 5.0 Lite 图生图
       security:
         - bearerAuth: []
       requestBody:

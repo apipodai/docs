@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: MiniMax H3 Text to Video API
+  title: MiniMax H3 文生视频 API
   version: 1.0.0
   description: MiniMax H3 T2V 是 MiniMax H3 的纯文生视频模式；APIPod 为该公开 ID 开放 768P、原生 2K
     输出和 4 至 15 秒视频生成。在 APIPod 中，公开模型 ID 为
@@ -17,7 +17,7 @@ paths:
         minimax-h3-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
       operationId: create-minimax-h3-minimax-h3-t2v
       tags:
-        - MiniMax H3 Text to Video
+        - MiniMax H3 文生视频
       security:
         - bearerAuth: []
       requestBody:

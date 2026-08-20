@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Gemini Omni Reference to Video API
+  title: Gemini Omni 参考生视频 API
   version: 1.0.0
   description: Gemini Omni R2V 是 APIPod 为已配置 Gemini Omni 通道提供的参考生视频路由模式，支持使用 1 至 5
     张参考图引导主体和视觉一致性。在 APIPod 中，公开模型 ID 为
@@ -17,7 +17,7 @@ paths:
         gemini-omni-r2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。
       operationId: create-gemini-omni-gemini-omni-r2v
       tags:
-        - Gemini Omni Reference to Video
+        - Gemini Omni 参考生视频
       security:
         - bearerAuth: []
       requestBody:

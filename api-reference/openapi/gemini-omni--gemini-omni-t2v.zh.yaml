@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Gemini Omni Text to Video API
+  title: Gemini Omni 文生视频 API
   version: 1.0.0
   description: Gemini Omni T2V 是 APIPod 为已配置 Gemini Omni
     通道提供的文生视频路由模式，仅使用文本指令生成视频，不要求参考素材。在 APIPod 中，公开模型 ID 为
@@ -17,7 +17,7 @@ paths:
         gemini-omni-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
       operationId: create-gemini-omni-gemini-omni-t2v
       tags:
-        - Gemini Omni Text to Video
+        - Gemini Omni 文生视频
       security:
         - bearerAuth: []
       requestBody:
@@ -26,7 +26,7 @@ paths:
           application/json:
             schema:
               type: object
-              title: Gemini Omni Text to Video
+              title: Gemini Omni 文生视频
               properties:
                 model:
                   type: string

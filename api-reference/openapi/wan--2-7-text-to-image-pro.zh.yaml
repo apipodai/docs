@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: WAN 2.7 Text to Image Pro API
+  title: WAN 2.7 文生图 Pro API
   version: 1.0.0
   description: Wan 2.7 Image Pro 是 APIPod Wan 2.7 图片系列中的高分辨率文生图路由，提供 4K
     输出档位，适合细节丰富或大尺寸素材。在 APIPod 中，公开模型 ID 为
@@ -17,7 +17,7 @@ paths:
         wan2.7-image-pro，支持文生图；接受文本输入，并通过异步图片任务返回结果。
       operationId: create-wan-2-7-text-to-image-pro
       tags:
-        - WAN 2.7 Text to Image Pro
+        - WAN 2.7 文生图 Pro
       security:
         - bearerAuth: []
       requestBody:

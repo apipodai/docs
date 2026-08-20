@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Seedance 2.0 Fast Lite Text to Video API
+  title: Seedance 2.0 Fast 特价版 文生视频 API
   version: 1.0.0
   description: >-
     Seedance 2.0 Fast Lite 特价版极速路由，根据文本指令生成视频，不要求提供源媒体。Seedance
@@ -20,7 +20,7 @@ paths:
         即可。
       operationId: create-seedance-2-0-fast-lite-text-to-video
       tags:
-        - Seedance 2.0 Fast Lite Text to Video
+        - Seedance 2.0 Fast 特价版 文生视频
       security:
         - bearerAuth: []
       requestBody:
@@ -29,7 +29,7 @@ paths:
           application/json:
             schema:
               type: object
-              title: Seedance 2.0 Fast Lite Text to Video
+              title: Seedance 2.0 Fast 特价版 文生视频
               properties:
                 model:
                   type: string

@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: WAN 2.7 Image to Image Pro API
+  title: WAN 2.7 图生图 Pro API
   version: 1.0.0
   description: Wan 2.7 Image Pro Edit 是 APIPod Wan 2.7
     图片系列中的质量优先编辑路由，通过参考图片和文本指令完成高保真修改。在 APIPod 中，公开模型 ID 为
@@ -17,7 +17,7 @@ paths:
         wan2.7-image-pro-edit，支持图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。
       operationId: create-wan-2-7-image-to-image-pro
       tags:
-        - WAN 2.7 Image to Image Pro
+        - WAN 2.7 图生图 Pro
       security:
         - bearerAuth: []
       requestBody:
