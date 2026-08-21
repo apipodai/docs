@@ -257,14 +257,6 @@
                             ]
                           }
                         ]
-                      },
-                      {
-                        "group": "Assets",
-                        "icon": "image",
-                        "pages": [
-                          "seedance/asset-upload",
-                          "seedance/asset-detail"
-                        ]
                       }
                     ]
                   },
@@ -359,6 +351,14 @@
                 "pages": [
                   "query-image-task",
                   "query-video-task"
+                ]
+              },
+              {
+                "group": "Assets",
+                "icon": "image",
+                "pages": [
+                  "seedance/asset-upload",
+                  "seedance/asset-detail"
                 ]
               }
             ]
@@ -602,14 +602,6 @@
                             ]
                           }
                         ]
-                      },
-                      {
-                        "group": "素材库",
-                        "icon": "image",
-                        "pages": [
-                          "zh-CN/seedance/asset-upload",
-                          "zh-CN/seedance/asset-detail"
-                        ]
                       }
                     ]
                   },
@@ -704,6 +696,14 @@
                 "pages": [
                   "zh-CN/query-image-task",
                   "zh-CN/query-video-task"
+                ]
+              },
+              {
+                "group": "素材库",
+                "icon": "image",
+                "pages": [
+                  "zh-CN/seedance/asset-upload",
+                  "zh-CN/seedance/asset-detail"
                 ]
               }
             ]

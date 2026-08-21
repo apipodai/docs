@@ -133,7 +133,7 @@ for (const language of ["en", "zh"]) {
   if (JSON.stringify(tabs.map((item) => item.tab)) !== JSON.stringify(expectedTabs)) {
     errors.push(`Unexpected navigation tabs for ${language}`);
   }
-  const expectedApiGroups = language === "en" ? ["Images", "Videos", "Tasks"] : ["图片", "视频", "任务"];
+  const expectedApiGroups = language === "en" ? ["Images", "Videos", "Tasks", "Assets"] : ["图片", "视频", "任务", "素材库"];
   const apiGroups = tabs.find((item) => item.tab === expectedTabs[1])?.groups || [];
   if (JSON.stringify(apiGroups.map((item) => item.group)) !== JSON.stringify(expectedApiGroups)) {
     errors.push(`Unexpected API navigation groups for ${language}`);
