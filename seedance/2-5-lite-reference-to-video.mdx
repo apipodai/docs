@@ -1,0 +1,24 @@
+---
+title: "Seedance 2.5 Lite Reference to Video"
+description: "Seedance 2.5 Lite Reference to Video is the special-price full-capability route that uses reference images, video, or audio to guide subjects, motion, visual style, and sound. It accepts up to 30 reference images, 10 reference videos, and 10 reference audios, supports durations up to 30 seconds, and outputs 720p only. This is a full-capability variant where media URLs are reviewed by the asset service before the task is submitted, so plain public URLs still work in requests."
+openapi: "api-reference/openapi/seedance--2-5-lite-reference-to-video.yaml POST /v1/videos/generations"
+---
+
+<Warning title="Conditional validation">Provide at least one reference asset. The per-media limits are defined by the API schema.</Warning>
+
+## Asset and Scene Limits
+
+Seedance 2.5 Lite reference-material mode is a special-price full-capability route with a built-in asset library, no facial distortion, a 100% pass rate for real-person content, and long-term stability. It bills at special-offer rates and only successful tasks are charged — see the pricing page for live rates.
+
+- **Text prompt**: For Chinese, keep it under 500 characters; for English, under 1,000 words.
+- **Image input**: Supports jpeg, png, webp, bmp, tiff, gif, heic, and heif formats; each image under 30 MB; aspect ratio range (0.4, 2.5); width and height range (300px, 6000px).
+- **Image count**: No more than 30 images.
+- **Video input**: Each video 2–30 seconds; up to 10 reference videos; total video duration must not exceed 30 seconds.
+- **Audio input**: Each clip 2–30 seconds; up to 10 reference audio clips; total audio duration must not exceed 30 seconds.
+- **Audio input restriction**: Audio cannot be provided on its own; at least one reference image or reference video is required.
+- **Resolution**: 720p only — 480p, 1080p, 2K and 4K are not supported on this route.
+- **Duration**: 4–30 seconds per clip (default 4s).
+
+<Note>
+Note: When video input is enabled, the unit price is lower because the billing formula differs: without video = unit price × output duration; with video = unit price × (input duration + output duration).
+</Note>

@@ -80,9 +80,6 @@ paths:
                   description: Generate video resolution.
                   enum:
                     - 720p
-                    - 1080p
-                    - 2k
-                    - 4k
                   default: 720p
                 aspect_ratio:
                   type: string

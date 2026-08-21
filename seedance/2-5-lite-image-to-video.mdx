@@ -1,0 +1,21 @@
+---
+title: "Seedance 2.5 Lite Image to Video"
+description: "Seedance 2.5 Lite Image to Video is the special-price full-capability route that animates a first frame (and optionally a last frame) into video. It supports durations up to 30 seconds and outputs 720p only. This is a full-capability variant where media URLs are reviewed by the asset service before the task is submitted, so plain public URLs still work in requests."
+openapi: "api-reference/openapi/seedance--2-5-lite-image-to-video.yaml POST /v1/videos/generations"
+---
+
+## Key Parameters and Limits
+
+Seedance 2.5 Lite Image to Video animates a first frame (and optionally a last frame) into a 4–30 second clip with native audio. It shares the full 2.5 contract with the discount routes and differs only in billing tier and resolution: special-offer billing, 720p-only output.
+
+- **Image input**: First frame via `image_url` / `image_urls`, with an optional last frame — at most 2 images per request.
+- **Image formats**: jpeg, png, webp, bmp, tiff, gif, heic, and heif; each image under 30 MB; aspect ratio range (0.4, 2.5); width and height range (300px, 6000px).
+- **Text prompt**: For Chinese, keep it under 500 characters; for English, under 1,000 words.
+- **Duration**: 4–30 seconds per clip (default 4s).
+- **Resolution**: 720p only — 480p, 1080p, 2K and 4K are not supported on this route.
+- **Aspect ratio**: `adaptive` (default), `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9`.
+- **Native audio**: generated with the picture and on by default (`generate_audio=true`); disable per request if not needed.
+
+<Note>
+Special-offer billing applies and only successful tasks are charged — see the pricing page for live rates. This is a full-capability route: media URLs are reviewed by the asset service before the task is submitted, so plain public URLs still work in requests.
+</Note>

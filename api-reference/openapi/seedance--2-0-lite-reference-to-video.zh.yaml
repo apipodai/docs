@@ -82,9 +82,6 @@ paths:
                   title: Resolution
                   enum:
                     - 720p
-                    - 1080p
-                    - 2k
-                    - 4k
                   default: 720p
                   description: 输出分辨率档位。
                 aspect_ratio:

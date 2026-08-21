@@ -1,15 +1,16 @@
 openapi: 3.1.0
 info:
-  title: Seedance 2.0 Lite Text to Video API
+  title: Seedance 2.5 Lite Image to Video API
   version: 1.0.0
-  description: >-
-    Seedance 2.0 Lite is a special-price route that turns text instructions into
-    video without requiring source media. The Seedance family emphasizes prompt
-    following, coherent motion, multi-shot storytelling, and synchronized audio.
-    In APIPod, the public model ID is seedance-2.0-lite-t2v. Results are
-    returned through asynchronous video tasks. This is the special-price full-
-    capability variant: media URLs are reviewed by the asset service before the
-    task is submitted, so plain public URLs still work in requests.
+  description: Seedance 2.5 Lite Image to Video is the special-offer full-capability route
+    that animates a first frame (and optionally a last frame) into video. The
+    Seedance family emphasizes prompt following, coherent motion, multi-shot
+    storytelling, and synchronized audio. In APIPod, the public model ID is
+    seedance-2.5-lite-i2v. It supports image-to-video with durations up to 30
+    seconds, outputs 720p video, and returns results through
+    asynchronous video tasks. This is a full-capability variant where media URLs
+    are reviewed by the asset service before the task is submitted, so plain
+    public URLs still work in requests.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -17,18 +18,18 @@ paths:
   /v1/videos/generations:
     post:
       summary: Create Generation Task
-      description: >-
-        Seedance 2.0 Lite is a special-price route that turns text instructions
-        into video without requiring source media. The Seedance family
-        emphasizes prompt following, coherent motion, multi-shot storytelling,
-        and synchronized audio. In APIPod, the public model ID is
-        seedance-2.0-lite-t2v. Results are returned through asynchronous video
-        tasks. This is the special-price full-capability variant: media URLs are
-        reviewed by the asset service before the task is submitted, so plain
+      description: Seedance 2.5 Lite Image to Video is the special-offer full-capability route
+        that animates a first frame (and optionally a last frame) into video. The
+        Seedance family emphasizes prompt following, coherent motion, multi-shot
+        storytelling, and synchronized audio. In APIPod, the public model ID is
+        seedance-2.5-lite-i2v. It supports image-to-video with durations up to 30
+        seconds, outputs 720p video, and returns results through
+        asynchronous video tasks. This is a full-capability variant where media URLs
+        are reviewed by the asset service before the task is submitted, so plain
         public URLs still work in requests.
-      operationId: create-seedance-2-0-lite-text-to-video
+      operationId: create-seedance-2-5-lite-image-to-video
       tags:
-        - Seedance 2.0 Lite Text to Video
+        - Seedance 2.5 Lite Image to Video
       security:
         - bearerAuth: []
       requestBody:
@@ -37,21 +38,32 @@ paths:
           application/json:
             schema:
               type: object
-              title: Seedance 2.0 Lite Text to Video
+              title: Seedance 2.5 Lite Image to Video
               properties:
                 model:
                   type: string
                   title: Model ID
                   description: Public APIPod model ID.
-                  const: seedance-2.0-lite-t2v
+                  const: seedance-2.5-lite-i2v
                 prompt:
                   type: string
                   title: Prompt
-                  description: The generation videos prompt.
+                  description: The generation videos prompt. Up to 500 Chinese
+                    characters or 1000 English words.
                   maxLength: 1000
+                image_urls:
+                  type: array
+                  title: Image Urls
+                  description: First frame image URL; a second URL is used as the
+                    last frame constraint. 1 to 2 images are supported.
+                  minItems: 1
+                  maxItems: 2
+                  items:
+                    type: string
                 duration:
                   type: integer
                   title: Duration
+                  description: Video duration in seconds, from 4 to 30.
                   enum:
                     - 4
                     - 5
@@ -65,9 +77,24 @@ paths:
                     - 13
                     - 14
                     - 15
-                  default: 5
+                    - 16
+                    - 17
+                    - 18
+                    - 19
+                    - 20
+                    - 21
+                    - 22
+                    - 23
+                    - 24
+                    - 25
+                    - 26
+                    - 27
+                    - 28
+                    - 29
+                    - 30
+                  default: 4
                   minimum: 4
-                  maximum: 15
+                  maximum: 30
                 resolution:
                   type: string
                   title: Resolution
@@ -90,20 +117,6 @@ paths:
                     - 9:16
                     - 21:9
                   default: adaptive
-                web_search:
-                  type: boolean
-                  title: Web Search
-                  description: After enabling, the model will independently decide whether to
-                    search Internet content (such as products, weather, etc.)
-                    based on the user's prompt. This can improve the timeliness
-                    of generated videos but will also introduce a certain degree
-                    of latency.
-                  default: false
-                watermark:
-                  type: boolean
-                  title: Watermark
-                  description: Whether the generated video contains a watermark
-                  default: false
                 generate_audio:
                   type: boolean
                   title: Generate Audio
@@ -124,10 +137,12 @@ paths:
                 - model
                 - prompt
             example:
-              model: seedance-2.0-lite-t2v
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
-                motion, synchronized ambient sound.
-              duration: 5
+              model: seedance-2.5-lite-i2v
+              prompt: Animate this still into a cinematic product shot with natural
+                lighting.
+              image_urls:
+                - https://example.com/first-frame.png
+              duration: 4
               resolution: 720p
               aspect_ratio: adaptive
               generate_audio: true
@@ -170,9 +185,10 @@ paths:
               -H "Authorization: Bearer $APIPOD_API_KEY" \
               -H "Content-Type: application/json" \
               -d '{
-              "model": "seedance-2.0-lite-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "duration": 5,
+              "model": "seedance-2.5-lite-i2v",
+              "prompt": "Animate this still into a cinematic product shot with natural lighting.",
+              "image_urls": ["https://example.com/first-frame.png"],
+              "duration": 4,
               "resolution": "720p",
               "aspect_ratio": "adaptive",
               "generate_audio": true
@@ -186,9 +202,10 @@ paths:
 
 
             payload = {
-              "model": "seedance-2.0-lite-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "duration": 5,
+              "model": "seedance-2.5-lite-i2v",
+              "prompt": "Animate this still into a cinematic product shot with natural lighting.",
+              "image_urls": ["https://example.com/first-frame.png"],
+              "duration": 4,
               "resolution": "720p",
               "aspect_ratio": "adaptive",
               "generate_audio": True
@@ -226,9 +243,10 @@ paths:
             func main() {
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
-              "model": "seedance-2.0-lite-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "duration": 5,
+              "model": "seedance-2.5-lite-i2v",
+              "prompt": "Animate this still into a cinematic product shot with natural lighting.",
+              "image_urls": ["https://example.com/first-frame.png"],
+              "duration": 4,
               "resolution": "720p",
               "aspect_ratio": "adaptive",
               "generate_audio": true
@@ -268,9 +286,10 @@ paths:
 
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
-              "model": "seedance-2.0-lite-t2v",
-              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "duration": 5,
+              "model": "seedance-2.5-lite-i2v",
+              "prompt": "Animate this still into a cinematic product shot with natural lighting.",
+              "image_urls": ["https://example.com/first-frame.png"],
+              "duration": 4,
               "resolution": "720p",
               "aspect_ratio": "adaptive",
               "generate_audio": true
@@ -297,14 +316,15 @@ paths:
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(
-              {
-                "model": "seedance-2.0-lite-t2v",
-                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-                "duration": 5,
-                "resolution": "720p",
-                "aspect_ratio": "adaptive",
-                "generate_audio": true
-              }
+                {
+                  "model": "seedance-2.5-lite-i2v",
+                  "prompt": "Animate this still into a cinematic product shot with natural lighting.",
+                  "image_urls": ["https://example.com/first-frame.png"],
+                  "duration": 4,
+                  "resolution": "720p",
+                  "aspect_ratio": "adaptive",
+                  "generate_audio": true
+                }
               ),
             });
 

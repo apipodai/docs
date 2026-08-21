@@ -240,9 +240,22 @@
                       {
                         "group": "Seedance 2.5",
                         "pages": [
-                          "seedance/2-5-text-to-video",
-                          "seedance/2-5-image-to-video",
-                          "seedance/2-5-reference-to-video"
+                          {
+                            "group": "Seedance 2.5 Discount",
+                            "pages": [
+                              "seedance/2-5-text-to-video",
+                              "seedance/2-5-image-to-video",
+                              "seedance/2-5-reference-to-video"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 2.5 Lite",
+                            "pages": [
+                              "seedance/2-5-lite-text-to-video",
+                              "seedance/2-5-lite-image-to-video",
+                              "seedance/2-5-lite-reference-to-video"
+                            ]
+                          }
                         ]
                       }
                     ]
@@ -564,9 +577,22 @@
                       {
                         "group": "Seedance 2.5",
                         "pages": [
-                          "zh-CN/seedance/2-5-text-to-video",
-                          "zh-CN/seedance/2-5-image-to-video",
-                          "zh-CN/seedance/2-5-reference-to-video"
+                          {
+                            "group": "Seedance 2.5 折扣版",
+                            "pages": [
+                              "zh-CN/seedance/2-5-text-to-video",
+                              "zh-CN/seedance/2-5-image-to-video",
+                              "zh-CN/seedance/2-5-reference-to-video"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 2.5 特价版",
+                            "pages": [
+                              "zh-CN/seedance/2-5-lite-text-to-video",
+                              "zh-CN/seedance/2-5-lite-image-to-video",
+                              "zh-CN/seedance/2-5-lite-reference-to-video"
+                            ]
+                          }
                         ]
                       }
                     ]
