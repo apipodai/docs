@@ -257,6 +257,14 @@
                             ]
                           }
                         ]
+                      },
+                      {
+                        "group": "Assets",
+                        "icon": "image",
+                        "pages": [
+                          "seedance/asset-upload",
+                          "seedance/asset-detail"
+                        ]
                       }
                     ]
                   },
@@ -594,6 +602,14 @@
                             ]
                           }
                         ]
+                      },
+                      {
+                        "group": "素材库",
+                        "icon": "image",
+                        "pages": [
+                          "zh-CN/seedance/asset-upload",
+                          "zh-CN/seedance/asset-detail"
+                        ]
                       }
                     ]
                   },
@@ -801,6 +817,10 @@
       "api-reference/openapi/minimax-h3--minimax-h3-r2v.zh.yaml",
       "api-reference/openapi/query-video-task.yaml",
       "api-reference/openapi/query-video-task.zh.yaml",
+      "api-reference/openapi/seedance--asset-upload.yaml",
+      "api-reference/openapi/seedance--asset-upload.zh.yaml",
+      "api-reference/openapi/seedance--asset-detail.yaml",
+      "api-reference/openapi/seedance--asset-detail.zh.yaml",
       "api-reference/openapi/grok-imagine-1-5--grok-imagine-1-5-vip.yaml",
       "api-reference/openapi/grok-imagine-1-5--grok-imagine-1-5-vip.zh.yaml",
       "api-reference/openapi/kling--kling-2-6-motion-control.yaml",

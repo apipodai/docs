@@ -3,3 +3,7 @@ title: "Seedance 2.0 Fast 特价版 参考生视频"
 description: "Seedance 2.0 Fast Lite 参考生视频是特价极速版满血路由，基于图片、视频与音频参考素材生成视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。该模型为特价版满血路由：真人素材在提交生成前会经素材服务统一送审，请求中直接传入公开 URL 即可。"
 openapi: "api-reference/openapi/seedance--2-0-fast-lite-reference-to-video.zh.yaml POST /v1/videos/generations"
 ---
+
+## 素材库引用
+
+除可公开访问的 URL 外，`image_url` / `image_urls`、`video_urls`、`audio_url` / `audio_urls` 字段还支持素材库引用，格式为 `assetId://{assetId}`。素材 ID 为全平台共享标识：任何账号都可以引用已知的 `assetId`，不限提交者，与公开 URL 的共享语义一致。仅 `ACTIVE` 状态的素材可通过校验。素材的提交与状态查询见[素材提交](/zh-CN/seedance/asset-upload)与[素材详情](/zh-CN/seedance/asset-detail)。

@@ -1,0 +1,130 @@
+openapi: 3.1.0
+info:
+  title: Seedance 素材详情 API
+  version: 1.0.0
+  description: 根据 assetId 查询 Seedance 素材库素材详情。路径参数支持纯 ID 或
+    assetId://{assetId} 引用形式。只有 ACTIVE 状态的素材可以提交视频生成任务。
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/assets/{assetId}:
+    get:
+      summary: 查询素材详情
+      description: 根据 assetId 查询素材详情。查询时系统会同步上游素材状态，
+        因此轮询本接口可以拿到最新处理状态。
+      operationId: get-seedance-asset
+      tags:
+        - Seedance 素材
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: assetId
+          in: path
+          required: true
+          description: 素材 ID，支持纯 ID 或 assetId://{assetId} 引用形式。
+          schema:
+            type: string
+          example: asset-20260722164336-p4mms
+      responses:
+        "200":
+          description: 素材详情
+          content:
+            application/json:
+              schema:
+                type: object
+                title: 素材详情响应
+                description: 素材详情的标准响应信封
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP 状态码。
+                    const: 200
+                  message:
+                    type: string
+                    description: 响应消息。
+                    const: success
+                  data:
+                    type: object
+                    title: 素材
+                    properties:
+                      assetId:
+                        type: string
+                        description: 上游素材 ID，用于 assetId://{assetId} 引用。
+                      assetType:
+                        type: string
+                        description: 素材类型。
+                        enum:
+                          - Image
+                          - Video
+                          - Audio
+                      url:
+                        type: string
+                        description: 原始素材 URL。
+                      status:
+                        type: string
+                        description: 素材状态。只有 ACTIVE 状态的素材可以提交视频生成任务。
+                        enum:
+                          - NONE
+                          - UPLOADING
+                          - PROCESSING
+                          - ACTIVE
+                          - FAILED
+                          - EXPIRED
+                          - DELETED
+                      errorMessage:
+                        type:
+                          - string
+                          - "null"
+                        description: 素材处理失败时的错误信息；无错误时为 null。
+                      name:
+                        type: string
+                        description: 素材名称。
+                    required:
+                      - assetId
+                      - assetType
+                      - url
+                      - status
+                      - errorMessage
+                      - name
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  assetId: asset-20260722164336-p4mms
+                  assetType: Image
+                  url: https://example.com/person.png
+                  status: ACTIVE
+                  name: 真人参考图
+                  errorMessage: null
+        "404":
+          description: 素材不存在，或素材归属其他账号。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+              example:
+                code: 404
+                message: asset not found
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/assets/asset-20260722164336-p4mms \
+            -H "Authorization: Bearer $APIPOD_API_KEY"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 在 Authorization 请求头中使用 APIPod API key 作为 Bearer token。

@@ -22,3 +22,7 @@ Seedance 2.5 Lite reference-material mode is a special-price full-capability rou
 <Note>
 Note: When video input is enabled, the unit price is lower because the billing formula differs: without video = unit price × output duration; with video = unit price × (input duration + output duration).
 </Note>
+
+## Asset library references
+
+Besides publicly accessible URLs, the `image_url` / `image_urls`, `video_urls`, and `audio_url` / `audio_urls` fields also accept asset library references in the form `assetId://{assetId}`. Asset IDs are shared across the platform: any account may reference a known `assetId`, regardless of who submitted it — the same sharing semantics as a public URL. Only `ACTIVE` assets pass validation. Submit and track assets via [asset upload](/seedance/asset-upload) and [asset detail](/seedance/asset-detail).

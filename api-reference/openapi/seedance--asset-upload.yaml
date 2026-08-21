@@ -1,0 +1,174 @@
+openapi: 3.1.0
+info:
+  title: Seedance Asset Upload API
+  version: 1.0.0
+  description: Submit an image, video, or audio asset to the Seedance asset
+    library and receive an assetId. Reference the asset in Seedance 2.0/2.5 series video
+    generation requests as assetId://{assetId} — image_url, image_urls,
+    video_urls, audio_url, and audio_urls all accept the reference. Asset IDs
+    are shared across the platform: any account may reference a known assetId,
+    regardless of who submitted it. The asset enters an upstream processing
+    flow; poll the asset detail endpoint until the status becomes ACTIVE.
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/assets:
+    post:
+      summary: Upload Asset
+      description: Submit an image, video, or audio asset and return an assetId.
+        Use assetId://{assetId} to reference the asset in Seedance 2.0/2.5
+        series video generation requests (image_url, image_urls, video_urls, audio_url,
+        audio_urls all accept the reference). Asset IDs are shared across the
+        platform: any account may reference a known assetId, regardless of who
+        submitted it. Only ACTIVE assets pass validation.
+      operationId: create-seedance-asset
+      tags:
+        - Seedance assets
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Seedance Asset Upload
+              properties:
+                assetType:
+                  type: string
+                  title: Asset type
+                  description: Media type of the asset. Case-insensitive.
+                  enum:
+                    - Image
+                    - Video
+                    - Audio
+                  example: Image
+                url:
+                  type: string
+                  title: Asset URL
+                  description: >-
+                    Original asset URL that the server can access. Base64 input
+                    is not supported.
+                  example: https://example.com/person.png
+                name:
+                  type: string
+                  title: Asset name
+                  description: Optional display name. Truncated automatically
+                    beyond 50 Unicode characters.
+                  example: Person reference
+              required:
+                - assetType
+                - url
+            example:
+              assetType: Image
+              url: https://example.com/person.png
+              name: Person reference
+      responses:
+        "200":
+          description: Asset accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Asset Upload Response
+                description: Standard response envelope for asset submission
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP status code.
+                    const: 200
+                  message:
+                    type: string
+                    description: Response message.
+                    const: success
+                  data:
+                    type: object
+                    title: Asset
+                    properties:
+                      assetId:
+                        type: string
+                        description: Upstream asset ID used in assetId://{assetId} references.
+                      assetType:
+                        type: string
+                        description: Normalized asset type.
+                        enum:
+                          - Image
+                          - Video
+                          - Audio
+                      url:
+                        type: string
+                        description: Original asset URL.
+                      status:
+                        type: string
+                        description: Asset status. Usually PROCESSING right after submission.
+                        enum:
+                          - NONE
+                          - UPLOADING
+                          - PROCESSING
+                          - ACTIVE
+                          - FAILED
+                          - EXPIRED
+                          - DELETED
+                      errorMessage:
+                        type:
+                          - string
+                          - "null"
+                        description: Error message when asset processing fails; null otherwise.
+                      name:
+                        type: string
+                        description: Asset name.
+                    required:
+                      - assetId
+                      - assetType
+                      - url
+                      - status
+                      - errorMessage
+                      - name
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  assetId: asset-20260722164336-p4mms
+                  assetType: Image
+                  url: https://example.com/person.png
+                  status: PROCESSING
+                  name: Person reference
+                  errorMessage: null
+        "400":
+          description: Invalid request, for example an unsupported assetType or a non-http(s) URL.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+              example:
+                code: 400
+                message: invalid assetType: must be one of Image, Video, Audio
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/assets \
+            -H "Authorization: Bearer $APIPOD_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{
+            "assetType": "Image",
+            "url": "https://example.com/person.png",
+            "name": "Person reference"
+            }'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

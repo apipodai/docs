@@ -1,0 +1,167 @@
+openapi: 3.1.0
+info:
+  title: Seedance 素材提交 API
+  version: 1.0.0
+  description: 提交图片、视频或音频素材到 Seedance 素材库，返回 assetId。
+    Seedance 2.0/2.5 系列视频生成请求中通过 assetId://{assetId} 引用素材——image_url、image_urls、
+    video_urls、audio_url、audio_urls 均支持该引用形式。素材 ID 为全平台共享
+    标识：任何账号都可以引用已知的 assetId，不限提交者。素材提交后会进入上游
+    处理流程，请轮询素材详情接口直到状态变为 ACTIVE。
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/assets:
+    post:
+      summary: 提交素材
+      description: 提交图片、视频或音频素材，返回 assetId。Seedance 2.0/2.5 系列视频生成接口中的
+        image_url、image_urls、video_urls、audio_url、audio_urls 均可使用
+        assetId://{assetId} 引用素材。素材 ID 为全平台共享标识，任何账号都可以
+        引用，不限提交者；仅 ACTIVE 状态的素材可通过校验。
+      operationId: create-seedance-asset
+      tags:
+        - Seedance 素材
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Seedance 素材提交
+              properties:
+                assetType:
+                  type: string
+                  title: 素材类型
+                  description: 素材媒体类型，大小写不敏感。
+                  enum:
+                    - Image
+                    - Video
+                    - Audio
+                  example: Image
+                url:
+                  type: string
+                  title: 素材 URL
+                  description: 调用方原始素材 URL，需可被服务端访问；当前不支持 base64 入参。
+                  example: https://example.com/person.png
+                name:
+                  type: string
+                  title: 素材名称
+                  description: 可选的展示名称，超过 50 个 Unicode 字符会自动截断。
+                  example: 真人参考图
+              required:
+                - assetType
+                - url
+            example:
+              assetType: Image
+              url: https://example.com/person.png
+              name: 真人参考图
+      responses:
+        "200":
+          description: 素材已受理
+          content:
+            application/json:
+              schema:
+                type: object
+                title: 素材提交响应
+                description: 素材提交的标准响应信封
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP 状态码。
+                    const: 200
+                  message:
+                    type: string
+                    description: 响应消息。
+                    const: success
+                  data:
+                    type: object
+                    title: 素材
+                    properties:
+                      assetId:
+                        type: string
+                        description: 上游素材 ID，用于 assetId://{assetId} 引用。
+                      assetType:
+                        type: string
+                        description: 归一化后的素材类型。
+                        enum:
+                          - Image
+                          - Video
+                          - Audio
+                      url:
+                        type: string
+                        description: 原始素材 URL。
+                      status:
+                        type: string
+                        description: 素材状态，提交后通常为 PROCESSING。
+                        enum:
+                          - NONE
+                          - UPLOADING
+                          - PROCESSING
+                          - ACTIVE
+                          - FAILED
+                          - EXPIRED
+                          - DELETED
+                      errorMessage:
+                        type:
+                          - string
+                          - "null"
+                        description: 素材处理失败时的错误信息；无错误时为 null。
+                      name:
+                        type: string
+                        description: 素材名称。
+                    required:
+                      - assetId
+                      - assetType
+                      - url
+                      - status
+                      - errorMessage
+                      - name
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  assetId: asset-20260722164336-p4mms
+                  assetType: Image
+                  url: https://example.com/person.png
+                  status: PROCESSING
+                  name: 真人参考图
+                  errorMessage: null
+        "400":
+          description: 请求参数非法，例如 assetType 不支持或 url 非 http(s) 地址。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+              example:
+                code: 400
+                message: invalid assetType: must be one of Image, Video, Audio
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/assets \
+            -H "Authorization: Bearer $APIPOD_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{
+            "assetType": "Image",
+            "url": "https://example.com/person.png",
+            "name": "真人参考图"
+            }'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 在 Authorization 请求头中使用 APIPod API key 作为 Bearer token。

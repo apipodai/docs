@@ -1,0 +1,21 @@
+---
+title: "Seedance 素材提交"
+description: "提交图片、视频或音频素材到 Seedance 素材库，通过 assetId://{assetId} 在视频生成中复用。"
+openapi: "api-reference/openapi/seedance--asset-upload.zh.yaml POST /v1/assets"
+---
+
+素材提交后会保存在你的 APIPod 账号下（素材的查询与删除仅限本人提交的素材）。在 Seedance 2.0/2.5 系列视频生成请求中通过 `assetId://{assetId}` 引用素材——`image_url` / `image_urls`、`video_urls`、`audio_url` / `audio_urls` 字段均支持引用图片、视频、音频三类素材。
+
+素材 ID 为全平台共享标识：任何账号都可以在生成请求中引用已知的 `assetId`，不限提交者，与公开 URL 的共享语义一致。其他视频模型不支持 `assetId://` 引用。只有 `ACTIVE` 状态的素材可以通过校验。
+
+## 素材状态说明
+
+| `status` | 含义 | 建议动作 |
+| --- | --- | --- |
+| `NONE` | 素材记录已创建，但尚未开始处理。 | 查询素材详情，当前不可提交任务。 |
+| `UPLOADING` | 素材正在上传。 | 查询素材详情，当前不可提交任务。 |
+| `PROCESSING` | 素材已提交，正在处理中。 | 轮询素材详情直到 `ACTIVE`。 |
+| `ACTIVE` | 素材已处理完成且可用。 | 只有此状态可以提交视频生成任务。 |
+| `FAILED` | 素材处理失败。 | 查看 `errorMessage`，处理后重新提交素材。 |
+| `EXPIRED` | 素材已过期。 | 继续查询素材详情并等待重新处理，必要时重新提交素材。 |
+| `DELETED` | 素材已被删除或已失效。 | 重新提交素材并等待状态变为 `ACTIVE`。 |

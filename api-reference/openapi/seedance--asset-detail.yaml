@@ -1,0 +1,132 @@
+openapi: 3.1.0
+info:
+  title: Seedance Asset Detail API
+  version: 1.0.0
+  description: Query the detail of a Seedance asset library asset by assetId.
+    The path parameter accepts a bare asset ID or the assetId://{assetId}
+    reference form. Only ACTIVE assets can be used in video generation tasks.
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/assets/{assetId}:
+    get:
+      summary: Get Asset Detail
+      description: Query asset detail by assetId. The status is synced with the
+        upstream asset library on read, so polling this endpoint reflects the
+        latest processing state.
+      operationId: get-seedance-asset
+      tags:
+        - Seedance assets
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: assetId
+          in: path
+          required: true
+          description: Asset ID. Accepts a bare ID or the assetId://{assetId} reference form.
+          schema:
+            type: string
+          example: asset-20260722164336-p4mms
+      responses:
+        "200":
+          description: Asset detail
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Asset Detail Response
+                description: Standard response envelope for asset detail
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP status code.
+                    const: 200
+                  message:
+                    type: string
+                    description: Response message.
+                    const: success
+                  data:
+                    type: object
+                    title: Asset
+                    properties:
+                      assetId:
+                        type: string
+                        description: Upstream asset ID used in assetId://{assetId} references.
+                      assetType:
+                        type: string
+                        description: Asset type.
+                        enum:
+                          - Image
+                          - Video
+                          - Audio
+                      url:
+                        type: string
+                        description: Original asset URL.
+                      status:
+                        type: string
+                        description: Asset status. Only ACTIVE assets can be submitted to video generation.
+                        enum:
+                          - NONE
+                          - UPLOADING
+                          - PROCESSING
+                          - ACTIVE
+                          - FAILED
+                          - EXPIRED
+                          - DELETED
+                      errorMessage:
+                        type:
+                          - string
+                          - "null"
+                        description: Error message when asset processing fails; null otherwise.
+                      name:
+                        type: string
+                        description: Asset name.
+                    required:
+                      - assetId
+                      - assetType
+                      - url
+                      - status
+                      - errorMessage
+                      - name
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  assetId: asset-20260722164336-p4mms
+                  assetType: Image
+                  url: https://example.com/person.png
+                  status: ACTIVE
+                  name: Person reference
+                  errorMessage: null
+        "404":
+          description: Asset not found, or the asset belongs to another account.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+              example:
+                code: 404
+                message: asset not found
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/assets/asset-20260722164336-p4mms \
+            -H "Authorization: Bearer $APIPOD_API_KEY"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

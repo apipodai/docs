@@ -3,3 +3,7 @@ title: "Seedance 2.0 Mini Image to Video"
 description: "Seedance 2.0 Mini Image to Video is a efficiency-oriented route for scaled workloads that animates a required first-frame image and can use an optional last..."
 openapi: "api-reference/openapi/seedance--2-0-mini-image-to-video.yaml POST /v1/videos/generations"
 ---
+
+## Asset library references
+
+Besides publicly accessible URLs, the `image_url` / `image_urls`, `video_urls`, and `audio_url` / `audio_urls` fields also accept asset library references in the form `assetId://{assetId}`. Asset IDs are shared across the platform: any account may reference a known `assetId`, regardless of who submitted it — the same sharing semantics as a public URL. Only `ACTIVE` assets pass validation. Submit and track assets via [asset upload](/seedance/asset-upload) and [asset detail](/seedance/asset-detail).

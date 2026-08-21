@@ -19,3 +19,7 @@ Seedance 2.5 Lite Image to Video animates a first frame (and optionally a last f
 <Note>
 Special-offer billing applies and only successful tasks are charged — see the pricing page for live rates. This is a full-capability route: media URLs are reviewed by the asset service before the task is submitted, so plain public URLs still work in requests.
 </Note>
+
+## Asset library references
+
+Besides publicly accessible URLs, the `image_url` / `image_urls`, `video_urls`, and `audio_url` / `audio_urls` fields also accept asset library references in the form `assetId://{assetId}`. Asset IDs are shared across the platform: any account may reference a known `assetId`, regardless of who submitted it — the same sharing semantics as a public URL. Only `ACTIVE` assets pass validation. Submit and track assets via [asset upload](/seedance/asset-upload) and [asset detail](/seedance/asset-detail).

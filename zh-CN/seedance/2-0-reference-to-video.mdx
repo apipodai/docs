@@ -20,3 +20,7 @@ Seedance 2.0 参考素材模式，支持 9 张参考图片、3 个参考视频�
 <Note>
 🔸注意🔸：带视频输入的单价更低，因其计算方式不同：无视频 = 单价 × 输出量；带视频 = 单价 ×（输入量 + 输出量）。
 </Note>
+
+## 素材库引用
+
+除可公开访问的 URL 外，`image_url` / `image_urls`、`video_urls`、`audio_url` / `audio_urls` 字段还支持素材库引用，格式为 `assetId://{assetId}`。素材 ID 为全平台共享标识：任何账号都可以引用已知的 `assetId`，不限提交者，与公开 URL 的共享语义一致。仅 `ACTIVE` 状态的素材可通过校验。素材的提交与状态查询见[素材提交](/zh-CN/seedance/asset-upload)与[素材详情](/zh-CN/seedance/asset-detail)。

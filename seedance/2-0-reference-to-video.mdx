@@ -20,3 +20,7 @@ Seedance 2.0 reference-material mode supports 9 reference images, 3 reference vi
 <Note>
 Note: Video input has a lower unit price because the billing formula differs: without video = unit price × output volume; with video = unit price × (input volume + output volume).
 </Note>
+
+## Asset library references
+
+Besides publicly accessible URLs, the `image_url` / `image_urls`, `video_urls`, and `audio_url` / `audio_urls` fields also accept asset library references in the form `assetId://{assetId}`. Asset IDs are shared across the platform: any account may reference a known `assetId`, regardless of who submitted it — the same sharing semantics as a public URL. Only `ACTIVE` assets pass validation. Submit and track assets via [asset upload](/seedance/asset-upload) and [asset detail](/seedance/asset-detail).
