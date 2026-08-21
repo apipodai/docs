@@ -2,8 +2,9 @@ openapi: 3.1.0
 info:
   title: Seedance Asset Upload API
   version: 1.0.0
-  description: Submit an image, video, or audio asset to the Seedance asset
-    library and receive an assetId. Reference the asset in Seedance 2.0/2.5 series video
+  description: >-
+    Submit an image, video, or audio asset to the Seedance asset library and
+    receive an assetId. Reference the asset in Seedance 2.0/2.5 series video
     generation requests as assetId://{assetId} — image_url, image_urls,
     video_urls, audio_url, and audio_urls all accept the reference. Asset IDs
     are shared across the platform: any account may reference a known assetId,
@@ -16,9 +17,10 @@ paths:
   /v1/assets:
     post:
       summary: Upload Asset
-      description: Submit an image, video, or audio asset and return an assetId.
-        Use assetId://{assetId} to reference the asset in Seedance 2.0/2.5
-        series video generation requests (image_url, image_urls, video_urls, audio_url,
+      description: >-
+        Submit an image, video, or audio asset and return an assetId. Use
+        assetId://{assetId} to reference the asset in Seedance 2.0/2.5 series
+        video generation requests (image_url, image_urls, video_urls, audio_url,
         audio_urls all accept the reference). Asset IDs are shared across the
         platform: any account may reference a known assetId, regardless of who
         submitted it. Only ACTIVE assets pass validation.
@@ -152,7 +154,7 @@ paths:
                     type: string
               example:
                 code: 400
-                message: invalid assetType: must be one of Image, Video, Audio
+                message: "invalid assetType: must be one of Image, Video, Audio"
       x-codeSamples:
         - lang: Shell
           label: cURL

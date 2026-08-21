@@ -9,7 +9,7 @@ info:
     处理流程，请轮询素材详情接口直到状态变为 ACTIVE。
 servers:
   - url: https://api.apipod.ai
-    description: Production
+    description: 生产环境
 paths:
   /v1/assets:
     post:
@@ -145,7 +145,7 @@ paths:
                     type: string
               example:
                 code: 400
-                message: invalid assetType: must be one of Image, Video, Audio
+                message: "invalid assetType: must be one of Image, Video, Audio"
       x-codeSamples:
         - lang: Shell
           label: cURL

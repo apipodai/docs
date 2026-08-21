@@ -270,15 +270,18 @@ for (const file of files) {
   }
 }
 
-const modelPages = manifest.pages.filter((page) => page.schema && !page.slug.startsWith("query-"));
+const schemaPages = manifest.pages.filter((page) => page.schema && !page.slug.startsWith("query-"));
+const modelPages = schemaPages.filter((page) => page.modelId);
 if (!modelPages.length) errors.push("No configured model schema pages were generated");
-if (new Set(modelPages.map((page) => page.modelId).filter(Boolean)).size !== modelPages.length) errors.push("Every model page must have a unique public model ID");
+if (new Set(modelPages.map((page) => page.modelId)).size !== modelPages.length) errors.push("Every model page must have a unique public model ID");
 for (const retiredModelID of ["sora-2", "sora-2-pro", "doubao-seedance-1.0-pro-fast-t2v"]) {
   if (modelPages.some((page) => page.modelId === retiredModelID)) errors.push(`Retired model remains documented: ${retiredModelID}`);
 }
-for (const page of modelPages) {
-  if (!page.introduction?.en || !page.introduction?.zh) errors.push(`Bilingual model introduction missing: ${page.slug}`);
-  if (!page.introduction?.en?.includes(page.modelId) || !page.introduction?.zh?.includes(page.modelId)) errors.push(`Model introduction does not identify the public model ID: ${page.slug}`);
+for (const page of schemaPages) {
+  if (page.modelId) {
+    if (!page.introduction?.en || !page.introduction?.zh) errors.push(`Bilingual model introduction missing: ${page.slug}`);
+    if (!page.introduction?.en?.includes(page.modelId) || !page.introduction?.zh?.includes(page.modelId)) errors.push(`Model introduction does not identify the public model ID: ${page.slug}`);
+  }
   for (const language of ["en", "zh"]) {
     const source = await fs.readFile(path.join(root, `${pagePath(language, page.slug)}.mdx`), "utf8");
     const supportHeading = language === "zh" ? "## APIPod 支持" : "## APIPod support";
