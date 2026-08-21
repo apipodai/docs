@@ -79,11 +79,6 @@ paths:
                     - 9:16
                     - 21:9
                   default: adaptive
-                web_search:
-                  type: boolean
-                  title: Web Search
-                  description: 在通道支持时允许检索实时信息。
-                  default: false
                 watermark:
                   type: boolean
                   title: Watermark
@@ -94,11 +89,6 @@ paths:
                   title: Generate Audio
                   description: 为视频生成同步音频。
                   default: true
-                return_last_frame:
-                  type: boolean
-                  title: Retrun Last Frame
-                  description: 返回生成视频的尾帧，用于续作工作流。
-                  default: false
               required:
                 - model
                 - prompt
