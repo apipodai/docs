@@ -1,8 +1,17 @@
 ---
 title: "Seedance 2.0 Image to Video"
-description: "Seedance 2.0 Image to Video is a standard route that animates a required first-frame image and can use an optional last frame where the public schema allows it."
+description: "Seedance 2.0 Image to Video is a standard route that animates a required first-frame image and can use an optional last frame where the public schema allows it. Set real_person=true when the materials contain real people so they are submitted to asset review; the default false passes material URLs through without review."
 openapi: "api-reference/openapi/seedance--2-0-image-to-video.yaml POST /v1/videos/generations"
 ---
+
+## Real-person review (real_person)
+
+When a request carries reference materials, the boolean `real_person` field declares whether the materials contain real people (human faces):
+
+- `real_person: true`: materials are submitted to the asset review service first, and the task is created with `assetId://{assetId}` references; the task waits during review and fails if review rejects the materials.
+- `real_person: false` (default): review is skipped and material URLs are passed through to task creation as-is.
+
+Set it to `true` only when the materials actually contain real people to avoid unnecessary review latency; keep the default for landscapes, products, and other face-free materials.
 
 ## Asset library references
 

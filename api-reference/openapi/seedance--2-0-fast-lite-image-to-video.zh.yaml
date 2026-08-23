@@ -3,9 +3,7 @@ info:
   title: Seedance 2.0 Fast 特价版 图生视频 API
   version: 1.0.0
   description: >-
-    Seedance 2.0 Fast Lite 特价版极速路由，以必填首帧图片生成视频，并在公开 schema 允许时使用可选尾帧。Seedance
-    系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-fast-
-    lite-i2v，通过异步视频任务返回结果。 该模型为特价版满血路由：真人素材在提交生成前会经素材服务统一送审，请求中直接传入公开 URL 即可。
+    Seedance 2.0 Fast Lite 特价版极速路由，以必填首帧图片生成视频，并在公开 schema 允许时使用可选尾帧。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-fast- lite-i2v，通过异步视频任务返回结果。 该模型为特价版满血路由：素材确认含真人时设置 real_person=true，真人素材在提交生成前会经素材服务送审；默认 real_person=false 直接透传原始 URL、不送审，请求中直接传入公开 URL 即可。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -14,10 +12,7 @@ paths:
     post:
       summary: 创建生成任务
       description: >-
-        Seedance 2.0 Fast Lite 特价版极速路由，以必填首帧图片生成视频，并在公开 schema
-        允许时使用可选尾帧。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为
-        seedance-2.0-fast-lite-i2v，通过异步视频任务返回结果。
-        该模型为特价版满血路由：真人素材在提交生成前会经素材服务统一送审，请求中直接传入公开 URL 即可。
+        Seedance 2.0 Fast Lite 特价版极速路由，以必填首帧图片生成视频，并在公开 schema 允许时使用可选尾帧。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-fast-lite-i2v，通过异步视频任务返回结果。 该模型为特价版满血路由：素材确认含真人时设置 real_person=true，真人素材在提交生成前会经素材服务送审；默认 real_person=false 直接透传原始 URL、不送审，请求中直接传入公开 URL 即可。
       operationId: create-seedance-2-0-fast-lite-image-to-video
       tags:
         - Seedance 2.0 Fast 特价版 图生视频
@@ -94,14 +89,18 @@ paths:
                   title: Generate Audio
                   description: 为视频生成同步音频。
                   default: true
+                real_person:
+                  type: boolean
+                  title: Real Person
+                  description: 素材是否包含真人/人脸。设置为 true 时素材先经素材服务送审换取 assetId 引用再提交任务；默认 false 直接透传素材 URL，不送审。
+                  default: false
               required:
                 - model
                 - prompt
                 - image_urls
             example:
               model: seedance-2.0-fast-lite-i2v
-              prompt: Animate the subject with a slow camera push-in, natural motion, and soft
-                cinematic lighting.
+              prompt: Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.
               duration: 5
               image_urls:
                 - https://cdn.example.com/reference-1.jpg
@@ -280,8 +279,7 @@ paths:
         - lang: JavaScript
           label: JavaScript
           source: >-
-            const response = await
-            fetch("https://api.apipod.ai/v1/videos/generations", {
+            const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
               method: "POST",
               headers: {
                 Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
@@ -316,3 +314,4 @@ components:
       scheme: bearer
       bearerFormat: APIPod API key
       description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。
+

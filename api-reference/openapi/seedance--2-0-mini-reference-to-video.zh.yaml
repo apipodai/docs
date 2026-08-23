@@ -2,10 +2,7 @@ openapi: 3.1.0
 info:
   title: Seedance 2.0 Mini 参考生视频 API
   version: 1.0.0
-  description: Seedance 2.0 Mini
-    参考生视频是面向规模化调用的效率型路由，使用参考图片、视频或音频引导主体、动作、视觉风格和声音。Seedance
-    系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为
-    seedance-2.0-mini-r2v，支持图生视频、视频到视频；接受文本、音频、图片、视频输入，并通过异步视频任务返回结果。
+  description: Seedance 2.0 Mini 参考生视频是面向规模化调用的效率型路由，使用参考图片、视频或音频引导主体、动作、视觉风格和声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-mini-r2v，支持图生视频、视频到视频；接受文本、音频、图片、视频输入，并通过异步视频任务返回结果。 素材确认含真人时设置 real_person=true，素材会先经素材服务送审换 assetId 引用再提交任务；默认 real_person=false 直接透传原始 URL、不送审。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -13,10 +10,7 @@ paths:
   /v1/videos/generations:
     post:
       summary: 创建生成任务
-      description: Seedance 2.0 Mini
-        参考生视频是面向规模化调用的效率型路由，使用参考图片、视频或音频引导主体、动作、视觉风格和声音。Seedance
-        系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为
-        seedance-2.0-mini-r2v，支持图生视频、视频到视频；接受文本、音频、图片、视频输入，并通过异步视频任务返回结果。
+      description: Seedance 2.0 Mini 参考生视频是面向规模化调用的效率型路由，使用参考图片、视频或音频引导主体、动作、视觉风格和声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-mini-r2v，支持图生视频、视频到视频；接受文本、音频、图片、视频输入，并通过异步视频任务返回结果。 素材确认含真人时设置 real_person=true，素材会先经素材服务送审换 assetId 引用再提交任务；默认 real_person=false 直接透传原始 URL、不送审。
       operationId: create-seedance-2-0-mini-reference-to-video
       tags:
         - Seedance 2.0 Mini 参考生视频
@@ -116,13 +110,17 @@ paths:
                   title: Return Last Frame
                   description: 返回生成视频的尾帧，用于续作工作流。
                   default: false
+                real_person:
+                  type: boolean
+                  title: Real Person
+                  description: 素材是否包含真人/人脸。设置为 true 时素材先经素材服务送审换取 assetId 引用再提交任务；默认 false 直接透传素材 URL，不送审。
+                  default: false
               required:
                 - model
                 - prompt
             example:
               model: seedance-2.0-mini-r2v
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
-                motion, synchronized ambient sound.
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.
               image_urls:
                 - https://cdn.example.com/reference-1.jpg
               video_urls:
@@ -329,8 +327,7 @@ paths:
         - lang: JavaScript
           label: JavaScript
           source: >-
-            const response = await
-            fetch("https://api.apipod.ai/v1/videos/generations", {
+            const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
               method: "POST",
               headers: {
                 Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
@@ -371,3 +368,4 @@ components:
       scheme: bearer
       bearerFormat: APIPod API key
       description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。
+

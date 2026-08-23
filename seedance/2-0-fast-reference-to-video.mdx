@@ -1,6 +1,6 @@
 ---
 title: "Seedance 2.0 Fast Reference to Video"
-description: "Seedance 2.0 Fast Reference to Video is a lower-latency route that uses reference images, video, or audio to guide subjects, motion, visual style, and sound."
+description: "Seedance 2.0 Fast Reference to Video is a lower-latency route that uses reference images, video, or audio to guide subjects, motion, visual style, and sound. Set real_person=true when the materials contain real people so they are submitted to asset review; the default false passes material URLs through without review."
 openapi: "api-reference/openapi/seedance--2-0-fast-reference-to-video.yaml POST /v1/videos/generations"
 ---
 
@@ -8,7 +8,7 @@ openapi: "api-reference/openapi/seedance--2-0-fast-reference-to-video.yaml POST 
 
 ## Asset and Scene Limits
 
-Seedance 2.0 Fast reference-material mode supports 9 reference images, 3 reference videos, and 3 audio clips. It is a full-capability route that supports real-person content and faces, with automatic moderation.
+Seedance 2.0 Fast reference-material mode supports 9 reference images, 3 reference videos, and 3 audio clips. It is a full-capability route that supports real-person content and faces; set real_person=true when the materials contain real people so they are submitted to asset review, while the default false passes materials through without review.
 
 - **Text prompt**: For Chinese, keep it under 500 characters; for English, under 1,000 words.
 - **Image input**: Supports jpeg, png, webp, bmp, tiff, gif, heic, and heif; each image under 30 MB; aspect ratio (0.4, 2.5); width and height (300px, 6000px).
@@ -20,6 +20,15 @@ Seedance 2.0 Fast reference-material mode supports 9 reference images, 3 referen
 <Note>
 Note: Video input has a lower unit price because the billing formula differs: without video = unit price × output volume; with video = unit price × (input volume + output volume).
 </Note>
+
+## Real-person review (real_person)
+
+When a request carries reference materials, the boolean `real_person` field declares whether the materials contain real people (human faces):
+
+- `real_person: true`: materials are submitted to the asset review service first, and the task is created with `assetId://{assetId}` references; the task waits during review and fails if review rejects the materials.
+- `real_person: false` (default): review is skipped and material URLs are passed through to task creation as-is.
+
+Set it to `true` only when the materials actually contain real people to avoid unnecessary review latency; keep the default for landscapes, products, and other face-free materials.
 
 ## Asset library references
 

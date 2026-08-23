@@ -140,6 +140,15 @@
               "component": "textarea"
             }
           },
+          "real_person": {
+            "type": "boolean",
+            "title": "Real Person",
+            "description": "Whether the reference materials contain real people. Set to true to submit materials to the asset review service before task creation; the default false passes material URLs through without review.",
+            "default": "false",
+            "x-apipod-ui": {
+              "component": "switch"
+            }
+          },
           "resolution": {
             "type": "string",
             "title": "Resolution",

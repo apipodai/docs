@@ -1,6 +1,6 @@
 ---
 title: "Seedance 2.0 Fast 参考生视频"
-description: "Seedance 2.0 Fast 参考生视频是低延迟路由，使用参考图片、视频或音频引导主体、动作、视觉风格和声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。"
+description: "Seedance 2.0 Fast 参考生视频是低延迟路由，使用参考图片、视频或音频引导主体、动作、视觉风格和声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。 素材确认含真人时设置 real_person=true 送审换 assetId，默认 false 直接透传、不送审。"
 openapi: "api-reference/openapi/seedance--2-0-fast-reference-to-video.zh.yaml POST /v1/videos/generations"
 ---
 
@@ -8,7 +8,7 @@ openapi: "api-reference/openapi/seedance--2-0-fast-reference-to-video.zh.yaml PO
 
 ## 素材与场景限制
 
-Seedance 2.0 Fast 参考素材模式，支持 9 张参考图片、3 个参考视频、3 个音频素材。满血版本，支持真人、人脸，自动审核！
+Seedance 2.0 Fast 参考素材模式，支持 9 张参考图片、3 个参考视频、3 个音频素材。满血版本，支持真人、人脸；素材确认含真人时设置 real_person=true 送审，默认 false 直接透传、不送审。
 
 - **文本提示词**：中文建议不超过 500 字，英文建议不超过 1000 词。
 - **图片输入**：支持 jpeg、png、webp、bmp、tiff、gif、heic、heif；单张图片小于 30 MB，宽高比 (0.4, 2.5)，宽高长度 (300px, 6000px)。
@@ -20,6 +20,15 @@ Seedance 2.0 Fast 参考素材模式，支持 9 张参考图片、3 个参考视
 <Note>
 🔸注意🔸：带视频输入的单价更低，因其计算方式不同：无视频 = 单价 × 输出量；带视频 = 单价 ×（输入量 + 输出量）。
 </Note>
+
+## 真人素材送审（real_person）
+
+请求携带参考素材时，通过 `real_person` 布尔字段声明素材是否包含真人/人脸：
+
+- `real_person: true`：素材先经素材服务送审，通过后以 `assetId://{assetId}` 引用提交任务；送审期间任务等待，审核拒绝时报错。
+- `real_person: false`（默认）：跳过送审，素材 URL 直接透传提交任务。
+
+仅在素材确实包含真人/人脸时设置为 `true`，避免无谓的送审等待；纯风景、商品等无真人素材保持默认即可。
 
 ## 素材库引用
 

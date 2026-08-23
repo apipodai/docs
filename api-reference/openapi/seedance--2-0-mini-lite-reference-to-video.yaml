@@ -3,13 +3,7 @@ info:
   title: Seedance 2.0 Mini Lite Reference to Video API
   version: 1.0.0
   description: >-
-    Seedance 2.0 Mini Lite is a special-price mini route that generates video
-    from image, video, and audio references. The Seedance family emphasizes
-    prompt following, coherent motion, multi-shot storytelling, and synchronized
-    audio. In APIPod, the public model ID is seedance-2.0-mini-lite-r2v. Results
-    are returned through asynchronous video tasks. This is the special-price
-    full-capability variant: media URLs are reviewed by the asset service before
-    the task is submitted, so plain public URLs still work in requests.
+    Seedance 2.0 Mini Lite is a special-price mini route that generates video from image, video, and audio references. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-mini-lite-r2v. Results are returned through asynchronous video tasks. This is the special-price full-capability variant: media URLs are submitted to the asset review service before the task is created only when real_person=true (materials confirmed to contain real people); the default real_person=false passes media URLs through as-is, so plain public URLs always work in requests.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -18,14 +12,7 @@ paths:
     post:
       summary: Create Generation Task
       description: >-
-        Seedance 2.0 Mini Lite is a special-price mini route that generates
-        video from image, video, and audio references. The Seedance family
-        emphasizes prompt following, coherent motion, multi-shot storytelling,
-        and synchronized audio. In APIPod, the public model ID is
-        seedance-2.0-mini-lite-r2v. Results are returned through asynchronous
-        video tasks. This is the special-price full-capability variant: media
-        URLs are reviewed by the asset service before the task is submitted, so
-        plain public URLs still work in requests.
+        Seedance 2.0 Mini Lite is a special-price mini route that generates video from image, video, and audio references. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-mini-lite-r2v. Results are returned through asynchronous video tasks. This is the special-price full-capability variant: media URLs are submitted to the asset review service before the task is created only when real_person=true (materials confirmed to contain real people); the default real_person=false passes media URLs through as-is, so plain public URLs always work in requests.
       operationId: create-seedance-2-0-mini-lite-reference-to-video
       tags:
         - Seedance 2.0 Mini Lite Reference to Video
@@ -62,8 +49,7 @@ paths:
                 audio_urls:
                   type: array
                   title: Audio Urls
-                  description: Please note that audio files cannot be uploaded alone; at least one
-                    reference video or image must be included.
+                  description: Please note that audio files cannot be uploaded alone; at least one reference video or image must be included.
                   items:
                     type: string
                 duration:
@@ -110,16 +96,19 @@ paths:
                 generate_audio:
                   type: boolean
                   title: Generate Audio
-                  description: Controls whether the generated video contains audio synchronized
-                    with the visuals.
+                  description: Controls whether the generated video contains audio synchronized with the visuals.
                   default: true
+                real_person:
+                  type: boolean
+                  title: Real Person
+                  description: Whether the reference materials contain real people (human faces). Set to true to submit materials to the asset review service and replace them with assetId:// references before task creation; the default false passes material URLs through without review.
+                  default: false
               required:
                 - model
                 - prompt
             example:
               model: seedance-2.0-mini-lite-r2v
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
-                motion, synchronized ambient sound.
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.
               image_urls:
                 - https://cdn.example.com/reference-1.jpg
               video_urls:
@@ -324,8 +313,7 @@ paths:
         - lang: JavaScript
           label: JavaScript
           source: >-
-            const response = await
-            fetch("https://api.apipod.ai/v1/videos/generations", {
+            const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
               method: "POST",
               headers: {
                 Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
@@ -366,3 +354,4 @@ components:
       scheme: bearer
       bearerFormat: APIPod API key
       description: Use your APIPod API key as a Bearer token in the Authorization header.
+

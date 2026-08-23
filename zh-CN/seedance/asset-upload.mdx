@@ -4,7 +4,7 @@ description: "提交图片、视频或音频素材到 Seedance 素材库，通�
 openapi: "api-reference/openapi/seedance--asset-upload.zh.yaml POST /v1/assets"
 ---
 
-素材提交后会保存在你的 APIPod 账号下（素材的查询与删除仅限本人提交的素材）。在 Seedance 2.0/2.5 生成请求中直接以 URL 形式传入的素材，会在上游送审通过、任务受理后自动登记到你的素材库。在 Seedance 2.0/2.5 系列视频生成请求中通过 `assetId://{assetId}` 引用素材——`image_url` / `image_urls`、`video_urls`、`audio_url` / `audio_urls` 字段均支持引用图片、视频、音频三类素材。
+素材提交后会保存在你的 APIPod 账号下（素材的查询与删除仅限本人提交的素材）。在 Seedance 2.0/2.5 生成请求中直接以 URL 形式传入的素材默认不送审（real_person=false 时直接透传）；设置 real_person=true 时素材会在上游送审，送审通过、任务受理后自动登记到你的素材库。在 Seedance 2.0/2.5 系列视频生成请求中通过 `assetId://{assetId}` 引用素材——`image_url` / `image_urls`、`video_urls`、`audio_url` / `audio_urls` 字段均支持引用图片、视频、音频三类素材。
 
 素材 ID 为全平台共享标识：任何账号都可以在生成请求中引用已知的 `assetId`，不限提交者，与公开 URL 的共享语义一致。其他视频模型不支持 `assetId://` 引用。只有 `ACTIVE` 状态的素材可以通过校验。
 
