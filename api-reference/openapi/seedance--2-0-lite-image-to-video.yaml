@@ -34,7 +34,8 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  maxLength: 1000
+                  maxLength: 30000
+                  description: Generation or editing instructions, up to 30000 characters. It is recommended to keep the prompt to no more than 500 Chinese characters or 1,000 English words. Lengthy text will lead to scattered information, and the model may ignore details and only focus on key points, resulting in missing elements in the generated video.
                 image_urls:
                   type: array
                   title: Image Urls

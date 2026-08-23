@@ -2,9 +2,7 @@ openapi: 3.1.0
 info:
   title: Seedance 2.0 Fast 文生视频 API
   version: 1.0.0
-  description: Seedance 2.0 Fast 文生视频是低延迟路由，根据文本指令生成视频，不要求提供源媒体。Seedance
-    系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为
-    seedance-2.0-fast-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
+  description: Seedance 2.0 Fast 文生视频是低延迟路由，根据文本指令生成视频，不要求提供源媒体。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-fast-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -12,9 +10,7 @@ paths:
   /v1/videos/generations:
     post:
       summary: 创建生成任务
-      description: Seedance 2.0 Fast 文生视频是低延迟路由，根据文本指令生成视频，不要求提供源媒体。Seedance
-        系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为
-        seedance-2.0-fast-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
+      description: Seedance 2.0 Fast 文生视频是低延迟路由，根据文本指令生成视频，不要求提供源媒体。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-fast-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。
       operationId: create-seedance-2-0-fast-text-to-video
       tags:
         - Seedance 2.0 Fast 文生视频
@@ -36,7 +32,8 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  description: 生成或编辑指令。 最大字符串长度：1000。
+                  description: 生成或编辑指令，最长 30000 字符。建议提示词不超过 500 个汉字或 1000 个英文单词；过长的文本会导致信息分散，模型可能忽略细节、只关注重点，导致生成的视频缺少元素。
+                  maxLength: 30000
                 resolution:
                   type: string
                   title: Resolution
@@ -101,8 +98,7 @@ paths:
                 - prompt
             example:
               model: seedance-2.0-fast-t2v
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
-                motion, synchronized ambient sound.
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.
               resolution: 720p
               aspect_ratio: adaptive
               duration: 5
@@ -267,8 +263,7 @@ paths:
         - lang: JavaScript
           label: JavaScript
           source: >-
-            const response = await
-            fetch("https://api.apipod.ai/v1/videos/generations", {
+            const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
               method: "POST",
               headers: {
                 Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
@@ -300,3 +295,4 @@ components:
       scheme: bearer
       bearerFormat: APIPod API key
       description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。
+

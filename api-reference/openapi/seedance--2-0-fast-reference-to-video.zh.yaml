@@ -32,7 +32,8 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  description: 生成或编辑指令。 最大字符串长度：1000。
+                  description: 生成或编辑指令，最长 30000 字符。建议提示词不超过 500 个汉字或 1000 个英文单词；过长的文本会导致信息分散，模型可能忽略细节、只关注重点，导致生成的视频缺少元素。
+                  maxLength: 30000
                 duration:
                   type: integer
                   title: Duration

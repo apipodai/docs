@@ -100,9 +100,9 @@
           "prompt": {
             "type": "string",
             "title": "Prompt",
-            "description": "The generation videos prompt.",
+            "description": "Generation or editing instructions, up to 30000 characters. It is recommended to keep the prompt to no more than 500 Chinese characters or 1,000 English words. Lengthy text will lead to scattered information, and the model may ignore details and only focus on key points, resulting in missing elements in the generated video.",
             "default": "建筑模型炸开动画。玻璃幕墙做通透反光质感，石材外立面做哑光纹理，金属构件做细腻高光，极简深灰渐变背景，柔和顶光 + 侧光打亮材质细节。0-1 秒：慢推环绕全景，建筑整机实景展示，镜头顺时针缓慢环绕，展示玻璃幕墙反光、石材外立面、入口造型等细节；1-4 秒：建筑玻璃幕墙与石材外立面模块分区域向外悬浮分离，幕墙模块透明反光，分离处加微小白色粒子过渡，露出内部商铺 / 中庭 / 办公区功能空间，各外立面模块均匀散开定格；4-6 秒：建筑按功能分区（商业首层 / 办公层 / 中庭 / 屋顶花园）竖向 + 水平双向爆炸分离，各分区模块悬浮错开，清晰展示内部空间动线与功能布局，中庭挑空结构单独凸显；6-8 秒：建筑核心钢框架结构亮白色轮廓线强化，周边功能模块轻微虚化，同时室外广场、景观绿化、停车场等配套模块从建筑周边悬浮散开，所有模块最终呈扇形悬浮定格，镜头慢拉至全景，展示建筑实景材质、内部空间、核心结构、景观配套的完整关系，背景音为轻缓科技感 + 轻微环境音，画面右下角轻弹极简白色无衬线字幕「APIPod.ai」，无多余装饰。",
-            "maxLength": 1000,
+            "maxLength": 30000,
             "x-apipod-ui": {
               "component": "textarea"
             }
