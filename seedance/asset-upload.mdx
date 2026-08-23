@@ -4,7 +4,7 @@ description: "Submit an image, video, or audio asset to the Seedance asset libra
 openapi: "api-reference/openapi/seedance--asset-upload.yaml POST /v1/assets"
 ---
 
-Assets submitted here are stored in your APIPod account (querying and deleting assets is limited to the ones you submitted). Assets passed as plain URLs directly in a Seedance 2.0/2.5 generation request are passed through without review by default (real_person=false); set real_person=true and the assets are reviewed upstream and registered to your library automatically once the task is accepted. Reference them in Seedance 2.0/2.5 series video generation requests with `assetId://{assetId}` — the `image_url` / `image_urls`, `video_urls`, and `audio_url` / `audio_urls` fields all accept the reference form for image, video, and audio assets.
+Assets submitted here are stored in your APIPod account (querying and deleting assets is limited to the ones you submitted). Assets passed as plain URLs directly in a Seedance 2.0/2.5 generation request are reviewed upstream by default (real_person=true) and registered to your library automatically once the task is accepted; set real_person=false to pass them through without review when they are confirmed face-free. Reference them in Seedance 2.0/2.5 series video generation requests with `assetId://{assetId}` — the `image_url` / `image_urls`, `video_urls`, and `audio_url` / `audio_urls` fields all accept the reference form for image, video, and audio assets.
 
 Asset IDs are shared across the platform: any account may reference a known `assetId` in a generation request, regardless of who submitted it — the same sharing semantics as a public URL. Other video models do not accept `assetId://` references. Only `ACTIVE` assets pass validation.
 

@@ -3,7 +3,7 @@ info:
   title: Seedance 2.0 Lite Image to Video API
   version: 1.0.0
   description: >-
-    Seedance 2.0 Lite is a special-price route that animates a required first- frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-lite-i2v. Results are returned through asynchronous video tasks. This is the special-price full-capability variant: media URLs are submitted to the asset review service before the task is created only when real_person=true (materials confirmed to contain real people); the default real_person=false passes media URLs through as-is, so plain public URLs always work in requests.
+    Seedance 2.0 Lite is a special-price route that animates a required first- frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-lite-i2v. Results are returned through asynchronous video tasks. This is the special-price full-capability variant: media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -12,7 +12,7 @@ paths:
     post:
       summary: Create Generation Task
       description: >-
-        Seedance 2.0 Lite is a special-price route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-lite-i2v. Results are returned through asynchronous video tasks. This is the special-price full-capability variant: media URLs are submitted to the asset review service before the task is created only when real_person=true (materials confirmed to contain real people); the default real_person=false passes media URLs through as-is, so plain public URLs always work in requests.
+        Seedance 2.0 Lite is a special-price route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-lite-i2v. Results are returned through asynchronous video tasks. This is the special-price full-capability variant: media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests.
       operationId: create-seedance-2-0-lite-image-to-video
       tags:
         - Seedance 2.0 Lite Image to Video
@@ -94,8 +94,8 @@ paths:
                 real_person:
                   type: boolean
                   title: Real Person
-                  description: Whether the reference materials contain real people (human faces). Set to true to submit materials to the asset review service and replace them with assetId:// references before task creation; the default false passes material URLs through without review.
-                  default: false
+                  description: "Whether the reference materials contain real people (human faces). Defaults to true: materials are submitted to the asset review service and replaced with assetId:// references before task creation. Set to false only when the materials are confirmed face-free to skip review and pass material URLs through as-is."
+                  default: true
               required:
                 - model
                 - prompt

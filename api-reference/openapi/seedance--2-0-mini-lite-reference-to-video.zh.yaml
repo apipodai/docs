@@ -3,7 +3,7 @@ info:
   title: Seedance 2.0 Mini 特价版 参考生视频 API
   version: 1.0.0
   description: >-
-    Seedance 2.0 Mini Lite 特价版轻量路由，基于图片、视频与音频参考素材生成视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-mini- lite-r2v，通过异步视频任务返回结果。 该模型为特价版满血路由：素材确认含真人时设置 real_person=true，真人素材在提交生成前会经素材服务送审；默认 real_person=false 直接透传原始 URL、不送审，请求中直接传入公开 URL 即可。
+    Seedance 2.0 Mini Lite 特价版轻量路由，基于图片、视频与音频参考素材生成视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-mini- lite-r2v，通过异步视频任务返回结果。 该模型为特价版满血路由：真人素材默认（real_person=true）在提交生成前会经素材服务送审；确认素材不含真人时可设置 real_person=false 跳过送审、直接透传，请求中直接传入公开 URL 即可。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -12,7 +12,7 @@ paths:
     post:
       summary: 创建生成任务
       description: >-
-        Seedance 2.0 Mini Lite 特价版轻量路由，基于图片、视频与音频参考素材生成视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-mini- lite-r2v，通过异步视频任务返回结果。 该模型为特价版满血路由：素材确认含真人时设置 real_person=true，真人素材在提交生成前会经素材服务送审；默认 real_person=false 直接透传原始 URL、不送审，请求中直接传入公开 URL 即可。
+        Seedance 2.0 Mini Lite 特价版轻量路由，基于图片、视频与音频参考素材生成视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.0-mini- lite-r2v，通过异步视频任务返回结果。 该模型为特价版满血路由：真人素材默认（real_person=true）在提交生成前会经素材服务送审；确认素材不含真人时可设置 real_person=false 跳过送审、直接透传，请求中直接传入公开 URL 即可。
       operationId: create-seedance-2-0-mini-lite-reference-to-video
       tags:
         - Seedance 2.0 Mini 特价版 参考生视频
@@ -105,8 +105,8 @@ paths:
                 real_person:
                   type: boolean
                   title: Real Person
-                  description: 素材是否包含真人/人脸。设置为 true 时素材先经素材服务送审换取 assetId 引用再提交任务；默认 false 直接透传素材 URL，不送审。
-                  default: false
+                  description: 素材是否包含真人/人脸。默认 true：素材先经素材服务送审换取 assetId 引用再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传素材 URL。
+                  default: true
               required:
                 - model
                 - prompt

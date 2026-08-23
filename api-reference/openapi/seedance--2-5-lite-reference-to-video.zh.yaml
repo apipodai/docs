@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Seedance 2.5 特价版参考生视频 API
   version: 1.0.0
-  description: Seedance 2.5 特价版参考视频生成是官方满血特价路由，使用参考图、参考视频或参考音频约束主体、运动、视觉风格与声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5-lite-r2v，支持最多 30 张参考图、10 个参考视频和 10 段参考音频，时长最长 30 秒，输出 720p，并通过异步视频任务返回结果。该系列为满血版：素材确认含真人时设置 real_person=true，媒体 URL 会先经素材服务送审再提交任务；默认 real_person=false 直接透传原始 URL、不送审，公网 URL 均可直接使用。
+  description: Seedance 2.5 特价版参考视频生成是官方满血特价路由，使用参考图、参考视频或参考音频约束主体、运动、视觉风格与声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5-lite-r2v，支持最多 30 张参考图、10 个参考视频和 10 段参考音频，时长最长 30 秒，输出 720p，并通过异步视频任务返回结果。该系列为满血版：媒体 URL 默认（real_person=true）会先经素材服务送审再提交任务；确认素材不含真人时可设置 real_person=false 跳过送审、直接透传，公网 URL 均可直接使用。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -10,7 +10,7 @@ paths:
   /v1/videos/generations:
     post:
       summary: 创建生成任务
-      description: Seedance 2.5 特价版参考视频生成是官方满血特价路由，使用参考图、参考视频或参考音频约束主体、运动、视觉风格与声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5-lite-r2v，支持最多 30 张参考图、10 个参考视频和 10 段参考音频，时长最长 30 秒，输出 720p，并通过异步视频任务返回结果。该系列为满血版：素材确认含真人时设置 real_person=true，媒体 URL 会先经素材服务送审再提交任务；默认 real_person=false 直接透传原始 URL、不送审，公网 URL 均可直接使用。
+      description: Seedance 2.5 特价版参考视频生成是官方满血特价路由，使用参考图、参考视频或参考音频约束主体、运动、视觉风格与声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5-lite-r2v，支持最多 30 张参考图、10 个参考视频和 10 段参考音频，时长最长 30 秒，输出 720p，并通过异步视频任务返回结果。该系列为满血版：媒体 URL 默认（real_person=true）会先经素材服务送审再提交任务；确认素材不含真人时可设置 real_person=false 跳过送审、直接透传，公网 URL 均可直接使用。
       operationId: create-seedance-2-5-lite-reference-to-video
       tags:
         - Seedance 2.5 特价版参考生视频
@@ -116,8 +116,8 @@ paths:
                 real_person:
                   type: boolean
                   title: Real Person
-                  description: 素材是否包含真人/人脸。设置为 true 时素材先经素材服务送审换取 assetId 引用再提交任务；默认 false 直接透传素材 URL，不送审。
-                  default: false
+                  description: 素材是否包含真人/人脸。默认 true：素材先经素材服务送审换取 assetId 引用再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传素材 URL。
+                  default: true
               required:
                 - model
                 - prompt

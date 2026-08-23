@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Seedance 2.0 Mini Image to Video API
   version: 1.0.0
-  description: Seedance 2.0 Mini Image to Video is a efficiency-oriented route for scaled workloads that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-mini-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks. When the reference materials contain real people, set real_person=true so the materials are submitted to the asset review service before the task is created; the default real_person=false passes material URLs through as-is.
+  description: Seedance 2.0 Mini Image to Video is a efficiency-oriented route for scaled workloads that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-mini-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks. Media URLs are submitted to asset review before task creation by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass them through without review.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -10,7 +10,7 @@ paths:
   /v1/videos/generations:
     post:
       summary: Create Generation Task
-      description: Seedance 2.0 Mini Image to Video is a efficiency-oriented route for scaled workloads that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-mini-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks. When the reference materials contain real people, set real_person=true so the materials are submitted to the asset review service before the task is created; the default real_person=false passes material URLs through as-is.
+      description: Seedance 2.0 Mini Image to Video is a efficiency-oriented route for scaled workloads that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-mini-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks. Media URLs are submitted to asset review before task creation by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass them through without review.
       operationId: create-seedance-2-0-mini-image-to-video
       tags:
         - Seedance 2.0 Mini Image to Video
@@ -103,8 +103,8 @@ paths:
                 real_person:
                   type: boolean
                   title: Real Person
-                  description: Whether the reference materials contain real people (human faces). Set to true to submit materials to the asset review service and replace them with assetId:// references before task creation; the default false passes material URLs through without review.
-                  default: false
+                  description: "Whether the reference materials contain real people (human faces). Defaults to true: materials are submitted to the asset review service and replaced with assetId:// references before task creation. Set to false only when the materials are confirmed face-free to skip review and pass material URLs through as-is."
+                  default: true
               required:
                 - model
                 - prompt

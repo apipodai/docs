@@ -124,8 +124,8 @@
           "real_person": {
             "type": "boolean",
             "title": "Real Person",
-            "description": "Whether the reference materials contain real people. Set to true to submit materials to the asset review service before task creation; the default false passes material URLs through without review.",
-            "default": "false",
+            "description": "Whether the reference materials contain real people (human faces). Defaults to true: materials are submitted to the asset review service and replaced with assetId:// references before task creation. Set to false only when the materials are confirmed face-free to skip review and pass material URLs through as-is.",
+            "default": "true",
             "x-apipod-ui": {
               "component": "switch"
             }
