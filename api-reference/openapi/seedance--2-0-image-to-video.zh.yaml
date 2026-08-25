@@ -326,4 +326,3 @@ components:
       scheme: bearer
       bearerFormat: APIPod API key
       description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。
-

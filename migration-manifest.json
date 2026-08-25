@@ -80,7 +80,7 @@
     "/16809456d0",
     "/16809458d0"
   ],
-  "publicPageCount": 81,
+  "publicPageCount": 84,
   "schemaOnlyCount": 36,
   "schemaPaths": [
     "/14024404d0",
@@ -2485,6 +2485,99 @@
       "introduction": {
         "en": "Wan 3.0 Text to Video is a dedicated task mode in Alibaba's Wan video family that creates video directly from text prompts without source media. In APIPod, the public model ID is wan3.0-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
         "zh": "Wan 3.0 文生视频是阿里 Wan Video模型的独立任务模式，直接根据文本提示词生成视频，不要求源媒体。在 APIPod 中，公开模型 ID 为 wan3.0-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-prime-i2v",
+      "title": "WAN 3.0 Prime Image to Video",
+      "legacy": "/wan/wan3-0-prime-i2v",
+      "schema": true,
+      "modelId": "wan3.0-prime-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/wan3.0-prime-i2v",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "beta",
+        "displayName": {
+          "en": "WAN 3.0 Prime Image to Video",
+          "zh": "WAN 3.0 Prime 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Prime Image to Video is the high-speed tier of Alibaba's Wan 3.0 video family that animates a first-frame image and supports last-frame control where exposed, with significantly faster end-to-end generation. In APIPod, the public model ID is wan3.0-prime-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 Prime 图生视频是阿里 Wan 3.0 视频模型的高速版，将首帧图片生成视频，并在公开契约中支持尾帧控制，端到端生成速度显著提升。在 APIPod 中，公开模型 ID 为 wan3.0-prime-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-prime-r2v",
+      "title": "WAN 3.0 Prime 参考生视频",
+      "legacy": "/wan/wan3-0-prime-r2v",
+      "schema": true,
+      "modelId": "wan3.0-prime-r2v",
+      "classifications": [
+        "image_to_video",
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/wan3.0-prime-r2v",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "file"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "beta",
+        "displayName": {
+          "en": "WAN 3.0 Prime 参考生视频",
+          "zh": "WAN 3.0 Prime 参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Prime Reference to Video is the high-speed tier of Alibaba's Wan 3.0 video family that uses image, video, audio, file, or web references to guide generation, with significantly faster end-to-end generation. In APIPod, the public model ID is wan3.0-prime-r2v. It supports image-to-video and video-to-video, accepts text, image, audio, video and file inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 Prime 参考生视频是阿里 Wan 3.0 视频模型的高速版，使用图片、视频、音频、文件或网页参考素材引导生成，端到端生成速度显著提升。在 APIPod 中，公开模型 ID 为 wan3.0-prime-r2v，支持图生视频、视频到视频；接受文本、图片、音频、视频、文件输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-prime-t2v",
+      "title": "WAN 3.0 Prime Text to Video",
+      "legacy": "/wan/wan3-0-prime-t2v",
+      "schema": true,
+      "modelId": "wan3.0-prime-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/wan3.0-prime-t2v",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "beta",
+        "displayName": {
+          "en": "WAN 3.0 Prime Text to Video",
+          "zh": "WAN 3.0 Prime 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Prime Text to Video is the high-speed tier of Alibaba's Wan 3.0 video family that creates video directly from text prompts without source media, with significantly faster end-to-end generation. In APIPod, the public model ID is wan3.0-prime-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 Prime 文生视频是阿里 Wan 3.0 视频模型的高速版，直接根据文本提示词生成视频，不要求源媒体，端到端生成速度显著提升。在 APIPod 中，公开模型 ID 为 wan3.0-prime-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
       }
     }
   ]

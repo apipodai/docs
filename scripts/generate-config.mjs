@@ -110,6 +110,7 @@ const apiGroups = [
         groups: [
           { en: "Wan 2.7", zh: "Wan 2.7", slugs: ["wan/wan2-7-i2v", "wan/wan2-7-t2v", "wan/wan2-7-videoedit"] },
           { en: "Wan 3.0", zh: "Wan 3.0", slugs: ["wan/wan3-0-i2v", "wan/wan3-0-r2v", "wan/wan3-0-t2v"] },
+          { en: "Wan 3.0 Prime", zh: "Wan 3.0 Prime", slugs: ["wan/wan3-0-prime-i2v", "wan/wan3-0-prime-r2v", "wan/wan3-0-prime-t2v"] },
         ],
       },
       { en: "Kling Motion Control", zh: "Kling 动作控制", icon: "person-standing", prefix: "kling/" },

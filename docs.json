@@ -326,6 +326,14 @@
                           "wan/wan3-0-r2v",
                           "wan/wan3-0-t2v"
                         ]
+                      },
+                      {
+                        "group": "Wan 3.0 Prime",
+                        "pages": [
+                          "wan/wan3-0-prime-i2v",
+                          "wan/wan3-0-prime-r2v",
+                          "wan/wan3-0-prime-t2v"
+                        ]
                       }
                     ]
                   },
@@ -671,6 +679,14 @@
                           "zh-CN/wan/wan3-0-r2v",
                           "zh-CN/wan/wan3-0-t2v"
                         ]
+                      },
+                      {
+                        "group": "Wan 3.0 Prime",
+                        "pages": [
+                          "zh-CN/wan/wan3-0-prime-i2v",
+                          "zh-CN/wan/wan3-0-prime-r2v",
+                          "zh-CN/wan/wan3-0-prime-t2v"
+                        ]
                       }
                     ]
                   },
@@ -894,7 +910,13 @@
       "api-reference/openapi/wan--wan3-0-r2v.yaml",
       "api-reference/openapi/wan--wan3-0-r2v.zh.yaml",
       "api-reference/openapi/wan--wan3-0-t2v.yaml",
-      "api-reference/openapi/wan--wan3-0-t2v.zh.yaml"
+      "api-reference/openapi/wan--wan3-0-t2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-i2v.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-i2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-r2v.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-r2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-t2v.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-t2v.zh.yaml"
     ],
     "playground": {
       "display": "interactive",
@@ -1681,6 +1703,36 @@
     {
       "source": "/zh/wan/wan3-0-t2v",
       "destination": "/zh-CN/wan/wan3-0-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-prime-i2v",
+      "destination": "/wan/wan3-0-prime-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-prime-i2v",
+      "destination": "/zh-CN/wan/wan3-0-prime-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-prime-r2v",
+      "destination": "/wan/wan3-0-prime-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-prime-r2v",
+      "destination": "/zh-CN/wan/wan3-0-prime-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-prime-t2v",
+      "destination": "/wan/wan3-0-prime-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-prime-t2v",
+      "destination": "/zh-CN/wan/wan3-0-prime-t2v",
       "permanent": true
     },
     {
