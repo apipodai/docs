@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: WAN 3.0 参考生视频 API
+  title: WAN 3.0 Reference to Video API
   version: 1.0.0
   description: Wan 3.0 Reference to Video is a dedicated task mode in Alibaba's
     Wan video family that uses image, video, audio, file, or web references to
@@ -22,7 +22,7 @@ paths:
         tasks.
       operationId: create-wan-wan3-0-r2v
       tags:
-        - WAN 3.0 参考生视频
+        - WAN 3.0 Reference to Video
       security:
         - bearerAuth: []
       requestBody:
@@ -31,7 +31,7 @@ paths:
           application/json:
             schema:
               type: object
-              title: WAN 3.0 参考生视频
+              title: WAN 3.0 Reference to Video
               properties:
                 model:
                   type: string

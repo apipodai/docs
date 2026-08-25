@@ -2426,7 +2426,7 @@
     },
     {
       "slug": "wan/wan3-0-r2v",
-      "title": "WAN 3.0 参考生视频",
+      "title": "WAN 3.0 Reference to Video",
       "legacy": "/wan/wan3-0-r2v",
       "schema": true,
       "modelId": "wan3.0-r2v",
@@ -2519,7 +2519,7 @@
     },
     {
       "slug": "wan/wan3-0-prime-r2v",
-      "title": "WAN 3.0 Prime 参考生视频",
+      "title": "WAN 3.0 Prime Reference to Video",
       "legacy": "/wan/wan3-0-prime-r2v",
       "schema": true,
       "modelId": "wan3.0-prime-r2v",
@@ -2542,7 +2542,7 @@
         ],
         "lifecycle": "beta",
         "displayName": {
-          "en": "WAN 3.0 Prime 参考生视频",
+          "en": "WAN 3.0 Prime Reference to Video",
           "zh": "WAN 3.0 Prime 参考生视频"
         }
       },

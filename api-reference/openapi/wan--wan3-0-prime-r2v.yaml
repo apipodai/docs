@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: WAN 3.0 Prime 参考生视频 API
+  title: WAN 3.0 Prime Reference to Video API
   version: 1.0.0
   description: Wan 3.0 Prime Reference to Video is the high-speed tier of Alibaba's Wan 3.0 video family that uses image, video, audio, file, or web references to guide generation, with significantly faster end-to-end generation. In APIPod, the public model ID is wan3.0-prime-r2v. It supports
     image-to-video and video-to-video, accepts text, image, audio, video and
@@ -18,7 +18,7 @@ paths:
         tasks.
       operationId: create-wan-wan3-0-prime-r2v
       tags:
-        - WAN 3.0 Prime 参考生视频
+        - WAN 3.0 Prime Reference to Video
       security:
         - bearerAuth: []
       requestBody:
@@ -27,7 +27,7 @@ paths:
           application/json:
             schema:
               type: object
-              title: WAN 3.0 Prime 参考生视频
+              title: WAN 3.0 Prime Reference to Video
               properties:
                 model:
                   type: string

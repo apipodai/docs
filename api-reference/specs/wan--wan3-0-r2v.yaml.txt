@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.4",
   "info": {
-    "title": "WAN 3.0 参考生视频",
+    "title": "WAN 3.0 Reference to Video",
     "version": "1.0.0",
     "x-apipod-metadata": {
       "modelId": "wan3.0-r2v",
@@ -21,7 +21,7 @@
     "schemas": {
       "Input": {
         "type": "object",
-        "title": "WAN 3.0 参考生视频",
+        "title": "WAN 3.0 Reference to Video",
         "properties": {
           "aspect_ratio": {
             "type": "string",
