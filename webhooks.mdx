@@ -26,12 +26,17 @@ APIPod sends `Content-Type: application/json` and `User-Agent: APIPod-Callback/1
   "result": [
     "https://example.com/generated-image.png"
   ],
+  "usage": {
+    "completion_tokens": 123,
+    "total_tokens": 456,
+    "cost": 0.053
+  },
   "created_at": "2026-08-10T09:00:00Z",
   "completed_at": "2026-08-10T09:01:30Z"
 }
 ```
 
-A failed task uses the same envelope:
+A failed task uses the same envelope, without `usage`:
 
 ```json
 {
@@ -46,6 +51,19 @@ A failed task uses the same envelope:
 ```
 
 `error_code` is optional. Do not infer success from its absence; use `status`.
+
+## Usage and cost
+
+Completed callbacks include a `usage` object with the final amount charged for the task:
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `usage.cost` | number | Final amount charged for this task, in USD. This is the settled amount after any post-completion adjustment, matching the cost shown in the dashboard. |
+| `usage.prompt_tokens` | integer | Present only when the upstream provider reports token usage. |
+| `usage.completion_tokens` | integer | Present only when the upstream provider reports token usage. |
+| `usage.total_tokens` | integer | Present only when the upstream provider reports token usage. |
+
+`usage` appears only on `completed` callbacks. Failed tasks are refunded per the model's refund policy and carry no usage object.
 
 ## Delivery behavior
 

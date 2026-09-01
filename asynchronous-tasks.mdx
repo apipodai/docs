@@ -60,6 +60,10 @@ Status queries are scoped to the authenticated account. A task from another acco
 
 Image status responses can expose `error_code` and `error_message` in `data`. Video status responses expose the client-safe message as `error`. Webhooks use `error` and optional `error_code`. Always branch on `status` before reading result or error fields.
 
+## Usage and cost on completion
+
+Both status endpoints and completion webhooks attach a `usage` object when a task reaches `completed`, containing the final amount charged (`usage.cost`, in USD) plus token counts when the upstream provider reports them. It is absent for non-terminal and failed tasks, so record cost from the terminal response or callback.
+
 <CardGroup cols={2}>
   <Card title="Use webhooks" icon="webhook" href="/webhooks">
     Receive terminal task results without continuous polling.

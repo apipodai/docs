@@ -70,6 +70,24 @@ paths:
                       error_message:
                         type: string
                         description: 可安全返回给客户端的异步错误信息。
+                      usage:
+                        type: object
+                        description: 任务终态用量快照，仅在 status 为 completed 时返回。
+                        properties:
+                          prompt_tokens:
+                            type: integer
+                            description: 输入 token 数，仅在上游上报 token 用量时返回。
+                          completion_tokens:
+                            type: integer
+                            description: 输出 token 数，仅在上游上报 token 用量时返回。
+                          total_tokens:
+                            type: integer
+                            description: 总 token 数，仅在上游上报 token 用量时返回。
+                          cost:
+                            type: number
+                            description: 本任务最终实际扣费金额，单位美元。
+                        required:
+                          - cost
                     required:
                       - task_id
                       - status
@@ -88,6 +106,10 @@ paths:
                   result:
                     - https://cdn.example.com/generated.png
                   completed_at: 1786358400
+                  usage:
+                    completion_tokens: 123
+                    total_tokens: 456
+                    cost: 0.053
 components:
   securitySchemes:
     bearerAuth:
