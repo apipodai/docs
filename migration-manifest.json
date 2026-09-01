@@ -80,7 +80,7 @@
     "/16809456d0",
     "/16809458d0"
   ],
-  "publicPageCount": 84,
+  "publicPageCount": 85,
   "schemaOnlyCount": 36,
   "schemaPaths": [
     "/14024404d0",
@@ -287,6 +287,37 @@
         "zh": "Nano Banana 2 是 Google Gemini 图片系列的通用型生成与编辑模型，重点兼顾生成速度、指令理解、文字渲染和多张参考图下的主体一致性。在 APIPod 中，公开模型 ID 为 nano-banana-2，支持文生图、图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
       },
       "source": "localhost:8080/public/schemas/nano-banana-2"
+    },
+    {
+      "slug": "nano-banana/nano-banana-2-lite",
+      "title": "Nano Banana 2 Lite",
+      "legacy": "/nano-banana/nano-banana-2-lite",
+      "schema": true,
+      "modelId": "nano-banana-2-lite",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Nano Banana 2 Lite",
+          "zh": "Nano Banana 2 Lite"
+        }
+      },
+      "source": "localhost:8080/public/schemas/nano-banana-2-lite",
+      "introduction": {
+        "en": "Nano Banana 2 Lite is the ultra-fast, low-cost tier of Google's Nano Banana 2 image generation family. In APIPod, the public model ID is nano-banana-2-lite. It generates and edits images at 1K resolution only, supports the ten standard aspect ratios (banner ratios 1:4, 4:1, 1:8, 8:1 are exclusive to nano-banana-2), accepts text and up to 14 image inputs, and returns results through asynchronous image tasks.",
+        "zh": "Nano Banana 2 Lite 是 Google Nano Banana 2 图片生成系列的极速低价档位。在 APIPod 中，公开模型 ID 为 nano-banana-2-lite，仅支持 1K 分辨率与十种常规宽高比（1:4、4:1、1:8、8:1 横幅比例为 nano-banana-2 独占）；接受文本与最多 14 张参考图输入，并通过异步图片任务返回结果。"
+      }
     },
     {
       "slug": "nano-banana/nano-banana-pro",

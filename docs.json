@@ -69,6 +69,7 @@
                     "icon": "banana",
                     "pages": [
                       "nano-banana/nano-banana-2",
+                      "nano-banana/nano-banana-2-lite",
                       "nano-banana/nano-banana-pro"
                     ]
                   },
@@ -422,6 +423,7 @@
                     "icon": "banana",
                     "pages": [
                       "zh-CN/nano-banana/nano-banana-2",
+                      "zh-CN/nano-banana/nano-banana-2-lite",
                       "zh-CN/nano-banana/nano-banana-pro"
                     ]
                   },
@@ -759,6 +761,8 @@
       "api-reference/openapi/gpt-image-2--gpt-image-2-fast.zh.yaml",
       "api-reference/openapi/nano-banana--nano-banana-2.yaml",
       "api-reference/openapi/nano-banana--nano-banana-2.zh.yaml",
+      "api-reference/openapi/nano-banana--nano-banana-2-lite.yaml",
+      "api-reference/openapi/nano-banana--nano-banana-2-lite.zh.yaml",
       "api-reference/openapi/nano-banana--nano-banana-pro.yaml",
       "api-reference/openapi/nano-banana--nano-banana-pro.zh.yaml",
       "api-reference/openapi/seedream--4-5-text-to-image.yaml",

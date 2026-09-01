@@ -1,0 +1,286 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Nano Banana 2 Lite",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "nano-banana-2-lite",
+      "modelType": "image",
+      "provider": "google"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "Nano Banana 2 Lite",
+        "properties": {
+          "aspect_ratio": {
+            "type": "string",
+            "title": "Aspect Ratio",
+            "description": "the generated image's width and height aspect ratio.",
+            "enum": [
+              "1:1",
+              "2:3",
+              "3:2",
+              "3:4",
+              "4:3",
+              "4:5",
+              "5:4",
+              "9:16",
+              "16:9",
+              "21:9"
+            ],
+            "default": "1:1",
+            "x-apipod-ui": {
+              "component": "button-group",
+              "labels": {
+                "2": ",",
+                "3": ",,,",
+                "4": ",,,,,,,",
+                "5": ",,,,,,,,,,,,,,,",
+                "8": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "9": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "21": ",",
+                "21:": ",",
+                "2:": ",",
+                "3:": ",,,",
+                "4:": ",,,,,,,",
+                "5:": ",,,,,,,,,,,,,,,",
+                "8:": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "8L": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "9:": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+                "9:1": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"
+              }
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "title": "Input Images",
+            "x-apipod-ui": {
+              "component": "image-upload",
+              "maxCount": 14
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "Describe the content of the image to be generated.",
+            "default": "",
+            "maxLength": 3993,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "quality": {
+            "type": "string",
+            "title": "Quality",
+            "description": "Output image resolution.",
+            "enum": [
+              "1K"
+            ],
+            "default": "1K",
+            "x-apipod-ui": {
+              "component": "button-group",
+              "labels": {
+                "1": "[object Object]",
+                "2": "[object Object]",
+                "4": "[object Object]",
+                "1k": "[object Object]"
+              }
+            }
+          }
+        },
+        "required": [
+          "model",
+          "prompt"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_urls",
+          "aspect_ratio",
+          "quality"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "image"
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              },
+              "result": {
+                "type": "array",
+                "description": "generated image url list",
+                "items": {
+                  "type": "string",
+                  "description": "image url"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "task status",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/images/generations": {
+      "post": {
+        "summary": "image API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/images/status/{task_id}",
+          "polling": {
+            "interval": 2000,
+            "maxAttempts": 300,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/images/status/{task_id}": {
+      "get": {
+        "summary": "Nano Banana 2 Lite Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}
