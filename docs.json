@@ -361,14 +361,6 @@
                   "query-image-task",
                   "query-video-task"
                 ]
-              },
-              {
-                "group": "Assets",
-                "icon": "image",
-                "pages": [
-                  "seedance/asset-upload",
-                  "seedance/asset-detail"
-                ]
               }
             ]
           }
@@ -715,14 +707,6 @@
                   "zh-CN/query-image-task",
                   "zh-CN/query-video-task"
                 ]
-              },
-              {
-                "group": "素材库",
-                "icon": "image",
-                "pages": [
-                  "zh-CN/seedance/asset-upload",
-                  "zh-CN/seedance/asset-detail"
-                ]
               }
             ]
           }
@@ -861,10 +845,6 @@
       "api-reference/openapi/minimax-h3--minimax-h3-r2v.zh.yaml",
       "api-reference/openapi/query-video-task.yaml",
       "api-reference/openapi/query-video-task.zh.yaml",
-      "api-reference/openapi/seedance--asset-upload.yaml",
-      "api-reference/openapi/seedance--asset-upload.zh.yaml",
-      "api-reference/openapi/seedance--asset-detail.yaml",
-      "api-reference/openapi/seedance--asset-detail.zh.yaml",
       "api-reference/openapi/grok-imagine-1-5--grok-imagine-1-5-vip.yaml",
       "api-reference/openapi/grok-imagine-1-5--grok-imagine-1-5-vip.zh.yaml",
       "api-reference/openapi/kling--kling-2-6-motion-control.yaml",
@@ -1917,6 +1897,46 @@
     {
       "source": "/16809458d0",
       "destination": "/minimax-h3/minimax-h3-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/seedance/asset-upload",
+      "destination": "/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/asset-upload",
+      "destination": "/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/asset-upload",
+      "destination": "/zh-CN/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/seedance/asset-upload",
+      "destination": "/zh-CN/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/seedance/asset-detail",
+      "destination": "/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/asset-detail",
+      "destination": "/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/asset-detail",
+      "destination": "/zh-CN/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/seedance/asset-detail",
+      "destination": "/zh-CN/seedance/2-0-reference-to-video",
       "permanent": true
     }
   ],

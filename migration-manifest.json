@@ -80,7 +80,7 @@
     "/16809456d0",
     "/16809458d0"
   ],
-  "publicPageCount": 85,
+  "publicPageCount": 83,
   "schemaOnlyCount": 36,
   "schemaPaths": [
     "/14024404d0",
@@ -2260,18 +2260,6 @@
         "zh": "Seedance 2.5 特价版参考视频生成是特价版满血路由，使用参考图、参考视频或参考音频约束主体、运动、视觉风格与声音。支持最多 30 张参考图、10 条参考视频和 10 段参考音频，时长最长 30 秒，仅输出 720p。该系列为满血版：媒体 URL 会先经素材服务送审再提交任务，因此直接使用公网 URL 也可以。在 APIPod 中，公开模型 ID 为 seedance-2.5-lite-r2v，支持图生视频；接受文本、图片、视频输入，并通过异步视频任务返回结果。"
       },
       "source": "localhost:8080/public/schemas/seedance-2.5-lite-r2v"
-    },
-    {
-      "slug": "seedance/asset-upload",
-      "title": "Seedance Asset Upload",
-      "legacy": "/seedance/asset-upload",
-      "schema": true
-    },
-    {
-      "slug": "seedance/asset-detail",
-      "title": "Seedance Asset Detail",
-      "legacy": "/seedance/asset-detail",
-      "schema": true
     },
     {
       "slug": "veo/3-1-lite",

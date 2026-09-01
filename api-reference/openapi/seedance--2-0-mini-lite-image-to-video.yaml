@@ -94,7 +94,7 @@ paths:
                 real_person:
                   type: boolean
                   title: Real Person
-                  description: "Whether the reference materials contain real people (human faces). Defaults to true: materials are submitted to the asset review service and replaced with assetId:// references before task creation. Set to false only when the materials are confirmed face-free to skip review and pass material URLs through as-is."
+                  description: "Whether the reference materials contain real people (human faces). Defaults to true: materials are submitted to the asset review service before task creation. Set to false only when the materials are confirmed face-free to skip review and pass material URLs through as-is."
                   default: true
               required:
                 - model

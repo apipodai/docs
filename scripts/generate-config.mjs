@@ -199,6 +199,15 @@ function localizedTabs(language) {
 
 const redirects = [
   { source: "/", destination: "/introduction", permanent: false },
+  // 素材库接口已下线：assetId 引用不再对外开放，生成请求只接受公网媒体 URL。
+  { source: "/seedance/asset-upload", destination: "/seedance/2-0-reference-to-video", permanent: true },
+  { source: "/en/seedance/asset-upload", destination: "/seedance/2-0-reference-to-video", permanent: true },
+  { source: "/zh/seedance/asset-upload", destination: "/zh-CN/seedance/2-0-reference-to-video", permanent: true },
+  { source: "/zh-CN/seedance/asset-upload", destination: "/zh-CN/seedance/2-0-reference-to-video", permanent: true },
+  { source: "/seedance/asset-detail", destination: "/seedance/2-0-reference-to-video", permanent: true },
+  { source: "/en/seedance/asset-detail", destination: "/seedance/2-0-reference-to-video", permanent: true },
+  { source: "/zh/seedance/asset-detail", destination: "/zh-CN/seedance/2-0-reference-to-video", permanent: true },
+  { source: "/zh-CN/seedance/asset-detail", destination: "/zh-CN/seedance/2-0-reference-to-video", permanent: true },
   { source: "/gpt-image-2/gpt-image-2-edit", destination: "/gpt-image-2/gpt-image-2", permanent: true },
   { source: "/en/gpt-image-2/gpt-image-2-edit", destination: "/gpt-image-2/gpt-image-2", permanent: true },
   { source: "/zh/gpt-image-2/gpt-image-2-edit", destination: "/zh-CN/gpt-image-2/gpt-image-2", permanent: true },

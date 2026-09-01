@@ -8,11 +8,7 @@ openapi: "api-reference/openapi/seedance--2-0-fast-lite-image-to-video.yaml POST
 
 When a request carries reference materials, the boolean `real_person` field controls whether materials are submitted to face review first:
 
-- `real_person: true` (default): materials are submitted to the asset review service first, and the task is created with `assetId://{assetId}` references; the task waits during review and fails if review rejects the materials.
+- `real_person: true` (default): materials are submitted to the asset review service first; the task waits during review and fails if review rejects the materials.
 - `real_person: false`: review is skipped and material URLs are passed through to task creation as-is.
 
 Set it to `false` only when the materials are confirmed face-free to save the review round trip; keep the default `true` for materials containing real people.
-
-## Asset library references
-
-Besides publicly accessible URLs, the `image_url` / `image_urls`, `video_urls`, and `audio_url` / `audio_urls` fields also accept asset library references in the form `assetId://{assetId}`. Asset IDs are shared across the platform: any account may reference a known `assetId`, regardless of who submitted it — the same sharing semantics as a public URL. Only `ACTIVE` assets pass validation. Submit and track assets via [asset upload](/seedance/asset-upload) and [asset detail](/seedance/asset-detail).

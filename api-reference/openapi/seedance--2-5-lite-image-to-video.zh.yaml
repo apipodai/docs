@@ -103,7 +103,7 @@ paths:
                 real_person:
                   type: boolean
                   title: Real Person
-                  description: 素材是否包含真人/人脸。默认 true：素材先经素材服务送审换取 assetId 引用再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传素材 URL。
+                  description: 素材是否包含真人/人脸。默认 true：素材先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传素材 URL。
                   default: true
               required:
                 - model
