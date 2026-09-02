@@ -4,7 +4,7 @@ description: "Poll the status of an asynchronous video generation task created t
 openapi: "api-reference/openapi/ark-query-video-task.yaml GET /api/v3/contents/generations/tasks/{id}"
 ---
 
-Poll this endpoint with the task `id` returned by the create endpoint until the task reaches a terminal state. For production workloads, prefer `callback_url` on the create request over tight polling loops. Task records are retained for the same window as native APIPod tasks; download or persist the video URL promptly once the task succeeds.
+Poll this endpoint with the task `id` returned by the create endpoint (documented per model as the Ark-compatible interface, e.g. [Seedance 2.5](/seedance/seedance-2-5-ark)) until the task reaches a terminal state. For production workloads, prefer `callback_url` on the create request over tight polling loops. Task records are retained for the same window as native APIPod tasks; download or persist the video URL promptly once the task succeeds.
 
 ## Task statuses
 

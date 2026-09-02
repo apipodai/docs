@@ -192,6 +192,7 @@
                             "group": "Seedance 2.0 Pro",
                             "pages": [
                               "seedance/seedance-2-0",
+                              "seedance/seedance-2-0-ark",
                               "seedance/2-0-text-to-video",
                               "seedance/2-0-image-to-video",
                               "seedance/2-0-reference-to-video"
@@ -209,6 +210,7 @@
                             "group": "Seedance 2.0 Fast",
                             "pages": [
                               "seedance/seedance-2-0-fast",
+                              "seedance/seedance-2-0-fast-ark",
                               "seedance/2-0-fast-text-to-video",
                               "seedance/2-0-fast-image-to-video",
                               "seedance/2-0-fast-reference-to-video"
@@ -226,6 +228,7 @@
                             "group": "Seedance 2.0 Mini",
                             "pages": [
                               "seedance/seedance-2-0-mini",
+                              "seedance/seedance-2-0-mini-ark",
                               "seedance/2-0-mini-image-to-video",
                               "seedance/2-0-mini-reference-to-video",
                               "seedance/2-0-mini-text-to-video"
@@ -248,6 +251,7 @@
                             "group": "Seedance 2.5 Discount",
                             "pages": [
                               "seedance/seedance-2-5",
+                              "seedance/seedance-2-5-ark",
                               "seedance/2-5-text-to-video",
                               "seedance/2-5-image-to-video",
                               "seedance/2-5-reference-to-video"
@@ -364,7 +368,6 @@
                 "pages": [
                   "query-image-task",
                   "query-video-task",
-                  "ark-create-video-task",
                   "ark-query-video-task"
                 ]
               }
@@ -544,6 +547,7 @@
                             "group": "Seedance 2.0 标准版",
                             "pages": [
                               "zh-CN/seedance/seedance-2-0",
+                              "zh-CN/seedance/seedance-2-0-ark",
                               "zh-CN/seedance/2-0-text-to-video",
                               "zh-CN/seedance/2-0-image-to-video",
                               "zh-CN/seedance/2-0-reference-to-video"
@@ -561,6 +565,7 @@
                             "group": "Seedance 2.0 Fast",
                             "pages": [
                               "zh-CN/seedance/seedance-2-0-fast",
+                              "zh-CN/seedance/seedance-2-0-fast-ark",
                               "zh-CN/seedance/2-0-fast-text-to-video",
                               "zh-CN/seedance/2-0-fast-image-to-video",
                               "zh-CN/seedance/2-0-fast-reference-to-video"
@@ -578,6 +583,7 @@
                             "group": "Seedance 2.0 Mini",
                             "pages": [
                               "zh-CN/seedance/seedance-2-0-mini",
+                              "zh-CN/seedance/seedance-2-0-mini-ark",
                               "zh-CN/seedance/2-0-mini-image-to-video",
                               "zh-CN/seedance/2-0-mini-reference-to-video",
                               "zh-CN/seedance/2-0-mini-text-to-video"
@@ -600,6 +606,7 @@
                             "group": "Seedance 2.5 折扣版",
                             "pages": [
                               "zh-CN/seedance/seedance-2-5",
+                              "zh-CN/seedance/seedance-2-5-ark",
                               "zh-CN/seedance/2-5-text-to-video",
                               "zh-CN/seedance/2-5-image-to-video",
                               "zh-CN/seedance/2-5-reference-to-video"
@@ -716,7 +723,6 @@
                 "pages": [
                   "zh-CN/query-image-task",
                   "zh-CN/query-video-task",
-                  "zh-CN/ark-create-video-task",
                   "zh-CN/ark-query-video-task"
                 ]
               }
@@ -857,8 +863,6 @@
       "api-reference/openapi/minimax-h3--minimax-h3-r2v.zh.yaml",
       "api-reference/openapi/query-video-task.yaml",
       "api-reference/openapi/query-video-task.zh.yaml",
-      "api-reference/openapi/ark-create-video-task.yaml",
-      "api-reference/openapi/ark-create-video-task.zh.yaml",
       "api-reference/openapi/ark-query-video-task.yaml",
       "api-reference/openapi/ark-query-video-task.zh.yaml",
       "api-reference/openapi/grok-imagine-1-5--grok-imagine-1-5-vip.yaml",
@@ -924,7 +928,15 @@
       "api-reference/openapi/seedance--seedance-2-0-fast.yaml",
       "api-reference/openapi/seedance--seedance-2-0-fast.zh.yaml",
       "api-reference/openapi/seedance--seedance-2-0-mini.yaml",
-      "api-reference/openapi/seedance--seedance-2-0-mini.zh.yaml"
+      "api-reference/openapi/seedance--seedance-2-0-mini.zh.yaml",
+      "api-reference/openapi/seedance--seedance-2-5-ark.yaml",
+      "api-reference/openapi/seedance--seedance-2-5-ark.zh.yaml",
+      "api-reference/openapi/seedance--seedance-2-0-ark.yaml",
+      "api-reference/openapi/seedance--seedance-2-0-ark.zh.yaml",
+      "api-reference/openapi/seedance--seedance-2-0-fast-ark.yaml",
+      "api-reference/openapi/seedance--seedance-2-0-fast-ark.zh.yaml",
+      "api-reference/openapi/seedance--seedance-2-0-mini-ark.yaml",
+      "api-reference/openapi/seedance--seedance-2-0-mini-ark.zh.yaml"
     ],
     "playground": {
       "display": "interactive",

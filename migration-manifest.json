@@ -80,7 +80,7 @@
     "/16809456d0",
     "/16809458d0"
   ],
-  "publicPageCount": 89,
+  "publicPageCount": 92,
   "schemaOnlyCount": 36,
   "schemaPaths": [
     "/14024404d0",
@@ -1303,12 +1303,6 @@
       "schema": true
     },
     {
-      "slug": "ark-create-video-task",
-      "title": "Create Video Task (Ark-compatible)",
-      "legacy": "/ark-create-video-task",
-      "schema": true
-    },
-    {
       "slug": "ark-query-video-task",
       "title": "Query Video Task (Ark-compatible)",
       "legacy": "/ark-query-video-task",
@@ -2157,6 +2151,12 @@
       "source": "localhost:8080/public/schemas/seedance-2.5"
     },
     {
+      "slug": "seedance/seedance-2-5-ark",
+      "title": "Seedance 2.5 (Ark-Compatible)",
+      "legacy": "/seedance/seedance-2-5-ark",
+      "schema": true
+    },
+    {
       "slug": "seedance/seedance-2-0",
       "title": "Seedance 2.0",
       "legacy": "/seedance/seedance-2-0",
@@ -2189,6 +2189,12 @@
         "zh": "Seedance 2.0 是 2.0 标准路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频，支持同步音频，分辨率最高 4K。在 APIPod 中，公开模型 ID 为 seedance-2.0，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
       },
       "source": "localhost:8080/public/schemas/seedance-2.0"
+    },
+    {
+      "slug": "seedance/seedance-2-0-ark",
+      "title": "Seedance 2.0 (Ark-Compatible)",
+      "legacy": "/seedance/seedance-2-0-ark",
+      "schema": true
     },
     {
       "slug": "seedance/seedance-2-0-fast",
@@ -2225,6 +2231,12 @@
       "source": "localhost:8080/public/schemas/seedance-2.0-fast"
     },
     {
+      "slug": "seedance/seedance-2-0-fast-ark",
+      "title": "Seedance 2.0 Fast (Ark-Compatible)",
+      "legacy": "/seedance/seedance-2-0-fast-ark",
+      "schema": true
+    },
+    {
       "slug": "seedance/seedance-2-0-mini",
       "title": "Seedance 2.0 Mini",
       "legacy": "/seedance/seedance-2-0-mini",
@@ -2257,6 +2269,12 @@
         "zh": "Seedance 2.0 Mini 是 Mini 低价档的 all-in-one 模型：一个公开模型 ID 以最低价格覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频，支持同步音频，输出 480P / 720P。在 APIPod 中，公开模型 ID 为 seedance-2.0-mini，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
       },
       "source": "localhost:8080/public/schemas/seedance-2.0-mini"
+    },
+    {
+      "slug": "seedance/seedance-2-0-mini-ark",
+      "title": "Seedance 2.0 Mini (Ark-Compatible)",
+      "legacy": "/seedance/seedance-2-0-mini-ark",
+      "schema": true
     },
     {
       "slug": "seedance/2-5-image-to-video",

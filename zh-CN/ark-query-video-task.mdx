@@ -4,7 +4,7 @@ description: "轮询通过火山方舟兼容端点创建的异步视频生成任
 openapi: "api-reference/openapi/ark-query-video-task.zh.yaml GET /api/v3/contents/generations/tasks/{id}"
 ---
 
-使用创建接口返回的任务 `id` 轮询本接口，直到任务到达终态。生产环境建议在创建请求中设置 `callback_url`，避免高频轮询。任务记录的保留窗口与 APIPod 原生任务一致；任务成功后请及时下载或转存视频 URL。
+使用创建接口返回的任务 `id` 轮询本接口，直到任务到达终态。创建接口在各模型的「兼容官方接口」文档中（如 [Seedance 2.5](/zh-CN/seedance/seedance-2-5-ark)）。生产环境建议在创建请求中设置 `callback_url`，避免高频轮询。任务记录的保留窗口与 APIPod 原生任务一致；任务成功后请及时下载或转存视频 URL。
 
 ## 任务状态
 

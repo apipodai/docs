@@ -1,0 +1,242 @@
+openapi: 3.1.0
+info:
+  title: Seedance 2.0 Fast（兼容官方接口） API
+  version: 1.0.0
+  description: "Seedance 2.0 Fast 档的方舟兼容任务创建接口：把火山方舟 SDK 或客户端的 base URL 指向 https://api.apipod.ai/api/v3，请求体与 ark.cn-beijing.volces.com 保持一致。一个模型 ID 以 Fast 档速度覆盖全部场景，输出 480P / 720P，参考素材上限：图 9 / 视频 3 / 音频 3，时长 4 到 15 秒，结果通过异步任务返回。"
+servers:
+  - url: https://api.apipod.ai
+    description: 生产环境
+paths:
+  /api/v3/contents/generations/tasks:
+    post:
+      summary: 创建视频生成任务（方舟兼容）
+      description: "Seedance 2.0 Fast 档的方舟兼容任务创建接口：把火山方舟 SDK 或客户端的 base URL 指向 https://api.apipod.ai/api/v3，请求体与 ark.cn-beijing.volces.com 保持一致。一个模型 ID 以 Fast 档速度覆盖全部场景，输出 480P / 720P，参考素材上限：图 9 / 视频 3 / 音频 3，时长 4 到 15 秒，结果通过异步任务返回。"
+      operationId: post-ark-seedance-2-0-fast
+      tags:
+        - Seedance 2.0 Fast 兼容官方接口
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Seedance 2.0 Fast（兼容官方接口）
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: "APIPod 公开模型 ID（all-in-one，场景由 content 推断）。"
+                  const: seedance-2.0-fast
+                content:
+                  type: array
+                  title: Content
+                  description: "输入内容列表。文本即提示词；无 role 或 role 为 first_frame/last_frame 的图片（最多 2 张）走图生视频；role 为 reference_image 的图片、参考视频与参考音频走全模态参考生视频。三种场景互斥，不可混用。参考素材上限：图 9 / 视频 3 / 音频 3。"
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - text
+                          - image_url
+                          - video_url
+                          - audio_url
+                        description: "内容项类型。"
+                      text:
+                        type: string
+                        description: "文本提示词，type 为 text 时填写。"
+                      image_url:
+                        type: object
+                        properties:
+                          url:
+                            type: string
+                            description: "图片 URL 或 data URL。"
+                        description: "图片对象，type 为 image_url 时填写。"
+                      video_url:
+                        type: object
+                        properties:
+                          url:
+                            type: string
+                            description: "参考视频 URL。"
+                        description: "视频对象，type 为 video_url 时填写。"
+                      audio_url:
+                        type: object
+                        properties:
+                          url:
+                            type: string
+                            description: "参考音频 URL。"
+                        description: "音频对象，type 为 audio_url 时填写。"
+                      role:
+                        type: string
+                        enum:
+                          - first_frame
+                          - last_frame
+                          - reference_image
+                          - reference_video
+                          - reference_audio
+                        description: "媒体项角色。无 role 的图片按首尾帧处理。"
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: "视频分辨率。可选值随模型而定。"
+                  enum:
+                    - 480p
+                    - 720p
+                  default: 720p
+                ratio:
+                  type: string
+                  title: Ratio
+                  description: "生成视频的宽高比。"
+                  enum:
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                    - 21:9
+                    - adaptive
+                  default: adaptive
+                duration:
+                  type: integer
+                  title: Duration
+                  description: "视频时长（秒），4 到 15，默认 5。"
+                  enum:
+                    - 4
+                    - 5
+                    - 6
+                    - 7
+                    - 8
+                    - 9
+                    - 10
+                    - 11
+                    - 12
+                    - 13
+                    - 14
+                    - 15
+                  default: 5
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  description: "是否生成与画面同步的音频。"
+                  default: true
+                watermark:
+                  type: boolean
+                  title: Watermark
+                  description: "是否添加上游水印。"
+                  default: false
+                tools:
+                  type: array
+                  title: Tools
+                  description: "工具配置。当前仅识别 web_search。"
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - web_search
+                        description: "工具类型。"
+              required:
+                - model
+                - content
+            example:
+              model: seedance-2.0-fast
+              content:
+                    - type: text
+                      text: "快速概念稿：日出时分宇航员在月球行走，5 秒。"
+              resolution: 720p
+              ratio: adaptive
+              duration: 5
+      responses:
+        "200":
+          description: 任务创建成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: "异步任务 ID。使用该值调用兼容查询接口轮询任务。"
+                  model:
+                    type: string
+                    description: "本任务使用的公开模型系列名。"
+                required:
+                  - id
+                  - model
+              example:
+                id: 0f4c9f6e-1111-4c1d-8c2f-2b7b9a1c4d55
+                model: seedance-2.0-fast
+        "400":
+          description: "请求不合法，例如混用了互斥的 content 场景或携带不支持的参数。"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: "方舟风格错误码。"
+                      message:
+                        type: string
+                        description: "面向客户端的安全错误信息。"
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |-
+            curl https://api.apipod.ai/api/v3/contents/generations/tasks \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "model": "seedance-2.0-fast",
+                "content": [
+                  {"type": "text", "text": "快速概念稿：日出时分宇航员在月球行走，5 秒。"}
+                ],
+                "resolution": "720p",
+                "ratio": "adaptive",
+                "duration": 5
+              }'
+        - lang: Python
+          label: Python
+          source: |-
+            import os
+
+            import requests
+
+
+            payload = {
+                "model": "seedance-2.0-fast",
+                "content": [
+                    {"type": "text", "text": "快速概念稿：日出时分宇航员在月球行走，5 秒。"}
+                ],
+                "resolution": "720p",
+                "ratio": "adaptive",
+                "duration": 5,
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/api/v3/contents/generations/tasks",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.
