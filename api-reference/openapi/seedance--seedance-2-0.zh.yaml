@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Seedance 2.0 API
   version: 1.0.0
-  description: "Seedance 2.0 是 2.0 标准路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；使用 reference_images、参考视频或参考音频则进入全模态参考生视频，支持同步音频，分辨率最高 4K。在 APIPod 中，公开模型 ID 为 seedance-2.0，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+  description: "Seedance 2.0 是 2.0 标准路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频，支持同步音频，分辨率最高 4K。在 APIPod 中，公开模型 ID 为 seedance-2.0，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -10,7 +10,7 @@ paths:
   /v1/videos/generations:
     post:
       summary: 创建生成任务
-      description: "Seedance 2.0 是 2.0 标准路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；使用 reference_images、参考视频或参考音频则进入全模态参考生视频，支持同步音频，分辨率最高 4K。在 APIPod 中，公开模型 ID 为 seedance-2.0，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+      description: "Seedance 2.0 是 2.0 标准路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频，支持同步音频，分辨率最高 4K。在 APIPod 中，公开模型 ID 为 seedance-2.0，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
       operationId: create-seedance-2-0
       tags:
         - Seedance 2.0
@@ -44,17 +44,10 @@ paths:
                 role:
                   type: string
                   title: Role
-                  description: "image_urls 的显式语义标注。reference_images：image_urls 全部按参考图处理（无论张数）；first_last_frame：image_urls 按首帧 + 可选尾帧处理（最多 2 张，不能与参考视频/音频或 reference_images 同时使用）。缺省时按素材推断场景。"
+                  description: "image_urls 的显式语义标注。reference_images：image_urls 全部按参考图处理（无论张数）；first_last_frame：image_urls 按首帧 + 可选尾帧处理（最多 2 张，不能与参考视频/音频同时使用）。缺省时按素材推断场景。"
                   enum:
                     - reference_images
                     - first_last_frame
-                reference_images:
-                  type: array
-                  title: Reference Images
-                  description: "显式参考图 URL。无论张数一律按参考图（全模态参考生视频）处理；需要严格参考语义时请使用本字段。最多支持 9 张；单张图片小于 30 MB。"
-                  maxItems: 9
-                  items:
-                    type: string
                 video_urls:
                   type: array
                   title: Video Urls

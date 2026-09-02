@@ -43,7 +43,7 @@ An internal finalization stage is exposed as `processing`, so clients never need
 | 1–2 images, no video or audio | Image-to-video (first frame, or first + last frame) |
 | Any reference video or audio, explicit `reference_images`, or more than 2 images | Omni reference generation |
 
-Explicit `reference_images` always selects reference generation regardless of count. You can also pin the interpretation of `image_urls` directly with the top-level `role` field: `first_last_frame` treats 1–2 images as the first frame plus an optional last frame, and `reference_images` treats all images as reference images regardless of count. `first_last_frame` cannot be combined with reference videos, audios, or `reference_images`. Scenario-specific model IDs (`seedance-2.5-i2v`, `seedance-2.5-r2v`, …) remain available when you want the scenario pinned by the model itself. Reference video duration is billed together with the output duration on all 2.x models.
+Pin the interpretation of `image_urls` with the top-level `role` field: `first_last_frame` treats 1–2 images as the first frame plus an optional last frame, and `reference_images` treats all images as reference images regardless of count. `first_last_frame` cannot be combined with reference videos or audios. Scenario-specific model IDs (`seedance-2.5-i2v`, `seedance-2.5-r2v`, …) remain available when you want the scenario pinned by the model itself. Reference video duration is billed together with the output duration on all 2.x models.
 
 ## Polling endpoints
 

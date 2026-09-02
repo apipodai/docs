@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Seedance 2.0 Fast API
   version: 1.0.0
-  description: "Seedance 2.0 Fast is the all-in-one model of the Fast tier: one public model ID covers every scenario at Fast-tier speed. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and reference_images, reference videos, or reference audios select omni reference generation, with synchronized audio and 480p / 720p output. In APIPod, the public model ID is seedance-2.0-fast. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests."
+  description: "Seedance 2.0 Fast is the all-in-one model of the Fast tier: one public model ID covers every scenario at Fast-tier speed. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, or any reference audio selects omni reference generation, with synchronized audio and 480p / 720p output. In APIPod, the public model ID is seedance-2.0-fast. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests."
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -10,7 +10,7 @@ paths:
   /v1/videos/generations:
     post:
       summary: Create Generation Task
-      description: "Seedance 2.0 Fast is the all-in-one model of the Fast tier: one public model ID covers every scenario at Fast-tier speed. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and reference_images, reference videos, or reference audios select omni reference generation, with synchronized audio and 480p / 720p output. In APIPod, the public model ID is seedance-2.0-fast. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests."
+      description: "Seedance 2.0 Fast is the all-in-one model of the Fast tier: one public model ID covers every scenario at Fast-tier speed. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, or any reference audio selects omni reference generation, with synchronized audio and 480p / 720p output. In APIPod, the public model ID is seedance-2.0-fast. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests."
       operationId: create-seedance-2-0-fast
       tags:
         - Seedance 2.0 Fast
@@ -44,17 +44,10 @@ paths:
                 role:
                   type: string
                   title: Role
-                  description: "Explicit interpretation of image_urls. reference_images: all images are treated as reference images regardless of count. first_last_frame: images are treated as the first frame plus an optional last frame (max 2; cannot be combined with reference videos, audios, or reference_images). When omitted, the scenario is inferred from the materials."
+                  description: "Explicit interpretation of image_urls. reference_images: all images are treated as reference images regardless of count. first_last_frame: images are treated as the first frame plus an optional last frame (max 2; cannot be combined with reference videos or audios). When omitted, the scenario is inferred from the materials."
                   enum:
                     - reference_images
                     - first_last_frame
-                reference_images:
-                  type: array
-                  title: Reference Images
-                  description: "Explicit reference image URLs. Always treated as reference images (omni reference generation) regardless of count; use this field when you need strict reference semantics with few images. Up to 9 images are supported; each image must be smaller than 30 MB."
-                  maxItems: 9
-                  items:
-                    type: string
                 video_urls:
                   type: array
                   title: Video Urls
