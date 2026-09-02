@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: 查询视频生成任务 API（方舟兼容）
+  version: 1.0.0
+  description: >-
+    火山方舟兼容的异步视频生成任务查询端点。使用创建接口返回的任务 ID
+    轮询本接口，直到任务到达终态。
+servers:
+  - url: https://api.apipod.ai
+    description: 生产环境
+paths:
+  /api/v3/contents/generations/tasks/{id}:
+    get:
+      summary: 查询视频生成任务
+      operationId: get-ark-query-video-task
+      tags:
+        - 视频任务
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 创建接口返回的任务 ID。
+          schema:
+            type: string
+          example: 0f4c9f6e-1111-4c1d-8c2f-2b7b9a1c4d55
+      responses:
+        "200":
+          description: 任务状态快照
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: 任务 ID。
+                  model:
+                    type: string
+                    description: 本任务使用的公开模型系列名。
+                  status:
+                    type: string
+                    enum:
+                      - queued
+                      - running
+                      - succeeded
+                      - failed
+                      - cancelled
+                    description: 方舟语义的任务状态。
+                  content:
+                    type: object
+                    properties:
+                      video_url:
+                        type: string
+                        description: 生成视频的 URL，请及时下载或转存；仅在任务成功后出现。
+                    description: 输出内容，仅在任务成功后出现。
+                  created_at:
+                    type: integer
+                    description: 任务创建时间（Unix 秒级时间戳）。
+                  updated_at:
+                    type: integer
+                    description: 任务最近一次状态更新时间（Unix 秒级时间戳）。
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: 方舟风格错误码。
+                      message:
+                        type: string
+                        description: 面向客户端的安全错误信息。
+                    description: 仅在任务失败时出现。
+                  usage:
+                    type: object
+                    properties:
+                      completion_tokens:
+                        type: integer
+                        description: 上游回传的生成 token 数，可用时返回。
+                      total_tokens:
+                        type: integer
+                        description: 上游回传的总 token 数，可用时返回。
+                      cost:
+                        type: number
+                        description: 本任务最终扣费金额（USD），与控制台一致。APIPod 扩展字段。
+                    required:
+                      - cost
+                    description: 终态用量快照，仅在任务成功后出现。
+                required:
+                  - id
+                  - model
+                  - status
+              example:
+                id: 0f4c9f6e-1111-4c1d-8c2f-2b7b9a1c4d55
+                model: seedance-2.5
+                status: succeeded
+                content:
+                  video_url: https://cdn.example.com/generated.mp4
+                created_at: 1786358400
+                updated_at: 1786358523
+                usage:
+                  completion_tokens: 123
+                  total_tokens: 123
+                  cost: 0.053
+        "401":
+          description: 鉴权失败。
+        "404":
+          description: 任务不存在，或任务属于其他账号。
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 在 Authorization 头中以 Bearer 方式携带 APIPod API Key。

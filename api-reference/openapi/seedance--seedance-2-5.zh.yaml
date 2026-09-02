@@ -1,0 +1,245 @@
+openapi: 3.1.0
+info:
+  title: Seedance 2.5 API
+  version: 1.0.0
+  description: "Seedance 2.5 是官方满血折扣路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；使用 reference_images、参考视频或参考音频则进入全模态参考生视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5，支持最多 30 张参考图、10 个参考视频、10 段参考音频，时长最长 30 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+servers:
+  - url: https://api.apipod.ai
+    description: 生产环境
+paths:
+  /v1/videos/generations:
+    post:
+      summary: 创建生成任务
+      description: "Seedance 2.5 是官方满血折扣路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；使用 reference_images、参考视频或参考音频则进入全模态参考生视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5，支持最多 30 张参考图、10 个参考视频、10 段参考音频，时长最长 30 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+      operationId: create-seedance-2-5
+      tags:
+        - Seedance 2.5
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Seedance 2.5
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: "APIPod 公开模型 ID。"
+                  const: seedance-2.5
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: "生成或编辑指令，最长 30000 字符。建议提示词不超过 500 个汉字或 1000 个英文单词；过长的文本会导致信息分散，模型可能忽略细节、只关注重点，导致生成的视频缺少元素。"
+                  maxLength: 30000
+                image_urls:
+                  type: array
+                  title: Image Urls
+                  description: "图片 URL。按素材推断场景：仅有图片输入且不超过 2 张时按首帧/尾帧处理（图生视频）；存在其他参考媒体或超过 2 张时，所有图片按参考图处理。需要显式指定语义时搭配 role 字段。最多支持 30 张；单张图片小于 30 MB。"
+                  maxItems: 30
+                  items:
+                    type: string
+                role:
+                  type: string
+                  title: Role
+                  description: "image_urls 的显式语义标注。reference_images：image_urls 全部按参考图处理（无论张数）；first_last_frame：image_urls 按首帧 + 可选尾帧处理（最多 2 张，不能与参考视频/音频或 reference_images 同时使用）。缺省时按素材推断场景。"
+                  enum:
+                    - reference_images
+                    - first_last_frame
+                reference_images:
+                  type: array
+                  title: Reference Images
+                  description: "显式参考图 URL。无论张数一律按参考图（全模态参考生视频）处理；需要严格参考语义时请使用本字段。最多支持 30 张；单张图片小于 30 MB。"
+                  maxItems: 30
+                  items:
+                    type: string
+                video_urls:
+                  type: array
+                  title: Video Urls
+                  description: "参考视频 URL。最多支持 10 个；单个视频时长 2-30 秒，所有视频总时长不超过 30 秒。"
+                  maxItems: 10
+                  items:
+                    type: string
+                audio_urls:
+                  type: array
+                  title: Audio Urls
+                  description: "参考音频 URL。最多支持 10 段；单个音频时长 2-30 秒，所有音频总时长不超过 30 秒。支持仅传音频。"
+                  maxItems: 10
+                  items:
+                    type: string
+                duration:
+                  type: integer
+                  title: Duration
+                  description: "视频时长，单位为秒。 最小值：4。 最大值：30。"
+                  enum:
+                    - 4
+                    - 5
+                    - 6
+                    - 7
+                    - 8
+                    - 9
+                    - 10
+                    - 11
+                    - 12
+                    - 13
+                    - 14
+                    - 15
+                    - 16
+                    - 17
+                    - 18
+                    - 19
+                    - 20
+                    - 21
+                    - 22
+                    - 23
+                    - 24
+                    - 25
+                    - 26
+                    - 27
+                    - 28
+                    - 29
+                    - 30
+                  default: 4
+                  minimum: 4
+                  maximum: 30
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: "输出分辨率档位。"
+                  enum:
+                    - 480p
+                    - 720p
+                    - 1080p
+                  default: 720p
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  description: "输出宽高比。配置为 adaptive 时，模型会根据生成场景自动适配宽高比。"
+                  enum:
+                    - adaptive
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                    - 21:9
+                  default: adaptive
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  description: "为视频生成同步音频。"
+                  default: true
+                return_last_frame:
+                  type: boolean
+                  title: Retrun Last Frame
+                  description: "返回生成视频的尾帧，用于续作工作流。"
+                  default: false
+                real_person:
+                  type: boolean
+                  title: Real Person
+                  description: "素材是否包含真人/人脸。默认 true：素材先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传素材 URL。"
+                  default: true
+              required:
+                - model
+                - prompt
+            example:
+              model: seedance-2.5
+              prompt: "黄昏霓虹屋顶上的电影感无人机镜头，10 秒。"
+              image_urls:
+                - https://example.com/reference.png
+              video_urls:
+                - https://example.com/reference.mp4
+              duration: 4
+              resolution: 720p
+              aspect_ratio: adaptive
+              generate_audio: true
+      responses:
+        "200":
+          description: 任务已受理
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                description: Standard response for task submission
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    title: Task Submit Data
+                    description: "任务提交数据内容"
+                    properties:
+                      task_id:
+                        type: string
+                        description: "生成任务 ID"
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "model": "seedance-2.5",
+                "prompt": "黄昏霓虹屋顶上的电影感无人机镜头，10 秒。",
+              "image_urls": ["https://example.com/reference.png"],
+              "video_urls": ["https://example.com/reference.mp4"],
+                "duration": 4,
+                "resolution": "720p",
+                "aspect_ratio": "adaptive",
+                "generate_audio": true
+              }'
+        - lang: Python
+          label: Python
+          source: |-
+            import os
+
+            import requests
+
+
+            payload = {
+                "model": "seedance-2.5",
+                "prompt": "黄昏霓虹屋顶上的电影感无人机镜头，10 秒。",
+                "image_urls": ["https://example.com/reference.png"],
+                "video_urls": ["https://example.com/reference.mp4"],
+                "duration": 4,
+                "resolution": "720p",
+                "aspect_ratio": "adaptive",
+                "generate_audio": True
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

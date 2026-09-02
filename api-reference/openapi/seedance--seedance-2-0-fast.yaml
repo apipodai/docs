@@ -1,0 +1,235 @@
+openapi: 3.1.0
+info:
+  title: Seedance 2.0 Fast API
+  version: 1.0.0
+  description: "Seedance 2.0 Fast is the all-in-one model of the Fast tier: one public model ID covers every scenario at Fast-tier speed. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and reference_images, reference videos, or reference audios select omni reference generation, with synchronized audio and 480p / 720p output. In APIPod, the public model ID is seedance-2.0-fast. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests."
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/videos/generations:
+    post:
+      summary: Create Generation Task
+      description: "Seedance 2.0 Fast is the all-in-one model of the Fast tier: one public model ID covers every scenario at Fast-tier speed. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and reference_images, reference videos, or reference audios select omni reference generation, with synchronized audio and 480p / 720p output. In APIPod, the public model ID is seedance-2.0-fast. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests."
+      operationId: create-seedance-2-0-fast
+      tags:
+        - Seedance 2.0 Fast
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Seedance 2.0 Fast
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: "Public APIPod model ID."
+                  const: seedance-2.0-fast
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: "Generation or editing instructions, up to 30000 characters. It is recommended to keep the prompt to no more than 500 Chinese characters or 1,000 English words. Lengthy text will lead to scattered information, and the model may ignore details and only focus on key points, resulting in missing elements in the generated video."
+                  maxLength: 30000
+                image_urls:
+                  type: array
+                  title: Image Urls
+                  description: "Image URLs. Scenario inference applies: when images are the only media input and 1-2 URLs are provided they are treated as first/last frames (image-to-video); with other reference media present or more than 2 URLs, all images are treated as reference images. Pair with the role field to pin the semantics explicitly. Up to 9 images are supported; each image must be smaller than 30 MB."
+                  maxItems: 9
+                  items:
+                    type: string
+                role:
+                  type: string
+                  title: Role
+                  description: "Explicit interpretation of image_urls. reference_images: all images are treated as reference images regardless of count. first_last_frame: images are treated as the first frame plus an optional last frame (max 2; cannot be combined with reference videos, audios, or reference_images). When omitted, the scenario is inferred from the materials."
+                  enum:
+                    - reference_images
+                    - first_last_frame
+                reference_images:
+                  type: array
+                  title: Reference Images
+                  description: "Explicit reference image URLs. Always treated as reference images (omni reference generation) regardless of count; use this field when you need strict reference semantics with few images. Up to 9 images are supported; each image must be smaller than 30 MB."
+                  maxItems: 9
+                  items:
+                    type: string
+                video_urls:
+                  type: array
+                  title: Video Urls
+                  description: "Reference video URLs. Up to 3 videos are supported; each video lasts 2-15 seconds and the total duration of all videos must not exceed 15 seconds."
+                  maxItems: 3
+                  items:
+                    type: string
+                audio_urls:
+                  type: array
+                  title: Audio Urls
+                  description: "Reference audio URLs. Up to 3 audios are supported; each audio lasts 2-15 seconds and the total duration of all audios must not exceed 15 seconds. Audio cannot be used alone; include at least one image or video reference."
+                  maxItems: 3
+                  items:
+                    type: string
+                duration:
+                  type: integer
+                  title: Duration
+                  description: "Video duration in seconds, from 4 to 15."
+                  enum:
+                    - 4
+                    - 5
+                    - 6
+                    - 7
+                    - 8
+                    - 9
+                    - 10
+                    - 11
+                    - 12
+                    - 13
+                    - 14
+                    - 15
+                  default: 5
+                  minimum: 4
+                  maximum: 15
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: "Generate video resolution."
+                  enum:
+                    - 480p
+                    - 720p
+                  default: 720p
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  description: "Aspect ratio of the generated video. When the ratio is configured as adaptive, the model will automatically adapt the aspect ratio according to the generation scenario."
+                  enum:
+                    - adaptive
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                    - 21:9
+                  default: adaptive
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  description: "Controls whether the generated video contains audio synchronized with the visuals."
+                  default: true
+                return_last_frame:
+                  type: boolean
+                  title: Retrun Last Frame
+                  description: "Whether to return the last frame image of the generated video. Using this parameter enables the generation of multiple consecutive videos: taking the last frame of the previous generated video as the first frame of the next video task."
+                  default: false
+                watermark:
+                  type: boolean
+                  title: Watermark
+                  description: Add the upstream watermark.
+                  default: false
+                web_search:
+                  type: boolean
+                  title: Web Search
+                  description: Allow retrieving live information when the channel supports it.
+                  default: false
+                real_person:
+                  type: boolean
+                  title: Real Person
+                  description: "Whether the reference materials contain real people (human faces). Defaults to true: materials are submitted to the asset review service before task creation. Set to false only when the materials are confirmed face-free to skip review and pass material URLs through as-is."
+                  default: true
+              required:
+                - model
+                - prompt
+            example:
+              model: seedance-2.0-fast
+              prompt: "Quick concept pass: astronaut walking on the moon at sunrise, 5 seconds."
+              image_urls:
+                - https://example.com/first.png
+              duration: 5
+              resolution: 720p
+              aspect_ratio: adaptive
+              generate_audio: true
+      responses:
+        "200":
+          description: Task accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                description: Standard response for task submission
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    title: Task Submit Data
+                    description: "Data content for task submission"
+                    properties:
+                      task_id:
+                        type: string
+                        description: "generatation task id"
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "model": "seedance-2.0-fast",
+                "prompt": "Quick concept pass: astronaut walking on the moon at sunrise, 5 seconds.",
+              "image_urls": ["https://example.com/first.png"],
+                "duration": 5,
+                "resolution": "720p",
+                "aspect_ratio": "adaptive",
+                "generate_audio": true
+              }'
+        - lang: Python
+          label: Python
+          source: |-
+            import os
+
+            import requests
+
+
+            payload = {
+                "model": "seedance-2.0-fast",
+                "prompt": "Quick concept pass: astronaut walking on the moon at sunrise, 5 seconds.",
+                "image_urls": ["https://example.com/first.png"],
+                "duration": 5,
+                "resolution": "720p",
+                "aspect_ratio": "adaptive",
+                "generate_audio": True
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

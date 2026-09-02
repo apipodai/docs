@@ -1,0 +1,23 @@
+---
+title: "Query video task (Ark-compatible)"
+description: "Poll the status of an asynchronous video generation task created through the Volcano Ark-compatible endpoint."
+openapi: "api-reference/openapi/ark-query-video-task.yaml GET /api/v3/contents/generations/tasks/{id}"
+---
+
+Poll this endpoint with the task `id` returned by the create endpoint until the task reaches a terminal state. For production workloads, prefer `callback_url` on the create request over tight polling loops. Task records are retained for the same window as native APIPod tasks; download or persist the video URL promptly once the task succeeds.
+
+## Task statuses
+
+| `status` | Meaning | Recommended action |
+| --- | --- | --- |
+| `queued` | The task is queued. | Wait and poll again. |
+| `running` | The task is executing. | Wait and poll again. |
+| `succeeded` | The task finished; the video URL is in `content.video_url`. | Download and persist the output. |
+| `failed` | The task failed; details are in `error`. | Inspect `error.code` and `error.message`. |
+| `cancelled` | The task was cancelled. | Stop polling. |
+
+## Usage and cost
+
+When `status` is `succeeded`, the response includes a `usage` object with the final amount charged for the task. `cost` is the settled amount in USD after any post-completion adjustment and matches the cost shown in the dashboard; it is an APIPod extension to the Ark contract and is always present. Token fields appear only when the upstream provider reports token usage.
+
+A task that is not found, or that belongs to another account, returns 404 without distinguishing the two cases.

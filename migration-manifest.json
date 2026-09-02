@@ -80,7 +80,7 @@
     "/16809456d0",
     "/16809458d0"
   ],
-  "publicPageCount": 83,
+  "publicPageCount": 89,
   "schemaOnlyCount": 36,
   "schemaPaths": [
     "/14024404d0",
@@ -1303,6 +1303,18 @@
       "schema": true
     },
     {
+      "slug": "ark-create-video-task",
+      "title": "Create Video Task (Ark-compatible)",
+      "legacy": "/ark-create-video-task",
+      "schema": true
+    },
+    {
+      "slug": "ark-query-video-task",
+      "title": "Query Video Task (Ark-compatible)",
+      "legacy": "/ark-query-video-task",
+      "schema": true
+    },
+    {
       "slug": "grok-imagine-1-5/grok-imagine-1-5-vip",
       "title": "Grok Imagine 1.5 VIP",
       "legacy": "/grok-imagine-1-5/grok-imagine-1-5-vip",
@@ -2109,6 +2121,142 @@
         "zh": "Seedance 2.5 文生视频是官方满血折扣路由，根据文本指令生成视频，不要求提供源媒体。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
       },
       "source": "localhost:8080/public/schemas/seedance-2.5-t2v"
+    },
+    {
+      "slug": "seedance/seedance-2-5",
+      "title": "Seedance 2.5",
+      "legacy": "/seedance/seedance-2-5",
+      "schema": true,
+      "modelId": "seedance-2.5",
+      "classifications": [
+        "text_to_video",
+        "image_to_video",
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.5",
+          "zh": "Seedance 2.5"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.5 is the all-in-one model of the official full-capability discount route: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and reference_images, reference videos, or reference audios select omni reference generation. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.5. It accepts up to 30 reference images, 10 reference videos, and 10 reference audios, with durations up to 30 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests.",
+        "zh": "Seedance 2.5 是官方满血折扣路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；使用 reference_images、参考视频或参考音频则进入全模态参考生视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5，支持最多 30 张参考图、10 个参考视频、10 段参考音频，时长最长 30 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.5"
+    },
+    {
+      "slug": "seedance/seedance-2-0",
+      "title": "Seedance 2.0",
+      "legacy": "/seedance/seedance-2-0",
+      "schema": true,
+      "modelId": "seedance-2.0",
+      "classifications": [
+        "text_to_video",
+        "image_to_video",
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.0",
+          "zh": "Seedance 2.0"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.0 is the all-in-one model of the standard 2.0 route: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and reference_images, reference videos, or reference audios select omni reference generation, all with synchronized audio and resolutions up to 4k. In APIPod, the public model ID is seedance-2.0. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests.",
+        "zh": "Seedance 2.0 是 2.0 标准路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；使用 reference_images、参考视频或参考音频则进入全模态参考生视频，支持同步音频，分辨率最高 4K。在 APIPod 中，公开模型 ID 为 seedance-2.0，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.0"
+    },
+    {
+      "slug": "seedance/seedance-2-0-fast",
+      "title": "Seedance 2.0 Fast",
+      "legacy": "/seedance/seedance-2-0-fast",
+      "schema": true,
+      "modelId": "seedance-2.0-fast",
+      "classifications": [
+        "text_to_video",
+        "image_to_video",
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.0 Fast",
+          "zh": "Seedance 2.0 Fast"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.0 Fast is the all-in-one model of the Fast tier: one public model ID covers every scenario at Fast-tier speed. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and reference_images, reference videos, or reference audios select omni reference generation, with synchronized audio and 480p / 720p output. In APIPod, the public model ID is seedance-2.0-fast. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests.",
+        "zh": "Seedance 2.0 Fast 是 Fast 快速档的 all-in-one 模型：一个公开模型 ID 以 Fast 档速度覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；使用 reference_images、参考视频或参考音频则进入全模态参考生视频，支持同步音频，输出 480P / 720P。在 APIPod 中，公开模型 ID 为 seedance-2.0-fast，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.0-fast"
+    },
+    {
+      "slug": "seedance/seedance-2-0-mini",
+      "title": "Seedance 2.0 Mini",
+      "legacy": "/seedance/seedance-2-0-mini",
+      "schema": true,
+      "modelId": "seedance-2.0-mini",
+      "classifications": [
+        "text_to_video",
+        "image_to_video",
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.0 Mini",
+          "zh": "Seedance 2.0 Mini"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.0 Mini is the all-in-one model of the Mini tier: one public model ID covers every scenario at the lowest price. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and reference_images, reference videos, or reference audios select omni reference generation, with synchronized audio and 480p / 720p output. In APIPod, the public model ID is seedance-2.0-mini. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests.",
+        "zh": "Seedance 2.0 Mini 是 Mini 低价档的 all-in-one 模型：一个公开模型 ID 以最低价格覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；使用 reference_images、参考视频或参考音频则进入全模态参考生视频，支持同步音频，输出 480P / 720P。在 APIPod 中，公开模型 ID 为 seedance-2.0-mini，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.0-mini"
     },
     {
       "slug": "seedance/2-5-image-to-video",

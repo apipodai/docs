@@ -1,0 +1,33 @@
+---
+title: "创建视频任务（方舟兼容）"
+description: "通过火山方舟兼容端点创建异步视频生成任务。一个模型名覆盖文生视频、图生视频与全模态参考生视频。"
+openapi: "api-reference/openapi/ark-create-video-task.zh.yaml POST /api/v3/contents/generations/tasks"
+---
+
+本端点使用火山方舟的视频任务方言。按 `ark.cn-beijing.volces.com` 文档开发的代码可以原样运行：把 base URL 指向 `https://api.apipod.ai/api/v3`，换成 APIPod API Key，请求体保持不变。鉴权同样使用 `Authorization: Bearer <key>` 请求头。
+
+## 一个模型名，全部场景
+
+与火山控制台不同，你不需要为每种能力挑选不同的 Endpoint ID。`seedance-2.5`、`seedance-2.0-fast` 等 all-in-one 模型 ID 覆盖全部场景：任务类型由 `content` 内容自动推断——仅文本即文生视频；1-2 张帧图即图生视频（首帧或首尾帧）；参考图片、参考视频或参考音频即全模态参考生视频。三种场景互斥；首尾帧图片与参考媒体混用会被 400 拒绝。无 role 的图片按首尾帧处理，因此超过 2 张无 role 图片会按参考图处理。
+
+## 模型命名
+
+`model` 字段不区分大小写，接受以下三类写法：
+
+| 写法 | 示例 |
+| --- | --- |
+| all-in-one 家族 ID | `seedance-2.5`、`seedance-2.0`、`seedance-2.0-fast`、`seedance-2.0-mini` —— 一个模型，场景由 `content` 推断 |
+| 火山原生名（含尾部版本号） | `doubao-seedance-2-5-260128`、`doubao-seedance-2-0-fast-260128`、`doubao-seedance-1-5-pro-251215` —— 归一为对应家族 |
+| 场景后缀 ID | `seedance-2.5-i2v` —— 场景由模型自身固定 |
+
+## 参数说明
+
+resolution、ratio、duration、seed、generate_audio、camera_fixed、watermark、return_last_frame 以及 `tools: [{"type": "web_search"}]` 会透传给模型。可选值随模型而定；不支持的组合与原生 `/v1/videos/generations` 端点的校验行为一致。
+
+部分方舟参数被接受但忽略（平台不映射）：`service_tier`、`priority`、`execution_expires_after`、`safety_identifier`、`output_format`、`draft`、`omni_reference_task_type`。`frames` 参数会返回 400 错误，请改用 `duration`。
+
+## 回调
+
+设置 `callback_url` 后，任务到达终态时会收到一次 POST 推送。回调体与查询接口的响应完全同构，同一套解析代码即可处理两者。其他端点使用的原生回调格式与重试策略见 [Webhooks](/zh-CN/webhooks)。
+
+创建任务后，使用返回的 `id` 轮询 [查询视频任务（方舟兼容）](/zh-CN/ark-query-video-task)。

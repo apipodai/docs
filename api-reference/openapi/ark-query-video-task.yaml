@@ -1,0 +1,116 @@
+openapi: 3.1.0
+info:
+  title: Query Video Task API (Ark-compatible)
+  version: 1.0.0
+  description: >-
+    Volcano Ark-compatible endpoint for querying an asynchronous video
+    generation task. Poll this endpoint with the task id returned by the
+    create endpoint until the task reaches a terminal state.
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /api/v3/contents/generations/tasks/{id}:
+    get:
+      summary: Query video generation task
+      operationId: get-ark-query-video-task
+      tags:
+        - Video tasks
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Task ID returned by the create endpoint.
+          schema:
+            type: string
+          example: 0f4c9f6e-1111-4c1d-8c2f-2b7b9a1c4d55
+      responses:
+        "200":
+          description: Task status snapshot
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Task ID.
+                  model:
+                    type: string
+                    description: Public model family name used for this task.
+                  status:
+                    type: string
+                    enum:
+                      - queued
+                      - running
+                      - succeeded
+                      - failed
+                      - cancelled
+                    description: Task status in Ark semantics.
+                  content:
+                    type: object
+                    properties:
+                      video_url:
+                        type: string
+                        description: Generated video URL. Download or persist it promptly; present only after the task succeeds.
+                    description: Output content. Present only after the task succeeds.
+                  created_at:
+                    type: integer
+                    description: Task creation time as a Unix timestamp in seconds.
+                  updated_at:
+                    type: integer
+                    description: Last status update time as a Unix timestamp in seconds.
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Ark-style error code.
+                      message:
+                        type: string
+                        description: Client-safe error message.
+                    description: Present only when the task failed.
+                  usage:
+                    type: object
+                    properties:
+                      completion_tokens:
+                        type: integer
+                        description: Token count reported by the upstream provider, when available.
+                      total_tokens:
+                        type: integer
+                        description: Total token count reported by the upstream provider, when available.
+                      cost:
+                        type: number
+                        description: Final amount charged for this task, in USD, consistent with the dashboard. APIPod extension field.
+                    required:
+                      - cost
+                    description: Final usage snapshot. Present only when the task succeeded.
+                required:
+                  - id
+                  - model
+                  - status
+              example:
+                id: 0f4c9f6e-1111-4c1d-8c2f-2b7b9a1c4d55
+                model: seedance-2.5
+                status: succeeded
+                content:
+                  video_url: https://cdn.example.com/generated.mp4
+                created_at: 1786358400
+                updated_at: 1786358523
+                usage:
+                  completion_tokens: 123
+                  total_tokens: 123
+                  cost: 0.053
+        "401":
+          description: Authentication failed.
+        "404":
+          description: Task not found, or the task belongs to another account.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

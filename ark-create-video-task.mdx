@@ -1,0 +1,33 @@
+---
+title: "Create video task (Ark-compatible)"
+description: "Create an asynchronous video generation task through the Volcano Ark-compatible endpoint. One model name covers text-to-video, image-to-video, and omni reference generation."
+openapi: "api-reference/openapi/ark-create-video-task.yaml POST /api/v3/contents/generations/tasks"
+---
+
+This endpoint speaks the Volcano Ark (火山方舟) video task dialect. Code written against `ark.cn-beijing.volces.com` works as-is: point the base URL at `https://api.apipod.ai/api/v3`, swap in an APIPod API key, and keep the request body unchanged. Authentication uses the same `Authorization: Bearer <key>` header as Ark.
+
+## One model name, every scenario
+
+Unlike the Ark console, you do not pick separate endpoint IDs per capability. All-in-one model IDs such as `seedance-2.5` and `seedance-2.0-fast` cover every scenario: the task type is inferred from the `content` array — text only is text-to-video, 1–2 frame images are image-to-video, and reference images, videos, or audios are omni reference generation. The three scenarios are mutually exclusive; mixing frame images with reference media is rejected with a 400 error. Un-roled images are frames, so more than two un-roled images are treated as reference images.
+
+## Model names
+
+The `model` field accepts all of the following, case-insensitively:
+
+| Style | Examples |
+| --- | --- |
+| All-in-one family IDs | `seedance-2.5`, `seedance-2.0`, `seedance-2.0-fast`, `seedance-2.0-mini` — one model, scenario inferred from `content` |
+| Volcano native names with a trailing version | `doubao-seedance-2-5-260128`, `doubao-seedance-2-0-fast-260128`, `doubao-seedance-1-5-pro-251215` — normalized to the matching family |
+| Scenario-suffixed IDs | `seedance-2.5-i2v` — the scenario is pinned by the model itself |
+
+## Parameters
+
+Resolution, ratio, duration, seed, generate_audio, camera_fixed, watermark, return_last_frame, and `tools: [{"type": "web_search"}]` are passed through to the model. Supported values depend on the model; unsupported combinations fail validation exactly like the native `/v1/videos/generations` endpoint.
+
+A few Ark parameters are accepted but ignored because the platform does not map them: `service_tier`, `priority`, `execution_expires_after`, `safety_identifier`, `output_format`, `draft`, and `omni_reference_task_type`. The `frames` parameter is rejected with a 400 error — use `duration` instead.
+
+## Callbacks
+
+Set `callback_url` to receive a POST when the task reaches a terminal state. The callback body is a task object identical in shape to the query endpoint response, so the same parsing code handles both. See [Webhooks](/webhooks) for delivery and retry behavior of the native callback format used by other endpoints.
+
+After creating a task, poll [Query video task (Ark-compatible)](/ark-query-video-task) with the returned `id`.
