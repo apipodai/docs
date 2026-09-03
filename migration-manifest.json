@@ -80,7 +80,7 @@
     "/16809456d0",
     "/16809458d0"
   ],
-  "publicPageCount": 92,
+  "publicPageCount": 95,
   "schemaOnlyCount": 36,
   "schemaPaths": [
     "/14024404d0",
@@ -1205,6 +1205,40 @@
       "source": "localhost:8080/public/schemas/gemini-omni-extend"
     },
     {
+      "slug": "minimax-h3/minimax-h3",
+      "title": "MiniMax H3",
+      "legacy": "/minimax-h3/minimax-h3",
+      "schema": true,
+      "modelId": "minimax-h3",
+      "classifications": [
+        "text_to_video",
+        "image_to_video",
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "minimax",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "MiniMax H3",
+          "zh": "MiniMax H3"
+        }
+      },
+      "introduction": {
+        "en": "MiniMax H3 is the all-in-one model of MiniMax's multimodal H3 video family: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, or audio selects reference generation. In APIPod, the public model ID is minimax-h3. It accepts up to 9 reference images, 3 videos, and 3 audios, outputs 768P or 2K for 4-15 seconds, and returns results through asynchronous video tasks. Text-to-video requests require an explicit aspect_ratio.",
+        "zh": "MiniMax H3 是 MiniMax 多模态 H3 视频系列的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。只传提示词即文生视频，image_urls 传 1-2 张图即图生视频（首帧/首尾帧），role=reference_images、参考视频或参考音频即参考生视频。在 APIPod 中，公开模型 ID 为 minimax-h3，参考素材上限为图 9 / 视频 3 / 音频 3，输出 768P 或 2K、时长 4-15 秒，通过异步视频任务返回结果。文生视频场景必须显式传 aspect_ratio。"
+      },
+      "source": "localhost:8080/public/schemas/minimax-h3"
+    },
+    {
       "slug": "minimax-h3/minimax-h3-t2v",
       "title": "MiniMax H3 Text to Video",
       "legacy": "/minimax-h3/minimax-h3-t2v",
@@ -2145,8 +2179,8 @@
         }
       },
       "introduction": {
-        "en": "Seedance 2.5 is the all-in-one model of the official full-capability discount route: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, or any reference audio selects omni reference generation. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.5. It accepts up to 30 reference images, 10 reference videos, and 10 reference audios, with durations up to 30 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests.",
-        "zh": "Seedance 2.5 是官方满血折扣路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5，支持最多 30 张参考图、10 个参考视频、10 段参考音频，时长最长 30 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+        "en": "Seedance 2.5 is the all-in-one model of the official full-capability discount route: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, or any reference audio selects omni reference generation. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.5. It accepts up to 30 reference images, 10 reference videos, and 10 reference audios, with durations up to 30 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created, and plain public URLs always work in requests.",
+        "zh": "Seedance 2.5 是官方满血折扣路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5，支持最多 30 张参考图、10 个参考视频、10 段参考音频，时长最长 30 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认先经素材服务送审再提交任务，公开 URL 始终可用。"
       },
       "source": "localhost:8080/public/schemas/seedance-2.5"
     },
@@ -2185,8 +2219,8 @@
         }
       },
       "introduction": {
-        "en": "Seedance 2.0 is the all-in-one model of the standard 2.0 route: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, or any reference audio selects omni reference generation, all with synchronized audio and resolutions up to 4k. In APIPod, the public model ID is seedance-2.0. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests.",
-        "zh": "Seedance 2.0 是 2.0 标准路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频，支持同步音频，分辨率最高 4K。在 APIPod 中，公开模型 ID 为 seedance-2.0，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+        "en": "Seedance 2.0 is the all-in-one model of the standard 2.0 route: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, or any reference audio selects omni reference generation, all with synchronized audio and resolutions up to 4k. In APIPod, the public model ID is seedance-2.0. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created, and plain public URLs always work in requests.",
+        "zh": "Seedance 2.0 是 2.0 标准路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频，支持同步音频，分辨率最高 4K。在 APIPod 中，公开模型 ID 为 seedance-2.0，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认先经素材服务送审再提交任务，公开 URL 始终可用。"
       },
       "source": "localhost:8080/public/schemas/seedance-2.0"
     },
@@ -2225,8 +2259,8 @@
         }
       },
       "introduction": {
-        "en": "Seedance 2.0 Fast is the all-in-one model of the Fast tier: one public model ID covers every scenario at Fast-tier speed. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, or any reference audio selects omni reference generation, with synchronized audio and 480p / 720p output. In APIPod, the public model ID is seedance-2.0-fast. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests.",
-        "zh": "Seedance 2.0 Fast 是 Fast 快速档的 all-in-one 模型：一个公开模型 ID 以 Fast 档速度覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频，支持同步音频，输出 480P / 720P。在 APIPod 中，公开模型 ID 为 seedance-2.0-fast，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+        "en": "Seedance 2.0 Fast is the all-in-one model of the Fast tier: one public model ID covers every scenario at Fast-tier speed. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, or any reference audio selects omni reference generation, with synchronized audio and 480p / 720p output. In APIPod, the public model ID is seedance-2.0-fast. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created, and plain public URLs always work in requests.",
+        "zh": "Seedance 2.0 Fast 是 Fast 快速档的 all-in-one 模型：一个公开模型 ID 以 Fast 档速度覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频，支持同步音频，输出 480P / 720P。在 APIPod 中，公开模型 ID 为 seedance-2.0-fast，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认先经素材服务送审再提交任务，公开 URL 始终可用。"
       },
       "source": "localhost:8080/public/schemas/seedance-2.0-fast"
     },
@@ -2265,8 +2299,8 @@
         }
       },
       "introduction": {
-        "en": "Seedance 2.0 Mini is the all-in-one model of the Mini tier: one public model ID covers every scenario at the lowest price. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, or any reference audio selects omni reference generation, with synchronized audio and 480p / 720p output. In APIPod, the public model ID is seedance-2.0-mini. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through without review, and plain public URLs always work in requests.",
-        "zh": "Seedance 2.0 Mini 是 Mini 低价档的 all-in-one 模型：一个公开模型 ID 以最低价格覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频，支持同步音频，输出 480P / 720P。在 APIPod 中，公开模型 ID 为 seedance-2.0-mini，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+        "en": "Seedance 2.0 Mini is the all-in-one model of the Mini tier: one public model ID covers every scenario at the lowest price. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, or any reference audio selects omni reference generation, with synchronized audio and 480p / 720p output. In APIPod, the public model ID is seedance-2.0-mini. It accepts up to 9 reference images, 3 reference videos, and 3 reference audios, with durations from 4 to 15 seconds, and returns results through asynchronous video tasks. This is a full-capability variant where media URLs are submitted to the asset review service before the task is created, and plain public URLs always work in requests.",
+        "zh": "Seedance 2.0 Mini 是 Mini 低价档的 all-in-one 模型：一个公开模型 ID 以最低价格覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频，支持同步音频，输出 480P / 720P。在 APIPod 中，公开模型 ID 为 seedance-2.0-mini，支持最多 9 张参考图、3 个参考视频、3 段参考音频，时长 4 到 15 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认先经素材服务送审再提交任务，公开 URL 始终可用。"
       },
       "source": "localhost:8080/public/schemas/seedance-2.0-mini"
     },
@@ -2580,6 +2614,41 @@
       }
     },
     {
+      "slug": "wan/wan3-0-video",
+      "title": "WAN 3.0 Video",
+      "legacy": "/wan/wan3-0-video",
+      "schema": true,
+      "modelId": "wan3.0-video",
+      "classifications": [
+        "text_to_video",
+        "image_to_video",
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "file"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Video",
+          "zh": "WAN 3.0 Video"
+        }
+      },
+      "introduction": {
+        "en": "WAN 3.0 Video is the all-in-one model of Alibaba's Wan 3.0 family: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, audio, file, or web link selects reference generation. In APIPod, the public model ID is wan3.0-video. It accepts up to 10 reference images, 5 videos, 5 audios, 1 file, and 1 link, with duration -1 or 2-30 seconds at 480P/720P/1080P, and returns results through asynchronous video tasks.",
+        "zh": "WAN 3.0 Video 是阿里 Wan 3.0 系列的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。只传提示词即文生视频，image_urls 传 1-2 张图即图生视频（首帧/首尾帧），role=reference_images、参考视频、参考音频、参考文件或网页链接即参考生视频。在 APIPod 中，公开模型 ID 为 wan3.0-video，参考素材上限为图 10 / 视频 5 / 音频 5 / 文件 1 / 链接 1，时长 -1 或 2-30 秒，分辨率 480P/720P/1080P，通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/wan3.0-video"
+    },
+    {
       "slug": "wan/wan3-0-i2v",
       "title": "WAN 3.0 Image to Video",
       "legacy": "/wan/wan3-0-i2v",
@@ -2671,6 +2740,41 @@
         "en": "Wan 3.0 Text to Video is a dedicated task mode in Alibaba's Wan video family that creates video directly from text prompts without source media. In APIPod, the public model ID is wan3.0-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
         "zh": "Wan 3.0 文生视频是阿里 Wan Video模型的独立任务模式，直接根据文本提示词生成视频，不要求源媒体。在 APIPod 中，公开模型 ID 为 wan3.0-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
       }
+    },
+    {
+      "slug": "wan/wan3-0-video-prime",
+      "title": "WAN 3.0 Video Prime",
+      "legacy": "/wan/wan3-0-video-prime",
+      "schema": true,
+      "modelId": "wan3.0-video-prime",
+      "classifications": [
+        "text_to_video",
+        "image_to_video",
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "file"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "beta",
+        "displayName": {
+          "en": "WAN 3.0 Video Prime",
+          "zh": "WAN 3.0 Video Prime"
+        }
+      },
+      "introduction": {
+        "en": "WAN 3.0 Video Prime is the all-in-one model of the high-speed tier of Alibaba's Wan 3.0 family: one public model ID covers every scenario, with significantly faster end-to-end generation. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, audio, file, or web link selects reference generation. In APIPod, the public model ID is wan3.0-video-prime. It accepts up to 10 reference images, 5 videos, 5 audios, 1 file, and 1 link, with duration -1 or 2-30 seconds at 480P/720P/1080P, and returns results through asynchronous video tasks.",
+        "zh": "WAN 3.0 Video Prime 是阿里 Wan 3.0 系列高速版（Prime）的 all-in-one 模型：一个公开模型 ID 覆盖全部场景，端到端生成速度显著提升。只传提示词即文生视频，image_urls 传 1-2 张图即图生视频（首帧/首尾帧），role=reference_images、参考视频、参考音频、参考文件或网页链接即参考生视频。在 APIPod 中，公开模型 ID 为 wan3.0-video-prime，参考素材上限为图 10 / 视频 5 / 音频 5 / 文件 1 / 链接 1，时长 -1 或 2-30 秒，分辨率 480P/720P/1080P，通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/wan3.0-video-prime"
     },
     {
       "slug": "wan/wan3-0-prime-i2v",

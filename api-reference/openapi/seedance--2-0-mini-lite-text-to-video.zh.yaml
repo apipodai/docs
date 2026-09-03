@@ -74,11 +74,6 @@ paths:
                     - 9:16
                     - 21:9
                   default: adaptive
-                watermark:
-                  type: boolean
-                  title: Watermark
-                  description: 添加上游水印。
-                  default: false
                 generate_audio:
                   type: boolean
                   title: Generate Audio

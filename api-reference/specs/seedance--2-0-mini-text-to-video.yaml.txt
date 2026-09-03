@@ -120,24 +120,6 @@
               "component": "button-group"
             }
           },
-          "return_last_frame": {
-            "type": "boolean",
-            "title": "Retrun Last Frame",
-            "description": "Whether to return the last frame image of the generated video. Using this parameter enables the generation of multiple consecutive videos: taking the last frame of the previous generated video as the first frame of the next video task to quickly generate multiple consecutive videos, and the first item in the returned result is this image.",
-            "default": "false",
-            "x-apipod-ui": {
-              "component": "switch"
-            }
-          },
-          "watermark": {
-            "type": "boolean",
-            "title": "Watermark",
-            "description": "Whether the generated video contains a watermark",
-            "default": false,
-            "x-apipod-ui": {
-              "component": "switch"
-            }
-          },
           "web_search": {
             "type": "boolean",
             "title": "Web Search",
@@ -158,11 +140,9 @@
           "duration",
           "resolution",
           "aspect_ratio",
-          "watermark",
-          "web_search",
-          "generate_audio",
-          "return_last_frame"
-        ]
+                    "web_search",
+          "generate_audio"
+          ]
       },
       "Output": {
         "type": "",

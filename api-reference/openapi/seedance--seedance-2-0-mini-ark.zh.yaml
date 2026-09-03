@@ -121,11 +121,6 @@ paths:
                   title: Generate Audio
                   description: "是否生成与画面同步的音频。"
                   default: true
-                watermark:
-                  type: boolean
-                  title: Watermark
-                  description: "是否添加上游水印。"
-                  default: false
                 tools:
                   type: array
                   title: Tools

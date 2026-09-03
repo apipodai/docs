@@ -74,11 +74,6 @@ paths:
                     - 9:16
                     - 21:9
                   default: adaptive
-                watermark:
-                  type: boolean
-                  title: Watermark
-                  description: Whether the generated video contains a watermark
-                  default: false
                 web_search:
                   type: boolean
                   title: Web Search
@@ -89,11 +84,6 @@ paths:
                   title: Generate Audio
                   description: Controls whether the generated video contains audio synchronized with the visuals.
                   default: true
-                return_last_frame:
-                  type: boolean
-                  title: Retrun Last Frame
-                  description: "Whether to return the last frame image of the generated video. Using this parameter enables the generation of multiple consecutive videos: taking the last frame of the previous generated video as the first frame of the next video task to quickly generate multiple consecutive videos, and the first item in the returned result is this image."
-                  default: false
               required:
                 - model
                 - prompt

@@ -1,0 +1,220 @@
+openapi: 3.1.0
+info:
+  title: WAN 3.0 Video Prime API
+  version: 1.0.0
+  description: WAN 3.0 Video Prime 是阿里 Wan 3.0 系列高速版（Prime）的 all-in-one 模型：一个公开模型 ID 覆盖全部场景，端到端生成速度显著提升。只传提示词即文生视频，image_urls 传 1-2 张图即图生视频（首帧/首尾帧），role=reference_images、参考视频、参考音频、参考文件或网页链接即参考生视频。在 APIPod 中，公开模型 ID 为 wan3.0-video-prime，参考素材上限为图 10 / 视频 5 / 音频 5 / 文件 1 / 链接 1，时长 -1 或 2-30 秒，分辨率 480P/720P/1080P，通过异步视频任务返回结果。
+servers:
+  - url: https://api.apipod.ai
+    description: 生产环境
+paths:
+  /v1/videos/generations:
+    post:
+      summary: 创建生成任务
+      description: WAN 3.0 Video Prime 是阿里 Wan 3.0 系列高速版（Prime）的 all-in-one 模型：一个公开模型 ID 覆盖全部场景，端到端生成速度显著提升。只传提示词即文生视频，image_urls 传 1-2 张图即图生视频（首帧/首尾帧），role=reference_images、参考视频、参考音频、参考文件或网页链接即参考生视频。在 APIPod 中，公开模型 ID 为 wan3.0-video-prime，参考素材上限为图 10 / 视频 5 / 音频 5 / 文件 1 / 链接 1，时长 -1 或 2-30 秒，分辨率 480P/720P/1080P，通过异步视频任务返回结果。
+      operationId: create-wan-wan3-0-video-prime
+      tags:
+        - WAN 3.0 Video Prime
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: WAN 3.0 Video Prime
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: APIPod 公开模型 ID。
+                  const: wan3.0-video-prime
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: 文本提示词，描述期望生成的视频内容；文生视频场景必填。
+                  minLength: 0
+                  maxLength: 20000
+                image_urls:
+                  type: array
+                  title: Image Urls
+                  description: 图片 URL。场景按素材自动推断：仅传 1-2 张图时视为首尾帧（图生视频）；携带其他参考素材或超过 2 张时全部按参考图处理。可配合 role 字段显式指定语义。最多 10 张。
+                  maxItems: 10
+                  items:
+                    type: string
+                role:
+                  type: string
+                  title: Role
+                  description: image_urls 的显式语义标注。reference_images：无论张数全部按参考图处理；first_last_frame：首帧 + 可选尾帧（最多 2 张，不能与参考视频或音频同用）；缺省时按素材推断场景。
+                  enum:
+                    - reference_images
+                    - first_last_frame
+                video_urls:
+                  type: array
+                  title: Reference Videos
+                  description: 参考视频，最多 5 个，总时长不超过 15 秒。
+                  maxItems: 5
+                  items:
+                    type: string
+                audio_urls:
+                  type: array
+                  title: Reference Audio
+                  description: 参考音频，最多 5 段，总时长不超过 15 秒。
+                  maxItems: 5
+                  items:
+                    type: string
+                file_url:
+                  type: string
+                  title: Reference File
+                  description: 参考文件最多一个，不能与 link_url 同时提供；支持格式：docx、doc、xlsx、xls、pptx、ppt、pdf、txt、key、pages、numbers、md。
+                  default: ""
+                link_url:
+                  type: string
+                  title: Reference Link
+                  description: 公开网页的 URL 地址，仅支持无需登录即可访问的公开网页，不能与 file_url 同时提供。
+                  default: ""
+                duration:
+                  type: integer
+                  title: Duration
+                  description: 生成视频时长（秒），-1 表示由模型自行决定。
+                  enum:
+                    - -1
+                  default: 5
+                  minimum: 2
+                  maximum: 30
+                resolution:
+                  type: string
+                  title: Resolution
+                  enum:
+                    - 480P
+                    - 720P
+                    - 1080P
+                  default: 1080P
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  enum:
+                    - adaptive
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                  default: adaptive
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  default: true
+                  description: 为视频生成同步音频。
+              required:
+                - model
+            example:
+              model: wan3.0-video-prime
+              prompt: A premium product photograph on a dark studio set, precise typography,
+                soft rim lighting, highly detailed.
+              image_urls:
+                - https://cdn.example.com/reference-1.jpg
+              video_urls:
+                - https://cdn.example.com/reference.mp4
+              duration: 5
+              resolution: 1080P
+              aspect_ratio: adaptive
+              generate_audio: true
+      responses:
+        "200":
+          description: 任务已受理
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                description: Standard response for task submission
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP 状态码。
+                  data:
+                    type: object
+                    title: Task Submit Data
+                    description: 响应数据。
+                    properties:
+                      task_id:
+                        type: string
+                        description: 用于查询任务状态的 APIPod 任务 ID。
+                  message:
+                    type: string
+                    description: 响应消息。
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "wan3.0-video-prime",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "duration": 5,
+              "resolution": "1080P",
+              "aspect_ratio": "adaptive",
+              "generate_audio": true
+            }'
+        - lang: Python
+          label: Python
+          source: |-
+            import os
+
+            import requests
+
+
+            payload = {
+              "model": "wan3.0-video-prime",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "duration": 5,
+              "resolution": "1080P",
+              "aspect_ratio": "adaptive",
+              "generate_audio": True
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

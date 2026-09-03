@@ -123,11 +123,6 @@ paths:
                   title: Generate Audio
                   description: "Whether to generate synchronized audio."
                   default: true
-                watermark:
-                  type: boolean
-                  title: Watermark
-                  description: "Whether to add the upstream watermark."
-                  default: false
                 tools:
                   type: array
                   title: Tools

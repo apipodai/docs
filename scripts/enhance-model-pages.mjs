@@ -260,7 +260,6 @@ const fieldDescriptions = {
   file_url: ["Publicly accessible reference file URL.", "可公开访问的参考文件 URL。"],
   link_url: ["Public web page URL used as reference context.", "作为参考上下文的公开网页 URL。"],
   prompt_extend: ["Enable intelligent prompt rewriting.", "是否启用智能提示词改写。"],
-  return_last_frame: ["Return the generated last frame for continuation workflows.", "返回生成视频的尾帧，用于续作工作流。"],
   web_search: ["Allow retrieval of current information when supported.", "在通道支持时允许检索实时信息。"],
   google_search: ["Allow Google Search grounding when supported.", "在通道支持时允许使用 Google Search 联网。"],
   callback_url: ["HTTPS endpoint that receives task completion notifications.", "接收任务完成通知的 HTTPS 地址。"],

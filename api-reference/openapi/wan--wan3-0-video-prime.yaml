@@ -1,0 +1,217 @@
+openapi: 3.1.0
+info:
+  title: WAN 3.0 Video Prime API
+  version: 1.0.0
+  description: "WAN 3.0 Video Prime is the all-in-one model of the high-speed tier of Alibaba's Wan 3.0 family: one public model ID covers every scenario, with significantly faster end-to-end generation. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, audio, file, or web link selects reference generation. In APIPod, the public model ID is wan3.0-video-prime. It accepts up to 10 reference images, 5 videos, 5 audios, 1 file, and 1 link, with duration -1 or 2-30 seconds at 480P/720P/1080P, and returns results through asynchronous video tasks."
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/videos/generations:
+    post:
+      summary: Create Generation Task
+      description: "WAN 3.0 Video Prime is the all-in-one model of the high-speed tier of Alibaba's Wan 3.0 family: one public model ID covers every scenario, with significantly faster end-to-end generation. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, audio, file, or web link selects reference generation. In APIPod, the public model ID is wan3.0-video-prime. It accepts up to 10 reference images, 5 videos, 5 audios, 1 file, and 1 link, with duration -1 or 2-30 seconds at 480P/720P/1080P, and returns results through asynchronous video tasks."
+      operationId: create-wan-wan3-0-video-prime
+      tags:
+        - WAN 3.0 Video Prime
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: WAN 3.0 Video Prime
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: Public APIPod model ID.
+                  const: wan3.0-video-prime
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: Text prompt used to describe the expected generated video content. Required for the text-to-video scenario.
+                  minLength: 0
+                  maxLength: 20000
+                image_urls:
+                  type: array
+                  title: Image Urls
+                  description: "Image URLs. Scenario inference applies: when images are the only media input and 1-2 URLs are provided they are treated as first/last frames (image-to-video); with other reference media present or more than 2 URLs, all images are treated as reference images. Pair with the role field to pin the semantics explicitly. Up to 10 images are supported."
+                  maxItems: 10
+                  items:
+                    type: string
+                role:
+                  type: string
+                  title: Role
+                  description: "Explicit interpretation of image_urls. reference_images: all images are treated as reference images regardless of count. first_last_frame: images are treated as the first frame plus an optional last frame (max 2; cannot be combined with reference videos or audios). When omitted, the scenario is inferred from the materials."
+                  enum:
+                    - reference_images
+                    - first_last_frame
+                video_urls:
+                  type: array
+                  title: Reference Videos
+                  description: Reference videos. Maximum 5 clips, total duration no more than 15 seconds.
+                  maxItems: 5
+                  items:
+                    type: string
+                audio_urls:
+                  type: array
+                  title: Reference Audio
+                  description: Refer to the audio, with a maximum of 5 segments and a total duration no more than 15 seconds.
+                  maxItems: 5
+                  items:
+                    type: string
+                file_url:
+                  type: string
+                  title: Reference File
+                  description: "Reference File, maximum one, cannot be input together with link url. Supported formats: docx, doc, xlsx, xls, pptx, ppt, pdf, txt, key, pages, numbers, md."
+                  default: ""
+                link_url:
+                  type: string
+                  title: Reference Link
+                  description: The URL address of the public web page. Only public web pages that do not require login are supported for parsing. Cannot be input together with file.
+                  default: ""
+                duration:
+                  type: integer
+                  title: Duration
+                  description: The duration of the generated video, in seconds. -1 lets the model decide the duration.
+                  enum:
+                    - -1
+                  default: 5
+                  minimum: 2
+                  maximum: 30
+                resolution:
+                  type: string
+                  title: Resolution
+                  enum:
+                    - 480P
+                    - 720P
+                    - 1080P
+                  default: 1080P
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  enum:
+                    - adaptive
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                  default: adaptive
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  default: true
+              required:
+                - model
+            example:
+              model: wan3.0-video-prime
+              prompt: A premium product photograph on a dark studio set, precise typography,
+                soft rim lighting, highly detailed.
+              image_urls:
+                - https://cdn.example.com/reference-1.jpg
+              video_urls:
+                - https://cdn.example.com/reference.mp4
+              duration: 5
+              resolution: 1080P
+              aspect_ratio: adaptive
+              generate_audio: true
+      responses:
+        "200":
+          description: Task accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                description: Standard response for task submission
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
+                    properties:
+                      task_id:
+                        type: string
+                        description: generatation task id
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "wan3.0-video-prime",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "duration": 5,
+              "resolution": "1080P",
+              "aspect_ratio": "adaptive",
+              "generate_audio": true
+            }'
+        - lang: Python
+          label: Python
+          source: |-
+            import os
+
+            import requests
+
+
+            payload = {
+              "model": "wan3.0-video-prime",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "duration": 5,
+              "resolution": "1080P",
+              "aspect_ratio": "adaptive",
+              "generate_audio": True
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

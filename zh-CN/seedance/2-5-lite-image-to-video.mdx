@@ -1,6 +1,6 @@
 ---
 title: "Seedance 2.5 特价版 图生视频"
-description: "Seedance 2.5 特价版图生视频是特价版满血路由，将首帧图（可选尾帧图）动画化为视频。时长最长 30 秒，仅输出 720p。该系列为满血版：媒体 URL 默认（real_person=true）会先经素材服务送审再提交任务；确认素材不含真人时可设置 real_person=false 跳过送审、直接透传，公网 URL 均可直接使用。"
+description: "Seedance 2.5 特价版图生视频是特价版满血路由，将首帧图（可选尾帧图）动画化为视频。时长最长 30 秒，仅输出 720p。该系列为满血版：媒体 URL 会先经素材服务送审再提交任务，公网 URL 均可直接使用。"
 openapi: "api-reference/openapi/seedance--2-5-lite-image-to-video.zh.yaml POST /v1/videos/generations"
 ---
 
@@ -17,14 +17,5 @@ Seedance 2.5 特价版图生视频将首帧图（可选尾帧图）动画化为�
 - **原生音频**：默认开启（`generate_audio=true`），与画面一起生成；不需要时可按请求关闭。
 
 <Note>
-特价计费，仅成功任务收费——实时单价以定价页为准。该系列为满血版：媒体 URL 默认（real_person=true）会先经素材服务送审再提交任务；确认素材不含真人时可设置 real_person=false 跳过送审、直接透传，公网 URL 均可直接使用。
+特价计费，仅成功任务收费——实时单价以定价页为准。该系列为满血版：媒体 URL 会先经素材服务送审再提交任务，公网 URL 均可直接使用。
 </Note>
-
-## 真人素材送审（real_person）
-
-请求携带参考素材时，通过 `real_person` 布尔字段控制素材是否先经人脸素材送审：
-
-- `real_person: true`（默认）：素材先经素材服务送审，通过后提交任务；送审期间任务等待，审核拒绝时报错。
-- `real_person: false`：跳过送审，素材 URL 直接透传提交任务。
-
-仅在确认素材不含真人/人脸时才设置为 `false` 以省去送审等待；含真人素材保持默认 `true` 即可。

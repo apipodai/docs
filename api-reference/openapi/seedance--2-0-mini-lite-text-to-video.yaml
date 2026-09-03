@@ -75,11 +75,6 @@ paths:
                     - 9:16
                     - 21:9
                   default: adaptive
-                watermark:
-                  type: boolean
-                  title: Watermark
-                  description: Whether the generated video contains a watermark
-                  default: false
                 generate_audio:
                   type: boolean
                   title: Generate Audio

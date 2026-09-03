@@ -1,6 +1,6 @@
 ---
 title: "Seedance 2.0 Reference to Video"
-description: "Seedance 2.0 Reference to Video is a standard route that uses reference images, video, or audio to guide subjects, motion, visual style, and sound. Media URLs are submitted to asset review before task creation by default (real_person=true); set real_person=false only when the materials are confirmed face-free."
+description: "Seedance 2.0 Reference to Video is a standard route that uses reference images, video, or audio to guide subjects, motion, visual style, and sound. Media URLs are submitted to asset review before task creation."
 openapi: "api-reference/openapi/seedance--2-0-reference-to-video.yaml POST /v1/videos/generations"
 ---
 
@@ -8,7 +8,7 @@ openapi: "api-reference/openapi/seedance--2-0-reference-to-video.yaml POST /v1/v
 
 ## Asset and Scene Limits
 
-Seedance 2.0 reference-material mode supports 9 reference images, 3 reference videos, and 3 audio clips. It is a full-capability route that supports real-person content and faces; materials are submitted to asset review by default (real_person=true), and setting real_person=false passes materials through without review when they are confirmed face-free.
+Seedance 2.0 reference-material mode supports 9 reference images, 3 reference videos, and 3 audio clips. It is a full-capability route that supports real-person content and faces; materials are submitted to asset review before task creation.
 
 - **Text prompt**: For Chinese, keep it under 500 characters; for English, under 1,000 words.
 - **Image input**: Supports jpeg, png, webp, bmp, tiff, gif, heic, and heif; each image under 30 MB; aspect ratio (0.4, 2.5); width and height (300px, 6000px).
@@ -20,12 +20,3 @@ Seedance 2.0 reference-material mode supports 9 reference images, 3 reference vi
 <Note>
 Note: Video input has a lower unit price because the billing formula differs: without video = unit price × output volume; with video = unit price × (input volume + output volume).
 </Note>
-
-## Real-person review (real_person)
-
-When a request carries reference materials, the boolean `real_person` field controls whether materials are submitted to face review first:
-
-- `real_person: true` (default): materials are submitted to the asset review service first; the task waits during review and fails if review rejects the materials.
-- `real_person: false`: review is skipped and material URLs are passed through to task creation as-is.
-
-Set it to `false` only when the materials are confirmed face-free to save the review round trip; keep the default `true` for materials containing real people.

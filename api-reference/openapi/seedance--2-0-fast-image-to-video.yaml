@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Seedance 2.0 Fast Image to Video API
   version: 1.0.0
-  description: Seedance 2.0 Fast Image to Video is a lower-latency route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-fast-i2v. It supports image-to-video, accepts text, image, audio and video inputs, and returns results through asynchronous video tasks. Media URLs are submitted to asset review before task creation by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass them through without review.
+  description: Seedance 2.0 Fast Image to Video is a lower-latency route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-fast-i2v. It supports image-to-video, accepts text, image, audio and video inputs, and returns results through asynchronous video tasks. Media URLs are submitted to asset review before task creation.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -10,7 +10,7 @@ paths:
   /v1/videos/generations:
     post:
       summary: Create Generation Task
-      description: Seedance 2.0 Fast Image to Video is a lower-latency route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-fast-i2v. It supports image-to-video, accepts text, image, audio and video inputs, and returns results through asynchronous video tasks. Media URLs are submitted to asset review before task creation by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass them through without review.
+      description: Seedance 2.0 Fast Image to Video is a lower-latency route that animates a required first-frame image and can use an optional last frame where the public schema allows it. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-fast-i2v. It supports image-to-video, accepts text, image, audio and video inputs, and returns results through asynchronous video tasks. Media URLs are submitted to asset review before task creation.
       operationId: create-seedance-2-0-fast-image-to-video
       tags:
         - Seedance 2.0 Fast Image to Video
@@ -53,11 +53,6 @@ paths:
                   default: 5
                   minimum: 4
                   maximum: 15
-                watermark:
-                  type: boolean
-                  title: Watermark
-                  description: Whether the generated video contains a watermark.
-                  default: false
                 image_urls:
                   type: array
                   title: Image Urls
@@ -94,16 +89,6 @@ paths:
                   type: boolean
                   title: Generate Audio
                   description: Controls whether the generated video contains audio synchronized with the visuals.
-                  default: true
-                return_last_frame:
-                  type: boolean
-                  title: Return Last Frame
-                  description: "Whether to return the last frame image of the generated video. Using this parameter enables the generation of multiple consecutive videos: taking the last frame of the previous generated video as the first frame of the next video task to quickly generate multiple consecutive videos, and the first item in the returned result is this image."
-                  default: false
-                real_person:
-                  type: boolean
-                  title: Real Person
-                  description: "Whether the reference materials contain real people (human faces). Defaults to true: materials are submitted to the asset review service before task creation. Set to false only when the materials are confirmed face-free to skip review and pass material URLs through as-is."
                   default: true
               required:
                 - model

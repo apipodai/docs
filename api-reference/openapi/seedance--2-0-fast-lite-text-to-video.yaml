@@ -80,11 +80,6 @@ paths:
                   title: Generate Audio
                   description: Controls whether the generated video contains audio synchronized with the visuals.
                   default: true
-                watermark:
-                  type: boolean
-                  title: Watermark
-                  description: Whether the generated video contains a watermark
-                  default: false
               required:
                 - model
                 - prompt

@@ -140,15 +140,6 @@
               "component": "textarea"
             }
           },
-          "real_person": {
-            "type": "boolean",
-            "title": "Real Person",
-            "description": "Whether the reference materials contain real people (human faces). Defaults to true: materials are submitted to the asset review service before task creation. Set to false only when the materials are confirmed face-free to skip review and pass material URLs through as-is.",
-            "default": "true",
-            "x-apipod-ui": {
-              "component": "switch"
-            }
-          },
           "resolution": {
             "type": "string",
             "title": "Resolution",
@@ -161,15 +152,6 @@
               "component": "button-group"
             }
           },
-          "return_last_frame": {
-            "type": "boolean",
-            "title": "Return Last Frame",
-            "description": "Whether to return the last frame image of the generated video. Using this parameter enables the generation of multiple consecutive videos: taking the last frame of the previous generated video as the first frame of the next video task to quickly generate multiple consecutive videos, and the first item in the returned result is this image.",
-            "default": false,
-            "x-apipod-ui": {
-              "component": "switch"
-            }
-          },
           "video_urls": {
             "type": "array",
             "title": "Video Urls",
@@ -178,14 +160,6 @@
               "component": "files-upload",
               "accept": ".mp4",
               "maxCount": 3
-            }
-          },
-          "watermark": {
-            "type": "boolean",
-            "title": "Watermark",
-            "default": false,
-            "x-apipod-ui": {
-              "component": "switch"
             }
           },
           "web_search": {
@@ -206,16 +180,14 @@
           "model",
           "prompt",
           "duration",
-          "watermark",
-          "audio_urls",
+                    "audio_urls",
           "image_urls",
           "resolution",
           "video_urls",
           "web_search",
           "aspect_ratio",
-          "generate_audio",
-          "return_last_frame"
-        ]
+          "generate_audio"
+          ]
       },
       "Output": {
         "type": "",

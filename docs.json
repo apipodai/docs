@@ -311,6 +311,7 @@
                     "group": "MiniMax H3",
                     "icon": "scan",
                     "pages": [
+                      "minimax-h3/minimax-h3",
                       "minimax-h3/minimax-h3-t2v",
                       "minimax-h3/minimax-h3-i2v",
                       "minimax-h3/minimax-h3-r2v"
@@ -331,6 +332,7 @@
                       {
                         "group": "Wan 3.0",
                         "pages": [
+                          "wan/wan3-0-video",
                           "wan/wan3-0-i2v",
                           "wan/wan3-0-r2v",
                           "wan/wan3-0-t2v"
@@ -339,6 +341,7 @@
                       {
                         "group": "Wan 3.0 Prime",
                         "pages": [
+                          "wan/wan3-0-video-prime",
                           "wan/wan3-0-prime-i2v",
                           "wan/wan3-0-prime-r2v",
                           "wan/wan3-0-prime-t2v"
@@ -666,6 +669,7 @@
                     "group": "MiniMax H3",
                     "icon": "scan",
                     "pages": [
+                      "zh-CN/minimax-h3/minimax-h3",
                       "zh-CN/minimax-h3/minimax-h3-t2v",
                       "zh-CN/minimax-h3/minimax-h3-i2v",
                       "zh-CN/minimax-h3/minimax-h3-r2v"
@@ -686,6 +690,7 @@
                       {
                         "group": "Wan 3.0",
                         "pages": [
+                          "zh-CN/wan/wan3-0-video",
                           "zh-CN/wan/wan3-0-i2v",
                           "zh-CN/wan/wan3-0-r2v",
                           "zh-CN/wan/wan3-0-t2v"
@@ -694,6 +699,7 @@
                       {
                         "group": "Wan 3.0 Prime",
                         "pages": [
+                          "zh-CN/wan/wan3-0-video-prime",
                           "zh-CN/wan/wan3-0-prime-i2v",
                           "zh-CN/wan/wan3-0-prime-r2v",
                           "zh-CN/wan/wan3-0-prime-t2v"
@@ -936,7 +942,13 @@
       "api-reference/openapi/seedance--seedance-2-0-fast-ark.yaml",
       "api-reference/openapi/seedance--seedance-2-0-fast-ark.zh.yaml",
       "api-reference/openapi/seedance--seedance-2-0-mini-ark.yaml",
-      "api-reference/openapi/seedance--seedance-2-0-mini-ark.zh.yaml"
+      "api-reference/openapi/seedance--seedance-2-0-mini-ark.zh.yaml",
+      "api-reference/openapi/minimax-h3--minimax-h3.yaml",
+      "api-reference/openapi/minimax-h3--minimax-h3.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-video.yaml",
+      "api-reference/openapi/wan--wan3-0-video.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-video-prime.yaml",
+      "api-reference/openapi/wan--wan3-0-video-prime.zh.yaml"
     ],
     "playground": {
       "display": "interactive",

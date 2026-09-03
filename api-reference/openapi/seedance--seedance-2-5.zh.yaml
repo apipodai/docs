@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Seedance 2.5 API
   version: 1.0.0
-  description: "Seedance 2.5 是官方满血折扣路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5，支持最多 30 张参考图、10 个参考视频、10 段参考音频，时长最长 30 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+  description: "Seedance 2.5 是官方满血折扣路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5，支持最多 30 张参考图、10 个参考视频、10 段参考音频，时长最长 30 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 先经素材服务送审再提交任务，公开 URL 始终可用。"
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -10,7 +10,7 @@ paths:
   /v1/videos/generations:
     post:
       summary: 创建生成任务
-      description: "Seedance 2.5 是官方满血折扣路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5，支持最多 30 张参考图、10 个参考视频、10 段参考音频，时长最长 30 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 默认（real_person=true）先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传，公开 URL 始终可用。"
+      description: "Seedance 2.5 是官方满血折扣路由的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。仅传提示词为文生视频；image_urls 传 1-2 张图为图生视频（首帧/尾帧控制）；设置 role=reference_images、传参考视频或参考音频则进入全模态参考生视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5，支持最多 30 张参考图、10 个参考视频、10 段参考音频，时长最长 30 秒，并通过异步视频任务返回结果。本模型为满血版本：素材 URL 先经素材服务送审再提交任务，公开 URL 始终可用。"
       operationId: create-seedance-2-5
       tags:
         - Seedance 2.5
@@ -123,16 +123,6 @@ paths:
                   type: boolean
                   title: Generate Audio
                   description: "为视频生成同步音频。"
-                  default: true
-                return_last_frame:
-                  type: boolean
-                  title: Retrun Last Frame
-                  description: "返回生成视频的尾帧，用于续作工作流。"
-                  default: false
-                real_person:
-                  type: boolean
-                  title: Real Person
-                  description: "素材是否包含真人/人脸。默认 true：素材先经素材服务送审再提交任务；确认素材不含真人时设置 false 跳过送审、直接透传素材 URL。"
                   default: true
               required:
                 - model

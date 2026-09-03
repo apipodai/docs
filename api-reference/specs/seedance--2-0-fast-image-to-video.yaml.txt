@@ -121,15 +121,6 @@
             },
             "description": "Generation or editing instructions, up to 30000 characters. It is recommended to keep the prompt to no more than 500 Chinese characters or 1,000 English words. Lengthy text will lead to scattered information, and the model may ignore details and only focus on key points, resulting in missing elements in the generated video."
           },
-          "real_person": {
-            "type": "boolean",
-            "title": "Real Person",
-            "description": "Whether the reference materials contain real people (human faces). Defaults to true: materials are submitted to the asset review service before task creation. Set to false only when the materials are confirmed face-free to skip review and pass material URLs through as-is.",
-            "default": "true",
-            "x-apipod-ui": {
-              "component": "switch"
-            }
-          },
           "resolution": {
             "type": "string",
             "title": "Resolution",
@@ -146,24 +137,6 @@
                 "72": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
                 "720": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"
               }
-            }
-          },
-          "return_last_frame": {
-            "type": "boolean",
-            "title": "Return Last Frame",
-            "description": "Whether to return the last frame image of the generated video. Using this parameter enables the generation of multiple consecutive videos: taking the last frame of the previous generated video as the first frame of the next video task to quickly generate multiple consecutive videos, and the first item in the returned result is this image.",
-            "default": "false",
-            "x-apipod-ui": {
-              "component": "switch"
-            }
-          },
-          "watermark": {
-            "type": "boolean",
-            "title": "Watermark",
-            "description": "Whether the generated video contains a watermark.",
-            "default": "false",
-            "x-apipod-ui": {
-              "component": "switch"
             }
           },
           "web_search": {
@@ -185,14 +158,12 @@
           "model",
           "prompt",
           "duration",
-          "watermark",
-          "image_urls",
+                    "image_urls",
           "resolution",
           "web_search",
           "aspect_ratio",
-          "generate_audio",
-          "return_last_frame"
-        ]
+          "generate_audio"
+          ]
       },
       "Output": {
         "type": "",

@@ -79,11 +79,6 @@ paths:
                   title: Generate Audio
                   description: 为视频生成同步音频。
                   default: true
-                watermark:
-                  type: boolean
-                  title: Watermark
-                  description: 添加上游水印。
-                  default: false
               required:
                 - model
                 - prompt

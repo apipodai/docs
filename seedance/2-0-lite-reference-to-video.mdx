@@ -1,14 +1,5 @@
 ---
 title: "Seedance 2.0 Lite Reference to Video"
-description: "Seedance 2.0 Lite Reference to Video is a special-price full-capability route that generates video from image, video, and audio references. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. This is the special-price full-capability route: media URLs are submitted to the asset review service before submission by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through as-is, so plain public URLs always work in requests."
+description: "Seedance 2.0 Lite Reference to Video is a special-price full-capability route that generates video from image, video, and audio references. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. This is the special-price full-capability route: media URLs are submitted to the asset review service before submission, so plain public URLs always work in requests."
 openapi: "api-reference/openapi/seedance--2-0-lite-reference-to-video.yaml POST /v1/videos/generations"
 ---
-
-## Real-person review (real_person)
-
-When a request carries reference materials, the boolean `real_person` field controls whether materials are submitted to face review first:
-
-- `real_person: true` (default): materials are submitted to the asset review service first; the task waits during review and fails if review rejects the materials.
-- `real_person: false`: review is skipped and material URLs are passed through to task creation as-is.
-
-Set it to `false` only when the materials are confirmed face-free to save the review round trip; keep the default `true` for materials containing real people.

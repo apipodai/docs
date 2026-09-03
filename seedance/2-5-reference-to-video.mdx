@@ -1,6 +1,6 @@
 ---
 title: "Seedance 2.5 Reference to Video"
-description: "Seedance 2.5 Reference to Video is the official full-capability discount route that uses reference images, video, or audio to guide subjects, motion, visual style, and sound. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. This is a full-capability variant: media URLs are submitted to the asset review service before the task is submitted by default (real_person=true); set real_person=false only when the materials are confirmed face-free to pass media URLs through as-is, so plain public URLs always work in requests."
+description: "Seedance 2.5 Reference to Video is the official full-capability discount route that uses reference images, video, or audio to guide subjects, motion, visual style, and sound. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. This is a full-capability variant: media URLs are submitted to the asset review service before the task is submitted, so plain public URLs always work in requests."
 openapi: "api-reference/openapi/seedance--2-5-reference-to-video.yaml POST /v1/videos/generations"
 ---
 
@@ -20,12 +20,3 @@ Seedance 2.5 reference-material mode is a full-capability route with a built-in 
 <Note>
 Note: When video input is enabled, the unit price is lower because the billing formula differs: without video = unit price × output duration; with video = unit price × (input duration + output duration).
 </Note>
-
-## Real-person review (real_person)
-
-When a request carries reference materials, the boolean `real_person` field controls whether materials are submitted to face review first:
-
-- `real_person: true` (default): materials are submitted to the asset review service first; the task waits during review and fails if review rejects the materials.
-- `real_person: false`: review is skipped and material URLs are passed through to task creation as-is.
-
-Set it to `false` only when the materials are confirmed face-free to save the review round trip; keep the default `true` for materials containing real people.
