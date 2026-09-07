@@ -32,7 +32,7 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  description: 延续指令，最长 30000 字符。建议使用「向前延长 / 向后延长 / 续写」等明确的延续措辞；提示词建议不超过 500 个汉字或 1000 个英文单词。
+                  description: 延续指令，最长 30000 字符。建议使用「向前延长 / 向后延长 / 续写」等明确的延续措辞，并用 @视频N / @图N 显式指向素材（例如：延长@视频1）；提示词建议不超过 500 个汉字或 1000 个英文单词。
                   maxLength: 30000
                 image_urls:
                   type: array
@@ -110,14 +110,15 @@ paths:
                 - prompt
                 - video_urls
             example:
-              model: seedance-2.5-edit
-              prompt: "向前延长视频：宇航员朝着远处的栖息舱继续前行，日出渐起。"
-              image_urls:
-                - https://example.com/character.png
+              model: seedance-2.5-extend
+              prompt: "延长@视频1，窗户打开后进入@视频2的美术馆室内，最后镜头进入@视频3的画内"
               video_urls:
-                - https://example.com/source.mp4
-              duration: 8
-              resolution: 720p
+                - https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/r2v_extend_video1_75.mov
+                - https://ark-project.tos-cn-beijing.volces.com/doc_video/r2v_extend_video2.mp4
+                - https://ark-project.tos-cn-beijing.volces.com/doc_video/r2v_extend_video3.mp4
+              duration: 11
+              resolution: 480p
+              web_search: false
               generate_audio: true
       responses:
         "200":
@@ -158,12 +159,12 @@ paths:
               -H "Authorization: Bearer $APIPOD_API_KEY" \
               -H "Content-Type: application/json" \
               -d '{
-              "model": "seedance-2.5-edit",
-              "prompt": "向前延长视频：宇航员朝着远处的栖息舱继续前行，日出渐起。",
-              "image_urls": ["https://example.com/character.png"],
-              "video_urls": ["https://example.com/source.mp4"],
-              "duration": 8,
-              "resolution": "720p",
+              "model": "seedance-2.5-extend",
+              "prompt": "延长@视频1，窗户打开后进入@视频2的美术馆室内，最后镜头进入@视频3的画内",
+              "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/r2v_extend_video1_75.mov", "https://ark-project.tos-cn-beijing.volces.com/doc_video/r2v_extend_video2.mp4", "https://ark-project.tos-cn-beijing.volces.com/doc_video/r2v_extend_video3.mp4"],
+              "duration": 11,
+              "resolution": "480p",
+              "web_search": false,
               "generate_audio": true
             }'
         - lang: Python
@@ -175,12 +176,12 @@ paths:
 
 
             payload = {
-                "model": "seedance-2.5-edit",
-                "prompt": "向前延长视频：宇航员朝着远处的栖息舱继续前行，日出渐起。",
-                "image_urls": ["https://example.com/character.png"],
-                "video_urls": ["https://example.com/source.mp4"],
-                "duration": 8,
-                "resolution": "720p",
+                "model": "seedance-2.5-extend",
+                "prompt": "延长@视频1，窗户打开后进入@视频2的美术馆室内，最后镜头进入@视频3的画内",
+                "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/r2v_extend_video1_75.mov", "https://ark-project.tos-cn-beijing.volces.com/doc_video/r2v_extend_video2.mp4", "https://ark-project.tos-cn-beijing.volces.com/doc_video/r2v_extend_video3.mp4"],
+                "duration": 11,
+                "resolution": "480p",
+                  "web_search": False,
                   "generate_audio": True
             }
 
@@ -215,12 +216,12 @@ paths:
             func main() {
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
-                  "model": "seedance-2.5-edit",
-                  "prompt": "向前延长视频：宇航员朝着远处的栖息舱继续前行，日出渐起。",
-                  "image_urls": ["https://example.com/character.png"],
-                  "video_urls": ["https://example.com/source.mp4"],
-                  "duration": 8,
-                  "resolution": "720p",
+                  "model": "seedance-2.5-extend",
+                  "prompt": "延长@视频1，窗户打开后进入@视频2的美术馆室内，最后镜头进入@视频3的画内",
+                  "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/r2v_extend_video1_75.mov", "https://ark-project.tos-cn-beijing.volces.com/doc_video/r2v_extend_video2.mp4", "https://ark-project.tos-cn-beijing.volces.com/doc_video/r2v_extend_video3.mp4"],
+                  "duration": 11,
+                  "resolution": "480p",
+                      "web_search": false,
                       "generate_audio": true
                 }`), &payload); err != nil {
                     panic(err)
@@ -258,12 +259,12 @@ paths:
 
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
-                    "model": "seedance-2.5-edit",
-                    "prompt": "向前延长视频：宇航员朝着远处的栖息舱继续前行，日出渐起。",
-                    "image_urls": ["https://example.com/character.png"],
-                    "video_urls": ["https://example.com/source.mp4"],
-                    "duration": 8,
-                    "resolution": "720p",
+                    "model": "seedance-2.5-extend",
+                    "prompt": "延长@视频1，窗户打开后进入@视频2的美术馆室内，最后镜头进入@视频3的画内",
+                    "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/r2v_extend_video1_75.mov", "https://ark-project.tos-cn-beijing.volces.com/doc_video/r2v_extend_video2.mp4", "https://ark-project.tos-cn-beijing.volces.com/doc_video/r2v_extend_video3.mp4"],
+                    "duration": 11,
+                    "resolution": "480p",
+                          "web_search": false,
                           "generate_audio": true
                 });
                 let response = Client::new()
@@ -288,12 +289,12 @@ paths:
               },
               body: JSON.stringify(
                 {
-                  "model": "seedance-2.5-edit",
-                  "prompt": "向前延长视频：宇航员朝着远处的栖息舱继续前行，日出渐起。",
-                  "image_urls": ["https://example.com/character.png"],
-                  "video_urls": ["https://example.com/source.mp4"],
-                  "duration": 8,
-                  "resolution": "720p",
+                  "model": "seedance-2.5-extend",
+                  "prompt": "延长@视频1，窗户打开后进入@视频2的美术馆室内，最后镜头进入@视频3的画内",
+                  "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/r2v_extend_video1_75.mov", "https://ark-project.tos-cn-beijing.volces.com/doc_video/r2v_extend_video2.mp4", "https://ark-project.tos-cn-beijing.volces.com/doc_video/r2v_extend_video3.mp4"],
+                  "duration": 11,
+                  "resolution": "480p",
+                      "web_search": false,
                       "generate_audio": true
                 }
               ),

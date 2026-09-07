@@ -2401,7 +2401,10 @@
         "en": "Seedance 2.5 Video Edit pins the omni-reference task type to video editing. Provide the source video (4-30 seconds) plus optional reference images or audios and describe the edit; the output keeps the source timeline, aspect ratio, and duration - duration and aspect_ratio are not exposed and any passed values are ignored. Constraints are validated at submission time, so incompatible parameters fail fast instead of erroring asynchronously. In APIPod, the public model ID is seedance-2.5-edit, and results are returned through asynchronous video tasks.",
         "zh": "Seedance 2.5 视频编辑将全模态参考子任务固定为视频编辑：传入源视频（4-30 秒），可附参考图或参考音频，用提示词描述编辑意图；输出时长与画幅自动跟随源视频——duration 与 aspect_ratio 均不暴露在契约中，传入任意值都会被忽略。子任务参数限制在提交时同步校验，不再异步报错。在 APIPod 中，公开模型 ID 为 seedance-2.5-edit，并通过异步视频任务返回结果。"
       },
-      "source": "localhost:8080/public/schemas/seedance-2.5-edit"
+      "source": "localhost:8080/public/schemas/seedance-2.5-edit",
+      "example_prompts": [
+        "视频编辑：删除 @视频1中的所有人，除了主角。"
+      ]
     },
     {
       "slug": "seedance/2-5-video-extend",
@@ -2433,7 +2436,10 @@
         "en": "Seedance 2.5 Video Extend pins the omni-reference task type to video extension. Provide the source video and describe the forward or backward continuation; the output is 4-30 seconds and the aspect ratio automatically follows the source video (not settable; any passed value is ignored). Constraints are validated at submission time, so incompatible parameters fail fast instead of erroring asynchronously. In APIPod, the public model ID is seedance-2.5-extend, and results are returned through asynchronous video tasks.",
         "zh": "Seedance 2.5 视频延长将全模态参考子任务固定为视频延长：传入源视频并描述向前或向后延续；输出 4-30 秒，画幅自动跟随源视频（不可设置，传入忽略）。子任务参数限制在提交时同步校验，不再异步报错。在 APIPod 中，公开模型 ID 为 seedance-2.5-extend，并通过异步视频任务返回结果。"
       },
-      "source": "localhost:8080/public/schemas/seedance-2.5-extend"
+      "source": "localhost:8080/public/schemas/seedance-2.5-extend",
+      "example_prompts": [
+        "延长@视频1，窗户打开后进入@视频2的美术馆室内，最后镜头进入@视频3的画内"
+      ]
     },
     {
       "slug": "seedance/2-5-lite-text-to-video",

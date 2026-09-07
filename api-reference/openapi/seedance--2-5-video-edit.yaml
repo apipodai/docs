@@ -32,7 +32,7 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  description: Editing instructions, up to 30000 characters. Use explicit edit verbs such as replace, remove, restyle, or change into. It is recommended to keep the prompt to no more than 500 Chinese characters or 1,000 English words.
+                  description: Editing instructions, up to 30000 characters. Use explicit edit verbs such as replace, remove, restyle, or change into, and address materials explicitly with @视频N / @图N tokens (for example, 删除 @视频1中的所有人). It is recommended to keep the prompt to no more than 500 Chinese characters or 1,000 English words.
                   maxLength: 30000
                 image_urls:
                   type: array
@@ -76,12 +76,11 @@ paths:
                 - video_urls
             example:
               model: seedance-2.5-edit
-              prompt: "Edit the source video: replace the city street with a snowy mountain village, keep the character and camera motion unchanged."
-              image_urls:
-                - https://example.com/character.png
+              prompt: "视频编辑：删除 @视频1中的所有人，除了主角。"
               video_urls:
-                - https://example.com/source.mp4
-              resolution: 720p
+                - https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov
+              resolution: 480p
+              web_search: false
               generate_audio: true
       responses:
         "200":
@@ -123,10 +122,10 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "seedance-2.5-edit",
-              "prompt": "Edit the source video: replace the city street with a snowy mountain village, keep the character and camera motion unchanged.",
-              "image_urls": ["https://example.com/character.png"],
-              "video_urls": ["https://example.com/source.mp4"],
-              "resolution": "720p",
+              "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
+              "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
+              "resolution": "480p",
+              "web_search": false,
               "generate_audio": true
             }'
         - lang: Python
@@ -139,10 +138,10 @@ paths:
 
             payload = {
                 "model": "seedance-2.5-edit",
-                "prompt": "Edit the source video: replace the city street with a snowy mountain village, keep the character and camera motion unchanged.",
-                "image_urls": ["https://example.com/character.png"],
-                "video_urls": ["https://example.com/source.mp4"],
-                  "resolution": "720p",
+                "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
+                "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
+                  "resolution": "480p",
+                  "web_search": False,
                   "generate_audio": True
             }
 
@@ -178,10 +177,10 @@ paths:
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
                   "model": "seedance-2.5-edit",
-                  "prompt": "Edit the source video: replace the city street with a snowy mountain village, keep the character and camera motion unchanged.",
-                  "image_urls": ["https://example.com/character.png"],
-                  "video_urls": ["https://example.com/source.mp4"],
-                      "resolution": "720p",
+                  "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
+                  "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
+                      "resolution": "480p",
+                      "web_search": false,
                       "generate_audio": true
                 }`), &payload); err != nil {
                     panic(err)
@@ -220,10 +219,10 @@ paths:
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
                     "model": "seedance-2.5-edit",
-                    "prompt": "Edit the source video: replace the city street with a snowy mountain village, keep the character and camera motion unchanged.",
-                    "image_urls": ["https://example.com/character.png"],
-                    "video_urls": ["https://example.com/source.mp4"],
-                          "resolution": "720p",
+                    "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
+                    "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
+                          "resolution": "480p",
+                          "web_search": false,
                           "generate_audio": true
                 });
                 let response = Client::new()
@@ -249,10 +248,10 @@ paths:
               body: JSON.stringify(
                 {
                   "model": "seedance-2.5-edit",
-                  "prompt": "Edit the source video: replace the city street with a snowy mountain village, keep the character and camera motion unchanged.",
-                  "image_urls": ["https://example.com/character.png"],
-                  "video_urls": ["https://example.com/source.mp4"],
-                      "resolution": "720p",
+                  "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
+                  "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
+                      "resolution": "480p",
+                      "web_search": false,
                       "generate_audio": true
                 }
               ),
