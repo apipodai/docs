@@ -254,7 +254,9 @@
                               "seedance/seedance-2-5-ark",
                               "seedance/2-5-text-to-video",
                               "seedance/2-5-image-to-video",
-                              "seedance/2-5-reference-to-video"
+                              "seedance/2-5-reference-to-video",
+                              "seedance/2-5-video-edit",
+                              "seedance/2-5-video-extend"
                             ]
                           },
                           {
@@ -612,7 +614,9 @@
                               "zh-CN/seedance/seedance-2-5-ark",
                               "zh-CN/seedance/2-5-text-to-video",
                               "zh-CN/seedance/2-5-image-to-video",
-                              "zh-CN/seedance/2-5-reference-to-video"
+                              "zh-CN/seedance/2-5-reference-to-video",
+                              "zh-CN/seedance/2-5-video-edit",
+                              "zh-CN/seedance/2-5-video-extend"
                             ]
                           },
                           {
@@ -819,6 +823,10 @@
       "api-reference/openapi/seedance--2-5-image-to-video.zh.yaml",
       "api-reference/openapi/seedance--2-5-reference-to-video.yaml",
       "api-reference/openapi/seedance--2-5-reference-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-5-video-edit.yaml",
+      "api-reference/openapi/seedance--2-5-video-edit.zh.yaml",
+      "api-reference/openapi/seedance--2-5-video-extend.yaml",
+      "api-reference/openapi/seedance--2-5-video-extend.zh.yaml",
       "api-reference/openapi/seedance--2-0-lite-text-to-video.yaml",
       "api-reference/openapi/seedance--2-0-lite-text-to-video.zh.yaml",
       "api-reference/openapi/seedance--2-0-lite-image-to-video.yaml",

@@ -109,7 +109,7 @@ paths:
                 aspect_ratio:
                   type: string
                   title: Aspect Ratio
-                  description: "Aspect ratio of the generated video. When the ratio is configured as adaptive, the model will automatically adapt the aspect ratio according to the generation scenario."
+                  description: "Aspect ratio of the generated video (text-to-video and omni reference scenarios). First/last frame, video editing, and video extension tasks do not take an explicit ratio: the output follows the first frame image or the source video, and any passed value is ignored - use the dedicated seedance-2.5-i2v / seedance-2.5-edit / seedance-2.5-extend models."
                   enum:
                     - adaptive
                     - 16:9

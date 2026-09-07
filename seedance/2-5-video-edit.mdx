@@ -1,0 +1,23 @@
+---
+title: "Seedance 2.5 Video Edit"
+description: "Seedance 2.5 Video Edit pins the omni-reference task type to video editing: provide the source video, describe the edit, and the output duration and aspect ratio automatically follow the source video."
+openapi: "api-reference/openapi/seedance--2-5-video-edit.yaml POST /v1/videos/generations"
+---
+
+<Warning title="Conditional validation">At least one reference video (the source video to edit) is required.</Warning>
+
+## Editing Constraints
+
+Seedance 2.5 Video Edit is the video-editing sub-task of the omni-reference family on the official discount route. Sending the source video plus explicit edit instructions pins `omni_reference_task_type=edit` upstream, so the provider validates the constraints at submission time and rejects incompatible parameters immediately with a 400, instead of failing asynchronously minutes later.
+
+- **Source video**: at least one reference video is required; the source video must be 4-30 seconds long (validated by the provider per video).
+- **Duration**: not settable. The model keeps the output length consistent with the source video. The field is not part of the contract - any passed value is silently ignored and -1 is always sent upstream.
+- **Aspect ratio**: not settable. The output keeps the source video aspect ratio; the field is not part of the contract and any passed value is silently ignored (adaptive is always sent).
+- **Reference materials**: up to 30 images, 10 videos, and 10 audios; audio cannot be provided on its own.
+- **Prompt wording**: use explicit edit verbs such as replace, remove, restyle, or change into. Ambiguous edit-or-extend prompts may still be re-judged by the model.
+
+<Note>
+Note: When video input is enabled, the unit price is lower because the billing formula differs: without video = unit price × output duration; with video = unit price × (input duration + output duration). Since the output duration follows the source video, the estimated output duration is probed from the source video at billing time.
+</Note>
+
+Want to prolong a video instead? Use [Seedance 2.5 Video Extend](/seedance/2-5-video-extend).

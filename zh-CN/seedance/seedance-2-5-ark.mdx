@@ -5,3 +5,5 @@ openapi: "api-reference/openapi/seedance--seedance-2-5-ark.zh.yaml POST /api/v3/
 ---
 
 把方舟 SDK 或客户端的 base URL 指向 `https://api.apipod.ai/api/v3`，即可用与火山官方完全一致的请求体创建本模型的任务。任务查询使用与官方同构的[兼容查询接口](/zh-CN/ark-query-video-task)。
+
+<Note title="固定全模态参考子任务">在裸模型上传 `omni_reference_task_type: edit` 或 `extend` 即可固定子任务：请求会路由到专用的 [Seedance 2.5 视频编辑](/zh-CN/seedance/2-5-video-edit) / [Seedance 2.5 视频延长](/zh-CN/seedance/2-5-video-extend) 契约：源视频必填在提交时校验，输出画幅（编辑任务连同输出时长）自动跟随源视频，不再异步报错。`auto`（默认）与 `reference` 保持按素材推断。</Note>

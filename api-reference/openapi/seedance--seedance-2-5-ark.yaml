@@ -137,6 +137,16 @@ paths:
                   title: Generate Audio
                   description: "Whether to generate synchronized audio."
                   default: true
+                omni_reference_task_type:
+                  type: string
+                  title: Omni Reference Task Type
+                  description: "Omni reference sub-task type. auto (default) lets the model judge the task type from the prompt and materials. Setting edit or extend pins the sub-task to the dedicated seedance-2.5-edit / seedance-2.5-extend contracts: at least one reference video is required and validated at submission time, and the output ratio (plus, for edit, the output duration) automatically follows the source video - not settable, passed ratio/duration values are ignored. reference is accepted and behaves like auto."
+                  enum:
+                    - auto
+                    - reference
+                    - edit
+                    - extend
+                  default: auto
               required:
                 - model
                 - content

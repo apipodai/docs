@@ -137,6 +137,16 @@ paths:
                   title: Generate Audio
                   description: "是否生成与画面同步的音频。"
                   default: true
+                omni_reference_task_type:
+                  type: string
+                  title: Omni Reference Task Type
+                  description: "全模态参考子任务类型。auto（默认）由模型按提示词与素材自动判定。显式传 edit / extend 会路由到专用模型 seedance-2.5-edit / seedance-2.5-extend：必须携带至少一个参考视频并在提交时校验；输出画幅（编辑任务连同输出时长）自动跟随源视频、不可设置，传入的 ratio/duration 会被忽略。reference 接受但等同 auto。"
+                  enum:
+                    - auto
+                    - reference
+                    - edit
+                    - extend
+                  default: auto
               required:
                 - model
                 - content

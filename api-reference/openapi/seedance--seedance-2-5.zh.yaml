@@ -109,7 +109,7 @@ paths:
                 aspect_ratio:
                   type: string
                   title: Aspect Ratio
-                  description: "输出宽高比。配置为 adaptive 时，模型会根据生成场景自动适配宽高比。"
+                  description: "输出宽高比（文生视频与全模态参考场景）。首帧/首尾帧、视频编辑与视频延长任务不接受显式宽高比：输出跟随首帧图片或源视频，传入值会被忽略——请使用专用模型 seedance-2.5-i2v / seedance-2.5-edit / seedance-2.5-extend。"
                   enum:
                     - adaptive
                     - 16:9
