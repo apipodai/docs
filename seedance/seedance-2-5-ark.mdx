@@ -1,9 +1,0 @@
----
-title: "Seedance 2.5 (Ark-Compatible)"
-description: "Create Seedance 2.5 video tasks through the Volcano Ark-compatible endpoint at /api/v3/contents/generations/tasks, with the scenario inferred from the content array."
-openapi: "api-reference/openapi/seedance--seedance-2-5-ark.yaml POST /api/v3/contents/generations/tasks"
----
-
-Point Ark SDKs and clients at `https://api.apipod.ai/api/v3` and keep the request body identical to the Volcano official API. Poll tasks with the [Ark-compatible query endpoint](/ark-query-video-task).
-
-<Note title="Pinning the omni reference sub-task">Pass `omni_reference_task_type: edit` or `extend` on the bare model to pin the sub-task: the request is routed to the dedicated [seedance-2.5-video-edit](/seedance/2-5-video-edit) / [seedance-2-5-video-extend](/seedance/2-5-video-extend) contracts, where the required source video is validated at submission time and the output ratio (and, for edit, the output duration) automatically follows the source video instead of failing asynchronously. `auto` (default) and `reference` keep the inference behavior.</Note>
