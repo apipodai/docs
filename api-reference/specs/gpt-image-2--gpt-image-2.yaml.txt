@@ -67,6 +67,17 @@
               }
             }
           },
+          "background": {
+            "type": "string",
+            "title": "Background",
+            "description": "Background mode of the generated image. transparent renders an alpha-channel PNG and requires quality to be medium or high.",
+            "enum": [
+              "auto",
+              "opaque",
+              "transparent"
+            ],
+            "default": "auto"
+          },
           "image_urls": {
             "type": "array",
             "title": "Image Urls",
@@ -97,6 +108,7 @@
           "quality": {
             "type": "string",
             "title": "Quality",
+            "description": "Output quality tier. Must be medium or high when background is transparent.",
             "enum": [
               "auto",
               "low",

@@ -52,11 +52,24 @@ paths:
                 quality:
                   type: string
                   title: Quality
+                  description: Output quality tier. Must be medium or high when
+                    background is transparent.
                   enum:
                     - auto
                     - low
                     - medium
                     - high
+                  default: auto
+                background:
+                  type: string
+                  title: Background
+                  description: Background mode of the generated image. transparent
+                    renders an alpha-channel PNG and requires quality to be medium
+                    or high.
+                  enum:
+                    - auto
+                    - opaque
+                    - transparent
                   default: auto
                 aspect_ratio:
                   type: string

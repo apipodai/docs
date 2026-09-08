@@ -52,7 +52,16 @@ paths:
                     - medium
                     - high
                   default: auto
-                  description: 输出质量或图片分辨率档位。
+                  description: 输出质量档位。background 为 transparent（透明背景）时必须为 medium 或 high。
+                background:
+                  type: string
+                  title: Background
+                  description: 生成图片的背景模式。transparent 输出带透明通道的 PNG，要求 quality 为 medium 或 high。
+                  enum:
+                    - auto
+                    - opaque
+                    - transparent
+                  default: auto
                 aspect_ratio:
                   type: string
                   title: Aspect Ratio
