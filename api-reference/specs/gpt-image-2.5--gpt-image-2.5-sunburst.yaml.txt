@@ -1,0 +1,319 @@
+{
+  "info": {
+    "title": "GPT Image 2.5 Sunburst",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "gpt-image-2.5-sunburst",
+      "provider": "openai",
+      "modelType": "image"
+    }
+  },
+  "paths": {
+    "/v1/images/generations": {
+      "post": {
+        "summary": "image API",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          },
+          "required": true
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "polling": {
+            "interval": 3000,
+            "maxAttempts": 900,
+            "outputField": "data.result",
+            "statusField": "data.status",
+            "failedValues": [
+              "failed",
+              "error"
+            ],
+            "completedValues": [
+              "completed"
+            ]
+          },
+          "statusPath": "/v1/images/status/{task_id}",
+          "taskIdField": "data.task_id"
+        }
+      }
+    },
+    "/v1/images/status/{task_id}": {
+      "get": {
+        "summary": "GPT Image 2.5 Sunburst Task Status",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            },
+            "description": "Task status"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "task_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "x-apipod-mode": "async-status"
+      }
+    }
+  },
+  "openapi": "3.0.4",
+  "components": {
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "GPT Image 2.5 Sunburst",
+        "required": [
+          "model",
+          "prompt"
+        ],
+        "properties": {
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "value": "{modelId}",
+              "component": "hidden"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "default": "Capture an Instagram Story photo of a cosplay of Albedo; squatting on the ground facing the camera, making exaggerated rebellious hand gestures with both hands, rolling eyes, with an arrogant and disdainful expression",
+            "maxLength": 32000,
+            "description": "Used to describe the generated images.",
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "quality": {
+            "enum": [
+              "auto",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "type": "string",
+            "title": "Quality",
+            "default": "auto",
+            "description": "Output quality tier. xhigh and max are GPT Image 2.5-only tiers. Must be at least medium when background is transparent.",
+            "x-apipod-ui": {
+              "component": "button-group"
+            },
+            "x-apipod-logic": [
+              {
+                "eq": "transparent",
+                "when": "background",
+                "action": "disableOption",
+                "targetOption": "auto"
+              },
+              {
+                "eq": "transparent",
+                "when": "background",
+                "action": "disableOption",
+                "targetOption": "low"
+              }
+            ]
+          },
+          "background": {
+            "enum": [
+              "auto",
+              "opaque",
+              "transparent"
+            ],
+            "type": "string",
+            "title": "Background",
+            "default": "auto",
+            "description": "Background mode of the generated image. transparent renders an alpha-channel PNG and requires quality to be medium or high.",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "title": "Image Urls",
+            "x-apipod-ui": {
+              "maxCount": 16,
+              "component": "image-upload"
+            }
+          },
+          "resolution": {
+            "enum": [
+              "1K",
+              "2K",
+              "4K"
+            ],
+            "type": "string",
+            "title": "Resolution",
+            "default": "1K",
+            "description": "The resolution of the generated images.",
+            "x-apipod-ui": {
+              "labels": {
+                "2": ",",
+                "4": ",,,"
+              },
+              "component": "button-group"
+            }
+          },
+          "aspect_ratio": {
+            "enum": [
+              "auto",
+              "1:1",
+              "2:3",
+              "3:2",
+              "3:4",
+              "4:3",
+              "4:5",
+              "5:4",
+              "9:16",
+              "16:9",
+              "21:9"
+            ],
+            "type": "string",
+            "title": "Aspect Ratio",
+            "default": "auto",
+            "description": "This parameter defines the aspect ratio of the image.",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          }
+        },
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_urls",
+          "background",
+          "quality",
+          "aspect_ratio",
+          "resolution"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "image",
+          "previewMedia": [
+            "https://s.apipod.ai/images/2026/04/23/5957e13c-339d-4488-98c1-9ad66d7e35c7.png"
+          ]
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "required": [
+          "code",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            },
+            "description": "Data content for task submission"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "description": "Standard response for task submission"
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "required": [
+          "code",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "properties": {
+              "result": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "image url"
+                },
+                "description": "generated image url list"
+              },
+              "status": {
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ],
+                "type": "string",
+                "description": "task status"
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              },
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              }
+            },
+            "description": "Data content for task status"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "description": "Standard response for task status polling"
+      }
+    },
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey",
+        "description": "APIPod API Key"
+      }
+    }
+  }
+}

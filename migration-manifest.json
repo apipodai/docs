@@ -80,7 +80,7 @@
     "/16809456d0",
     "/16809458d0"
   ],
-  "publicPageCount": 89,
+  "publicPageCount": 91,
   "schemaOnlyCount": 36,
   "schemaPaths": [
     "/14024404d0",
@@ -194,6 +194,66 @@
         "zh": "GPT Image 2 是 OpenAI 的图片生成与编辑模型，APIPod 通过主官方路由公开 ID 提供该能力，同一套异步工作流同时支持提示词生图和参考图编辑。在 APIPod 中，公开模型 ID 为 gpt-image-2，支持文生图、图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
       },
       "source": "localhost:8080/public/schemas/gpt-image-2"
+    },
+    {
+      "slug": "gpt-image-2.5/gpt-image-2.5-flare",
+      "title": "GPT Image 2.5 Flare",
+      "legacy": "/gpt-image-2.5/gpt-image-2.5-flare",
+      "schema": true,
+      "modelId": "gpt-image-2.5-flare",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "openai",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "GPT Image 2.5 Flare",
+          "zh": "GPT Image 2.5 Flare"
+        }
+      },
+      "introduction": {
+        "en": "GPT Image 2.5 Flare is the speed-focused tier of OpenAI's GPT Image 2.5 image generation and editing family. It cuts generation latency by up to 50% versus GPT Image 2 while sharpening detail, lighting and texture, making it the default choice for high-volume generation, creator content and rapid prototyping. In APIPod, the public model ID is gpt-image-2.5-flare. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "GPT Image 2.5 Flare 是 OpenAI GPT Image 2.5 系列中注重速度的档位，相比 2.0 生成延迟最高降低 50%，细节更锐利、光影更自然、纹理更丰富，是高并发批量出图、创作者内容与快速原型的默认选择。在 APIPod 中，公开模型 ID 为 gpt-image-2.5-flare，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/gpt-image-2.5-flare"
+    },
+    {
+      "slug": "gpt-image-2.5/gpt-image-2.5-sunburst",
+      "title": "GPT Image 2.5 Sunburst",
+      "legacy": "/gpt-image-2.5/gpt-image-2.5-sunburst",
+      "schema": true,
+      "modelId": "gpt-image-2.5-sunburst",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "openai",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "GPT Image 2.5 Sunburst",
+          "zh": "GPT Image 2.5 Sunburst"
+        }
+      },
+      "introduction": {
+        "en": "GPT Image 2.5 Sunburst is the precision tier of OpenAI's GPT Image 2.5 image generation and editing family. It builds on Flare with tighter editing accuracy and multi-round controllability — edits change only the designated area without drifting — suited to production-ready campaign key visuals and polished product imagery. In APIPod, the public model ID is gpt-image-2.5-sunburst. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "GPT Image 2.5 Sunburst 是 OpenAI GPT Image 2.5 系列中注重精度的档位，在 Flare 之上强化编辑精度与多轮可控性——只改指定区域、多轮编辑不走样，适合反复打磨的营销主视觉与精修商品图。在 APIPod 中，公开模型 ID 为 gpt-image-2.5-sunburst，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/gpt-image-2.5-sunburst"
     },
     {
       "slug": "gpt-image-2/gpt-image-2-lite",
