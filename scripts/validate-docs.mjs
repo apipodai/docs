@@ -320,7 +320,7 @@ for (const page of manifest.pages.filter((item) => item.slug.startsWith("query-"
   }
 }
 
-if (manifest.publicPageCount !== manifest.pages.length || manifest.schemaOnlyCount !== 36 || manifest.sitemapCount !== 76) {
+if (manifest.publicPageCount !== manifest.pages.length || manifest.schemaOnlyCount !== 36 || manifest.sitemapCount !== 80) {
   errors.push(`Unexpected source coverage: ${manifest.publicPageCount}/${manifest.pages.length}/${manifest.schemaOnlyCount}/${manifest.sitemapCount}`);
 }
 if (errors.length) {

@@ -310,6 +310,16 @@
                     ]
                   },
                   {
+                    "group": "Gemini Omni Flash 1.1",
+                    "icon": "zap",
+                    "pages": [
+                      "gemini-omni-flash-1.1/gemini-omni-flash-1.1-t2v",
+                      "gemini-omni-flash-1.1/gemini-omni-flash-1.1-i2v",
+                      "gemini-omni-flash-1.1/gemini-omni-flash-1.1-r2v",
+                      "gemini-omni-flash-1.1/gemini-omni-flash-1.1-extend"
+                    ]
+                  },
+                  {
                     "group": "MiniMax H3",
                     "icon": "scan",
                     "pages": [
@@ -670,6 +680,16 @@
                     ]
                   },
                   {
+                    "group": "Gemini Omni Flash 1.1",
+                    "icon": "zap",
+                    "pages": [
+                      "zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-t2v",
+                      "zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-i2v",
+                      "zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-r2v",
+                      "zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-extend"
+                    ]
+                  },
+                  {
                     "group": "MiniMax H3",
                     "icon": "scan",
                     "pages": [
@@ -873,6 +893,14 @@
       "api-reference/openapi/gemini-omni--gemini-omni-r2v.zh.yaml",
       "api-reference/openapi/gemini-omni--gemini-omni-extend.yaml",
       "api-reference/openapi/gemini-omni--gemini-omni-extend.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.1--gemini-omni-flash-1.1-t2v.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.1--gemini-omni-flash-1.1-t2v.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.1--gemini-omni-flash-1.1-i2v.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.1--gemini-omni-flash-1.1-i2v.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.1--gemini-omni-flash-1.1-r2v.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.1--gemini-omni-flash-1.1-r2v.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.1--gemini-omni-flash-1.1-extend.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.1--gemini-omni-flash-1.1-extend.zh.yaml",
       "api-reference/openapi/minimax-h3--minimax-h3-t2v.yaml",
       "api-reference/openapi/minimax-h3--minimax-h3-t2v.zh.yaml",
       "api-reference/openapi/minimax-h3--minimax-h3-i2v.yaml",
@@ -1441,6 +1469,46 @@
     {
       "source": "/zh/gemini-omni/gemini-omni-extend",
       "destination": "/zh-CN/gemini-omni/gemini-omni-extend",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni/gemini-omni-flash-1.1-t2v",
+      "destination": "/gemini-omni-flash-1.1/gemini-omni-flash-1.1-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni/gemini-omni-flash-1.1-t2v",
+      "destination": "/zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni/gemini-omni-flash-1.1-i2v",
+      "destination": "/gemini-omni-flash-1.1/gemini-omni-flash-1.1-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni/gemini-omni-flash-1.1-i2v",
+      "destination": "/zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni/gemini-omni-flash-1.1-r2v",
+      "destination": "/gemini-omni-flash-1.1/gemini-omni-flash-1.1-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni/gemini-omni-flash-1.1-r2v",
+      "destination": "/zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni/gemini-omni-flash-1.1-extend",
+      "destination": "/gemini-omni-flash-1.1/gemini-omni-flash-1.1-extend",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni/gemini-omni-flash-1.1-extend",
+      "destination": "/zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-extend",
       "permanent": true
     },
     {
