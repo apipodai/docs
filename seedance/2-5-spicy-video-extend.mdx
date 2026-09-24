@@ -1,0 +1,26 @@
+---
+title: "Seedance 2.5 Spicy Video Extend"
+description: "Seedance 2.5 Spicy Video Extend pins the omni-reference task type to video extension: provide the source video, describe the forward or backward continuation, and the output aspect ratio automatically follows the source video."
+openapi: "api-reference/openapi/seedance--2-5-spicy-video-extend.yaml POST /v1/videos/generations"
+---
+
+<Warning title="Adults only (18+) and region-restricted">This is the spicy variant of the model: it routes to a relaxed-moderation upstream for mature-theme creative work, keeps the identical contract and pricing, and is intended for adult audiences (18+) only. It is not available in mainland China, Hong Kong, or Macau.</Warning>
+
+
+<Warning title="Conditional validation">At least one reference video (the source video to extend) is required.</Warning>
+
+## Extension Constraints
+
+Seedance 2.5 Spicy Video Extend is the video-extension sub-task of the omni-reference family on the official discount route. Sending the source video plus explicit continuation wording pins `omni_reference_task_type=extend` upstream, so the provider validates the constraints at submission time and rejects incompatible parameters immediately with a 400, instead of failing asynchronously minutes later.
+
+- **Source video**: at least one reference video is required.
+- **Duration**: 4-30 seconds (default 4), covering the extension length.
+- **Aspect ratio**: not settable. The output keeps the source video aspect ratio; the field is not part of the contract and any passed value is silently ignored (adaptive is always sent).
+- **Reference materials**: up to 30 images, 10 videos, and 10 audios; audio cannot be provided on its own.
+- **Prompt wording**: use explicit continuation wording such as extend the video forward or continue the story backward, and address materials explicitly with `@视频N` / `@图N` tokens (for example, `延长@视频1`). Ambiguous extend-or-edit intents may still be re-judged by the model.
+
+<Note>
+Note: When video input is enabled, the unit price is lower because the billing formula differs: without video = unit price × output duration; with video = unit price × (input duration + output duration).
+</Note>
+
+Want to edit a video in place instead? Use [Seedance 2.5 Spicy Video Edit](/seedance/2-5-spicy-video-edit).

@@ -1,0 +1,273 @@
+openapi: 3.1.0
+info:
+  title: Seedance 2.5 Spicy 视频编辑 API
+  version: 1.0.0
+  description: Seedance 2.5 Spicy 视频编辑将上游全模态参考子任务固定为视频编辑：传入源视频（4-30 秒），可附参考图或参考音频，用提示词描述编辑意图；输出时长与画幅自动跟随源视频——duration 与 aspect_ratio 不可设置（契约不暴露这两个字段，传入任意值均被忽略）。源视频必填在提交时校验，缺失会立即报错而非异步失败。在 APIPod 中，公开模型 ID 为 seedance-2.5-spicy-edit，并通过异步视频任务返回结果。
+servers:
+  - url: https://api.apipod.ai
+    description: 生产环境
+paths:
+  /v1/videos/generations:
+    post:
+      summary: 创建生成任务
+      description: Seedance 2.5 Spicy 视频编辑将上游全模态参考子任务固定为视频编辑：传入源视频（4-30 秒），可附参考图或参考音频，用提示词描述编辑意图；输出时长与画幅自动跟随源视频——duration 与 aspect_ratio 不可设置（契约不暴露这两个字段，传入任意值均被忽略）。源视频必填在提交时校验，缺失会立即报错而非异步失败。在 APIPod 中，公开模型 ID 为 seedance-2.5-spicy-edit，并通过异步视频任务返回结果。
+      operationId: create-seedance-2-5-spicy-video-edit
+      tags:
+        - Seedance 2.5 Spicy 视频编辑
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Seedance 2.5 Spicy 视频编辑
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: APIPod 公开模型 ID。
+                  const: seedance-2.5-spicy-edit
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: 编辑指令，最长 30000 字符。建议使用「替换 / 删除 / 改成 / 重绘」等明确的编辑动词，并用 @视频N / @图N 显式指向素材（例如：删除 @视频1中的所有人）；提示词建议不超过 500 个汉字或 1000 个英文单词。
+                  maxLength: 30000
+                image_urls:
+                  type: array
+                  title: Image Urls
+                  description: 可选参考图 URL（例如需要保持一致的人物或风格）。最多支持 30 张；单张图片小于 30 MB。
+                  maxItems: 30
+                  items:
+                    type: string
+                video_urls:
+                  type: array
+                  title: Video Urls
+                  description: 参考视频 URL。必须至少包含一个（待编辑的源视频，时长 4-30 秒）；最多支持 10 个。
+                  minItems: 1
+                  maxItems: 10
+                  items:
+                    type: string
+                audio_urls:
+                  type: array
+                  title: Audio Urls
+                  description: 可选参考音频 URL。最多支持 10 段；单个音频时长 2-30 秒。音频不能单独上传。
+                  maxItems: 10
+                  items:
+                    type: string
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: 生成视频分辨率。
+                  enum:
+                    - 480p
+                    - 720p
+                    - 1080p
+                  default: 720p
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  description: 控制生成的视频是否包含与画面同步的音频。
+                  default: true
+              required:
+                - model
+                - prompt
+                - video_urls
+            example:
+              model: seedance-2.5-spicy-edit
+              prompt: "视频编辑：删除 @视频1中的所有人，除了主角。"
+              video_urls:
+                - https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov
+              resolution: 480p
+              web_search: false
+              generate_audio: true
+      responses:
+        "200":
+          description: Task accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                description: 任务提交标准响应
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    title: Task Submit Data
+                    description: 任务提交数据内容
+                    properties:
+                      task_id:
+                        type: string
+                        description: 生成任务 ID
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+                  - data
+                example:
+                  code: 200
+                  message: success
+                  data:
+                    task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "seedance-2.5-spicy-edit",
+              "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
+              "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
+              "resolution": "480p",
+              "web_search": false,
+              "generate_audio": true
+            }'
+        - lang: Python
+          label: Python
+          source: >-
+            import os
+
+            import requests
+
+
+            payload = {
+                "model": "seedance-2.5-spicy-edit",
+                "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
+                "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
+                  "resolution": "480p",
+                  "web_search": False,
+                  "generate_audio": True
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+        - lang: Go
+          label: Go
+          source: >-
+            package main
+
+            import (
+                "bytes"
+                "encoding/json"
+                "fmt"
+                "net/http"
+                "os"
+            )
+
+
+            func main() {
+                payload := map[string]any{}
+                if err := json.Unmarshal([]byte(`{
+                  "model": "seedance-2.5-spicy-edit",
+                  "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
+                  "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
+                      "resolution": "480p",
+                      "web_search": false,
+                      "generate_audio": true
+                }`), &payload); err != nil {
+                    panic(err)
+                }
+                body, err := json.Marshal(payload)
+                if err != nil {
+                    panic(err)
+                }
+
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+                if err != nil {
+                    panic(err)
+                }
+                req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+                req.Header.Set("Content-Type", "application/json")
+
+                resp, err := http.DefaultClient.Do(req)
+                if err != nil {
+                    panic(err)
+                }
+                defer resp.Body.Close()
+                fmt.Println(resp.Status)
+            }
+        - lang: Rust
+          label: Rust
+          source: >-
+            use reqwest::Client;
+
+            use serde_json::json;
+
+            use std::env;
+
+
+            #[tokio::main]
+
+            async fn main() -> Result<(), Box<dyn std::error::Error>> {
+                let payload = json!({
+                    "model": "seedance-2.5-spicy-edit",
+                    "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
+                    "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
+                          "resolution": "480p",
+                          "web_search": false,
+                          "generate_audio": true
+                });
+                let response = Client::new()
+                    .post("https://api.apipod.ai/v1/videos/generations")
+                    .bearer_auth(env::var("APIPOD_API_KEY")?)
+                    .json(&payload)
+                    .send()
+                    .await?
+                    .error_for_status()?;
+
+                println!("{}", response.text().await?);
+                Ok(())
+            }
+        - lang: JavaScript
+          label: JavaScript
+          source: >-
+            const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(
+                {
+                  "model": "seedance-2.5-spicy-edit",
+                  "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
+                  "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
+                      "resolution": "480p",
+                      "web_search": false,
+                      "generate_audio": true
+                }
+              ),
+            });
+
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+
+            console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 在 Authorization 头中使用你的 APIPod API Key 作为 Bearer 令牌。
