@@ -29,7 +29,11 @@
             "enum": [
               "1:1",
               "16:9",
-              "9:16"
+              "9:16",
+              "4:3",
+              "3:4",
+              "3:2",
+              "2:3"
             ],
             "default": "16:9",
             "x-apipod-ui": {
@@ -44,7 +48,7 @@
           "duration": {
             "type": "integer",
             "title": "Duration",
-            "default": 10,
+            "default": 8,
             "minimum": 1,
             "maximum": 15,
             "x-apipod-ui": {
@@ -82,11 +86,52 @@
             "title": "Resolution",
             "enum": [
               "480p",
-              "720p"
+              "720p",
+              "1080p"
             ],
-            "default": "480p",
+            "default": "720p",
             "x-apipod-ui": {
               "component": "button-group"
+            }
+          },
+          "voice_ids": {
+            "type": "array",
+            "title": "Narration Voice IDs",
+            "description": "Up to 3 narration voices for the generated video (official GA 1.5 upstream only).",
+            "items": {
+              "type": "string",
+              "enum": [
+                "carina",
+                "zagan",
+                "helix",
+                "orion",
+                "luna",
+                "iris",
+                "altair",
+                "zenith",
+                "perseus",
+                "helios",
+                "lux",
+                "kepler",
+                "rigel",
+                "cosmo",
+                "celeste",
+                "ursa",
+                "sirius",
+                "lumen",
+                "castor",
+                "naksh",
+                "atlas",
+                "ara",
+                "eve",
+                "leo",
+                "rex",
+                "sal"
+              ]
+            },
+            "maxItems": 3,
+            "x-apipod-ui": {
+              "component": "select"
             }
           }
         },
@@ -101,7 +146,8 @@
           "image_url",
           "duration",
           "resolution",
-          "aspect_ratio"
+          "aspect_ratio",
+          "voice_ids"
         ]
       },
       "Output": {

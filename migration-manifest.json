@@ -1552,8 +1552,8 @@
         }
       },
       "introduction": {
-        "en": "Grok Imagine 1.5 VIP is APIPod's official-channel image-to-video route for Grok Imagine 1.5. It requires a source image and supports 480p or 720p clips up to 15 seconds. In APIPod, the public model ID is grok-imagine-1.5-vip. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
-        "zh": "Grok Imagine 1.5 VIP 是 APIPod 为 Grok Imagine 1.5 提供的官方通道路由，仅支持图生视频，要求提供源图片，可生成最长 15 秒的 480p 或 720p 视频。在 APIPod 中，公开模型 ID 为 grok-imagine-1.5-vip，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+        "en": "Grok Imagine 1.5 VIP is APIPod's official-channel image-to-video route for Grok Imagine 1.5. It requires a source image and supports 480p, 720p or 1080p clips up to 15 seconds, with up to three narration voices on the GA official upstream. In APIPod, the public model ID is grok-imagine-1.5-vip. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Grok Imagine 1.5 VIP 是 APIPod 为 Grok Imagine 1.5 提供的官方通道路由，仅支持图生视频，要求提供源图片，可生成最长 15 秒的 480p、720p 或 1080p 视频，支持最多 3 个旁白音色（官转 GA 上游）。在 APIPod 中，公开模型 ID 为 grok-imagine-1.5-vip，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
       }
     },
     {

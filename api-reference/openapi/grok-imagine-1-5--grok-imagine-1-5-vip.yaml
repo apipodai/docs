@@ -2,11 +2,11 @@ openapi: 3.1.0
 info:
   title: Grok Imagine 1.5 VIP API
   version: 1.0.0
-  description: Grok Imagine 1.5 VIP is APIPod's official-channel image-to-video
-    route for Grok Imagine 1.5. It requires a source image and supports 480p or
-    720p clips up to 15 seconds. In APIPod, the public model ID is
-    grok-imagine-1.5-vip. It supports image-to-video, accepts text and image
-    inputs, and returns results through asynchronous video tasks.
+  description: Grok Imagine 1.5 VIP is APIPod's official-channel
+    route for Grok Imagine 1.5. It requires a source image and supports 480p, 720p or
+    1080p clips up to 15 seconds, and up to three narration voices on the GA official upstream. In APIPod, the public
+    model ID is grok-imagine-1.5-vip. It supports image-to-video, accepts text and
+    image inputs, and returns results through asynchronous video tasks.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -14,11 +14,11 @@ paths:
   /v1/videos/generations:
     post:
       summary: Create Generation Task
-      description: Grok Imagine 1.5 VIP is APIPod's official-channel image-to-video
-        route for Grok Imagine 1.5. It requires a source image and supports 480p
-        or 720p clips up to 15 seconds. In APIPod, the public model ID is
-        grok-imagine-1.5-vip. It supports image-to-video, accepts text and image
-        inputs, and returns results through asynchronous video tasks.
+      description: Grok Imagine 1.5 VIP is APIPod's official-channel
+        route for Grok Imagine 1.5. It requires a source image and supports 480p, 720p or
+        1080p clips up to 15 seconds, and up to three narration voices on the GA official upstream. In APIPod, the public
+        model ID is grok-imagine-1.5-vip. It supports image-to-video, accepts text and
+        image inputs, and returns results through asynchronous video tasks.
       operationId: create-grok-imagine-1-5-grok-imagine-1-5-vip
       tags:
         - Grok Imagine 1.5 VIP
@@ -45,10 +45,21 @@ paths:
                   type: string
                   title: First Frame Image
                   default: ""
+                voice_ids:
+                  type: array
+                  title: Narration Voice IDs
+                  maxItems: 3
+                  items:
+                    type: string
+                  description: Up to 3 narration voices for the generated
+                    video (GA official 1.5 upstream only). Allowed voices are carina,
+                    zagan, helix, orion, luna, iris, altair, zenith, perseus, helios,
+                    lux, kepler, rigel, cosmo, celeste, ursa, sirius, lumen, castor,
+                    naksh, atlas, ara, eve, leo, rex and sal.
                 duration:
                   type: integer
                   title: Duration
-                  default: 10
+                  default: 8
                   minimum: 1
                   maximum: 15
                 resolution:
@@ -57,7 +68,8 @@ paths:
                   enum:
                     - 480p
                     - 720p
-                  default: 480p
+                    - 1080p
+                  default: 720p
                 aspect_ratio:
                   type: string
                   title: Aspect Ratio
@@ -65,6 +77,10 @@ paths:
                     - 1:1
                     - 16:9
                     - 9:16
+                    - 4:3
+                    - 3:4
+                    - 3:2
+                    - 2:3
                   default: 16:9
               required:
                 - model
@@ -75,8 +91,10 @@ paths:
               prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
                 motion, synchronized ambient sound.
               image_url: https://cdn.example.com/reference.jpg
-              duration: 10
-              resolution: 480p
+              voice_ids:
+                - sirius
+              duration: 8
+              resolution: 720p
               aspect_ratio: 16:9
       responses:
         "200":
@@ -120,8 +138,9 @@ paths:
               "model": "grok-imagine-1.5-vip",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "duration": 10,
-              "resolution": "480p",
+              "voice_ids": ["sirius"],
+              "duration": 8,
+              "resolution": "720p",
               "aspect_ratio": "16:9"
             }'
         - lang: Python
@@ -136,8 +155,9 @@ paths:
               "model": "grok-imagine-1.5-vip",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "duration": 10,
-              "resolution": "480p",
+              "voice_ids": ["sirius"],
+              "duration": 8,
+              "resolution": "720p",
               "aspect_ratio": "16:9"
             }
 
@@ -176,8 +196,9 @@ paths:
               "model": "grok-imagine-1.5-vip",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "duration": 10,
-              "resolution": "480p",
+              "voice_ids": ["sirius"],
+              "duration": 8,
+              "resolution": "720p",
               "aspect_ratio": "16:9"
             }`), &payload); err != nil {
                     panic(err)
@@ -218,8 +239,9 @@ paths:
               "model": "grok-imagine-1.5-vip",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
-              "duration": 10,
-              "resolution": "480p",
+              "voice_ids": ["sirius"],
+              "duration": 8,
+              "resolution": "720p",
               "aspect_ratio": "16:9"
             });
                 let response = Client::new()
@@ -248,8 +270,9 @@ paths:
                 "model": "grok-imagine-1.5-vip",
                 "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
                 "image_url": "https://cdn.example.com/reference.jpg",
-                "duration": 10,
-                "resolution": "480p",
+                "voice_ids": ["sirius"],
+                "duration": 8,
+                "resolution": "720p",
                 "aspect_ratio": "16:9"
               }
               ),
