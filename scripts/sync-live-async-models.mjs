@@ -161,6 +161,10 @@ const descriptionOverrides = {
     en: "GPT Image 2 Lite is APIPod's cost-oriented routing variant for GPT Image 2 rather than a separate OpenAI model. It uses the shared generation and editing contract with lower-cost configured channels.",
     zh: "GPT Image 2 Lite 是 APIPod 面向低成本通道提供的 GPT Image 2 路由版本，并非独立的 OpenAI 模型；它沿用统一的图片生成与编辑契约。",
   },
+  "gpt-image-2-1k": {
+    en: "GPT Image 2 1K is a special-offer, low-price GPT Image 2 model dedicated to 1K resolution. It is ultra-fast and ultra-cheap but slightly less stable, making it ideal for quick previews and testing; it is not recommended for production use.",
+    zh: "GPT Image 2 1K 是一个针对 1K 分辨率的特价 gpt-image-2 低价生图模型，超低价格、速度超快，但稳定性稍差，适用于快速预览测试，不建议用于生产环境。",
+  },
   "gemini-omni-t2v": {
     en: "Gemini Omni T2V is APIPod's text-to-video routing mode for the configured Gemini Omni channel. It uses text instructions to create video without requiring reference media.",
     zh: "Gemini Omni T2V 是 APIPod 为已配置 Gemini Omni 通道提供的文生视频路由模式，仅使用文本指令生成视频，不要求参考素材。",

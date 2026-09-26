@@ -6,6 +6,7 @@
     "/2065583m0",
     "/gpt-image-2/gpt-image-2",
     "/gpt-image-2/gpt-image-2-lite",
+    "/gpt-image-2/gpt-image-2-1k",
     "/gpt-image-2/gpt-image-2-fast",
     "/gpt-image-2/gpt-image-2-edit",
     "/nano-banana/nano-banana-2",
@@ -289,6 +290,37 @@
         "zh": "GPT Image 2 Lite 是 APIPod 面向低成本通道提供的 GPT Image 2 路由版本，并非独立的 OpenAI 模型；它沿用统一的图片生成与编辑契约。在 APIPod 中，公开模型 ID 为 gpt-image-2-lite，支持文生图、图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
       },
       "source": "localhost:8080/public/schemas/gpt-image-2-lite"
+    },
+    {
+      "slug": "gpt-image-2/gpt-image-2-1k",
+      "title": "GPT Image 2 1K",
+      "legacy": "/gpt-image-2/gpt-image-2-1k",
+      "schema": true,
+      "modelId": "gpt-image-2-1k",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "openai",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "GPT Image 2 1K",
+          "zh": "GPT Image 2 1K"
+        }
+      },
+      "introduction": {
+        "en": "GPT Image 2 1K is a special-offer, low-price GPT Image 2 model dedicated to 1K resolution. It is ultra-fast and ultra-cheap but slightly less stable, making it ideal for quick previews and testing; it is not recommended for production use. In APIPod, the public model ID is gpt-image-2-1k. It supports text-to-image and image generation and editing, accepts text and up to 6 reference images, and returns results through asynchronous image tasks.",
+        "zh": "GPT Image 2 1K 是一个针对 1K 分辨率的特价 gpt-image-2 低价生图模型，超低价格、速度超快，但稳定性稍差，适用于快速预览测试，不建议用于生产环境。在 APIPod 中，公开模型 ID 为 gpt-image-2-1k，支持文生图、图片生成与编辑；接受文本及最多 6 张参考图输入，并通过异步图片任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/gpt-image-2-1k"
     },
     {
       "slug": "gpt-image-2/gpt-image-2-fast",

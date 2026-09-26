@@ -61,6 +61,7 @@
                     "pages": [
                       "gpt-image-2/gpt-image-2",
                       "gpt-image-2/gpt-image-2-lite",
+                      "gpt-image-2/gpt-image-2-1k",
                       "gpt-image-2/gpt-image-2-fast"
                     ]
                   },
@@ -431,6 +432,7 @@
                     "pages": [
                       "zh-CN/gpt-image-2/gpt-image-2",
                       "zh-CN/gpt-image-2/gpt-image-2-lite",
+                      "zh-CN/gpt-image-2/gpt-image-2-1k",
                       "zh-CN/gpt-image-2/gpt-image-2-fast"
                     ]
                   },
@@ -793,6 +795,8 @@
       "api-reference/openapi/gpt-image-2--gpt-image-2.zh.yaml",
       "api-reference/openapi/gpt-image-2--gpt-image-2-lite.yaml",
       "api-reference/openapi/gpt-image-2--gpt-image-2-lite.zh.yaml",
+      "api-reference/openapi/gpt-image-2--gpt-image-2-1k.yaml",
+      "api-reference/openapi/gpt-image-2--gpt-image-2-1k.zh.yaml",
       "api-reference/openapi/gpt-image-2--gpt-image-2-fast.yaml",
       "api-reference/openapi/gpt-image-2--gpt-image-2-fast.zh.yaml",
       "api-reference/openapi/nano-banana--nano-banana-2.yaml",
