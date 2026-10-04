@@ -2498,6 +2498,42 @@
       ]
     },
     {
+      "slug": "seedance/2-5-draft",
+      "title": "Seedance 2.5 Draft",
+      "legacy": "/seedance/2-5-draft",
+      "schema": true,
+      "modelId": "seedance-2.5-draft",
+      "classifications": [
+        "text_to_video",
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.5 Draft",
+          "zh": "Seedance 2.5 Draft 样片"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.5 Draft is a two-stage workflow: submit a normal request to create a low-cost 480p draft preview, then submit the completed draft's task ID as draft_task_id to render the 1080p final video. The final video reuses the draft prompt, media, duration, aspect ratio, seed, and audio setting, and always runs on the same generation account as the draft. In APIPod, the public model ID is seedance-2.5-draft, and results are returned through asynchronous video tasks.",
+        "zh": "Seedance 2.5 Draft 是两段式工作流：按普通请求提交生成低成本的 480p 样片，样片完成后把其任务 ID 作为 draft_task_id 提交即可生成 1080p 成片。成片复用样片的提示词、素材、时长、画幅、seed 与音频设置，并固定在生成样片的同一账号上执行。在 APIPod 中，公开模型 ID 为 seedance-2.5-draft，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.5-draft",
+      "example_prompts": [
+        "女孩抱着一只狐狸，镜头缓缓拉远，风吹动她的头发"
+      ]
+    },
+    {
       "slug": "seedance/2-5-lite-text-to-video",
       "title": "Seedance 2.5 Lite Text to Video",
       "legacy": "/seedance/2-5-lite-text-to-video",

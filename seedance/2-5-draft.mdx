@@ -1,0 +1,37 @@
+---
+title: "Seedance 2.5 Draft"
+description: "Seedance 2.5 Draft is a two-stage workflow: create a low-cost 480p draft preview first, then render the approved draft as a 1080p final video that reuses the draft prompt, media, and settings."
+openapi: "api-reference/openapi/seedance--2-5-draft.yaml POST /v1/videos/generations"
+---
+
+<Warning title="Conditional validation">Draft previews support only 480p and final videos only 1080p. With `draft_task_id`, `prompt`, media fields, `role`, `duration`, `aspect_ratio`, `seed`, `generate_audio`, and `web_search` cannot be set.</Warning>
+
+## Two-Stage Workflow
+
+Seedance 2.5 Draft lets you validate content cheaply before paying for a 1080p render. Both stages use the same public model ID, `seedance-2.5-draft`, and always run on the same generation account; they never fall back to another channel.
+
+### Step 1: create a 480p draft
+
+Submit a normal Seedance 2.5 request without `draft_task_id`. Text, image, video, and audio references work the same way as the standard model; 1-2 images without other media are treated as first/last frames.
+
+- **Resolution**: only `480p`; filled in automatically when omitted.
+- **Duration**: 4-30 seconds (default 4). `duration=-1` is not supported.
+- **Billing**: the same as a normal 480p video, including input-video duration when video references are supplied.
+
+The returned `task_id` is the draft task ID. Wait until it reaches `completed`; it can be used for seven days from its creation time.
+
+### Step 2: create the 1080p final video
+
+Submit the draft task ID as `draft_task_id` with the same model ID, for example `draft_task_id`, `resolution: "1080p"`, `output_format: "mov"`, `return_last_frame: true`, and an optional `callback_url`.
+
+- The final video automatically reuses the draft prompt, media, duration, aspect ratio, seed, and audio setting. Supplying any of them again returns a 400 error.
+- Only `resolution` (`1080p`, filled in when omitted), `output_format`, `return_last_frame`, `watermark`, and `callback_url` can be set.
+- **Billing**: draft duration × the 1080p rate. Input-video duration is not added again, even when the draft used video references.
+- The same draft can create multiple final videos; each one is a separate, independently billed task.
+- `draft_task_id` must be a completed draft created by the current user within the last 7 days. Do not send an upstream task ID.
+
+<Note>
+Draft and final tasks never switch channels. If the generation account that created the draft is unavailable, the final request returns 503; retry later. Failed tasks are fully refunded.
+</Note>
+
+Need a full-quality video in one step? Use [Seedance 2.5 Reference to Video](/seedance/2-5-reference-to-video).
