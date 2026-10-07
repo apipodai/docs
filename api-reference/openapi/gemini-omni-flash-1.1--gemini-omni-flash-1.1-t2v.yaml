@@ -2,11 +2,11 @@ openapi: 3.1.0
 info:
   title: Gemini Omni Flash 1.1 Text to Video API
   version: 1.0.0
-  description: Gemini Omni Flash 1.1 T2V is APIPod's text-to-video routing mode for the
-    Gemini Omni Flash 1.1 channel. It uses text instructions to create video
-    without requiring reference media. In APIPod, the public model ID is
-    gemini-omni-flash-1.1-t2v. It supports text-to-video, accepts text inputs, and returns
-    results through asynchronous video tasks.
+  description: Gemini Omni Flash 1.1 T2V is APIPod's text-to-video mode for Gemini
+    Omni Flash 1.1, Google's lightweight preview model for fast, high-volume
+    video generation. In APIPod, the public model ID is
+    gemini-omni-flash-1.1-t2v. It supports text-to-video, accepts text inputs,
+    and returns results through asynchronous video tasks.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -14,11 +14,11 @@ paths:
   /v1/videos/generations:
     post:
       summary: Create Generation Task
-      description: Gemini Omni Flash 1.1 T2V is APIPod's text-to-video routing mode for the
-        Gemini Omni Flash 1.1 channel. It uses text instructions to create
-        video without requiring reference media. In APIPod, the public model ID
-        is gemini-omni-flash-1.1-t2v. It supports text-to-video, accepts text inputs, and
-        returns results through asynchronous video tasks.
+      description: Gemini Omni Flash 1.1 T2V is APIPod's text-to-video mode for Gemini
+        Omni Flash 1.1, Google's lightweight preview model for fast, high-volume
+        video generation. In APIPod, the public model ID is
+        gemini-omni-flash-1.1-t2v. It supports text-to-video, accepts text
+        inputs, and returns results through asynchronous video tasks.
       operationId: create-gemini-omni-flash-1.1-gemini-omni-flash-1.1-t2v
       tags:
         - Gemini Omni Flash 1.1 Text to Video

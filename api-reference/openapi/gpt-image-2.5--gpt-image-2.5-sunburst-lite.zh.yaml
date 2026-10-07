@@ -2,7 +2,9 @@ openapi: 3.1.0
 info:
   title: GPT Image 2.5 Sunburst Lite API
   version: 1.0.0
-  description: GPT Image 2.5 Sunburst 轻量版是 APIPod 面向低成本通道提供的 GPT Image 2.5 Sunburst 路由版本，并非独立的 OpenAI 模型。沿用相同的生成与编辑参数契约，适合对成本敏感的反复打磨类创作。在 APIPod 中，公开模型 ID 为 gpt-image-2.5-sunburst-lite，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。
+  description: GPT Image 2.5 Sunburst 轻量版是 APIPod 面向低成本通道提供的 GPT Image 2.5
+    Sunburst 路由版本，并非独立的 OpenAI 模型。沿用相同的生成与编辑参数契约，适合对成本敏感的反复打磨类创作。在 APIPod 中，公开模型
+    ID 为 gpt-image-2.5-sunburst-lite，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -10,7 +12,10 @@ paths:
   /v1/images/generations:
     post:
       summary: 创建生成任务
-      description: GPT Image 2.5 Sunburst 轻量版是 APIPod 面向低成本通道提供的 GPT Image 2.5 Sunburst 路由版本，并非独立的 OpenAI 模型。沿用相同的生成与编辑参数契约，适合对成本敏感的反复打磨类创作。在 APIPod 中，公开模型 ID 为 gpt-image-2.5-sunburst-lite，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。
+      description: GPT Image 2.5 Sunburst 轻量版是 APIPod 面向低成本通道提供的 GPT Image 2.5
+        Sunburst 路由版本，并非独立的 OpenAI 模型。沿用相同的生成与编辑参数契约，适合对成本敏感的反复打磨类创作。在 APIPod
+        中，公开模型 ID 为
+        gpt-image-2.5-sunburst-lite，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。
       operationId: create-gpt-image-2.5-gpt-image-2.5-sunburst-lite
       tags:
         - GPT Image 2.5 Sunburst Lite
@@ -22,7 +27,10 @@ paths:
           application/json:
             schema:
               type: object
-              title: "GPT Image 2.5 Sunburst Lite"
+              title: GPT Image 2.5 Sunburst Lite
+              required:
+                - model
+                - prompt
               properties:
                 model:
                   type: string
@@ -39,9 +47,16 @@ paths:
                   items:
                     type: string
                   description: 可公开访问的源图片或参考图 URL。
-                quality:
+                background:
+                  enum:
+                    - auto
+                    - opaque
+                    - transparent
                   type: string
-                  title: Quality
+                  title: Background
+                  default: auto
+                  description: 背景处理模式。
+                quality:
                   enum:
                     - auto
                     - low
@@ -49,21 +64,11 @@ paths:
                     - high
                     - xhigh
                     - max
-                  default: auto
-                  description: 输出质量档位。xhigh 与 max 为 GPT Image 2.5 独占档位；background 为 transparent（透明背景）时档位不得低于 medium。
-                background:
                   type: string
-                  title: Background
-                  description: 生成图片的背景模式。transparent 输出带透明通道的 PNG，要求 quality 为 medium 或 high。
-                  enum:
-                    - auto
-                    - opaque
-                    - transparent
+                  title: Quality
                   default: auto
+                  description: 输出质量或图片分辨率档位。
                 aspect_ratio:
-                  type: string
-                  title: Aspect Ratio
-                  description: 输出宽高比。
                   enum:
                     - auto
                     - 1:1
@@ -76,19 +81,19 @@ paths:
                     - 9:16
                     - 16:9
                     - 21:9
-                  default: auto
-                resolution:
                   type: string
-                  title: Resolution
-                  description: 输出分辨率档位。
+                  title: Aspect Ratio
+                  default: auto
+                  description: 输出宽高比。
+                resolution:
                   enum:
                     - 1K
                     - 2K
                     - 4K
+                  type: string
+                  title: Resolution
                   default: 1K
-              required:
-                - model
-                - prompt
+                  description: 输出分辨率档位。
             example:
               model: gpt-image-2.5-sunburst-lite
               prompt: A premium product photograph on a dark studio set, precise typography,
@@ -104,7 +109,10 @@ paths:
               schema:
                 type: object
                 title: Task Submit Response
-                description: Standard response for task submission
+                required:
+                  - code
+                  - message
+                  - data
                 properties:
                   code:
                     type: integer
@@ -112,18 +120,15 @@ paths:
                   data:
                     type: object
                     title: Task Submit Data
-                    description: 响应数据。
                     properties:
                       task_id:
                         type: string
                         description: 用于查询任务状态的 APIPod 任务 ID。
+                    description: 响应数据。
                   message:
                     type: string
                     description: 响应消息。
-                required:
-                  - code
-                  - message
-                  - data
+                description: Standard response for task submission
               example:
                 code: 200
                 message: success

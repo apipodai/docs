@@ -2,7 +2,11 @@ openapi: 3.1.0
 info:
   title: MiniMax H3 API
   version: 1.0.0
-  description: MiniMax H3 是 MiniMax 多模态 H3 视频系列的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。只传提示词即文生视频，image_urls 传 1-2 张图即图生视频（首帧/首尾帧），role=reference_images、参考视频或参考音频即参考生视频。在 APIPod 中，公开模型 ID 为 minimax-h3，参考素材上限为图 9 / 视频 3 / 音频 3，输出 768P 或 2K、时长 4-15 秒，通过异步视频任务返回结果。文生视频场景必须显式传 aspect_ratio。
+  description: MiniMax H3 是 MiniMax 多模态 H3 视频系列的 all-in-one 模型：一个公开模型 ID
+    覆盖全部场景。只传提示词即文生视频，image_urls 传 1-2
+    张图即图生视频（首帧/首尾帧），role=reference_images、参考视频或参考音频即参考生视频。在 APIPod 中，公开模型 ID 为
+    minimax-h3，参考素材上限为图 9 / 视频 3 / 音频 3，输出 768P 或 2K、时长 4-15
+    秒，通过异步视频任务返回结果。文生视频场景必须显式传 aspect_ratio。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -10,7 +14,11 @@ paths:
   /v1/videos/generations:
     post:
       summary: 创建生成任务
-      description: MiniMax H3 是 MiniMax 多模态 H3 视频系列的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。只传提示词即文生视频，image_urls 传 1-2 张图即图生视频（首帧/首尾帧），role=reference_images、参考视频或参考音频即参考生视频。在 APIPod 中，公开模型 ID 为 minimax-h3，参考素材上限为图 9 / 视频 3 / 音频 3，输出 768P 或 2K、时长 4-15 秒，通过异步视频任务返回结果。文生视频场景必须显式传 aspect_ratio。
+      description: MiniMax H3 是 MiniMax 多模态 H3 视频系列的 all-in-one 模型：一个公开模型 ID
+        覆盖全部场景。只传提示词即文生视频，image_urls 传 1-2
+        张图即图生视频（首帧/首尾帧），role=reference_images、参考视频或参考音频即参考生视频。在 APIPod 中，公开模型 ID
+        为 minimax-h3，参考素材上限为图 9 / 视频 3 / 音频 3，输出 768P 或 2K、时长 4-15
+        秒，通过异步视频任务返回结果。文生视频场景必须显式传 aspect_ratio。
       operationId: create-minimax-h3-minimax-h3
       tags:
         - MiniMax H3
@@ -32,41 +40,41 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  description: 生成指令，所有场景必填，最长 7000 字符。
-                  minLength: 1
-                  maxLength: 7000
+                  description: 生成或编辑指令。 最大字符串长度：7000。 最小字符串长度：1。
                 image_urls:
                   type: array
                   title: Image Urls
-                  description: 图片 URL。场景按素材自动推断：仅传 1-2 张图时视为首尾帧（图生视频）；携带其他参考素材或超过 2 张时全部按参考图处理。可配合 role 字段显式指定语义。最多 9 张。
-                  maxItems: 9
+                  description: 可公开访问的源图片或参考图 URL。 最多项目数：9。
                   items:
                     type: string
                 role:
                   type: string
                   title: Role
-                  description: image_urls 的显式语义标注。reference_images：无论张数全部按参考图处理；first_last_frame：首帧 + 可选尾帧（最多 2 张，不能与参考视频或音频同用）；缺省时按素材推断场景。
+                  description: "Explicit interpretation of image_urls. reference_images: all
+                    images are treated as reference images regardless of count.
+                    first_last_frame: images are treated as the first frame plus
+                    an optional last frame (max 2; cannot be combined with
+                    reference videos or audios). When omitted, the scenario is
+                    inferred from the materials."
                   enum:
                     - reference_images
                     - first_last_frame
                 video_urls:
                   type: array
                   title: Reference Videos
-                  description: 参考视频，最多 3 个；音频不能单独使用，需至少携带一张参考图或一个参考视频。
-                  maxItems: 3
+                  description: 可公开访问的参考视频 URL。 最多项目数：3。
                   items:
                     type: string
                 audio_urls:
                   type: array
                   title: Reference Audio
-                  description: 参考音频，最多 3 段；音频不能单独使用，需至少携带一张参考图或一个参考视频。
-                  maxItems: 3
+                  description: 可公开访问的参考音频 URL。 最多项目数：3。
                   items:
                     type: string
                 resolution:
                   type: string
                   title: Resolution
-                  description: 视频分辨率，可选 768P 与 2K。
+                  description: 视频分辨率，可选 768P 或 2K。
                   enum:
                     - 768P
                     - 2K
@@ -74,14 +82,12 @@ paths:
                 duration:
                   type: integer
                   title: Duration
-                  description: 生成视频时长（秒），取值 4-15。
+                  description: 视频时长，单位为秒。 最小值：4。 最大值：15。
                   default: 4
-                  minimum: 4
-                  maximum: 15
                 aspect_ratio:
                   type: string
                   title: Aspect Ratio
-                  description: 生成视频画幅，默认 adaptive；文生视频场景必填且不能为 adaptive。
+                  description: 输出宽高比。
                   enum:
                     - adaptive
                     - 21:9
@@ -99,10 +105,6 @@ paths:
               model: minimax-h3
               prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
                 motion, synchronized ambient sound.
-              image_urls:
-                - https://cdn.example.com/reference-1.jpg
-              video_urls:
-                - https://cdn.example.com/reference.mp4
               resolution: 2K
               duration: 4
               aspect_ratio: adaptive
@@ -142,26 +144,20 @@ paths:
       x-codeSamples:
         - lang: Shell
           label: cURL
-          source: |-
+          source: >-
             curl https://api.apipod.ai/v1/videos/generations \
               -H "Authorization: Bearer $APIPOD_API_KEY" \
               -H "Content-Type: application/json" \
               -d '{
               "model": "minimax-h3",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
               "resolution": "2K",
               "duration": 4,
               "aspect_ratio": "adaptive"
             }'
         - lang: Python
           label: Python
-          source: |-
+          source: >-
             import os
 
             import requests
@@ -170,12 +166,6 @@ paths:
             payload = {
               "model": "minimax-h3",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
               "resolution": "2K",
               "duration": 4,
               "aspect_ratio": "adaptive"
@@ -195,10 +185,114 @@ paths:
             response.raise_for_status()
 
             print(response.json())
+        - lang: Go
+          label: Go
+          source: >-
+            package main
+
+
+            import (
+                "bytes"
+                "encoding/json"
+                "fmt"
+                "net/http"
+                "os"
+            )
+
+
+            func main() {
+                payload := map[string]any{}
+                if err := json.Unmarshal([]byte(`{
+              "model": "minimax-h3",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "resolution": "2K",
+              "duration": 4,
+              "aspect_ratio": "adaptive"
+            }`), &payload); err != nil {
+                    panic(err)
+                }
+                body, err := json.Marshal(payload)
+                if err != nil {
+                    panic(err)
+                }
+
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+                if err != nil {
+                    panic(err)
+                }
+                req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+                req.Header.Set("Content-Type", "application/json")
+
+                resp, err := http.DefaultClient.Do(req)
+                if err != nil {
+                    panic(err)
+                }
+                defer resp.Body.Close()
+                fmt.Println(resp.Status)
+            }
+        - lang: Rust
+          label: Rust
+          source: >-
+            use reqwest::Client;
+
+            use serde_json::json;
+
+            use std::env;
+
+
+            #[tokio::main]
+
+            async fn main() -> Result<(), Box<dyn std::error::Error>> {
+                let payload = json!({
+              "model": "minimax-h3",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "resolution": "2K",
+              "duration": 4,
+              "aspect_ratio": "adaptive"
+            });
+                let response = Client::new()
+                    .post("https://api.apipod.ai/v1/videos/generations")
+                    .bearer_auth(env::var("APIPOD_API_KEY")?)
+                    .json(&payload)
+                    .send()
+                    .await?
+                    .error_for_status()?;
+
+                println!("{}", response.text().await?);
+                Ok(())
+            }
+        - lang: JavaScript
+          label: JavaScript
+          source: >-
+            const response = await
+            fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(
+              {
+                "model": "minimax-h3",
+                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+                "resolution": "2K",
+                "duration": 4,
+                "aspect_ratio": "adaptive"
+              }
+              ),
+            });
+
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+
+            console.log(await response.json());
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: APIPod API key
-      description: Use your APIPod API key as a Bearer token in the Authorization header.
+      description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。

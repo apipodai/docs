@@ -2,7 +2,9 @@ openapi: 3.1.0
 info:
   title: GPT Image 2 1K API
   version: 1.0.0
-  description: "GPT Image 2 1K 是一个针对 1K 分辨率的特价 gpt-image-2 低价生图模型，超低价格、速度超快，但稳定性稍差，适用于快速预览测试，不建议用于生产环境。在 APIPod 中，公开模型 ID 为 gpt-image-2-1k，支持文生图、图片生成与编辑；接受文本及最多 6 张参考图输入，并通过异步图片任务返回结果。"
+  description: GPT Image 2 1K 是一个针对 1K 分辨率的特价 gpt-image-2
+    低价生图模型，超低价格、速度超快，但稳定性稍差，适用于快速预览测试，不建议用于生产环境。在 APIPod 中，公开模型 ID 为
+    gpt-image-2-1k，支持文生图、图片生成与编辑；接受文本及最多 6 张参考图输入，并通过异步图片任务返回结果。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -10,7 +12,9 @@ paths:
   /v1/images/generations:
     post:
       summary: 创建生成任务
-      description: "GPT Image 2 1K 是一个针对 1K 分辨率的特价 gpt-image-2 低价生图模型，超低价格、速度超快，但稳定性稍差，适用于快速预览测试，不建议用于生产环境。在 APIPod 中，公开模型 ID 为 gpt-image-2-1k，支持文生图、图片生成与编辑；接受文本及最多 6 张参考图输入，并通过异步图片任务返回结果。"
+      description: GPT Image 2 1K 是一个针对 1K 分辨率的特价 gpt-image-2
+        低价生图模型，超低价格、速度超快，但稳定性稍差，适用于快速预览测试，不建议用于生产环境。在 APIPod 中，公开模型 ID 为
+        gpt-image-2-1k，支持文生图、图片生成与编辑；接受文本及最多 6 张参考图输入，并通过异步图片任务返回结果。
       operationId: create-gpt-image-2-gpt-image-2-1k
       tags:
         - GPT Image 2 1K
@@ -36,14 +40,13 @@ paths:
                 image_urls:
                   type: array
                   title: Image Urls
-                  description: 参考图片，最多 6 张。
-                  maxItems: 6
+                  description: 可公开访问的源图片或参考图 URL。 最多项目数：6。
                   items:
                     type: string
                 resolution:
                   type: string
                   title: Resolution
-                  description: 输出分辨率，固定为 1K。
+                  description: 输出分辨率档位。
                   enum:
                     - 1K
                   default: 1K
@@ -52,15 +55,15 @@ paths:
                   title: Aspect Ratio
                   enum:
                     - auto
-                    - "1:1"
-                    - "2:3"
-                    - "3:2"
-                    - "3:4"
-                    - "4:3"
-                    - "16:9"
-                    - "9:16"
-                    - "21:9"
-                    - "9:21"
+                    - 1:1
+                    - 2:3
+                    - 3:2
+                    - 3:4
+                    - 4:3
+                    - 16:9
+                    - 9:16
+                    - 21:9
+                    - 9:21
                   default: auto
                   description: 输出宽高比。
               required:
@@ -70,7 +73,6 @@ paths:
               model: gpt-image-2-1k
               prompt: A premium product photograph on a dark studio set, precise typography,
                 soft rim lighting, highly detailed.
-              image_urls: []
               resolution: 1K
               aspect_ratio: auto
       responses:
@@ -116,7 +118,6 @@ paths:
               -d '{
               "model": "gpt-image-2-1k",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [],
               "resolution": "1K",
               "aspect_ratio": "auto"
             }'
@@ -131,7 +132,6 @@ paths:
             payload = {
               "model": "gpt-image-2-1k",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [],
               "resolution": "1K",
               "aspect_ratio": "auto"
             }
@@ -170,7 +170,6 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "gpt-image-2-1k",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [],
               "resolution": "1K",
               "aspect_ratio": "auto"
             }`), &payload); err != nil {
@@ -211,7 +210,6 @@ paths:
                 let payload = json!({
               "model": "gpt-image-2-1k",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [],
               "resolution": "1K",
               "aspect_ratio": "auto"
             });
@@ -240,7 +238,6 @@ paths:
               {
                 "model": "gpt-image-2-1k",
                 "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "image_urls": [],
                 "resolution": "1K",
                 "aspect_ratio": "auto"
               }

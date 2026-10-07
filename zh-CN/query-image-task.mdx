@@ -16,6 +16,29 @@ openapi: "api-reference/openapi/query-image-task.zh.yaml GET /v1/images/status/{
 | `failed` | 任务失败。 | 检查错误字段和请求日志。 |
 | `cancelled` | 任务已取消。 | 停止轮询。 |
 
+## 用量与费用
+
+`status` 为 `completed` 时，响应会包含 `usage` 对象，记录该任务的最终扣费金额：
+
+```json
+{
+  "task_id": "img_task_01JEXAMPLE",
+  "status": "completed",
+  "result": ["https://cdn.example.com/generated.png"],
+  "completed_at": 1786358400,
+  "usage": {
+    "prompt_tokens": 100,
+    "completion_tokens": 123,
+    "total_tokens": 223,
+    "cost": 0.053
+  }
+}
+```
+
+- `usage.cost` 是完成后多退少补结算后的最终金额（美元），与控制台显示的费用一致。
+- token 字段仅在上游提供商上报 token 用量时出现。
+- 任务处于 `pending`、`processing` 或 `failed` 时不返回 `usage`。
+
 ## 图片元数据（图层拆分）
 
 图层拆分模型（`seedream-5.0-pro-layer`、`seedream-5.0-flash-layer`）会返回一张底图和最多 16 个透明 PNG 图层。任务完成后，除 `result` 外还会返回 `images` 数组，携带每张图片的元数据。`images` 与 `result` 顺序一致，底图（`z_index: 0`）始终在第一位。

@@ -2,12 +2,13 @@ openapi: 3.1.0
 info:
   title: GPT Image 2.5 Sunburst API
   version: 1.0.0
-  description: GPT Image 2.5 Sunburst is the precision tier of OpenAI's GPT Image 2.5 image
-    generation and editing family, exposed through APIPod's official-route public ID. It
-    builds on Flare with tighter editing accuracy and multi-round controllability, suited
-    to production-ready campaign key visuals and polished product imagery. In APIPod, the
-    public model ID is gpt-image-2.5-sunburst. It supports text-to-image and image
-    generation and editing, accepts text and image inputs, and returns results through
+  description: GPT Image 2.5 Sunburst is the precision tier of OpenAI's GPT Image
+    2.5 image generation and editing family, exposed through APIPod's
+    official-route public ID. It builds on Flare with tighter editing accuracy
+    and multi-round controllability, suited to production-ready campaign key
+    visuals and polished product imagery. In APIPod, the public model ID is
+    gpt-image-2.5-sunburst. It supports text-to-image and image generation and
+    editing, accepts text and image inputs, and returns results through
     asynchronous image tasks.
 servers:
   - url: https://api.apipod.ai
@@ -16,12 +17,13 @@ paths:
   /v1/images/generations:
     post:
       summary: Create Generation Task
-      description: GPT Image 2.5 Sunburst is the precision tier of OpenAI's GPT Image 2.5 image
-        generation and editing family, exposed through APIPod's official-route public ID.
-        It builds on Flare with tighter editing accuracy and multi-round controllability,
-        suited to production-ready campaign key visuals and polished product imagery. In
-        APIPod, the public model ID is gpt-image-2.5-sunburst. It supports text-to-image
-        and image generation and editing, accepts text and image inputs, and returns
+      description: GPT Image 2.5 Sunburst is the precision tier of OpenAI's GPT Image
+        2.5 image generation and editing family, exposed through APIPod's
+        official-route public ID. It builds on Flare with tighter editing
+        accuracy and multi-round controllability, suited to production-ready
+        campaign key visuals and polished product imagery. In APIPod, the public
+        model ID is gpt-image-2.5-sunburst. It supports text-to-image and image
+        generation and editing, accepts text and image inputs, and returns
         results through asynchronous image tasks.
       operationId: create-gpt-image-2.5-gpt-image-2.5-sunburst
       tags:
@@ -34,7 +36,10 @@ paths:
           application/json:
             schema:
               type: object
-              title: "GPT Image 2.5 Sunburst"
+              title: GPT Image 2.5 Sunburst
+              required:
+                - model
+                - prompt
               properties:
                 model:
                   type: string
@@ -44,19 +49,24 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  description: Used to describe the generated images.
                   maxLength: 32000
+                  description: Used to describe the generated images.
                 image_urls:
                   type: array
                   title: Image Urls
                   items:
                     type: string
-                quality:
+                background:
+                  enum:
+                    - auto
+                    - opaque
+                    - transparent
                   type: string
-                  title: Quality
-                  description: Output quality tier. xhigh and max are GPT Image
-                    2.5-only tiers. Must be at least medium when background is
-                    transparent.
+                  title: Background
+                  default: auto
+                  description: Background mode of the generated image. transparent renders an
+                    alpha-channel PNG and requires quality to be medium or high.
+                quality:
                   enum:
                     - auto
                     - low
@@ -64,22 +74,12 @@ paths:
                     - high
                     - xhigh
                     - max
-                  default: auto
-                background:
                   type: string
-                  title: Background
-                  description: Background mode of the generated image. transparent
-                    renders an alpha-channel PNG and requires quality to be medium
-                    or high.
-                  enum:
-                    - auto
-                    - opaque
-                    - transparent
+                  title: Quality
                   default: auto
+                  description: Output quality tier. xhigh and max are GPT Image 2.5-only tiers.
+                    Must be at least medium when background is transparent.
                 aspect_ratio:
-                  type: string
-                  title: Aspect Ratio
-                  description: This parameter defines the aspect ratio of the image.
                   enum:
                     - auto
                     - 1:1
@@ -92,19 +92,19 @@ paths:
                     - 9:16
                     - 16:9
                     - 21:9
-                  default: auto
-                resolution:
                   type: string
-                  title: Resolution
-                  description: The resolution of the generated images.
+                  title: Aspect Ratio
+                  default: auto
+                  description: This parameter defines the aspect ratio of the image.
+                resolution:
                   enum:
                     - 1K
                     - 2K
                     - 4K
+                  type: string
+                  title: Resolution
                   default: 1K
-              required:
-                - model
-                - prompt
+                  description: The resolution of the generated images.
             example:
               model: gpt-image-2.5-sunburst
               prompt: A premium product photograph on a dark studio set, precise typography,
@@ -120,24 +120,24 @@ paths:
               schema:
                 type: object
                 title: Task Submit Response
-                description: Standard response for task submission
+                required:
+                  - code
+                  - message
+                  - data
                 properties:
                   code:
                     type: integer
                   data:
                     type: object
                     title: Task Submit Data
-                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
                         description: generatation task id
+                    description: Data content for task submission
                   message:
                     type: string
-                required:
-                  - code
-                  - message
-                  - data
+                description: Standard response for task submission
               example:
                 code: 200
                 message: success

@@ -2,11 +2,11 @@ openapi: 3.1.0
 info:
   title: Gemini Omni Flash 1.1 Video Extend API
   version: 1.0.0
-  description: Gemini Omni Flash 1.1 Video Extend is APIPod's video extension routing
-    mode for the Gemini Omni Flash 1.1 channel. It requires a source video and
-    can attach up to five reference images. In APIPod, the public model ID is
-    gemini-omni-flash-1.1-extend. It supports video-to-video, accepts text, video and
-    image inputs, and returns results through asynchronous video tasks.
+  description: Gemini Omni Flash 1.1 Extend is APIPod's video extension mode for
+    Gemini Omni Flash 1.1, continuing an existing clip from its first 10
+    seconds. In APIPod, the public model ID is gemini-omni-flash-1.1-extend. It
+    continues an existing clip from its first 10 seconds, and returns results
+    through asynchronous video tasks.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -14,12 +14,11 @@ paths:
   /v1/videos/generations:
     post:
       summary: Create Generation Task
-      description: Gemini Omni Flash 1.1 Video Extend is APIPod's video extension routing
-        mode for the Gemini Omni Flash 1.1 channel. It requires a source video
-        and can attach up to five reference images. In APIPod, the public model
-        ID is gemini-omni-flash-1.1-extend. It supports video-to-video, accepts text,
-        video and image inputs, and returns results through asynchronous video
-        tasks.
+      description: Gemini Omni Flash 1.1 Extend is APIPod's video extension mode for
+        Gemini Omni Flash 1.1, continuing an existing clip from its first 10
+        seconds. In APIPod, the public model ID is gemini-omni-flash-1.1-extend.
+        It continues an existing clip from its first 10 seconds, and returns
+        results through asynchronous video tasks.
       operationId: create-gemini-omni-flash-1.1-gemini-omni-flash-1.1-extend
       tags:
         - Gemini Omni Flash 1.1 Video Extend
@@ -45,8 +44,8 @@ paths:
                 video_url:
                   type: string
                   title: Video Url
-                  description: Source video to continue. Only the first 10 seconds of the
-                    source video are used as continuation context.
+                  description: Source video to continue. Only the first 10 seconds of the source
+                    video are used as continuation context.
                 image_urls:
                   type: array
                   title: Reference images

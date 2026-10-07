@@ -2,9 +2,11 @@ openapi: 3.1.0
 info:
   title: WAN 3.0 Prime Text to Video API
   version: 1.0.0
-  description: Wan 3.0 Prime Text to Video is the high-speed tier of Alibaba's Wan 3.0 video family that creates video directly from text prompts without source media, with significantly faster end-to-end generation. In APIPod, the public model ID is wan3.0-prime-t2v. It supports
-    text-to-video, accepts text inputs, and returns results through asynchronous
-    video tasks.
+  description: Wan 3.0 Prime Text to Video is the high-speed tier of Alibaba's Wan
+    3.0 video family that creates video directly from text prompts without
+    source media, with significantly faster end-to-end generation. In APIPod,
+    the public model ID is wan3.0-prime-t2v. It supports text-to-video, accepts
+    text inputs, and returns results through asynchronous video tasks.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -12,7 +14,10 @@ paths:
   /v1/videos/generations:
     post:
       summary: Create Generation Task
-      description: Wan 3.0 Prime Text to Video is the high-speed tier of Alibaba's Wan 3.0 video family that creates video directly from text prompts without source media, with significantly faster end-to-end generation. In APIPod, the public model ID is wan3.0-prime-t2v. It supports
+      description: Wan 3.0 Prime Text to Video is the high-speed tier of Alibaba's Wan
+        3.0 video family that creates video directly from text prompts without
+        source media, with significantly faster end-to-end generation. In
+        APIPod, the public model ID is wan3.0-prime-t2v. It supports
         text-to-video, accepts text inputs, and returns results through
         asynchronous video tasks.
       operationId: create-wan-wan3-0-prime-t2v

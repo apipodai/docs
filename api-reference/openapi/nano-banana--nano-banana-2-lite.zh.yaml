@@ -2,7 +2,9 @@ openapi: 3.1.0
 info:
   title: Nano Banana 2 Lite API
   version: 1.0.0
-  description: Nano Banana 2 Lite（上游 gemini-3.1-flash-lite-image）是 Google Nano Banana 2 图片生成系列的极速低价档位。在 APIPod 中，公开模型 ID 为 nano-banana-2-lite，仅支持 1K 分辨率与十种常规宽高比（1:4、4:1、1:8、8:1 横幅比例为 nano-banana-2 独占）；接受文本与最多 14 张参考图输入，并通过异步图片任务返回结果。
+  description: Nano Banana 2 Lite 是 Google Nano Banana 2 图片生成系列的极速低价档位。在 APIPod
+    中，公开模型 ID 为 nano-banana-2-lite，仅支持 1K 分辨率与十种常规宽高比（1:4、4:1、1:8、8:1 横幅比例为
+    nano-banana-2 独占）；接受文本与最多 14 张参考图输入，并通过异步图片任务返回结果。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -10,7 +12,9 @@ paths:
   /v1/images/generations:
     post:
       summary: 创建生成任务
-      description: Nano Banana 2 Lite（上游 gemini-3.1-flash-lite-image）是 Google Nano Banana 2 图片生成系列的极速低价档位。在 APIPod 中，公开模型 ID 为 nano-banana-2-lite，仅支持 1K 分辨率与十种常规宽高比（1:4、4:1、1:8、8:1 横幅比例为 nano-banana-2 独占）；接受文本与最多 14 张参考图输入，并通过异步图片任务返回结果。
+      description: Nano Banana 2 Lite 是 Google Nano Banana 2 图片生成系列的极速低价档位。在 APIPod
+        中，公开模型 ID 为 nano-banana-2-lite，仅支持 1K 分辨率与十种常规宽高比（1:4、4:1、1:8、8:1 横幅比例为
+        nano-banana-2 独占）；接受文本与最多 14 张参考图输入，并通过异步图片任务返回结果。
       operationId: create-nano-banana-nano-banana-2-lite
       tags:
         - Nano Banana 2 Lite
@@ -58,7 +62,7 @@ paths:
                 quality:
                   type: string
                   title: Quality
-                  description: 输出质量或图片分辨率档位（Lite 仅支持 1K）。
+                  description: 输出质量或图片分辨率档位。
                   enum:
                     - 1K
                   default: 1K

@@ -59,6 +59,7 @@ async function getJSON(endpoint) {
 
 function modelSlug(modelID) {
   if (modelID.startsWith("seedream-")) return `seedream/${modelID.replaceAll(".", "-")}`;
+  if (modelID.startsWith("nano-banana-")) return `nano-banana/${modelID}`;
   if (modelID.startsWith("wan2.7-")) return `wan/${modelID.replaceAll(".", "-")}`;
   if (modelID.startsWith("wan3.0-")) return `wan/${modelID.replaceAll(".", "-")}`;
   if (modelID.startsWith("veo3-1-")) return `veo/${modelID.replace("veo3-1", "3-1").replaceAll(".", "-")}`;
@@ -447,7 +448,7 @@ function modelIntroduction(modelID, language) {
 }
 
 const existing = new Set();
-for (const page of manifest.pages.filter((item) => item.schema && !item.slug.startsWith("query-"))) {
+for (const page of manifest.pages.filter((item) => item.schema && !item.handwritten && !item.slug.startsWith("query-"))) {
   let modelID = page.modelId;
   try {
     const spec = YAML.parse(await fs.readFile(path.join(root, extractModelID(page.slug)), "utf8"));
@@ -481,7 +482,7 @@ for (const model of missing) {
   });
 }
 
-for (const page of manifest.pages.filter((item) => item.schema && !item.slug.startsWith("query-"))) {
+for (const page of manifest.pages.filter((item) => item.schema && !item.handwritten && !item.slug.startsWith("query-"))) {
   const model = catalog.get(page.modelId);
   if (!model) throw new Error(`Model metadata missing for documented model: ${page.modelId || page.slug}`);
   const zhModel = catalogZh.get(page.modelId) || model;
@@ -502,7 +503,7 @@ for (const page of manifest.pages.filter((item) => item.schema && !item.slug.sta
   };
 }
 
-const refreshPages = manifest.pages.filter((page) => page.schema && !page.slug.startsWith("query-"));
+const refreshPages = manifest.pages.filter((page) => page.schema && !page.handwritten && !page.slug.startsWith("query-"));
 for (const page of refreshPages) {
   const modelID = page.modelId || legacyModelIDs[page.slug];
   const model = catalog.get(modelID);

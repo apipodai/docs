@@ -30,7 +30,7 @@ paths:
           application/json:
             schema:
               type: object
-              title: WAN 3.0 Image to Video
+              title: WAN 3.0 图生视频
               properties:
                 model:
                   type: string

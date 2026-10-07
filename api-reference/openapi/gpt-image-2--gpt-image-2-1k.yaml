@@ -2,7 +2,13 @@ openapi: 3.1.0
 info:
   title: GPT Image 2 1K API
   version: 1.0.0
-  description: "GPT Image 2 1K is a special-offer, low-price GPT Image 2 model dedicated to 1K resolution. It is ultra-fast and ultra-cheap but slightly less stable, making it ideal for quick previews and testing; it is not recommended for production use. In APIPod, the public model ID is gpt-image-2-1k. It supports text-to-image and image generation and editing, accepts text and up to 6 reference images, and returns results through asynchronous image tasks."
+  description: GPT Image 2 1K is a special-offer, low-price GPT Image 2 model
+    dedicated to 1K resolution. It is ultra-fast and ultra-cheap but slightly
+    less stable, making it ideal for quick previews and testing; it is not
+    recommended for production use. In APIPod, the public model ID is
+    gpt-image-2-1k. It supports text-to-image and image generation and editing,
+    accepts text and up to 6 reference images, and returns results through
+    asynchronous image tasks.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -10,7 +16,13 @@ paths:
   /v1/images/generations:
     post:
       summary: Create Generation Task
-      description: "GPT Image 2 1K is a special-offer, low-price GPT Image 2 model dedicated to 1K resolution. It is ultra-fast and ultra-cheap but slightly less stable, making it ideal for quick previews and testing; it is not recommended for production use. In APIPod, the public model ID is gpt-image-2-1k. It supports text-to-image and image generation and editing, accepts text and up to 6 reference images, and returns results through asynchronous image tasks."
+      description: GPT Image 2 1K is a special-offer, low-price GPT Image 2 model
+        dedicated to 1K resolution. It is ultra-fast and ultra-cheap but
+        slightly less stable, making it ideal for quick previews and testing; it
+        is not recommended for production use. In APIPod, the public model ID is
+        gpt-image-2-1k. It supports text-to-image and image generation and
+        editing, accepts text and up to 6 reference images, and returns results
+        through asynchronous image tasks.
       operationId: create-gpt-image-2-gpt-image-2-1k
       tags:
         - GPT Image 2 1K
@@ -53,15 +65,15 @@ paths:
                   title: Aspect Ratio
                   enum:
                     - auto
-                    - "1:1"
-                    - "2:3"
-                    - "3:2"
-                    - "3:4"
-                    - "4:3"
-                    - "16:9"
-                    - "9:16"
-                    - "21:9"
-                    - "9:21"
+                    - 1:1
+                    - 2:3
+                    - 3:2
+                    - 3:4
+                    - 4:3
+                    - 16:9
+                    - 9:16
+                    - 21:9
+                    - 9:21
                   default: auto
               required:
                 - model
@@ -70,7 +82,6 @@ paths:
               model: gpt-image-2-1k
               prompt: A premium product photograph on a dark studio set, precise typography,
                 soft rim lighting, highly detailed.
-              image_urls: []
               resolution: 1K
               aspect_ratio: auto
       responses:
@@ -114,7 +125,6 @@ paths:
               -d '{
               "model": "gpt-image-2-1k",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [],
               "resolution": "1K",
               "aspect_ratio": "auto"
             }'
@@ -129,7 +139,6 @@ paths:
             payload = {
               "model": "gpt-image-2-1k",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [],
               "resolution": "1K",
               "aspect_ratio": "auto"
             }
@@ -168,7 +177,6 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "gpt-image-2-1k",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [],
               "resolution": "1K",
               "aspect_ratio": "auto"
             }`), &payload); err != nil {
@@ -209,7 +217,6 @@ paths:
                 let payload = json!({
               "model": "gpt-image-2-1k",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [],
               "resolution": "1K",
               "aspect_ratio": "auto"
             });
@@ -238,7 +245,6 @@ paths:
               {
                 "model": "gpt-image-2-1k",
                 "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "image_urls": [],
                 "resolution": "1K",
                 "aspect_ratio": "auto"
               }

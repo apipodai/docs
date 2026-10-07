@@ -2,7 +2,13 @@ openapi: 3.1.0
 info:
   title: Seedance 2.0 Mini Reference to Video API
   version: 1.0.0
-  description: Seedance 2.0 Mini Reference to Video is a efficiency-oriented route for scaled workloads that uses reference images, video, or audio to guide subjects, motion, visual style, and sound. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-mini-r2v. It supports image-to-video and video-to-video, accepts text, audio, image and video inputs, and returns results through asynchronous video tasks. Media URLs are submitted to asset review before task creation.
+  description: Seedance 2.0 Mini Reference to Video is a efficiency-oriented route
+    for scaled workloads that uses reference images, video, or audio to guide
+    subjects, motion, visual style, and sound. The Seedance family emphasizes
+    prompt following, coherent motion, multi-shot storytelling, and synchronized
+    audio. In APIPod, the public model ID is seedance-2.0-mini-r2v. It supports
+    image-to-video and video-to-video, accepts text, audio, image and video
+    inputs, and returns results through asynchronous video tasks.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -10,7 +16,14 @@ paths:
   /v1/videos/generations:
     post:
       summary: Create Generation Task
-      description: Seedance 2.0 Mini Reference to Video is a efficiency-oriented route for scaled workloads that uses reference images, video, or audio to guide subjects, motion, visual style, and sound. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.0-mini-r2v. It supports image-to-video and video-to-video, accepts text, audio, image and video inputs, and returns results through asynchronous video tasks. Media URLs are submitted to asset review before task creation.
+      description: Seedance 2.0 Mini Reference to Video is a efficiency-oriented route
+        for scaled workloads that uses reference images, video, or audio to
+        guide subjects, motion, visual style, and sound. The Seedance family
+        emphasizes prompt following, coherent motion, multi-shot storytelling,
+        and synchronized audio. In APIPod, the public model ID is
+        seedance-2.0-mini-r2v. It supports image-to-video and video-to-video,
+        accepts text, audio, image and video inputs, and returns results through
+        asynchronous video tasks.
       operationId: create-seedance-2-0-mini-reference-to-video
       tags:
         - Seedance 2.0 Mini Reference to Video
@@ -32,7 +45,12 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  description: Generation or editing instructions, up to 30000 characters. It is recommended to keep the prompt to no more than 500 Chinese characters or 1,000 English words. Lengthy text will lead to scattered information, and the model may ignore details and only focus on key points, resulting in missing elements in the generated video.
+                  description: Generation or editing instructions, up to 30000 characters. It is
+                    recommended to keep the prompt to no more than 500 Chinese
+                    characters or 1,000 English words. Lengthy text will lead to
+                    scattered information, and the model may ignore details and
+                    only focus on key points, resulting in missing elements in
+                    the generated video.
                   maxLength: 30000
                 image_urls:
                   type: array
@@ -47,7 +65,8 @@ paths:
                 audio_urls:
                   type: array
                   title: Audio Urls
-                  description: Please note that audio files cannot be uploaded alone; at least one reference video or image must be included.
+                  description: Please note that audio files cannot be uploaded alone; at least one
+                    reference video or image must be included.
                   items:
                     type: string
                 duration:
@@ -91,19 +110,25 @@ paths:
                 web_search:
                   type: boolean
                   title: Web Search
-                  description: After enabling, the model will independently decide whether to search Internet content (such as products, weather, etc.) based on the user's prompt. This can improve the timeliness of generated videos but will also introduce a certain degree of latency.
+                  description: After enabling, the model will independently decide whether to
+                    search Internet content (such as products, weather, etc.)
+                    based on the user's prompt. This can improve the timeliness
+                    of generated videos but will also introduce a certain degree
+                    of latency.
                   default: false
                 generate_audio:
                   type: boolean
                   title: Generate Audio
-                  description: Controls whether the generated video contains audio synchronized with the visuals.
+                  description: Controls whether the generated video contains audio synchronized
+                    with the visuals.
                   default: true
               required:
                 - model
                 - prompt
             example:
               model: seedance-2.0-mini-r2v
-              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
+                motion, synchronized ambient sound.
               image_urls:
                 - https://cdn.example.com/reference-1.jpg
               video_urls:
@@ -308,7 +333,8 @@ paths:
         - lang: JavaScript
           label: JavaScript
           source: >-
-            const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
+            const response = await
+            fetch("https://api.apipod.ai/v1/videos/generations", {
               method: "POST",
               headers: {
                 Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,

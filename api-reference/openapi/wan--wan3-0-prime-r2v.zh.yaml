@@ -1,9 +1,10 @@
 openapi: 3.1.0
 info:
-  title: WAN 3.0 Prime 参考生视频 API
+  title: WAN 3.0 Prime Reference to Video API
   version: 1.0.0
-  description: Wan 3.0 Prime 参考生视频是阿里 Wan 3.0 视频模型的高速版，使用图片、视频、音频、文件或网页参考素材引导生成，端到端生成速度显著提升。在
-    APIPod 中，公开模型 ID 为 wan3.0-prime-r2v，支持图生视频、视频到视频；接受文本、图片、音频、视频、文件输入，并通过异步视频任务返回结果。
+  description: Wan 3.0 Prime 参考生视频是阿里 Wan 3.0
+    视频模型的高速版，使用图片、视频、音频、文件或网页参考素材引导生成，端到端生成速度显著提升。在 APIPod 中，公开模型 ID 为
+    wan3.0-prime-r2v，支持图生视频、视频到视频；接受文本、图片、音频、视频、文件输入，并通过异步视频任务返回结果。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -11,12 +12,12 @@ paths:
   /v1/videos/generations:
     post:
       summary: 创建生成任务
-      description: Wan 3.0 Prime 参考生视频是阿里 Wan 3.0 视频模型的高速版，使用图片、视频、音频、文件或网页参考素材引导生成，端到端生成速度显著提升。在
-        APIPod 中，公开模型 ID 为
+      description: Wan 3.0 Prime 参考生视频是阿里 Wan 3.0
+        视频模型的高速版，使用图片、视频、音频、文件或网页参考素材引导生成，端到端生成速度显著提升。在 APIPod 中，公开模型 ID 为
         wan3.0-prime-r2v，支持图生视频、视频到视频；接受文本、图片、音频、视频、文件输入，并通过异步视频任务返回结果。
       operationId: create-wan-wan3-0-prime-r2v
       tags:
-        - WAN 3.0 Prime 参考生视频
+        - WAN 3.0 Prime Reference to Video
       security:
         - bearerAuth: []
       requestBody:
@@ -25,7 +26,7 @@ paths:
           application/json:
             schema:
               type: object
-              title: WAN 3.0 Prime 参考生视频
+              title: WAN 3.0 Prime Reference to Video
               properties:
                 model:
                   type: string

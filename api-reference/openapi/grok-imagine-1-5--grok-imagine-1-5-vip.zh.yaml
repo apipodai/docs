@@ -3,7 +3,8 @@ info:
   title: Grok Imagine 1.5 VIP API
   version: 1.0.0
   description: Grok Imagine 1.5 VIP 是 APIPod 为 Grok Imagine 1.5
-    提供的官方通道路由，仅支持图生视频，要求提供源图片，可生成最长 15 秒的 480p、720p 或 1080p 视频，支持最多 3 个旁白音色（官转 GA 上游）。在 APIPod 中，公开模型 ID 为
+    提供的官方通道路由，仅支持图生视频，要求提供源图片，可生成最长 15 秒的 480p、720p 或 1080p 视频，支持最多 3 个旁白音色（官转
+    GA 上游）。在 APIPod 中，公开模型 ID 为
     grok-imagine-1.5-vip，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。
 servers:
   - url: https://api.apipod.ai
@@ -13,8 +14,9 @@ paths:
     post:
       summary: 创建生成任务
       description: Grok Imagine 1.5 VIP 是 APIPod 为 Grok Imagine 1.5
-        提供的官方通道路由，仅支持图生视频，要求提供源图片，可生成最长 15 秒的 480p、720p 或 1080p 视频，支持最多 3 个旁白音色（官转 GA 上游）。在 APIPod 中，公开模型 ID
-        为 grok-imagine-1.5-vip，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。
+        提供的官方通道路由，仅支持图生视频，要求提供源图片，可生成最长 15 秒的 480p、720p 或 1080p 视频，支持最多 3
+        个旁白音色（官转 GA 上游）。在 APIPod 中，公开模型 ID 为
+        grok-imagine-1.5-vip，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。
       operationId: create-grok-imagine-1-5-grok-imagine-1-5-vip
       tags:
         - Grok Imagine 1.5 VIP
@@ -42,13 +44,6 @@ paths:
                   title: First Frame Image
                   default: ""
                   description: 可公开访问的源图片 URL。
-                voice_ids:
-                  type: array
-                  title: Narration Voice IDs
-                  maxItems: 3
-                  items:
-                    type: string
-                  description: 视频旁白音色，最多 3 个（仅官转 GA 1.5 上游支持）。可选值：carina、zagan、helix、orion、luna、iris、altair、zenith、perseus、helios、lux、kepler、rigel、cosmo、celeste、ursa、sirius、lumen、castor、naksh、atlas、ara、eve、leo、rex、sal。
                 duration:
                   type: integer
                   title: Duration
@@ -76,6 +71,40 @@ paths:
                     - 2:3
                   default: 16:9
                   description: 输出宽高比。
+                voice_ids:
+                  type: array
+                  title: Narration Voice IDs
+                  description: Up to 3 narration voices for the generated video (official GA 1.5
+                    upstream only). 最多项目数：3。
+                  items:
+                    type: string
+                    enum:
+                      - carina
+                      - zagan
+                      - helix
+                      - orion
+                      - luna
+                      - iris
+                      - altair
+                      - zenith
+                      - perseus
+                      - helios
+                      - lux
+                      - kepler
+                      - rigel
+                      - cosmo
+                      - celeste
+                      - ursa
+                      - sirius
+                      - lumen
+                      - castor
+                      - naksh
+                      - atlas
+                      - ara
+                      - eve
+                      - leo
+                      - rex
+                      - sal
               required:
                 - model
                 - prompt
@@ -85,8 +114,6 @@ paths:
               prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
                 motion, synchronized ambient sound.
               image_url: https://cdn.example.com/reference.jpg
-              voice_ids:
-                - sirius
               duration: 8
               resolution: 720p
               aspect_ratio: 16:9
@@ -134,14 +161,8 @@ paths:
               "model": "grok-imagine-1.5-vip",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
-
-
-              "voice_ids": ["sirius"],
-
               "duration": 8,
-
               "resolution": "720p",
-
               "aspect_ratio": "16:9"
             }'
         - lang: Python
@@ -156,14 +177,8 @@ paths:
               "model": "grok-imagine-1.5-vip",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
-
-
-              "voice_ids": ["sirius"],
-
               "duration": 8,
-
               "resolution": "720p",
-
               "aspect_ratio": "16:9"
             }
 
@@ -202,14 +217,8 @@ paths:
               "model": "grok-imagine-1.5-vip",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
-
-
-              "voice_ids": ["sirius"],
-
               "duration": 8,
-
               "resolution": "720p",
-
               "aspect_ratio": "16:9"
             }`), &payload); err != nil {
                     panic(err)
@@ -250,14 +259,8 @@ paths:
               "model": "grok-imagine-1.5-vip",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
               "image_url": "https://cdn.example.com/reference.jpg",
-
-
-              "voice_ids": ["sirius"],
-
               "duration": 8,
-
               "resolution": "720p",
-
               "aspect_ratio": "16:9"
             });
                 let response = Client::new()
@@ -286,14 +289,8 @@ paths:
                 "model": "grok-imagine-1.5-vip",
                 "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
                 "image_url": "https://cdn.example.com/reference.jpg",
-
-
-                "voice_ids": ["sirius"],
-
                 "duration": 8,
-
                 "resolution": "720p",
-
                 "aspect_ratio": "16:9"
               }
               ),

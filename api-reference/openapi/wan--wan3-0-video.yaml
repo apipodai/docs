@@ -2,7 +2,14 @@ openapi: 3.1.0
 info:
   title: WAN 3.0 Video API
   version: 1.0.0
-  description: "WAN 3.0 Video is the all-in-one model of Alibaba's Wan 3.0 family: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, audio, file, or web link selects reference generation. In APIPod, the public model ID is wan3.0-video. It accepts up to 10 reference images, 5 videos, 5 audios, 1 file, and 1 link, with duration -1 or 2-30 seconds at 480P/720P/1080P, and returns results through asynchronous video tasks."
+  description: "WAN 3.0 Video is the all-in-one model of Alibaba's Wan 3.0 family:
+    one public model ID covers every scenario. Prompt-only requests are
+    text-to-video, 1-2 images in image_urls are image-to-video with first/last
+    frame control, and the role field set to reference_images, any reference
+    video, audio, file, or web link selects reference generation. In APIPod, the
+    public model ID is wan3.0-video. It accepts up to 10 reference images, 5
+    videos, 5 audios, 1 file, and 1 link, with duration -1 or 2-30 seconds at
+    480P/720P/1080P, and returns results through asynchronous video tasks."
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -10,7 +17,15 @@ paths:
   /v1/videos/generations:
     post:
       summary: Create Generation Task
-      description: "WAN 3.0 Video is the all-in-one model of Alibaba's Wan 3.0 family: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, audio, file, or web link selects reference generation. In APIPod, the public model ID is wan3.0-video. It accepts up to 10 reference images, 5 videos, 5 audios, 1 file, and 1 link, with duration -1 or 2-30 seconds at 480P/720P/1080P, and returns results through asynchronous video tasks."
+      description: "WAN 3.0 Video is the all-in-one model of Alibaba's Wan 3.0 family:
+        one public model ID covers every scenario. Prompt-only requests are
+        text-to-video, 1-2 images in image_urls are image-to-video with
+        first/last frame control, and the role field set to reference_images,
+        any reference video, audio, file, or web link selects reference
+        generation. In APIPod, the public model ID is wan3.0-video. It accepts
+        up to 10 reference images, 5 videos, 5 audios, 1 file, and 1 link, with
+        duration -1 or 2-30 seconds at 480P/720P/1080P, and returns results
+        through asynchronous video tasks."
       operationId: create-wan-wan3-0-video
       tags:
         - WAN 3.0 Video
@@ -32,51 +47,69 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  description: Text prompt used to describe the expected generated video content. Required for the text-to-video scenario.
+                  description: Text prompt used to describe the expected generated video content.
+                    Required for the text-to-video scenario.
                   minLength: 0
                   maxLength: 20000
                 image_urls:
                   type: array
                   title: Image Urls
-                  description: "Image URLs. Scenario inference applies: when images are the only media input and 1-2 URLs are provided they are treated as first/last frames (image-to-video); with other reference media present or more than 2 URLs, all images are treated as reference images. Pair with the role field to pin the semantics explicitly. Up to 10 images are supported."
+                  description: "Image URLs. Scenario inference applies: when images are the only
+                    media input and 1-2 URLs are provided they are treated as
+                    first/last frames (image-to-video); with other reference
+                    media present or more than 2 URLs, all images are treated as
+                    reference images. Pair with the role field to pin the
+                    semantics explicitly. Up to 10 images are supported."
                   maxItems: 10
                   items:
                     type: string
                 role:
                   type: string
                   title: Role
-                  description: "Explicit interpretation of image_urls. reference_images: all images are treated as reference images regardless of count. first_last_frame: images are treated as the first frame plus an optional last frame (max 2; cannot be combined with reference videos or audios). When omitted, the scenario is inferred from the materials."
+                  description: "Explicit interpretation of image_urls. reference_images: all
+                    images are treated as reference images regardless of count.
+                    first_last_frame: images are treated as the first frame plus
+                    an optional last frame (max 2; cannot be combined with
+                    reference videos or audios). When omitted, the scenario is
+                    inferred from the materials."
                   enum:
                     - reference_images
                     - first_last_frame
                 video_urls:
                   type: array
                   title: Reference Videos
-                  description: Reference videos. Maximum 5 clips, total duration no more than 15 seconds.
+                  description: Reference videos. Maximum 5 clips, total duration no more than 15
+                    seconds.
                   maxItems: 5
                   items:
                     type: string
                 audio_urls:
                   type: array
                   title: Reference Audio
-                  description: Refer to the audio, with a maximum of 5 segments and a total duration no more than 15 seconds.
+                  description: Refer to the audio, with a maximum of 5 segments and a total
+                    duration no more than 15 seconds.
                   maxItems: 5
                   items:
                     type: string
                 file_url:
                   type: string
                   title: Reference File
-                  description: "Reference File, maximum one, cannot be input together with link url. Supported formats: docx, doc, xlsx, xls, pptx, ppt, pdf, txt, key, pages, numbers, md."
+                  description: "Reference File, maximum one, cannot be input together with link
+                    url. Supported formats: docx, doc, xlsx, xls, pptx, ppt,
+                    pdf, txt, key, pages, numbers, md."
                   default: ""
                 link_url:
                   type: string
                   title: Reference Link
-                  description: The URL address of the public web page. Only public web pages that do not require login are supported for parsing. Cannot be input together with file.
+                  description: The URL address of the public web page. Only public web pages that
+                    do not require login are supported for parsing. Cannot be
+                    input together with file.
                   default: ""
                 duration:
                   type: integer
                   title: Duration
-                  description: The duration of the generated video, in seconds. -1 lets the model decide the duration.
+                  description: The duration of the generated video, in seconds. -1 lets the model
+                    decide the duration.
                   enum:
                     - -1
                   default: 5
@@ -111,10 +144,6 @@ paths:
               model: wan3.0-video
               prompt: A premium product photograph on a dark studio set, precise typography,
                 soft rim lighting, highly detailed.
-              image_urls:
-                - https://cdn.example.com/reference-1.jpg
-              video_urls:
-                - https://cdn.example.com/reference.mp4
               duration: 5
               resolution: 1080P
               aspect_ratio: adaptive
@@ -153,19 +182,13 @@ paths:
       x-codeSamples:
         - lang: Shell
           label: cURL
-          source: |-
+          source: >-
             curl https://api.apipod.ai/v1/videos/generations \
               -H "Authorization: Bearer $APIPOD_API_KEY" \
               -H "Content-Type: application/json" \
               -d '{
               "model": "wan3.0-video",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
               "duration": 5,
               "resolution": "1080P",
               "aspect_ratio": "adaptive",
@@ -173,7 +196,7 @@ paths:
             }'
         - lang: Python
           label: Python
-          source: |-
+          source: >-
             import os
 
             import requests
@@ -182,12 +205,6 @@ paths:
             payload = {
               "model": "wan3.0-video",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
               "duration": 5,
               "resolution": "1080P",
               "aspect_ratio": "adaptive",
@@ -208,6 +225,113 @@ paths:
             response.raise_for_status()
 
             print(response.json())
+        - lang: Go
+          label: Go
+          source: >-
+            package main
+
+
+            import (
+                "bytes"
+                "encoding/json"
+                "fmt"
+                "net/http"
+                "os"
+            )
+
+
+            func main() {
+                payload := map[string]any{}
+                if err := json.Unmarshal([]byte(`{
+              "model": "wan3.0-video",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "duration": 5,
+              "resolution": "1080P",
+              "aspect_ratio": "adaptive",
+              "generate_audio": true
+            }`), &payload); err != nil {
+                    panic(err)
+                }
+                body, err := json.Marshal(payload)
+                if err != nil {
+                    panic(err)
+                }
+
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+                if err != nil {
+                    panic(err)
+                }
+                req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+                req.Header.Set("Content-Type", "application/json")
+
+                resp, err := http.DefaultClient.Do(req)
+                if err != nil {
+                    panic(err)
+                }
+                defer resp.Body.Close()
+                fmt.Println(resp.Status)
+            }
+        - lang: Rust
+          label: Rust
+          source: >-
+            use reqwest::Client;
+
+            use serde_json::json;
+
+            use std::env;
+
+
+            #[tokio::main]
+
+            async fn main() -> Result<(), Box<dyn std::error::Error>> {
+                let payload = json!({
+              "model": "wan3.0-video",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "duration": 5,
+              "resolution": "1080P",
+              "aspect_ratio": "adaptive",
+              "generate_audio": true
+            });
+                let response = Client::new()
+                    .post("https://api.apipod.ai/v1/videos/generations")
+                    .bearer_auth(env::var("APIPOD_API_KEY")?)
+                    .json(&payload)
+                    .send()
+                    .await?
+                    .error_for_status()?;
+
+                println!("{}", response.text().await?);
+                Ok(())
+            }
+        - lang: JavaScript
+          label: JavaScript
+          source: >-
+            const response = await
+            fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(
+              {
+                "model": "wan3.0-video",
+                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+                "duration": 5,
+                "resolution": "1080P",
+                "aspect_ratio": "adaptive",
+                "generate_audio": true
+              }
+              ),
+            });
+
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+
+            console.log(await response.json());
 components:
   securitySchemes:
     bearerAuth:

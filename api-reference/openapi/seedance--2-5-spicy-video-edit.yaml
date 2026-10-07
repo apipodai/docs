@@ -2,7 +2,14 @@ openapi: 3.1.0
 info:
   title: Seedance 2.5 Spicy Video Edit API
   version: 1.0.0
-  description: Seedance 2.5 Spicy Video Edit pins the upstream omni-reference task type to video editing. Provide the source video (4-30 seconds) plus optional reference images or audios and describe the edit; the output keeps the source timeline, aspect ratio, and duration - duration and aspect_ratio are not settable (the fields are not exposed and any passed values are ignored). The required source video is validated at submission time, so missing materials fail fast instead of erroring asynchronously. In APIPod, the public model ID is seedance-2.5-spicy-edit, and results are returned through asynchronous video tasks.
+  description: Seedance 2.5 Spicy Video Edit pins the omni-reference task type to
+    video editing. Provide the source video (4-30 seconds) plus optional
+    reference images or audios and describe the edit; the output keeps the
+    source timeline, aspect ratio, and duration - duration and aspect_ratio are
+    not exposed and any passed values are ignored. Constraints are validated at
+    submission time, so incompatible parameters fail fast instead of erroring
+    asynchronously. In APIPod, the public model ID is seedance-2.5-spicy-edit,
+    and results are returned through asynchronous video tasks.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -10,7 +17,15 @@ paths:
   /v1/videos/generations:
     post:
       summary: Create Generation Task
-      description: Seedance 2.5 Spicy Video Edit pins the upstream omni-reference task type to video editing. Provide the source video (4-30 seconds) plus optional reference images or audios and describe the edit; the output keeps the source timeline, aspect ratio, and duration - duration and aspect_ratio are not settable (the fields are not exposed and any passed values are ignored). The required source video is validated at submission time, so missing materials fail fast instead of erroring asynchronously. In APIPod, the public model ID is seedance-2.5-spicy-edit, and results are returned through asynchronous video tasks.
+      description: Seedance 2.5 Spicy Video Edit pins the omni-reference task type to
+        video editing. Provide the source video (4-30 seconds) plus optional
+        reference images or audios and describe the edit; the output keeps the
+        source timeline, aspect ratio, and duration - duration and aspect_ratio
+        are not exposed and any passed values are ignored. Constraints are
+        validated at submission time, so incompatible parameters fail fast
+        instead of erroring asynchronously. In APIPod, the public model ID is
+        seedance-2.5-spicy-edit, and results are returned through asynchronous
+        video tasks.
       operationId: create-seedance-2-5-spicy-video-edit
       tags:
         - Seedance 2.5 Spicy Video Edit
@@ -32,19 +47,27 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  description: Editing instructions, up to 30000 characters. Use explicit edit verbs such as replace, remove, restyle, or change into, and address materials explicitly with @视频N / @图N tokens (for example, 删除 @视频1中的所有人). It is recommended to keep the prompt to no more than 500 Chinese characters or 1,000 English words.
+                  description: Editing instructions, up to 30000 characters. Use explicit edit
+                    verbs such as replace, remove, restyle, or change into, and
+                    address materials explicitly with @视频N / @图N tokens (for
+                    example, 删除 @视频1中的所有人). It is recommended to keep the prompt
+                    to no more than 500 Chinese characters or 1,000 English
+                    words.
                   maxLength: 30000
                 image_urls:
                   type: array
                   title: Image Urls
-                  description: Optional reference image URLs (for example the character or style to keep). Up to 30 images are supported; each image must be smaller than 30 MB.
+                  description: Optional reference image URLs (for example the character or style
+                    to keep). Up to 30 images are supported; each image must be
+                    smaller than 30 MB.
                   maxItems: 30
                   items:
                     type: string
                 video_urls:
                   type: array
                   title: Video Urls
-                  description: Reference video URLs. At least one is required (the source video to edit, 4-30 seconds); up to 10 videos are supported.
+                  description: Reference video URLs. At least one is required (the source video to
+                    edit, 4-30 seconds); up to 10 videos are supported.
                   minItems: 1
                   maxItems: 10
                   items:
@@ -52,7 +75,9 @@ paths:
                 audio_urls:
                   type: array
                   title: Audio Urls
-                  description: Optional reference audio URLs. Up to 10 audios are supported; each audio lasts 2-30 seconds. Audio cannot be provided on its own.
+                  description: Optional reference audio URLs. Up to 10 audios are supported; each
+                    audio lasts 2-30 seconds. Audio cannot be provided on its
+                    own.
                   maxItems: 10
                   items:
                     type: string
@@ -68,7 +93,8 @@ paths:
                 generate_audio:
                   type: boolean
                   title: Generate Audio
-                  description: Controls whether the generated video contains audio synchronized with the visuals.
+                  description: Controls whether the generated video contains audio synchronized
+                    with the visuals.
                   default: true
               required:
                 - model
@@ -76,11 +102,13 @@ paths:
                 - video_urls
             example:
               model: seedance-2.5-spicy-edit
-              prompt: "视频编辑：删除 @视频1中的所有人，除了主角。"
+              prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
+                motion, synchronized ambient sound.
+              image_urls:
+                - https://cdn.example.com/reference-1.jpg
               video_urls:
-                - https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov
-              resolution: 480p
-              web_search: false
+                - https://cdn.example.com/reference.mp4
+              resolution: 720p
               generate_audio: true
       responses:
         "200":
@@ -113,6 +141,11 @@ paths:
                   message: success
                   data:
                     task_id: vid_task_01JEXAMPLE
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
       x-codeSamples:
         - lang: Shell
           label: cURL
@@ -122,10 +155,14 @@ paths:
               -H "Content-Type: application/json" \
               -d '{
               "model": "seedance-2.5-spicy-edit",
-              "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
-              "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
-              "resolution": "480p",
-              "web_search": false,
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "resolution": "720p",
               "generate_audio": true
             }'
         - lang: Python
@@ -137,12 +174,16 @@ paths:
 
 
             payload = {
-                "model": "seedance-2.5-spicy-edit",
-                "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
-                "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
-                  "resolution": "480p",
-                  "web_search": False,
-                  "generate_audio": True
+              "model": "seedance-2.5-spicy-edit",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "resolution": "720p",
+              "generate_audio": True
             }
 
 
@@ -164,6 +205,7 @@ paths:
           source: >-
             package main
 
+
             import (
                 "bytes"
                 "encoding/json"
@@ -176,13 +218,17 @@ paths:
             func main() {
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
-                  "model": "seedance-2.5-spicy-edit",
-                  "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
-                  "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
-                      "resolution": "480p",
-                      "web_search": false,
-                      "generate_audio": true
-                }`), &payload); err != nil {
+              "model": "seedance-2.5-spicy-edit",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "resolution": "720p",
+              "generate_audio": true
+            }`), &payload); err != nil {
                     panic(err)
                 }
                 body, err := json.Marshal(payload)
@@ -218,13 +264,17 @@ paths:
 
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
-                    "model": "seedance-2.5-spicy-edit",
-                    "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
-                    "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
-                          "resolution": "480p",
-                          "web_search": false,
-                          "generate_audio": true
-                });
+              "model": "seedance-2.5-spicy-edit",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/reference.mp4"
+              ],
+              "resolution": "720p",
+              "generate_audio": true
+            });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/videos/generations")
                     .bearer_auth(env::var("APIPOD_API_KEY")?)
@@ -239,21 +289,26 @@ paths:
         - lang: JavaScript
           label: JavaScript
           source: >-
-            const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
+            const response = await
+            fetch("https://api.apipod.ai/v1/videos/generations", {
               method: "POST",
               headers: {
                 Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(
-                {
-                  "model": "seedance-2.5-spicy-edit",
-                  "prompt": "视频编辑：删除 @视频1中的所有人，除了主角。",
-                  "video_urls": ["https://arkdocs.tos-cn-beijing.volces.com/videos/video-generation/seedance2.5_edit_input.mov"],
-                      "resolution": "480p",
-                      "web_search": false,
-                      "generate_audio": true
-                }
+              {
+                "model": "seedance-2.5-spicy-edit",
+                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+                "image_urls": [
+                  "https://cdn.example.com/reference-1.jpg"
+                ],
+                "video_urls": [
+                  "https://cdn.example.com/reference.mp4"
+                ],
+                "resolution": "720p",
+                "generate_audio": true
+              }
               ),
             });
 

@@ -54,7 +54,6 @@
                 "group": "Images",
                 "icon": "image",
                 "pages": [
-                  "openai-image-sync",
                   {
                     "group": "GPT Image 2",
                     "icon": "wand-sparkles",
@@ -81,14 +80,8 @@
                     "pages": [
                       "nano-banana/nano-banana-2",
                       "nano-banana/nano-banana-2-lite",
-                      "nano-banana/nano-banana-pro"
-                    ]
-                  },
-                  {
-                    "group": "Nano Banana 2.1",
-                    "icon": "banana",
-                    "pages": [
-                      "nano-banana-2.1/nano-banana-2.1"
+                      "nano-banana/nano-banana-pro",
+                      "nano-banana/nano-banana-2.1"
                     ]
                   },
                   {
@@ -107,6 +100,22 @@
                         "pages": [
                           "seedream/5-0-lite-text-to-image",
                           "seedream/5-0-lite-image-to-image"
+                        ]
+                      },
+                      {
+                        "group": "Seedream V5.0 Pro",
+                        "pages": [
+                          "seedream/5-0-pro-text-to-image",
+                          "seedream/5-0-pro-image-to-image",
+                          "seedream/5-0-pro-layer"
+                        ]
+                      },
+                      {
+                        "group": "Seedream V5.0 Flash",
+                        "pages": [
+                          "seedream/5-0-flash-text-to-image",
+                          "seedream/5-0-flash-image-to-image",
+                          "seedream/5-0-flash-layer"
                         ]
                       }
                     ]
@@ -215,14 +224,6 @@
                             ]
                           },
                           {
-                            "group": "Seedance 2.0 Lite",
-                            "pages": [
-                              "seedance/2-0-lite-text-to-video",
-                              "seedance/2-0-lite-image-to-video",
-                              "seedance/2-0-lite-reference-to-video"
-                            ]
-                          },
-                          {
                             "group": "Seedance 2.0 Fast",
                             "pages": [
                               "seedance/2-0-fast-text-to-video",
@@ -231,51 +232,11 @@
                             ]
                           },
                           {
-                            "group": "Seedance 2.0 Fast Lite",
-                            "pages": [
-                              "seedance/2-0-fast-lite-text-to-video",
-                              "seedance/2-0-fast-lite-image-to-video",
-                              "seedance/2-0-fast-lite-reference-to-video"
-                            ]
-                          },
-                          {
                             "group": "Seedance 2.0 Mini",
                             "pages": [
                               "seedance/2-0-mini-image-to-video",
                               "seedance/2-0-mini-reference-to-video",
                               "seedance/2-0-mini-text-to-video"
-                            ]
-                          },
-                          {
-                            "group": "Seedance 2.0 Mini Lite",
-                            "pages": [
-                              "seedance/2-0-mini-lite-image-to-video",
-                              "seedance/2-0-mini-lite-reference-to-video",
-                              "seedance/2-0-mini-lite-text-to-video"
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "group": "Seedance 2.5",
-                        "pages": [
-                          {
-                            "group": "Seedance 2.5 Discount",
-                            "pages": [
-                              "seedance/2-5-text-to-video",
-                              "seedance/2-5-image-to-video",
-                              "seedance/2-5-reference-to-video",
-                              "seedance/2-5-video-edit",
-                              "seedance/2-5-video-extend",
-                              "seedance/2-5-draft"
-                            ]
-                          },
-                          {
-                            "group": "Seedance 2.5 Lite",
-                            "pages": [
-                              "seedance/2-5-lite-text-to-video",
-                              "seedance/2-5-lite-image-to-video",
-                              "seedance/2-5-lite-reference-to-video"
                             ]
                           }
                         ]
@@ -321,16 +282,6 @@
                     ]
                   },
                   {
-                    "group": "Gemini Omni Flash 1.1",
-                    "icon": "zap",
-                    "pages": [
-                      "gemini-omni-flash-1.1/gemini-omni-flash-1.1-t2v",
-                      "gemini-omni-flash-1.1/gemini-omni-flash-1.1-i2v",
-                      "gemini-omni-flash-1.1/gemini-omni-flash-1.1-r2v",
-                      "gemini-omni-flash-1.1/gemini-omni-flash-1.1-extend"
-                    ]
-                  },
-                  {
                     "group": "MiniMax H3",
                     "icon": "scan",
                     "pages": [
@@ -355,7 +306,6 @@
                       {
                         "group": "Wan 3.0",
                         "pages": [
-                          "wan/wan3-0-video",
                           "wan/wan3-0-i2v",
                           "wan/wan3-0-r2v",
                           "wan/wan3-0-t2v"
@@ -364,7 +314,6 @@
                       {
                         "group": "Wan 3.0 Prime",
                         "pages": [
-                          "wan/wan3-0-video-prime",
                           "wan/wan3-0-prime-i2v",
                           "wan/wan3-0-prime-r2v",
                           "wan/wan3-0-prime-t2v"
@@ -393,8 +342,7 @@
                 "icon": "list-checks",
                 "pages": [
                   "query-image-task",
-                  "query-video-task",
-                  "ark-query-video-task"
+                  "query-video-task"
                 ]
               }
             ]
@@ -435,7 +383,6 @@
                 "group": "图片",
                 "icon": "image",
                 "pages": [
-                  "zh-CN/openai-image-sync",
                   {
                     "group": "GPT Image 2",
                     "icon": "wand-sparkles",
@@ -462,14 +409,8 @@
                     "pages": [
                       "zh-CN/nano-banana/nano-banana-2",
                       "zh-CN/nano-banana/nano-banana-2-lite",
-                      "zh-CN/nano-banana/nano-banana-pro"
-                    ]
-                  },
-                  {
-                    "group": "Nano Banana 2.1",
-                    "icon": "banana",
-                    "pages": [
-                      "zh-CN/nano-banana-2.1/nano-banana-2.1"
+                      "zh-CN/nano-banana/nano-banana-pro",
+                      "zh-CN/nano-banana/nano-banana-2.1"
                     ]
                   },
                   {
@@ -488,6 +429,22 @@
                         "pages": [
                           "zh-CN/seedream/5-0-lite-text-to-image",
                           "zh-CN/seedream/5-0-lite-image-to-image"
+                        ]
+                      },
+                      {
+                        "group": "Seedream V5.0 Pro",
+                        "pages": [
+                          "zh-CN/seedream/5-0-pro-text-to-image",
+                          "zh-CN/seedream/5-0-pro-image-to-image",
+                          "zh-CN/seedream/5-0-pro-layer"
+                        ]
+                      },
+                      {
+                        "group": "Seedream V5.0 Flash",
+                        "pages": [
+                          "zh-CN/seedream/5-0-flash-text-to-image",
+                          "zh-CN/seedream/5-0-flash-image-to-image",
+                          "zh-CN/seedream/5-0-flash-layer"
                         ]
                       }
                     ]
@@ -588,19 +545,11 @@
                         "group": "Seedance 2.0",
                         "pages": [
                           {
-                            "group": "Seedance 2.0 标准版",
+                            "group": "Seedance 2.0 Pro",
                             "pages": [
                               "zh-CN/seedance/2-0-text-to-video",
                               "zh-CN/seedance/2-0-image-to-video",
                               "zh-CN/seedance/2-0-reference-to-video"
-                            ]
-                          },
-                          {
-                            "group": "Seedance 2.0 特价版",
-                            "pages": [
-                              "zh-CN/seedance/2-0-lite-text-to-video",
-                              "zh-CN/seedance/2-0-lite-image-to-video",
-                              "zh-CN/seedance/2-0-lite-reference-to-video"
                             ]
                           },
                           {
@@ -612,51 +561,11 @@
                             ]
                           },
                           {
-                            "group": "Seedance 2.0 Fast 特价版",
-                            "pages": [
-                              "zh-CN/seedance/2-0-fast-lite-text-to-video",
-                              "zh-CN/seedance/2-0-fast-lite-image-to-video",
-                              "zh-CN/seedance/2-0-fast-lite-reference-to-video"
-                            ]
-                          },
-                          {
                             "group": "Seedance 2.0 Mini",
                             "pages": [
                               "zh-CN/seedance/2-0-mini-image-to-video",
                               "zh-CN/seedance/2-0-mini-reference-to-video",
                               "zh-CN/seedance/2-0-mini-text-to-video"
-                            ]
-                          },
-                          {
-                            "group": "Seedance 2.0 Mini 特价版",
-                            "pages": [
-                              "zh-CN/seedance/2-0-mini-lite-image-to-video",
-                              "zh-CN/seedance/2-0-mini-lite-reference-to-video",
-                              "zh-CN/seedance/2-0-mini-lite-text-to-video"
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "group": "Seedance 2.5",
-                        "pages": [
-                          {
-                            "group": "Seedance 2.5 折扣版",
-                            "pages": [
-                              "zh-CN/seedance/2-5-text-to-video",
-                              "zh-CN/seedance/2-5-image-to-video",
-                              "zh-CN/seedance/2-5-reference-to-video",
-                              "zh-CN/seedance/2-5-video-edit",
-                              "zh-CN/seedance/2-5-video-extend",
-                              "zh-CN/seedance/2-5-draft"
-                            ]
-                          },
-                          {
-                            "group": "Seedance 2.5 特价版",
-                            "pages": [
-                              "zh-CN/seedance/2-5-lite-text-to-video",
-                              "zh-CN/seedance/2-5-lite-image-to-video",
-                              "zh-CN/seedance/2-5-lite-reference-to-video"
                             ]
                           }
                         ]
@@ -702,16 +611,6 @@
                     ]
                   },
                   {
-                    "group": "Gemini Omni Flash 1.1",
-                    "icon": "zap",
-                    "pages": [
-                      "zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-t2v",
-                      "zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-i2v",
-                      "zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-r2v",
-                      "zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-extend"
-                    ]
-                  },
-                  {
                     "group": "MiniMax H3",
                     "icon": "scan",
                     "pages": [
@@ -736,7 +635,6 @@
                       {
                         "group": "Wan 3.0",
                         "pages": [
-                          "zh-CN/wan/wan3-0-video",
                           "zh-CN/wan/wan3-0-i2v",
                           "zh-CN/wan/wan3-0-r2v",
                           "zh-CN/wan/wan3-0-t2v"
@@ -745,7 +643,6 @@
                       {
                         "group": "Wan 3.0 Prime",
                         "pages": [
-                          "zh-CN/wan/wan3-0-video-prime",
                           "zh-CN/wan/wan3-0-prime-i2v",
                           "zh-CN/wan/wan3-0-prime-r2v",
                           "zh-CN/wan/wan3-0-prime-t2v"
@@ -774,8 +671,7 @@
                 "icon": "list-checks",
                 "pages": [
                   "zh-CN/query-image-task",
-                  "zh-CN/query-video-task",
-                  "zh-CN/ark-query-video-task"
+                  "zh-CN/query-video-task"
                 ]
               }
             ]
@@ -808,15 +704,15 @@
   "api": {
     "openapi": [
       "api-reference/openapi/gpt-image-2--gpt-image-2.yaml",
+      "api-reference/openapi/gpt-image-2--gpt-image-2.zh.yaml",
       "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-flare.yaml",
-      "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-flare-lite.yaml",
       "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-flare.zh.yaml",
+      "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-flare-lite.yaml",
       "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-flare-lite.zh.yaml",
       "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-sunburst.yaml",
-      "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-sunburst-lite.yaml",
       "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-sunburst.zh.yaml",
+      "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-sunburst-lite.yaml",
       "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-sunburst-lite.zh.yaml",
-      "api-reference/openapi/gpt-image-2--gpt-image-2.zh.yaml",
       "api-reference/openapi/gpt-image-2--gpt-image-2-lite.yaml",
       "api-reference/openapi/gpt-image-2--gpt-image-2-lite.zh.yaml",
       "api-reference/openapi/gpt-image-2--gpt-image-2-1k.yaml",
@@ -829,8 +725,8 @@
       "api-reference/openapi/nano-banana--nano-banana-2-lite.zh.yaml",
       "api-reference/openapi/nano-banana--nano-banana-pro.yaml",
       "api-reference/openapi/nano-banana--nano-banana-pro.zh.yaml",
-      "api-reference/openapi/nano-banana-2.1--nano-banana-2.1.yaml",
-      "api-reference/openapi/nano-banana-2.1--nano-banana-2.1.zh.yaml",
+      "api-reference/openapi/nano-banana--nano-banana-2.1.yaml",
+      "api-reference/openapi/nano-banana--nano-banana-2.1.zh.yaml",
       "api-reference/openapi/seedream--4-5-text-to-image.yaml",
       "api-reference/openapi/seedream--4-5-text-to-image.zh.yaml",
       "api-reference/openapi/seedream--4-5-image-to-image.yaml",
@@ -839,6 +735,18 @@
       "api-reference/openapi/seedream--5-0-lite-text-to-image.zh.yaml",
       "api-reference/openapi/seedream--5-0-lite-image-to-image.yaml",
       "api-reference/openapi/seedream--5-0-lite-image-to-image.zh.yaml",
+      "api-reference/openapi/seedream--5-0-pro-text-to-image.yaml",
+      "api-reference/openapi/seedream--5-0-pro-text-to-image.zh.yaml",
+      "api-reference/openapi/seedream--5-0-pro-image-to-image.yaml",
+      "api-reference/openapi/seedream--5-0-pro-image-to-image.zh.yaml",
+      "api-reference/openapi/seedream--5-0-pro-layer.yaml",
+      "api-reference/openapi/seedream--5-0-pro-layer.zh.yaml",
+      "api-reference/openapi/seedream--5-0-flash-text-to-image.yaml",
+      "api-reference/openapi/seedream--5-0-flash-text-to-image.zh.yaml",
+      "api-reference/openapi/seedream--5-0-flash-image-to-image.yaml",
+      "api-reference/openapi/seedream--5-0-flash-image-to-image.zh.yaml",
+      "api-reference/openapi/seedream--5-0-flash-layer.yaml",
+      "api-reference/openapi/seedream--5-0-flash-layer.zh.yaml",
       "api-reference/openapi/wan--2-7-text-to-image.yaml",
       "api-reference/openapi/wan--2-7-text-to-image.zh.yaml",
       "api-reference/openapi/wan--2-7-image-to-image.yaml",
@@ -871,42 +779,6 @@
       "api-reference/openapi/seedance--2-0-fast-image-to-video.zh.yaml",
       "api-reference/openapi/seedance--2-0-fast-reference-to-video.yaml",
       "api-reference/openapi/seedance--2-0-fast-reference-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-5-text-to-video.yaml",
-      "api-reference/openapi/seedance--2-5-text-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-5-image-to-video.yaml",
-      "api-reference/openapi/seedance--2-5-image-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-5-reference-to-video.yaml",
-      "api-reference/openapi/seedance--2-5-reference-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-5-video-edit.yaml",
-      "api-reference/openapi/seedance--2-5-video-edit.zh.yaml",
-      "api-reference/openapi/seedance--2-5-video-extend.yaml",
-      "api-reference/openapi/seedance--2-5-video-extend.zh.yaml",
-      "api-reference/openapi/seedance--2-5-draft.yaml",
-      "api-reference/openapi/seedance--2-5-draft.zh.yaml",
-      "api-reference/openapi/seedance--2-0-lite-text-to-video.yaml",
-      "api-reference/openapi/seedance--2-0-lite-text-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-0-lite-image-to-video.yaml",
-      "api-reference/openapi/seedance--2-0-lite-image-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-0-lite-reference-to-video.yaml",
-      "api-reference/openapi/seedance--2-0-lite-reference-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-0-fast-lite-text-to-video.yaml",
-      "api-reference/openapi/seedance--2-0-fast-lite-text-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-0-fast-lite-image-to-video.yaml",
-      "api-reference/openapi/seedance--2-0-fast-lite-image-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-0-fast-lite-reference-to-video.yaml",
-      "api-reference/openapi/seedance--2-0-fast-lite-reference-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-0-mini-lite-text-to-video.yaml",
-      "api-reference/openapi/seedance--2-0-mini-lite-text-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-0-mini-lite-image-to-video.yaml",
-      "api-reference/openapi/seedance--2-0-mini-lite-image-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-0-mini-lite-reference-to-video.yaml",
-      "api-reference/openapi/seedance--2-0-mini-lite-reference-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-5-lite-text-to-video.yaml",
-      "api-reference/openapi/seedance--2-5-lite-text-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-5-lite-image-to-video.yaml",
-      "api-reference/openapi/seedance--2-5-lite-image-to-video.zh.yaml",
-      "api-reference/openapi/seedance--2-5-lite-reference-to-video.yaml",
-      "api-reference/openapi/seedance--2-5-lite-reference-to-video.zh.yaml",
       "api-reference/openapi/grok-imagine--grok-imagine-t2v.yaml",
       "api-reference/openapi/grok-imagine--grok-imagine-t2v.zh.yaml",
       "api-reference/openapi/grok-imagine--grok-imagine-i2v.yaml",
@@ -933,6 +805,8 @@
       "api-reference/openapi/gemini-omni-flash-1.1--gemini-omni-flash-1.1-r2v.zh.yaml",
       "api-reference/openapi/gemini-omni-flash-1.1--gemini-omni-flash-1.1-extend.yaml",
       "api-reference/openapi/gemini-omni-flash-1.1--gemini-omni-flash-1.1-extend.zh.yaml",
+      "api-reference/openapi/minimax-h3--minimax-h3.yaml",
+      "api-reference/openapi/minimax-h3--minimax-h3.zh.yaml",
       "api-reference/openapi/minimax-h3--minimax-h3-t2v.yaml",
       "api-reference/openapi/minimax-h3--minimax-h3-t2v.zh.yaml",
       "api-reference/openapi/minimax-h3--minimax-h3-i2v.yaml",
@@ -977,6 +851,68 @@
       "api-reference/openapi/seedance--2-0-mini-text-to-video.zh.yaml",
       "api-reference/openapi/seedance--seedance-2-0-t2v-vip.yaml",
       "api-reference/openapi/seedance--seedance-2-0-t2v-vip.zh.yaml",
+      "api-reference/openapi/seedance--2-0-lite-text-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-lite-text-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-lite-image-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-lite-image-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-lite-reference-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-lite-reference-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-fast-lite-text-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-fast-lite-text-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-fast-lite-image-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-fast-lite-image-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-fast-lite-reference-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-fast-lite-reference-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-mini-lite-text-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-mini-lite-text-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-mini-lite-image-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-mini-lite-image-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-mini-lite-reference-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-mini-lite-reference-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-5-text-to-video.yaml",
+      "api-reference/openapi/seedance--2-5-text-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-5-image-to-video.yaml",
+      "api-reference/openapi/seedance--2-5-image-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-5-reference-to-video.yaml",
+      "api-reference/openapi/seedance--2-5-reference-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-5-video-edit.yaml",
+      "api-reference/openapi/seedance--2-5-video-edit.zh.yaml",
+      "api-reference/openapi/seedance--2-5-video-extend.yaml",
+      "api-reference/openapi/seedance--2-5-video-extend.zh.yaml",
+      "api-reference/openapi/seedance--2-5-draft.yaml",
+      "api-reference/openapi/seedance--2-5-draft.zh.yaml",
+      "api-reference/openapi/seedance--2-5-lite-text-to-video.yaml",
+      "api-reference/openapi/seedance--2-5-lite-text-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-5-lite-image-to-video.yaml",
+      "api-reference/openapi/seedance--2-5-lite-image-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-5-lite-reference-to-video.yaml",
+      "api-reference/openapi/seedance--2-5-lite-reference-to-video.zh.yaml",
+      "api-reference/openapi/veo--3-1-lite.yaml",
+      "api-reference/openapi/veo--3-1-lite.zh.yaml",
+      "api-reference/openapi/veo--3-1-lite-4k.yaml",
+      "api-reference/openapi/veo--3-1-lite-4k.zh.yaml",
+      "api-reference/openapi/wan--wan2-7-i2v.yaml",
+      "api-reference/openapi/wan--wan2-7-i2v.zh.yaml",
+      "api-reference/openapi/wan--wan2-7-t2v.yaml",
+      "api-reference/openapi/wan--wan2-7-t2v.zh.yaml",
+      "api-reference/openapi/wan--wan2-7-videoedit.yaml",
+      "api-reference/openapi/wan--wan2-7-videoedit.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-video.yaml",
+      "api-reference/openapi/wan--wan3-0-video.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-i2v.yaml",
+      "api-reference/openapi/wan--wan3-0-i2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-r2v.yaml",
+      "api-reference/openapi/wan--wan3-0-r2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-t2v.yaml",
+      "api-reference/openapi/wan--wan3-0-t2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-video-prime.yaml",
+      "api-reference/openapi/wan--wan3-0-video-prime.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-i2v.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-i2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-r2v.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-r2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-t2v.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-t2v.zh.yaml",
       "api-reference/openapi/seedance--2-0-spicy-text-to-video.yaml",
       "api-reference/openapi/seedance--2-0-spicy-text-to-video.zh.yaml",
       "api-reference/openapi/seedance--2-0-spicy-image-to-video.yaml",
@@ -992,35 +928,7 @@
       "api-reference/openapi/seedance--2-5-spicy-video-edit.yaml",
       "api-reference/openapi/seedance--2-5-spicy-video-edit.zh.yaml",
       "api-reference/openapi/seedance--2-5-spicy-video-extend.yaml",
-      "api-reference/openapi/seedance--2-5-spicy-video-extend.zh.yaml",
-      "api-reference/openapi/veo--3-1-lite.yaml",
-      "api-reference/openapi/veo--3-1-lite.zh.yaml",
-      "api-reference/openapi/veo--3-1-lite-4k.yaml",
-      "api-reference/openapi/veo--3-1-lite-4k.zh.yaml",
-      "api-reference/openapi/wan--wan2-7-i2v.yaml",
-      "api-reference/openapi/wan--wan2-7-i2v.zh.yaml",
-      "api-reference/openapi/wan--wan2-7-t2v.yaml",
-      "api-reference/openapi/wan--wan2-7-t2v.zh.yaml",
-      "api-reference/openapi/wan--wan2-7-videoedit.yaml",
-      "api-reference/openapi/wan--wan2-7-videoedit.zh.yaml",
-      "api-reference/openapi/wan--wan3-0-i2v.yaml",
-      "api-reference/openapi/wan--wan3-0-i2v.zh.yaml",
-      "api-reference/openapi/wan--wan3-0-r2v.yaml",
-      "api-reference/openapi/wan--wan3-0-r2v.zh.yaml",
-      "api-reference/openapi/wan--wan3-0-t2v.yaml",
-      "api-reference/openapi/wan--wan3-0-t2v.zh.yaml",
-      "api-reference/openapi/wan--wan3-0-prime-i2v.yaml",
-      "api-reference/openapi/wan--wan3-0-prime-i2v.zh.yaml",
-      "api-reference/openapi/wan--wan3-0-prime-r2v.yaml",
-      "api-reference/openapi/wan--wan3-0-prime-r2v.zh.yaml",
-      "api-reference/openapi/wan--wan3-0-prime-t2v.yaml",
-      "api-reference/openapi/wan--wan3-0-prime-t2v.zh.yaml",
-      "api-reference/openapi/minimax-h3--minimax-h3.yaml",
-      "api-reference/openapi/minimax-h3--minimax-h3.zh.yaml",
-      "api-reference/openapi/wan--wan3-0-video.yaml",
-      "api-reference/openapi/wan--wan3-0-video.zh.yaml",
-      "api-reference/openapi/wan--wan3-0-video-prime.yaml",
-      "api-reference/openapi/wan--wan3-0-video-prime.zh.yaml"
+      "api-reference/openapi/seedance--2-5-spicy-video-extend.zh.yaml"
     ],
     "playground": {
       "display": "interactive",
@@ -1058,6 +966,46 @@
       "source": "/",
       "destination": "/introduction",
       "permanent": false
+    },
+    {
+      "source": "/seedance/asset-upload",
+      "destination": "/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/asset-upload",
+      "destination": "/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/asset-upload",
+      "destination": "/zh-CN/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/seedance/asset-upload",
+      "destination": "/zh-CN/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/seedance/asset-detail",
+      "destination": "/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/asset-detail",
+      "destination": "/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/asset-detail",
+      "destination": "/zh-CN/seedance/2-0-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/seedance/asset-detail",
+      "destination": "/zh-CN/seedance/2-0-reference-to-video",
+      "permanent": true
     },
     {
       "source": "/gpt-image-2/gpt-image-2-edit",
@@ -1155,6 +1103,11 @@
       "permanent": true
     },
     {
+      "source": "/nano-banana-2.1/nano-banana-2.1",
+      "destination": "/nano-banana/nano-banana-2.1",
+      "permanent": true
+    },
+    {
       "source": "/seedance/seedance-2-0-mini-i2v",
       "destination": "/seedance/2-0-mini-image-to-video",
       "permanent": true
@@ -1190,6 +1143,46 @@
       "permanent": true
     },
     {
+      "source": "/en/gpt-image-2.5/gpt-image-2.5-flare",
+      "destination": "/gpt-image-2.5/gpt-image-2.5-flare",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gpt-image-2.5/gpt-image-2.5-flare",
+      "destination": "/zh-CN/gpt-image-2.5/gpt-image-2.5-flare",
+      "permanent": true
+    },
+    {
+      "source": "/en/gpt-image-2.5/gpt-image-2.5-flare-lite",
+      "destination": "/gpt-image-2.5/gpt-image-2.5-flare-lite",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gpt-image-2.5/gpt-image-2.5-flare-lite",
+      "destination": "/zh-CN/gpt-image-2.5/gpt-image-2.5-flare-lite",
+      "permanent": true
+    },
+    {
+      "source": "/en/gpt-image-2.5/gpt-image-2.5-sunburst",
+      "destination": "/gpt-image-2.5/gpt-image-2.5-sunburst",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gpt-image-2.5/gpt-image-2.5-sunburst",
+      "destination": "/zh-CN/gpt-image-2.5/gpt-image-2.5-sunburst",
+      "permanent": true
+    },
+    {
+      "source": "/en/gpt-image-2.5/gpt-image-2.5-sunburst-lite",
+      "destination": "/gpt-image-2.5/gpt-image-2.5-sunburst-lite",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gpt-image-2.5/gpt-image-2.5-sunburst-lite",
+      "destination": "/zh-CN/gpt-image-2.5/gpt-image-2.5-sunburst-lite",
+      "permanent": true
+    },
+    {
       "source": "/en/gpt-image-2/gpt-image-2-lite",
       "destination": "/gpt-image-2/gpt-image-2-lite",
       "permanent": true
@@ -1197,6 +1190,16 @@
     {
       "source": "/zh/gpt-image-2/gpt-image-2-lite",
       "destination": "/zh-CN/gpt-image-2/gpt-image-2-lite",
+      "permanent": true
+    },
+    {
+      "source": "/en/gpt-image-2/gpt-image-2-1k",
+      "destination": "/gpt-image-2/gpt-image-2-1k",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gpt-image-2/gpt-image-2-1k",
+      "destination": "/zh-CN/gpt-image-2/gpt-image-2-1k",
       "permanent": true
     },
     {
@@ -1220,6 +1223,16 @@
       "permanent": true
     },
     {
+      "source": "/en/nano-banana/nano-banana-2-lite",
+      "destination": "/nano-banana/nano-banana-2-lite",
+      "permanent": true
+    },
+    {
+      "source": "/zh/nano-banana/nano-banana-2-lite",
+      "destination": "/zh-CN/nano-banana/nano-banana-2-lite",
+      "permanent": true
+    },
+    {
       "source": "/en/nano-banana/nano-banana-pro",
       "destination": "/nano-banana/nano-banana-pro",
       "permanent": true
@@ -1227,6 +1240,16 @@
     {
       "source": "/zh/nano-banana/nano-banana-pro",
       "destination": "/zh-CN/nano-banana/nano-banana-pro",
+      "permanent": true
+    },
+    {
+      "source": "/en/nano-banana/nano-banana-2.1",
+      "destination": "/nano-banana/nano-banana-2.1",
+      "permanent": true
+    },
+    {
+      "source": "/zh/nano-banana/nano-banana-2.1",
+      "destination": "/zh-CN/nano-banana/nano-banana-2.1",
       "permanent": true
     },
     {
@@ -1267,6 +1290,66 @@
     {
       "source": "/zh/seedream/5-0-lite-image-to-image",
       "destination": "/zh-CN/seedream/5-0-lite-image-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedream/5-0-pro-text-to-image",
+      "destination": "/seedream/5-0-pro-text-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedream/5-0-pro-text-to-image",
+      "destination": "/zh-CN/seedream/5-0-pro-text-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedream/5-0-pro-image-to-image",
+      "destination": "/seedream/5-0-pro-image-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedream/5-0-pro-image-to-image",
+      "destination": "/zh-CN/seedream/5-0-pro-image-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedream/5-0-pro-layer",
+      "destination": "/seedream/5-0-pro-layer",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedream/5-0-pro-layer",
+      "destination": "/zh-CN/seedream/5-0-pro-layer",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedream/5-0-flash-text-to-image",
+      "destination": "/seedream/5-0-flash-text-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedream/5-0-flash-text-to-image",
+      "destination": "/zh-CN/seedream/5-0-flash-text-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedream/5-0-flash-image-to-image",
+      "destination": "/seedream/5-0-flash-image-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedream/5-0-flash-image-to-image",
+      "destination": "/zh-CN/seedream/5-0-flash-image-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedream/5-0-flash-layer",
+      "destination": "/seedream/5-0-flash-layer",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedream/5-0-flash-layer",
+      "destination": "/zh-CN/seedream/5-0-flash-layer",
       "permanent": true
     },
     {
@@ -1520,43 +1603,53 @@
       "permanent": true
     },
     {
-      "source": "/en/gemini-omni/gemini-omni-flash-1.1-t2v",
+      "source": "/en/gemini-omni-flash-1.1/gemini-omni-flash-1.1-t2v",
       "destination": "/gemini-omni-flash-1.1/gemini-omni-flash-1.1-t2v",
       "permanent": true
     },
     {
-      "source": "/zh/gemini-omni/gemini-omni-flash-1.1-t2v",
+      "source": "/zh/gemini-omni-flash-1.1/gemini-omni-flash-1.1-t2v",
       "destination": "/zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-t2v",
       "permanent": true
     },
     {
-      "source": "/en/gemini-omni/gemini-omni-flash-1.1-i2v",
+      "source": "/en/gemini-omni-flash-1.1/gemini-omni-flash-1.1-i2v",
       "destination": "/gemini-omni-flash-1.1/gemini-omni-flash-1.1-i2v",
       "permanent": true
     },
     {
-      "source": "/zh/gemini-omni/gemini-omni-flash-1.1-i2v",
+      "source": "/zh/gemini-omni-flash-1.1/gemini-omni-flash-1.1-i2v",
       "destination": "/zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-i2v",
       "permanent": true
     },
     {
-      "source": "/en/gemini-omni/gemini-omni-flash-1.1-r2v",
+      "source": "/en/gemini-omni-flash-1.1/gemini-omni-flash-1.1-r2v",
       "destination": "/gemini-omni-flash-1.1/gemini-omni-flash-1.1-r2v",
       "permanent": true
     },
     {
-      "source": "/zh/gemini-omni/gemini-omni-flash-1.1-r2v",
+      "source": "/zh/gemini-omni-flash-1.1/gemini-omni-flash-1.1-r2v",
       "destination": "/zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-r2v",
       "permanent": true
     },
     {
-      "source": "/en/gemini-omni/gemini-omni-flash-1.1-extend",
+      "source": "/en/gemini-omni-flash-1.1/gemini-omni-flash-1.1-extend",
       "destination": "/gemini-omni-flash-1.1/gemini-omni-flash-1.1-extend",
       "permanent": true
     },
     {
-      "source": "/zh/gemini-omni/gemini-omni-flash-1.1-extend",
+      "source": "/zh/gemini-omni-flash-1.1/gemini-omni-flash-1.1-extend",
       "destination": "/zh-CN/gemini-omni-flash-1.1/gemini-omni-flash-1.1-extend",
+      "permanent": true
+    },
+    {
+      "source": "/en/minimax-h3/minimax-h3",
+      "destination": "/minimax-h3/minimax-h3",
+      "permanent": true
+    },
+    {
+      "source": "/zh/minimax-h3/minimax-h3",
+      "destination": "/zh-CN/minimax-h3/minimax-h3",
       "permanent": true
     },
     {
@@ -1597,6 +1690,16 @@
     {
       "source": "/zh/query-video-task",
       "destination": "/zh-CN/query-video-task",
+      "permanent": true
+    },
+    {
+      "source": "/en/ark-query-video-task",
+      "destination": "/ark-query-video-task",
+      "permanent": true
+    },
+    {
+      "source": "/zh/ark-query-video-task",
+      "destination": "/zh-CN/ark-query-video-task",
       "permanent": true
     },
     {
@@ -1770,6 +1873,186 @@
       "permanent": true
     },
     {
+      "source": "/en/seedance/2-0-lite-text-to-video",
+      "destination": "/seedance/2-0-lite-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-lite-text-to-video",
+      "destination": "/zh-CN/seedance/2-0-lite-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-lite-image-to-video",
+      "destination": "/seedance/2-0-lite-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-lite-image-to-video",
+      "destination": "/zh-CN/seedance/2-0-lite-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-lite-reference-to-video",
+      "destination": "/seedance/2-0-lite-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-lite-reference-to-video",
+      "destination": "/zh-CN/seedance/2-0-lite-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-fast-lite-text-to-video",
+      "destination": "/seedance/2-0-fast-lite-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-fast-lite-text-to-video",
+      "destination": "/zh-CN/seedance/2-0-fast-lite-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-fast-lite-image-to-video",
+      "destination": "/seedance/2-0-fast-lite-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-fast-lite-image-to-video",
+      "destination": "/zh-CN/seedance/2-0-fast-lite-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-fast-lite-reference-to-video",
+      "destination": "/seedance/2-0-fast-lite-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-fast-lite-reference-to-video",
+      "destination": "/zh-CN/seedance/2-0-fast-lite-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-mini-lite-text-to-video",
+      "destination": "/seedance/2-0-mini-lite-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-mini-lite-text-to-video",
+      "destination": "/zh-CN/seedance/2-0-mini-lite-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-mini-lite-image-to-video",
+      "destination": "/seedance/2-0-mini-lite-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-mini-lite-image-to-video",
+      "destination": "/zh-CN/seedance/2-0-mini-lite-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-mini-lite-reference-to-video",
+      "destination": "/seedance/2-0-mini-lite-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-mini-lite-reference-to-video",
+      "destination": "/zh-CN/seedance/2-0-mini-lite-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-text-to-video",
+      "destination": "/seedance/2-5-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-text-to-video",
+      "destination": "/zh-CN/seedance/2-5-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-image-to-video",
+      "destination": "/seedance/2-5-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-image-to-video",
+      "destination": "/zh-CN/seedance/2-5-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-reference-to-video",
+      "destination": "/seedance/2-5-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-reference-to-video",
+      "destination": "/zh-CN/seedance/2-5-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-video-edit",
+      "destination": "/seedance/2-5-video-edit",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-video-edit",
+      "destination": "/zh-CN/seedance/2-5-video-edit",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-video-extend",
+      "destination": "/seedance/2-5-video-extend",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-video-extend",
+      "destination": "/zh-CN/seedance/2-5-video-extend",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-draft",
+      "destination": "/seedance/2-5-draft",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-draft",
+      "destination": "/zh-CN/seedance/2-5-draft",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-lite-text-to-video",
+      "destination": "/seedance/2-5-lite-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-lite-text-to-video",
+      "destination": "/zh-CN/seedance/2-5-lite-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-lite-image-to-video",
+      "destination": "/seedance/2-5-lite-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-lite-image-to-video",
+      "destination": "/zh-CN/seedance/2-5-lite-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-lite-reference-to-video",
+      "destination": "/seedance/2-5-lite-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-lite-reference-to-video",
+      "destination": "/zh-CN/seedance/2-5-lite-reference-to-video",
+      "permanent": true
+    },
+    {
       "source": "/en/veo/3-1-lite",
       "destination": "/veo/3-1-lite",
       "permanent": true
@@ -1820,6 +2103,16 @@
       "permanent": true
     },
     {
+      "source": "/en/wan/wan3-0-video",
+      "destination": "/wan/wan3-0-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-video",
+      "destination": "/zh-CN/wan/wan3-0-video",
+      "permanent": true
+    },
+    {
       "source": "/en/wan/wan3-0-i2v",
       "destination": "/wan/wan3-0-i2v",
       "permanent": true
@@ -1850,6 +2143,16 @@
       "permanent": true
     },
     {
+      "source": "/en/wan/wan3-0-video-prime",
+      "destination": "/wan/wan3-0-video-prime",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-video-prime",
+      "destination": "/zh-CN/wan/wan3-0-video-prime",
+      "permanent": true
+    },
+    {
       "source": "/en/wan/wan3-0-prime-i2v",
       "destination": "/wan/wan3-0-prime-i2v",
       "permanent": true
@@ -1877,6 +2180,86 @@
     {
       "source": "/zh/wan/wan3-0-prime-t2v",
       "destination": "/zh-CN/wan/wan3-0-prime-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-spicy-text-to-video",
+      "destination": "/seedance/2-0-spicy-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-spicy-text-to-video",
+      "destination": "/zh-CN/seedance/2-0-spicy-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-spicy-image-to-video",
+      "destination": "/seedance/2-0-spicy-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-spicy-image-to-video",
+      "destination": "/zh-CN/seedance/2-0-spicy-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-spicy-reference-to-video",
+      "destination": "/seedance/2-0-spicy-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-spicy-reference-to-video",
+      "destination": "/zh-CN/seedance/2-0-spicy-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-spicy-text-to-video",
+      "destination": "/seedance/2-5-spicy-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-spicy-text-to-video",
+      "destination": "/zh-CN/seedance/2-5-spicy-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-spicy-image-to-video",
+      "destination": "/seedance/2-5-spicy-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-spicy-image-to-video",
+      "destination": "/zh-CN/seedance/2-5-spicy-image-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-spicy-reference-to-video",
+      "destination": "/seedance/2-5-spicy-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-spicy-reference-to-video",
+      "destination": "/zh-CN/seedance/2-5-spicy-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-spicy-video-edit",
+      "destination": "/seedance/2-5-spicy-video-edit",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-spicy-video-edit",
+      "destination": "/zh-CN/seedance/2-5-spicy-video-edit",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-spicy-video-extend",
+      "destination": "/seedance/2-5-spicy-video-extend",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-spicy-video-extend",
+      "destination": "/zh-CN/seedance/2-5-spicy-video-extend",
       "permanent": true
     },
     {
@@ -2057,46 +2440,6 @@
     {
       "source": "/16809458d0",
       "destination": "/minimax-h3/minimax-h3-r2v",
-      "permanent": true
-    },
-    {
-      "source": "/seedance/asset-upload",
-      "destination": "/seedance/2-0-reference-to-video",
-      "permanent": true
-    },
-    {
-      "source": "/en/seedance/asset-upload",
-      "destination": "/seedance/2-0-reference-to-video",
-      "permanent": true
-    },
-    {
-      "source": "/zh/seedance/asset-upload",
-      "destination": "/zh-CN/seedance/2-0-reference-to-video",
-      "permanent": true
-    },
-    {
-      "source": "/zh-CN/seedance/asset-upload",
-      "destination": "/zh-CN/seedance/2-0-reference-to-video",
-      "permanent": true
-    },
-    {
-      "source": "/seedance/asset-detail",
-      "destination": "/seedance/2-0-reference-to-video",
-      "permanent": true
-    },
-    {
-      "source": "/en/seedance/asset-detail",
-      "destination": "/seedance/2-0-reference-to-video",
-      "permanent": true
-    },
-    {
-      "source": "/zh/seedance/asset-detail",
-      "destination": "/zh-CN/seedance/2-0-reference-to-video",
-      "permanent": true
-    },
-    {
-      "source": "/zh-CN/seedance/asset-detail",
-      "destination": "/zh-CN/seedance/2-0-reference-to-video",
       "permanent": true
     }
   ],

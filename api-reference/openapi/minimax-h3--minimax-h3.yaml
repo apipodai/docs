@@ -2,7 +2,15 @@ openapi: 3.1.0
 info:
   title: MiniMax H3 API
   version: 1.0.0
-  description: "MiniMax H3 is the all-in-one model of MiniMax's multimodal H3 video family: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, or audio selects reference generation. In APIPod, the public model ID is minimax-h3. It accepts up to 9 reference images, 3 videos, and 3 audios, outputs 768P or 2K for 4-15 seconds, and returns results through asynchronous video tasks. Text-to-video requests require an explicit aspect_ratio."
+  description: "MiniMax H3 is the all-in-one model of MiniMax's multimodal H3
+    video family: one public model ID covers every scenario. Prompt-only
+    requests are text-to-video, 1-2 images in image_urls are image-to-video with
+    first/last frame control, and the role field set to reference_images, any
+    reference video, or audio selects reference generation. In APIPod, the
+    public model ID is minimax-h3. It accepts up to 9 reference images, 3
+    videos, and 3 audios, outputs 768P or 2K for 4-15 seconds, and returns
+    results through asynchronous video tasks. Text-to-video requests require an
+    explicit aspect_ratio."
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -10,7 +18,15 @@ paths:
   /v1/videos/generations:
     post:
       summary: Create Generation Task
-      description: "MiniMax H3 is the all-in-one model of MiniMax's multimodal H3 video family: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, or audio selects reference generation. In APIPod, the public model ID is minimax-h3. It accepts up to 9 reference images, 3 videos, and 3 audios, outputs 768P or 2K for 4-15 seconds, and returns results through asynchronous video tasks. Text-to-video requests require an explicit aspect_ratio."
+      description: "MiniMax H3 is the all-in-one model of MiniMax's multimodal H3
+        video family: one public model ID covers every scenario. Prompt-only
+        requests are text-to-video, 1-2 images in image_urls are image-to-video
+        with first/last frame control, and the role field set to
+        reference_images, any reference video, or audio selects reference
+        generation. In APIPod, the public model ID is minimax-h3. It accepts up
+        to 9 reference images, 3 videos, and 3 audios, outputs 768P or 2K for
+        4-15 seconds, and returns results through asynchronous video tasks.
+        Text-to-video requests require an explicit aspect_ratio."
       operationId: create-minimax-h3-minimax-h3
       tags:
         - MiniMax H3
@@ -32,34 +48,47 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  description: Generation instructions. Required for every scenario, up to 7000 characters.
+                  description: Generation instructions. Required for every scenario, up to 7000
+                    characters.
                   minLength: 1
                   maxLength: 7000
                 image_urls:
                   type: array
                   title: Image Urls
-                  description: "Image URLs. Scenario inference applies: when images are the only media input and 1-2 URLs are provided they are treated as first/last frames (image-to-video); with other reference media present or more than 2 URLs, all images are treated as reference images. Pair with the role field to pin the semantics explicitly. Up to 9 images are supported."
+                  description: "Image URLs. Scenario inference applies: when images are the only
+                    media input and 1-2 URLs are provided they are treated as
+                    first/last frames (image-to-video); with other reference
+                    media present or more than 2 URLs, all images are treated as
+                    reference images. Pair with the role field to pin the
+                    semantics explicitly. Up to 9 images are supported."
                   maxItems: 9
                   items:
                     type: string
                 role:
                   type: string
                   title: Role
-                  description: "Explicit interpretation of image_urls. reference_images: all images are treated as reference images regardless of count. first_last_frame: images are treated as the first frame plus an optional last frame (max 2; cannot be combined with reference videos or audios). When omitted, the scenario is inferred from the materials."
+                  description: "Explicit interpretation of image_urls. reference_images: all
+                    images are treated as reference images regardless of count.
+                    first_last_frame: images are treated as the first frame plus
+                    an optional last frame (max 2; cannot be combined with
+                    reference videos or audios). When omitted, the scenario is
+                    inferred from the materials."
                   enum:
                     - reference_images
                     - first_last_frame
                 video_urls:
                   type: array
                   title: Reference Videos
-                  description: Reference videos. Audio cannot be used alone; at least one reference image or one reference video is required.
+                  description: Reference videos. Audio cannot be used alone; at least one
+                    reference image or one reference video is required.
                   maxItems: 3
                   items:
                     type: string
                 audio_urls:
                   type: array
                   title: Reference Audio
-                  description: Audio cannot be used alone; at least one reference image or one reference video is required.
+                  description: Audio cannot be used alone; at least one reference image or one
+                    reference video is required.
                   maxItems: 3
                   items:
                     type: string
@@ -74,14 +103,16 @@ paths:
                 duration:
                   type: integer
                   title: Duration
-                  description: "Duration of the generated video in seconds. Available values: 4-15."
+                  description: "Duration of the generated video in seconds. Available values:
+                    4-15."
                   default: 4
                   minimum: 4
                   maximum: 15
                 aspect_ratio:
                   type: string
                   title: Aspect Ratio
-                  description: Aspect ratio of the generated video. Defaults to adaptive; required and cannot be adaptive for the text-to-video scenario.
+                  description: Aspect ratio of the generated video. Defaults to adaptive; required
+                    and cannot be adaptive for the text-to-video scenario.
                   enum:
                     - adaptive
                     - 21:9
@@ -99,10 +130,6 @@ paths:
               model: minimax-h3
               prompt: A cinematic tracking shot through a rain-soaked neon street, realistic
                 motion, synchronized ambient sound.
-              image_urls:
-                - https://cdn.example.com/reference-1.jpg
-              video_urls:
-                - https://cdn.example.com/reference.mp4
               resolution: 2K
               duration: 4
               aspect_ratio: adaptive
@@ -140,26 +167,20 @@ paths:
       x-codeSamples:
         - lang: Shell
           label: cURL
-          source: |-
+          source: >-
             curl https://api.apipod.ai/v1/videos/generations \
               -H "Authorization: Bearer $APIPOD_API_KEY" \
               -H "Content-Type: application/json" \
               -d '{
               "model": "minimax-h3",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
               "resolution": "2K",
               "duration": 4,
               "aspect_ratio": "adaptive"
             }'
         - lang: Python
           label: Python
-          source: |-
+          source: >-
             import os
 
             import requests
@@ -168,12 +189,6 @@ paths:
             payload = {
               "model": "minimax-h3",
               "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
-              "video_urls": [
-                "https://cdn.example.com/reference.mp4"
-              ],
               "resolution": "2K",
               "duration": 4,
               "aspect_ratio": "adaptive"
@@ -193,6 +208,110 @@ paths:
             response.raise_for_status()
 
             print(response.json())
+        - lang: Go
+          label: Go
+          source: >-
+            package main
+
+
+            import (
+                "bytes"
+                "encoding/json"
+                "fmt"
+                "net/http"
+                "os"
+            )
+
+
+            func main() {
+                payload := map[string]any{}
+                if err := json.Unmarshal([]byte(`{
+              "model": "minimax-h3",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "resolution": "2K",
+              "duration": 4,
+              "aspect_ratio": "adaptive"
+            }`), &payload); err != nil {
+                    panic(err)
+                }
+                body, err := json.Marshal(payload)
+                if err != nil {
+                    panic(err)
+                }
+
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+                if err != nil {
+                    panic(err)
+                }
+                req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+                req.Header.Set("Content-Type", "application/json")
+
+                resp, err := http.DefaultClient.Do(req)
+                if err != nil {
+                    panic(err)
+                }
+                defer resp.Body.Close()
+                fmt.Println(resp.Status)
+            }
+        - lang: Rust
+          label: Rust
+          source: >-
+            use reqwest::Client;
+
+            use serde_json::json;
+
+            use std::env;
+
+
+            #[tokio::main]
+
+            async fn main() -> Result<(), Box<dyn std::error::Error>> {
+                let payload = json!({
+              "model": "minimax-h3",
+              "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+              "resolution": "2K",
+              "duration": 4,
+              "aspect_ratio": "adaptive"
+            });
+                let response = Client::new()
+                    .post("https://api.apipod.ai/v1/videos/generations")
+                    .bearer_auth(env::var("APIPOD_API_KEY")?)
+                    .json(&payload)
+                    .send()
+                    .await?
+                    .error_for_status()?;
+
+                println!("{}", response.text().await?);
+                Ok(())
+            }
+        - lang: JavaScript
+          label: JavaScript
+          source: >-
+            const response = await
+            fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(
+              {
+                "model": "minimax-h3",
+                "prompt": "A cinematic tracking shot through a rain-soaked neon street, realistic motion, synchronized ambient sound.",
+                "resolution": "2K",
+                "duration": 4,
+                "aspect_ratio": "adaptive"
+              }
+              ),
+            });
+
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+
+            console.log(await response.json());
 components:
   securitySchemes:
     bearerAuth:

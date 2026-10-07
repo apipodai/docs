@@ -1,0 +1,279 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Seedream 5.0 Flash Edit",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "seedream-5.0-flash-edit",
+      "modelType": "image",
+      "provider": "bytedance"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "Seedream 5.0 Flash Edit",
+        "properties": {
+          "aspect_ratio": {
+            "type": "string",
+            "title": "Aspect Ratio",
+            "description": "The generated image's width and height aspect ratio.",
+            "enum": [
+              "1:1",
+              "2:3",
+              "3:2",
+              "3:4",
+              "4:3",
+              "16:9",
+              "9:16",
+              "21:9"
+            ],
+            "default": "1:1",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "title": "Image Urls",
+            "x-apipod-ui": {
+              "component": "image-upload",
+              "maxCount": 10
+            },
+            "minItems": 1,
+            "maxItems": 10,
+            "description": "1-10 reference images (public URL or data URI)."
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "模型标识符",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "Describe the content of the image to be edit.",
+            "default": "",
+            "maxLength": 2000,
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "quality": {
+            "type": "string",
+            "title": "Quality",
+            "description": "Output resolution tier: 1K, 1.5K or 2K (1.5K is priced as 1K).",
+            "enum": [
+              "1K",
+              "1.5K",
+              "2K"
+            ],
+            "default": "2K",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "background": {
+            "type": "string",
+            "title": "Background",
+            "description": "Set transparent to keep the alpha channel: requires exactly 1 reference image with transparency; output is PNG.",
+            "enum": [
+              "opaque",
+              "transparent"
+            ],
+            "default": "opaque",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          }
+        },
+        "required": [
+          "model",
+          "prompt",
+          "image_urls"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_urls",
+          "quality",
+          "aspect_ratio"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "image"
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              },
+              "result": {
+                "type": "array",
+                "description": "generated image url list",
+                "items": {
+                  "type": "string",
+                  "description": "image url"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "task status",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/images/generations": {
+      "post": {
+        "summary": "image API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/images/status/{task_id}",
+          "polling": {
+            "interval": 2000,
+            "maxAttempts": 300,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/images/status/{task_id}": {
+      "get": {
+        "summary": "Seedream 5.0 Flash Edit Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

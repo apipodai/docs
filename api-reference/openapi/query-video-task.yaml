@@ -71,22 +71,26 @@ paths:
                         description: Client-safe asynchronous error message.
                       usage:
                         type: object
-                        description: Final usage snapshot for this task; present only when status is completed.
                         properties:
                           prompt_tokens:
                             type: integer
-                            description: Prompt token count, present only when the upstream provider reports token usage.
+                            description: Prompt token count, present only when the upstream provider reports
+                              token usage.
                           completion_tokens:
                             type: integer
-                            description: Completion token count, present only when the upstream provider reports token usage.
+                            description: Completion token count, present only when the upstream provider
+                              reports token usage.
                           total_tokens:
                             type: integer
-                            description: Total token count, present only when the upstream provider reports token usage.
+                            description: Total token count, present only when the upstream provider reports
+                              token usage.
                           cost:
                             type: number
                             description: Final amount charged for this task, in USD.
                         required:
                           - cost
+                        description: Final usage snapshot for this task; present only when status is
+                          completed.
                     required:
                       - task_id
                       - status

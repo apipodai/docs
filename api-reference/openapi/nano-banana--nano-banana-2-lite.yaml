@@ -2,7 +2,12 @@ openapi: 3.1.0
 info:
   title: Nano Banana 2 Lite API
   version: 1.0.0
-  description: Nano Banana 2 Lite (upstream gemini-3.1-flash-lite-image) is the ultra-fast, low-cost tier of Google's Nano Banana 2 image generation family. In APIPod, the public model ID is nano-banana-2-lite. It generates and edits images at 1K resolution only, supports the ten standard aspect ratios (banner ratios 1:4, 4:1, 1:8, 8:1 are exclusive to nano-banana-2), accepts text and up to 14 image inputs, and returns results through asynchronous image tasks.
+  description: Nano Banana 2 Lite is the ultra-fast, low-cost tier of Google's
+    Nano Banana 2 image generation family. In APIPod, the public model ID is
+    nano-banana-2-lite. It generates and edits images at 1K resolution only,
+    supports the ten standard aspect ratios (banner ratios 1:4, 4:1, 1:8, 8:1
+    are exclusive to nano-banana-2), accepts text and up to 14 image inputs, and
+    returns results through asynchronous image tasks.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -10,7 +15,12 @@ paths:
   /v1/images/generations:
     post:
       summary: Create Generation Task
-      description: Nano Banana 2 Lite (upstream gemini-3.1-flash-lite-image) is the ultra-fast, low-cost tier of Google's Nano Banana 2 image generation family. In APIPod, the public model ID is nano-banana-2-lite. It generates and edits images at 1K resolution only, supports the ten standard aspect ratios (banner ratios 1:4, 4:1, 1:8, 8:1 are exclusive to nano-banana-2), accepts text and up to 14 image inputs, and returns results through asynchronous image tasks.
+      description: Nano Banana 2 Lite is the ultra-fast, low-cost tier of Google's
+        Nano Banana 2 image generation family. In APIPod, the public model ID is
+        nano-banana-2-lite. It generates and edits images at 1K resolution only,
+        supports the ten standard aspect ratios (banner ratios 1:4, 4:1, 1:8,
+        8:1 are exclusive to nano-banana-2), accepts text and up to 14 image
+        inputs, and returns results through asynchronous image tasks.
       operationId: create-nano-banana-nano-banana-2-lite
       tags:
         - Nano Banana 2 Lite
@@ -58,7 +68,7 @@ paths:
                 quality:
                   type: string
                   title: Quality
-                  description: Output image resolution. Lite only supports the 1K tier.
+                  description: Output image resolution.
                   enum:
                     - 1K
                   default: 1K

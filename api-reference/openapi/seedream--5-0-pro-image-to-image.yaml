@@ -1,25 +1,29 @@
 openapi: 3.1.0
 info:
-  title: Nano Banana 2.1 API
+  title: Seedream 5.0 Pro Image to Image API
   version: 1.0.0
-  description: Nano Banana 2.1 是 Google 基于 Gemini 3.6 Flash 打造的新一代 Nano Banana 2
-    图片生成与编辑模型，写实度、视觉设计、文字渲染与多轮编辑中的角色一致性全面提升。在 APIPod 中，公开模型 ID 为
-    nano-banana-2.1，支持 1K、2K、4K 分辨率（不支持 512px 档）；接受文本与最多 14
-    张参考图输入，并通过异步图片任务返回结果。
+  description: Seedream 5.0 Pro Edit is the reference-guided editing mode of
+    Seedream 5.0 Pro, supporting multi-image composition and interactive edits
+    driven by hand-drawn marks or <bbox>/<point> coordinates in the prompt. In
+    APIPod, the public model ID is seedream-5.0-pro-edit. It accepts text and
+    1-10 reference images, outputs a single 1K or 2K image, and returns results
+    through asynchronous image tasks.
 servers:
   - url: https://api.apipod.ai
-    description: 生产环境
+    description: Production
 paths:
   /v1/images/generations:
     post:
-      summary: 创建生成任务
-      description: Nano Banana 2.1 是 Google 基于 Gemini 3.6 Flash 打造的新一代 Nano Banana 2
-        图片生成与编辑模型，写实度、视觉设计、文字渲染与多轮编辑中的角色一致性全面提升。在 APIPod 中，公开模型 ID 为
-        nano-banana-2.1，支持 1K、2K、4K 分辨率（不支持 512px 档）；接受文本与最多 14
-        张参考图输入，并通过异步图片任务返回结果。
-      operationId: create-nano-banana-2.1-nano-banana-2.1
+      summary: Create Generation Task
+      description: Seedream 5.0 Pro Edit is the reference-guided editing mode of
+        Seedream 5.0 Pro, supporting multi-image composition and interactive
+        edits driven by hand-drawn marks or <bbox>/<point> coordinates in the
+        prompt. In APIPod, the public model ID is seedream-5.0-pro-edit. It
+        accepts text and 1-10 reference images, outputs a single 1K or 2K image,
+        and returns results through asynchronous image tasks.
+      operationId: create-seedream-5-0-pro-image-to-image
       tags:
-        - Nano Banana 2.1
+        - Seedream 5.0 Pro Image to Image
       security:
         - bearerAuth: []
       requestBody:
@@ -28,65 +32,73 @@ paths:
           application/json:
             schema:
               type: object
-              title: Nano Banana 2.1
+              title: Seedream 5.0 Pro Edit
               properties:
                 model:
                   type: string
                   title: Model ID
-                  description: APIPod 公开模型 ID。
-                  const: nano-banana-2.1
+                  description: Public APIPod model ID.
+                  const: seedream-5.0-pro-edit
                 prompt:
                   type: string
                   title: Prompt
-                  description: 生成或编辑指令。 最大字符串长度：3993。
+                  description: Describe the content of the image to be edit.
+                  maxLength: 2000
                 image_urls:
                   type: array
-                  title: Input Images
+                  title: Image Urls
+                  minItems: 1
+                  maxItems: 10
+                  description: 1-10 reference images (public URL or data URI).
                   items:
                     type: string
-                  description: 可公开访问的源图片或参考图 URL。
-                aspect_ratio:
-                  type: string
-                  title: Aspect Ratio
-                  description: 输出宽高比。
-                  enum:
-                    - 1:1
-                    - 1:4
-                    - 1:8
-                    - 2:3
-                    - 3:2
-                    - 3:4
-                    - 4:1
-                    - 4:3
-                    - 4:5
-                    - 5:4
-                    - 8:1
-                    - 9:16
-                    - 16:9
-                    - 21:9
-                  default: 1:1
                 quality:
                   type: string
                   title: Quality
-                  description: 输出质量或图片分辨率档位。
+                  description: "Output resolution tier: 1K, 1.5K or 2K (1.5K is priced as 1K)."
                   enum:
                     - 1K
+                    - 1.5K
                     - 2K
-                    - 4K
-                  default: 1K
+                  default: 2K
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  description: The generated image's width and height aspect ratio.
+                  enum:
+                    - 1:1
+                    - 2:3
+                    - 3:2
+                    - 3:4
+                    - 4:3
+                    - 16:9
+                    - 9:16
+                    - 21:9
+                  default: 1:1
+                background:
+                  type: string
+                  title: Background
+                  description: "Set transparent to keep the alpha channel: requires exactly 1
+                    reference image with transparency; output is PNG."
+                  enum:
+                    - opaque
+                    - transparent
+                  default: opaque
               required:
                 - model
                 - prompt
+                - image_urls
             example:
-              model: nano-banana-2.1
-              prompt: A minimalist product photograph of a ceramic coffee cup on warm
-                travertine, soft morning window light, crisp legible label text,
-                photorealistic.
-              aspect_ratio: 1:1
+              model: seedream-5.0-pro-edit
+              prompt: Animate the subject with a slow camera push-in, natural motion, and soft
+                cinematic lighting.
+              image_urls:
+                - https://cdn.example.com/reference-1.jpg
               quality: 2K
+              aspect_ratio: 1:1
       responses:
         "200":
-          description: 任务已受理
+          description: Task accepted
           content:
             application/json:
               schema:
@@ -96,18 +108,16 @@ paths:
                 properties:
                   code:
                     type: integer
-                    description: HTTP 状态码。
                   data:
                     type: object
                     title: Task Submit Data
-                    description: 响应数据。
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: 用于查询任务状态的 APIPod 任务 ID。
+                        description: generatation task id
                   message:
                     type: string
-                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -125,10 +135,13 @@ paths:
               -H "Authorization: Bearer $APIPOD_API_KEY" \
               -H "Content-Type: application/json" \
               -d '{
-              "model": "nano-banana-2.1",
-              "prompt": "A minimalist product photograph of a ceramic coffee cup on warm travertine, soft morning window light, crisp legible label text, photorealistic.",
-              "aspect_ratio": "1:1",
-              "quality": "2K"
+              "model": "seedream-5.0-pro-edit",
+              "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "quality": "2K",
+              "aspect_ratio": "1:1"
             }'
         - lang: Python
           label: Python
@@ -139,10 +152,13 @@ paths:
 
 
             payload = {
-              "model": "nano-banana-2.1",
-              "prompt": "A minimalist product photograph of a ceramic coffee cup on warm travertine, soft morning window light, crisp legible label text, photorealistic.",
-              "aspect_ratio": "1:1",
-              "quality": "2K"
+              "model": "seedream-5.0-pro-edit",
+              "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "quality": "2K",
+              "aspect_ratio": "1:1"
             }
 
 
@@ -177,10 +193,13 @@ paths:
             func main() {
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
-              "model": "nano-banana-2.1",
-              "prompt": "A minimalist product photograph of a ceramic coffee cup on warm travertine, soft morning window light, crisp legible label text, photorealistic.",
-              "aspect_ratio": "1:1",
-              "quality": "2K"
+              "model": "seedream-5.0-pro-edit",
+              "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "quality": "2K",
+              "aspect_ratio": "1:1"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -217,10 +236,13 @@ paths:
 
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
-              "model": "nano-banana-2.1",
-              "prompt": "A minimalist product photograph of a ceramic coffee cup on warm travertine, soft morning window light, crisp legible label text, photorealistic.",
-              "aspect_ratio": "1:1",
-              "quality": "2K"
+              "model": "seedream-5.0-pro-edit",
+              "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": [
+                "https://cdn.example.com/reference-1.jpg"
+              ],
+              "quality": "2K",
+              "aspect_ratio": "1:1"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/images/generations")
@@ -245,10 +267,13 @@ paths:
               },
               body: JSON.stringify(
               {
-                "model": "nano-banana-2.1",
-                "prompt": "A minimalist product photograph of a ceramic coffee cup on warm travertine, soft morning window light, crisp legible label text, photorealistic.",
-                "aspect_ratio": "1:1",
-                "quality": "2K"
+                "model": "seedream-5.0-pro-edit",
+                "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+                "image_urls": [
+                  "https://cdn.example.com/reference-1.jpg"
+                ],
+                "quality": "2K",
+                "aspect_ratio": "1:1"
               }
               ),
             });
@@ -266,4 +291,4 @@ components:
       type: http
       scheme: bearer
       bearerFormat: APIPod API key
-      description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

@@ -2,11 +2,11 @@ openapi: 3.1.0
 info:
   title: Gemini Omni Flash 1.1 Reference to Video API
   version: 1.0.0
-  description: Gemini Omni Flash 1.1 R2V is APIPod's reference-to-video routing mode for the
-    Gemini Omni Flash 1.1 channel. It uses one to seven reference images to
-    guide subject and visual consistency. In APIPod, the public model ID is
-    gemini-omni-flash-1.1-r2v. It supports image-to-video, accepts text and image inputs,
-    and returns results through asynchronous video tasks.
+  description: Gemini Omni Flash 1.1 R2V is APIPod's reference-to-video mode for
+    Gemini Omni Flash 1.1, using 1-7 reference images to keep subject and visual
+    consistency. In APIPod, the public model ID is gemini-omni-flash-1.1-r2v. It
+    uses 1-7 reference images to guide subject and visual consistency, and
+    returns results through asynchronous video tasks.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -14,11 +14,12 @@ paths:
   /v1/videos/generations:
     post:
       summary: Create Generation Task
-      description: Gemini Omni Flash 1.1 R2V is APIPod's reference-to-video routing mode for the
-        Gemini Omni Flash 1.1 channel. It uses one to seven reference images to
-        guide subject and visual consistency. In APIPod, the public model ID is
-        gemini-omni-flash-1.1-r2v. It supports image-to-video, accepts text and image
-        inputs, and returns results through asynchronous video tasks.
+      description: Gemini Omni Flash 1.1 R2V is APIPod's reference-to-video mode for
+        Gemini Omni Flash 1.1, using 1-7 reference images to keep subject and
+        visual consistency. In APIPod, the public model ID is
+        gemini-omni-flash-1.1-r2v. It uses 1-7 reference images to guide subject
+        and visual consistency, and returns results through asynchronous video
+        tasks.
       operationId: create-gemini-omni-flash-1.1-gemini-omni-flash-1.1-r2v
       tags:
         - Gemini Omni Flash 1.1 Reference to Video
@@ -44,6 +45,7 @@ paths:
                 image_urls:
                   type: array
                   title: Reference images
+                  description: Reference image URLs (1-7).
                   items:
                     type: string
                 duration:

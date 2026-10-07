@@ -509,7 +509,7 @@
       "source": "localhost:8080/public/schemas/nano-banana-pro"
     },
     {
-      "slug": "nano-banana-2.1/nano-banana-2.1",
+      "slug": "nano-banana/nano-banana-2.1",
       "title": "Nano Banana 2.1",
       "legacy": "/nano-banana-2.1/nano-banana-2.1",
       "schema": true,
@@ -1826,7 +1826,8 @@
       "slug": "ark-query-video-task",
       "title": "Query Video Task (Ark-compatible)",
       "legacy": "/ark-query-video-task",
-      "schema": true
+      "schema": true,
+      "handwritten": true
     },
     {
       "slug": "grok-imagine-1-5/grok-imagine-1-5-vip",

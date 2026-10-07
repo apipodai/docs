@@ -2,9 +2,9 @@ openapi: 3.1.0
 info:
   title: Gemini Omni Flash 1.1 Video Extend API
   version: 1.0.0
-  description: Gemini Omni Flash 1.1 Video Extend 是 APIPod 为 Gemini Omni Flash 1.1
-    通道提供的视频续写与编辑路由模式，要求提供源视频，并可附带最多 5 张参考图。在 APIPod 中，公开模型 ID 为
-    gemini-omni-flash-1.1-extend，支持视频到视频；接受文本、视频、图片输入，并通过异步视频任务返回结果。
+  description: Gemini Omni Flash 1.1 Extend 是 APIPod 面向 Gemini Omni Flash 1.1
+    提供的视频续写模式，从源视频前 10 秒继续生成。在 APIPod 中，公开模型 ID 为
+    gemini-omni-flash-1.1-extend。它从源视频前 10 秒继续生成，接受文本、视频、图片输入，并通过异步视频任务返回结果。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -12,9 +12,9 @@ paths:
   /v1/videos/generations:
     post:
       summary: 创建生成任务
-      description: Gemini Omni Flash 1.1 Video Extend 是 APIPod 为 Gemini Omni Flash 1.1
-        通道提供的视频续写与编辑路由模式，要求提供源视频，并可附带最多 5 张参考图。在 APIPod 中，公开模型 ID 为
-        gemini-omni-flash-1.1-extend，支持视频到视频；接受文本、视频、图片输入，并通过异步视频任务返回结果。
+      description: Gemini Omni Flash 1.1 Extend 是 APIPod 面向 Gemini Omni Flash 1.1
+        提供的视频续写模式，从源视频前 10 秒继续生成。在 APIPod 中，公开模型 ID 为
+        gemini-omni-flash-1.1-extend。它从源视频前 10 秒继续生成，接受文本、视频、图片输入，并通过异步视频任务返回结果。
       operationId: create-gemini-omni-flash-1.1-gemini-omni-flash-1.1-extend
       tags:
         - Gemini Omni Flash 1.1 Video Extend
@@ -40,7 +40,7 @@ paths:
                 video_url:
                   type: string
                   title: Video Url
-                  description: 待续写的源视频 URL，仅取源视频前 10 秒作为续写上下文。
+                  description: 可公开访问的源视频 URL。
                 image_urls:
                   type: array
                   title: Reference images

@@ -69,7 +69,6 @@ paths:
                         description: 可安全返回给客户端的异步错误信息。
                       usage:
                         type: object
-                        description: 任务终态用量快照，仅在 status 为 completed 时返回。
                         properties:
                           prompt_tokens:
                             type: integer
@@ -85,6 +84,7 @@ paths:
                             description: 本任务最终实际扣费金额，单位美元。
                         required:
                           - cost
+                        description: 任务终态用量快照，仅在 status 为 completed 时返回。
                     required:
                       - task_id
                       - status
