@@ -84,6 +84,27 @@ image = client.images.generate(
 print(image.data[0].b64_json[:32])
 ```
 
+### 图层拆分输出
+
+图层拆分模型（`seedream-5.0-pro-layer`、`seedream-5.0-flash-layer`）的 `data` 依次包含底图和最多 16 个透明 PNG 图层，每一项在 `url` / `b64_json` 之外还附带图层元数据：
+
+```json
+{
+  "data": [
+    { "url": "https://cdn.example.com/base.png", "z_index": 0 },
+    {
+      "url": "https://cdn.example.com/layer_1.png",
+      "z_index": 1,
+      "bounding_box": { "absolute": [528, 1286, 1011, 1418], "normalized": [344, 837, 658, 923] },
+      "name": "底部说明文字",
+      "description": "提取底部白色说明文字，不包含其他背景元素"
+    }
+  ]
+}
+```
+
+字段说明见[查询图片任务](/zh-CN/query-image-task)。其它模型只返回标准的 OpenAI `data[]` 字段。
+
 ## 编辑图片
 
 `POST /openai/v1/images/edits`

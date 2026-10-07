@@ -2,11 +2,12 @@ openapi: 3.1.0
 info:
   title: GPT Image 2.5 Flare API
   version: 1.0.0
-  description: GPT Image 2.5 Flare is the speed-focused tier of OpenAI's GPT Image 2.5 image generation and
-    editing family. It cuts generation latency by up to 50% versus GPT Image 2 while sharpening
-    detail, lighting and texture, making it the default choice for high-volume generation, creator
-    content and rapid prototyping. In APIPod, the public model ID is gpt-image-2.5-flare. It
-    supports text-to-image and image generation and editing, accepts text and image inputs, and
+  description: GPT Image 2.5 Flare is the speed-focused tier of OpenAI's GPT Image 2.5 image
+    generation and editing family, exposed through APIPod's official-route public ID. It
+    sharpens detail, lighting and texture over GPT Image 2 and supports the extra
+    xhigh/max fidelity tiers, making it the default choice for high-volume generation and
+    creator content. In APIPod, the public model ID is gpt-image-2.5-flare. It supports
+    text-to-image and image generation and editing, accepts text and image inputs, and
     returns results through asynchronous image tasks.
 servers:
   - url: https://api.apipod.ai
@@ -15,12 +16,13 @@ paths:
   /v1/images/generations:
     post:
       summary: Create Generation Task
-      description: GPT Image 2.5 Flare is the speed-focused tier of OpenAI's GPT Image 2.5 image generation
-        and editing family. It cuts generation latency by up to 50% versus GPT Image 2 while
-        sharpening detail, lighting and texture, making it the default choice for high-volume
-        generation, creator content and rapid prototyping. In APIPod, the public model ID is
-        gpt-image-2.5-flare. It supports text-to-image and image generation and editing, accepts
-        text and image inputs, and returns results through asynchronous image tasks.
+      description: GPT Image 2.5 Flare is the speed-focused tier of OpenAI's GPT Image 2.5 image
+        generation and editing family, exposed through APIPod's official-route public ID.
+        It sharpens detail, lighting and texture over GPT Image 2 and supports the extra
+        xhigh/max fidelity tiers, making it the default choice for high-volume generation
+        and creator content. In APIPod, the public model ID is gpt-image-2.5-flare. It
+        supports text-to-image and image generation and editing, accepts text and image
+        inputs, and returns results through asynchronous image tasks.
       operationId: create-gpt-image-2.5-gpt-image-2.5-flare
       tags:
         - GPT Image 2.5 Flare

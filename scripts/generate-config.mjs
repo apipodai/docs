@@ -29,6 +29,7 @@ const apiGroups = [
     icon: "image",
     groups: [
       { en: "GPT Image 2", zh: "GPT Image 2", icon: "wand-sparkles", prefix: "gpt-image-2/" },
+      { en: "GPT Image 2.5", zh: "GPT Image 2.5", icon: "wand-sparkles", prefix: "gpt-image-2.5/" },
       { en: "Nano Banana", zh: "Nano Banana", icon: "banana", prefix: "nano-banana/" },
       {
         en: "Seedream",
@@ -37,6 +38,8 @@ const apiGroups = [
         groups: [
           { en: "Seedream V4.5", zh: "Seedream V4.5", slugs: ["seedream/4-5-text-to-image", "seedream/4-5-image-to-image"] },
           { en: "Seedream V5.0 Lite", zh: "Seedream V5.0 Lite", slugs: ["seedream/5-0-lite-text-to-image", "seedream/5-0-lite-image-to-image"] },
+          { en: "Seedream V5.0 Pro", zh: "Seedream V5.0 Pro", slugs: ["seedream/5-0-pro-text-to-image", "seedream/5-0-pro-image-to-image", "seedream/5-0-pro-layer"] },
+          { en: "Seedream V5.0 Flash", zh: "Seedream V5.0 Flash", slugs: ["seedream/5-0-flash-text-to-image", "seedream/5-0-flash-image-to-image", "seedream/5-0-flash-layer"] },
         ],
       },
       {

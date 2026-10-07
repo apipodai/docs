@@ -1,19 +1,31 @@
 openapi: 3.1.0
 info:
-  title: GPT Image 2.5 Sunburst API
+  title: Nano Banana 2.1 API
   version: 1.0.0
-  description: GPT Image 2.5 Sunburst 是 OpenAI GPT Image 2.5 系列中注重精度的档位，通过 APIPod 官方转发通道提供。在 Flare 之上强化编辑精度与多轮可控性——只改指定区域、多轮编辑不走样，适合营销主视觉与精修商品图。在 APIPod 中，公开模型 ID 为 gpt-image-2.5-sunburst，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。
+  description: Nano Banana 2.1 is Google's next-generation Nano Banana 2 image
+    generation and editing model, built on Gemini 3.6 Flash, with improved
+    realism, visual design, text rendering and character consistency across
+    editing turns. In APIPod, the public model ID is nano-banana-2.1. It
+    generates and edits images at 1K, 2K or 4K (the 512px tier is not
+    supported), accepts text and up to 14 image inputs, and returns results
+    through asynchronous image tasks.
 servers:
   - url: https://api.apipod.ai
-    description: 生产环境
+    description: Production
 paths:
   /v1/images/generations:
     post:
-      summary: 创建生成任务
-      description: GPT Image 2.5 Sunburst 是 OpenAI GPT Image 2.5 系列中注重精度的档位，通过 APIPod 官方转发通道提供。在 Flare 之上强化编辑精度与多轮可控性——只改指定区域、多轮编辑不走样，适合营销主视觉与精修商品图。在 APIPod 中，公开模型 ID 为 gpt-image-2.5-sunburst，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。
-      operationId: create-gpt-image-2.5-gpt-image-2.5-sunburst
+      summary: Create Generation Task
+      description: Nano Banana 2.1 is Google's next-generation Nano Banana 2 image
+        generation and editing model, built on Gemini 3.6 Flash, with improved
+        realism, visual design, text rendering and character consistency across
+        editing turns. In APIPod, the public model ID is nano-banana-2.1. It
+        generates and edits images at 1K, 2K or 4K (the 512px tier is not
+        supported), accepts text and up to 14 image inputs, and returns results
+        through asynchronous image tasks.
+      operationId: create-nano-banana-2.1-nano-banana-2.1
       tags:
-        - GPT Image 2.5 Sunburst
+        - Nano Banana 2.1
       security:
         - bearerAuth: []
       requestBody:
@@ -22,65 +34,47 @@ paths:
           application/json:
             schema:
               type: object
-              title: "GPT Image 2.5 Sunburst"
+              title: Nano Banana 2.1
               properties:
                 model:
                   type: string
                   title: Model ID
-                  description: APIPod 公开模型 ID。
-                  const: gpt-image-2.5-sunburst
+                  description: Public APIPod model ID.
+                  const: nano-banana-2.1
                 prompt:
                   type: string
                   title: Prompt
-                  description: 生成或编辑指令。 最大字符串长度：32000。
+                  description: Describe the content of the image to be generated.
+                  maxLength: 3993
                 image_urls:
                   type: array
-                  title: Image Urls
+                  title: Input Images
                   items:
                     type: string
-                  description: 可公开访问的源图片或参考图 URL。
-                quality:
-                  type: string
-                  title: Quality
-                  enum:
-                    - auto
-                    - low
-                    - medium
-                    - high
-                    - xhigh
-                    - max
-                  default: auto
-                  description: 输出质量档位。xhigh 与 max 为 GPT Image 2.5 独占档位；background 为 transparent（透明背景）时档位不得低于 medium。
-                background:
-                  type: string
-                  title: Background
-                  description: 生成图片的背景模式。transparent 输出带透明通道的 PNG，要求 quality 为 medium 或 high。
-                  enum:
-                    - auto
-                    - opaque
-                    - transparent
-                  default: auto
                 aspect_ratio:
                   type: string
                   title: Aspect Ratio
-                  description: 输出宽高比。
+                  description: the generated image's width and height aspect ratio.
                   enum:
-                    - auto
                     - 1:1
+                    - 1:4
+                    - 1:8
                     - 2:3
                     - 3:2
                     - 3:4
+                    - 4:1
                     - 4:3
                     - 4:5
                     - 5:4
+                    - 8:1
                     - 9:16
                     - 16:9
                     - 21:9
-                  default: auto
-                resolution:
+                  default: 1:1
+                quality:
                   type: string
-                  title: Resolution
-                  description: 输出分辨率档位。
+                  title: Quality
+                  description: Output image resolution.
                   enum:
                     - 1K
                     - 2K
@@ -90,15 +84,15 @@ paths:
                 - model
                 - prompt
             example:
-              model: gpt-image-2.5-sunburst
-              prompt: A premium product photograph on a dark studio set, precise typography,
-                soft rim lighting, highly detailed.
-              quality: auto
-              aspect_ratio: auto
-              resolution: 1K
+              model: nano-banana-2.1
+              prompt: A minimalist product photograph of a ceramic coffee cup on warm
+                travertine, soft morning window light, crisp legible label text,
+                photorealistic.
+              aspect_ratio: 1:1
+              quality: 2K
       responses:
         "200":
-          description: 任务已受理
+          description: Task accepted
           content:
             application/json:
               schema:
@@ -108,18 +102,16 @@ paths:
                 properties:
                   code:
                     type: integer
-                    description: HTTP 状态码。
                   data:
                     type: object
                     title: Task Submit Data
-                    description: 响应数据。
+                    description: Data content for task submission
                     properties:
                       task_id:
                         type: string
-                        description: 用于查询任务状态的 APIPod 任务 ID。
+                        description: generatation task id
                   message:
                     type: string
-                    description: 响应消息。
                 required:
                   - code
                   - message
@@ -137,11 +129,10 @@ paths:
               -H "Authorization: Bearer $APIPOD_API_KEY" \
               -H "Content-Type: application/json" \
               -d '{
-              "model": "gpt-image-2.5-sunburst",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "quality": "auto",
-              "aspect_ratio": "auto",
-              "resolution": "1K"
+              "model": "nano-banana-2.1",
+              "prompt": "A minimalist product photograph of a ceramic coffee cup on warm travertine, soft morning window light, crisp legible label text, photorealistic.",
+              "aspect_ratio": "1:1",
+              "quality": "2K"
             }'
         - lang: Python
           label: Python
@@ -152,11 +143,10 @@ paths:
 
 
             payload = {
-              "model": "gpt-image-2.5-sunburst",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "quality": "auto",
-              "aspect_ratio": "auto",
-              "resolution": "1K"
+              "model": "nano-banana-2.1",
+              "prompt": "A minimalist product photograph of a ceramic coffee cup on warm travertine, soft morning window light, crisp legible label text, photorealistic.",
+              "aspect_ratio": "1:1",
+              "quality": "2K"
             }
 
 
@@ -191,11 +181,10 @@ paths:
             func main() {
                 payload := map[string]any{}
                 if err := json.Unmarshal([]byte(`{
-              "model": "gpt-image-2.5-sunburst",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "quality": "auto",
-              "aspect_ratio": "auto",
-              "resolution": "1K"
+              "model": "nano-banana-2.1",
+              "prompt": "A minimalist product photograph of a ceramic coffee cup on warm travertine, soft morning window light, crisp legible label text, photorealistic.",
+              "aspect_ratio": "1:1",
+              "quality": "2K"
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -232,11 +221,10 @@ paths:
 
             async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let payload = json!({
-              "model": "gpt-image-2.5-sunburst",
-              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "quality": "auto",
-              "aspect_ratio": "auto",
-              "resolution": "1K"
+              "model": "nano-banana-2.1",
+              "prompt": "A minimalist product photograph of a ceramic coffee cup on warm travertine, soft morning window light, crisp legible label text, photorealistic.",
+              "aspect_ratio": "1:1",
+              "quality": "2K"
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/images/generations")
@@ -261,11 +249,10 @@ paths:
               },
               body: JSON.stringify(
               {
-                "model": "gpt-image-2.5-sunburst",
-                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "quality": "auto",
-                "aspect_ratio": "auto",
-                "resolution": "1K"
+                "model": "nano-banana-2.1",
+                "prompt": "A minimalist product photograph of a ceramic coffee cup on warm travertine, soft morning window light, crisp legible label text, photorealistic.",
+                "aspect_ratio": "1:1",
+                "quality": "2K"
               }
               ),
             });
@@ -283,4 +270,4 @@ components:
       type: http
       scheme: bearer
       bearerFormat: APIPod API key
-      description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

@@ -60,8 +60,24 @@ function profile(page) {
   }
   if (slug.startsWith("seedream/")) {
     const v5 = slug.includes("5-0") || page.modelId?.startsWith("seedream-5");
+    const flash = v5 && (slug.includes("5-0-flash") || page.modelId?.startsWith("seedream-5.0-flash"));
+    const pro = v5 && (slug.includes("5-0-pro") || page.modelId?.startsWith("seedream-5.0-pro"));
+    const layer = slug.endsWith("-layer") || page.modelId?.endsWith("-layer");
     const edit = slug.includes("image-to-image") || slug.endsWith("-edit") || page.modelId?.endsWith("-edit");
-    return { source: sources.seedream, en: `${title} uses ByteDance's Seedream image stack through APIPod's asynchronous image API. This page covers ${edit ? "reference-guided editing, where at least one source image is required" : "text-to-image generation, with optional reference inputs for composition or consistency"}. ${v5 ? "The APIPod Seedream 5.0 Lite contract supports 2K/3K output, PNG or JPEG, and 1-15 images per request." : "The APIPod Seedream V4.5 contract supports 2K/4K output, PNG or JPEG, and a single output image per request."}`, zh: `${title} 通过 APIPod 异步图片接口接入字节跳动 Seedream 图片能力。本页对应${edit ? "参考图驱动的编辑模式，至少需要 1 张源图片" : "文生图，并可使用参考素材辅助构图或保持一致性"}。${v5 ? "APIPod 的 Seedream 5.0 Lite 契约支持 2K/3K、PNG 或 JPEG 输出，每次请求生成 1–15 张图片。" : "APIPod 的 Seedream V4.5 契约支持 2K/4K、PNG 或 JPEG 输出，每次请求生成 1 张图片。"}` };
+    const mode = layer
+      ? { en: "layer decomposition: exactly one source image is split into a base image and up to 16 transparent PNG layers, and the result includes an images array with each layer's z_index, bounding_box, name, and description", zh: "图层拆分模式：恰好 1 张源图片会被拆成一张底图和最多 16 个透明 PNG 图层，结果中的 images 数组附带每个图层的 z_index、bounding_box、名称和描述" }
+      : edit
+        ? { en: "reference-guided editing, where at least one source image is required", zh: "参考图驱动的编辑模式，至少需要 1 张源图片" }
+        : { en: "text-to-image generation, with optional reference inputs for composition or consistency", zh: "文生图，并可使用参考素材辅助构图或保持一致性" };
+    const family = flash ? "Flash" : "Pro";
+    const contract = layer
+      ? { en: `The APIPod Seedream 5.0 ${family} Layer contract accepts auto/1K/1.5K/2K output tiers and is billed once per request.`, zh: `APIPod 的 Seedream 5.0 ${family} 图层拆分契约支持 auto/1K/1.5K/2K 输出档位，按次计费。` }
+      : pro || flash
+        ? { en: `The APIPod Seedream 5.0 ${family} contract supports 1K/1.5K/2K output, PNG or JPEG, a single output image per request, up to 10 reference images, and transparent-background editing of a single PNG input.`, zh: `APIPod 的 Seedream 5.0 ${family} 契约支持 1K/1.5K/2K、PNG 或 JPEG 输出，每次请求生成 1 张图片，最多 10 张参考图，并支持对单张透明 PNG 的透明背景编辑。` }
+        : v5
+          ? { en: "The APIPod Seedream 5.0 Lite contract supports 2K/3K output, PNG or JPEG, and 1-15 images per request.", zh: "APIPod 的 Seedream 5.0 Lite 契约支持 2K/3K、PNG 或 JPEG 输出，每次请求生成 1–15 张图片。" }
+          : { en: "The APIPod Seedream V4.5 contract supports 2K/4K output, PNG or JPEG, and a single output image per request.", zh: "APIPod 的 Seedream V4.5 契约支持 2K/4K、PNG 或 JPEG 输出，每次请求生成 1 张图片。" };
+    return { source: sources.seedream, en: `${title} uses ByteDance's Seedream image stack through APIPod's asynchronous image API. This page covers ${mode.en}. ${contract.en}`, zh: `${title} 通过 APIPod 异步图片接口接入字节跳动 Seedream 图片能力。本页对应${mode.zh}。${contract.zh}` };
   }
   if (slug.startsWith("wan/")) {
     const video = /(?:t2v|i2v|r2v|videoedit)/.test(page.modelId || slug);

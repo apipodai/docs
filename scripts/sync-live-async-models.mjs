@@ -165,6 +165,22 @@ const descriptionOverrides = {
     en: "GPT Image 2 1K is a special-offer, low-price GPT Image 2 model dedicated to 1K resolution. It is ultra-fast and ultra-cheap but slightly less stable, making it ideal for quick previews and testing; it is not recommended for production use.",
     zh: "GPT Image 2 1K 是一个针对 1K 分辨率的特价 gpt-image-2 低价生图模型，超低价格、速度超快，但稳定性稍差，适用于快速预览测试，不建议用于生产环境。",
   },
+  "gpt-image-2.5-flare": {
+    en: "GPT Image 2.5 Flare is the speed-focused tier of OpenAI's GPT Image 2.5 image generation and editing family, exposed through APIPod's official-route public ID. It sharpens detail, lighting and texture over GPT Image 2 and supports the extra xhigh/max fidelity tiers, making it the default choice for high-volume generation and creator content.",
+    zh: "GPT Image 2.5 Flare 是 OpenAI GPT Image 2.5 系列中注重速度的档位，通过 APIPod 官方转发通道提供。相比 2.0 细节更锐利、光影更自然、纹理更丰富，并新增 xhigh / max 保真档，是高并发出图与创作者内容的默认选择。",
+  },
+  "gpt-image-2.5-flare-lite": {
+    en: "GPT Image 2.5 Flare Lite is APIPod's cost-oriented routing variant for GPT Image 2.5 Flare rather than a separate OpenAI model. It uses the shared generation and editing contract with lower-cost configured channels, suited to high-volume batch generation on a budget.",
+    zh: "GPT Image 2.5 Flare 轻量版是 APIPod 面向低成本通道提供的 GPT Image 2.5 Flare 路由版本，并非独立的 OpenAI 模型。沿用相同的生成与编辑参数契约，适合对成本敏感的高并发批量出图。",
+  },
+  "gpt-image-2.5-sunburst": {
+    en: "GPT Image 2.5 Sunburst is the precision tier of OpenAI's GPT Image 2.5 image generation and editing family, exposed through APIPod's official-route public ID. It builds on Flare with tighter editing accuracy and multi-round controllability, suited to production-ready campaign key visuals and polished product imagery.",
+    zh: "GPT Image 2.5 Sunburst 是 OpenAI GPT Image 2.5 系列中注重精度的档位，通过 APIPod 官方转发通道提供。在 Flare 之上强化编辑精度与多轮可控性——只改指定区域、多轮编辑不走样，适合营销主视觉与精修商品图。",
+  },
+  "gpt-image-2.5-sunburst-lite": {
+    en: "GPT Image 2.5 Sunburst Lite is APIPod's cost-oriented routing variant for GPT Image 2.5 Sunburst rather than a separate OpenAI model. It uses the shared generation and editing contract with lower-cost configured channels, suited to iterative creative work on a budget.",
+    zh: "GPT Image 2.5 Sunburst 轻量版是 APIPod 面向低成本通道提供的 GPT Image 2.5 Sunburst 路由版本，并非独立的 OpenAI 模型。沿用相同的生成与编辑参数契约，适合对成本敏感的反复打磨类创作。",
+  },
   "gemini-omni-t2v": {
     en: "Gemini Omni T2V is APIPod's text-to-video routing mode for the configured Gemini Omni channel. It uses text instructions to create video without requiring reference media.",
     zh: "Gemini Omni T2V 是 APIPod 为已配置 Gemini Omni 通道提供的文生视频路由模式，仅使用文本指令生成视频，不要求参考素材。",
@@ -241,6 +257,30 @@ function familyDescription(modelID, language) {
     "seedream-5.0-lite-edit": {
       en: "Seedream 5.0 Lite Edit is APIPod's efficiency-oriented Seedream 5 route for reference-guided image editing and subject-consistent transformations.",
       zh: "Seedream 5.0 Lite Edit 是 APIPod 在 Seedream 5 系列中开放的效率型图片编辑路由，用于参考图引导和保持主体一致性的图像修改。",
+    },
+    "seedream-5.0-pro": {
+      en: "Seedream 5.0 Pro is the flagship tier of ByteDance's Seedream 5 family, focused on prompt fidelity, legible text rendering, and photorealistic detail at 1K/2K resolution.",
+      zh: "Seedream 5.0 Pro 是字节跳动 Seedream 5 系列的旗舰档位，重点提升提示词遵循、文字渲染清晰度和写实细节，支持 1K/2K 分辨率。",
+    },
+    "seedream-5.0-pro-edit": {
+      en: "Seedream 5.0 Pro Edit is the reference-guided editing mode of Seedream 5.0 Pro, supporting multi-image composition and interactive edits driven by hand-drawn marks or coordinates in the prompt.",
+      zh: "Seedream 5.0 Pro Edit 是 Seedream 5.0 Pro 的参考图编辑模式，支持多图融合，以及基于手绘标记或提示词坐标的交互式编辑。",
+    },
+    "seedream-5.0-pro-layer": {
+      en: "Seedream 5.0 Pro Layer decomposes one design image into a base image and up to 16 transparent PNG layers, returning each layer's z_index, bounding box, name, and description for re-editing posters and covers.",
+      zh: "Seedream 5.0 Pro 图层拆分可将 1 张设计图拆成底图和最多 16 个透明 PNG 图层，并返回每个图层的 z_index、位置框、名称和描述，适合海报、封面的二次编辑。",
+    },
+    "seedream-5.0-flash": {
+      en: "Seedream 5.0 Flash is the faster tier of ByteDance's Seedream 5 family, matching Pro's prompt fidelity and text rendering at 1K/1.5K/2K resolution with lower latency.",
+      zh: "Seedream 5.0 Flash 是字节跳动 Seedream 5 系列的极速档位，提示词遵循与文字渲染能力与 Pro 一致，支持 1K/1.5K/2K 分辨率且时延更低。",
+    },
+    "seedream-5.0-flash-edit": {
+      en: "Seedream 5.0 Flash Edit is the faster reference-guided editing mode of the Seedream 5 family, supporting multi-image composition, interactive edits, and transparent-background editing.",
+      zh: "Seedream 5.0 Flash Edit 是 Seedream 5 系列中更快速的参考图编辑模式，支持多图融合、交互式编辑和透明背景编辑。",
+    },
+    "seedream-5.0-flash-layer": {
+      en: "Seedream 5.0 Flash Layer is the faster layer-decomposition mode: one design image in, a base image plus up to 16 transparent PNG layers out, each with z_index, bounding box, name, and description.",
+      zh: "Seedream 5.0 Flash 图层拆分是更快速的图层拆分模式：输入 1 张设计图，输出底图和最多 16 个透明 PNG 图层，每个图层附带 z_index、位置框、名称和描述。",
     },
   }[modelID];
   if (seedream) return seedream[language];

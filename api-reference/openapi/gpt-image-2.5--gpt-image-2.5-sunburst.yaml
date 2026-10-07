@@ -2,12 +2,13 @@ openapi: 3.1.0
 info:
   title: GPT Image 2.5 Sunburst API
   version: 1.0.0
-  description: GPT Image 2.5 Sunburst is the precision tier of OpenAI's GPT Image 2.5 image generation and
-    editing family. It builds on Flare with tighter editing accuracy and multi-round
-    controllability — edits change only the designated area without drifting — suited to
-    production-ready campaign key visuals and polished product imagery. In APIPod, the public
-    model ID is gpt-image-2.5-sunburst. It supports text-to-image and image generation and
-    editing, accepts text and image inputs, and returns results through asynchronous image tasks.
+  description: GPT Image 2.5 Sunburst is the precision tier of OpenAI's GPT Image 2.5 image
+    generation and editing family, exposed through APIPod's official-route public ID. It
+    builds on Flare with tighter editing accuracy and multi-round controllability, suited
+    to production-ready campaign key visuals and polished product imagery. In APIPod, the
+    public model ID is gpt-image-2.5-sunburst. It supports text-to-image and image
+    generation and editing, accepts text and image inputs, and returns results through
+    asynchronous image tasks.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -15,13 +16,13 @@ paths:
   /v1/images/generations:
     post:
       summary: Create Generation Task
-      description: GPT Image 2.5 Sunburst is the precision tier of OpenAI's GPT Image 2.5 image generation
-        and editing family. It builds on Flare with tighter editing accuracy and multi-round
-        controllability — edits change only the designated area without drifting — suited to
-        production-ready campaign key visuals and polished product imagery. In APIPod, the public
-        model ID is gpt-image-2.5-sunburst. It supports text-to-image and image generation and
-        editing, accepts text and image inputs, and returns results through asynchronous image
-        tasks.
+      description: GPT Image 2.5 Sunburst is the precision tier of OpenAI's GPT Image 2.5 image
+        generation and editing family, exposed through APIPod's official-route public ID.
+        It builds on Flare with tighter editing accuracy and multi-round controllability,
+        suited to production-ready campaign key visuals and polished product imagery. In
+        APIPod, the public model ID is gpt-image-2.5-sunburst. It supports text-to-image
+        and image generation and editing, accepts text and image inputs, and returns
+        results through asynchronous image tasks.
       operationId: create-gpt-image-2.5-gpt-image-2.5-sunburst
       tags:
         - GPT Image 2.5 Sunburst

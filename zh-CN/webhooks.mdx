@@ -47,6 +47,10 @@ APIPod 发送 `Content-Type: application/json` 和 `User-Agent: APIPod-Callback/
 
 `error_code` 是可选字段，不能根据它是否存在判断成功；请使用 `status`。
 
+## 图片元数据
+
+图层拆分模型（`seedream-5.0-pro-layer`、`seedream-5.0-flash-layer`）的完成回调还会包含 `images` 数组，与 `result` 顺序一致，每张图片附带 `z_index`、`bounding_box`、`name` 和 `description`。格式与[查询图片任务](/zh-CN/query-image-task)接口的 `images` 字段完全相同。其它模型不会包含 `images`。
+
 ## 投递行为
 
 - HTTP `200` 到 `299` 均视为回调已确认。

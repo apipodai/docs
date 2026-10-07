@@ -84,6 +84,27 @@ image = client.images.generate(
 print(image.data[0].b64_json[:32])
 ```
 
+### Layer decomposition output
+
+For layer-decomposition models (`seedream-5.0-pro-layer`, `seedream-5.0-flash-layer`), `data` contains the base image followed by up to 16 transparent PNG layers. Each item carries the layer metadata next to `url` / `b64_json`:
+
+```json
+{
+  "data": [
+    { "url": "https://cdn.example.com/base.png", "z_index": 0 },
+    {
+      "url": "https://cdn.example.com/layer_1.png",
+      "z_index": 1,
+      "bounding_box": { "absolute": [528, 1286, 1011, 1418], "normalized": [344, 837, 658, 923] },
+      "name": "Bottom caption text",
+      "description": "White caption text at the bottom, without background elements"
+    }
+  ]
+}
+```
+
+See [query image task](/query-image-task) for the field reference. Other models return the standard OpenAI `data[]` items only.
+
 ## Edit image
 
 `POST /openai/v1/images/edits`

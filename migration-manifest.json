@@ -1,7 +1,7 @@
 {
   "source": "https://docs.apipod.ai",
   "generatedAt": "2026-08-11T12:30:09.646Z",
-  "sitemapCount": 80,
+  "sitemapCount": 81,
   "sourcePaths": [
     "/2065583m0",
     "/gpt-image-2/gpt-image-2",
@@ -11,6 +11,7 @@
     "/gpt-image-2/gpt-image-2-edit",
     "/nano-banana/nano-banana-2",
     "/nano-banana/nano-banana-pro",
+    "/nano-banana-2.1/nano-banana-2.1",
     "/seedream/4-5-text-to-image",
     "/seedream/4-5-image-to-image",
     "/seedream/5-0-lite-text-to-image",
@@ -85,7 +86,7 @@
     "/16809456d0",
     "/16809458d0"
   ],
-  "publicPageCount": 103,
+  "publicPageCount": 104,
   "schemaOnlyCount": 36,
   "schemaPaths": [
     "/14024404d0",
@@ -225,10 +226,40 @@
         }
       },
       "introduction": {
-        "en": "GPT Image 2.5 Flare is the speed-focused tier of OpenAI's GPT Image 2.5 image generation and editing family. It cuts generation latency by up to 50% versus GPT Image 2 while sharpening detail, lighting and texture, making it the default choice for high-volume generation, creator content and rapid prototyping. In APIPod, the public model ID is gpt-image-2.5-flare. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
-        "zh": "GPT Image 2.5 Flare 是 OpenAI GPT Image 2.5 系列中注重速度的档位，相比 2.0 生成延迟最高降低 50%，细节更锐利、光影更自然、纹理更丰富，是高并发批量出图、创作者内容与快速原型的默认选择。在 APIPod 中，公开模型 ID 为 gpt-image-2.5-flare，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。"
+        "en": "GPT Image 2.5 Flare is the speed-focused tier of OpenAI's GPT Image 2.5 image generation and editing family, exposed through APIPod's official-route public ID. It sharpens detail, lighting and texture over GPT Image 2 and supports the extra xhigh/max fidelity tiers, making it the default choice for high-volume generation and creator content. In APIPod, the public model ID is gpt-image-2.5-flare. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "GPT Image 2.5 Flare 是 OpenAI GPT Image 2.5 系列中注重速度的档位，通过 APIPod 官方转发通道提供。相比 2.0 细节更锐利、光影更自然、纹理更丰富，并新增 xhigh / max 保真档，是高并发出图与创作者内容的默认选择。在 APIPod 中，公开模型 ID 为 gpt-image-2.5-flare，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。"
       },
       "source": "localhost:8080/public/schemas/gpt-image-2.5-flare"
+    },
+    {
+      "slug": "gpt-image-2.5/gpt-image-2.5-flare-lite",
+      "title": "GPT Image 2.5 Flare Lite",
+      "legacy": "/gpt-image-2.5/gpt-image-2.5-flare-lite",
+      "schema": true,
+      "modelId": "gpt-image-2.5-flare-lite",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "openai",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "GPT Image 2.5 Flare Lite",
+          "zh": "GPT Image 2.5 Flare 轻量版"
+        }
+      },
+      "introduction": {
+        "en": "GPT Image 2.5 Flare Lite is APIPod's cost-oriented routing variant for GPT Image 2.5 Flare rather than a separate OpenAI model. It uses the shared generation and editing contract with lower-cost configured channels, suited to high-volume batch generation on a budget. In APIPod, the public model ID is gpt-image-2.5-flare-lite. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "GPT Image 2.5 Flare 轻量版是 APIPod 面向低成本通道提供的 GPT Image 2.5 Flare 路由版本，并非独立的 OpenAI 模型。沿用相同的生成与编辑参数契约，适合对成本敏感的高并发批量出图。在 APIPod 中，公开模型 ID 为 gpt-image-2.5-flare-lite，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/gpt-image-2.5-flare-lite"
     },
     {
       "slug": "gpt-image-2.5/gpt-image-2.5-sunburst",
@@ -255,10 +286,40 @@
         }
       },
       "introduction": {
-        "en": "GPT Image 2.5 Sunburst is the precision tier of OpenAI's GPT Image 2.5 image generation and editing family. It builds on Flare with tighter editing accuracy and multi-round controllability — edits change only the designated area without drifting — suited to production-ready campaign key visuals and polished product imagery. In APIPod, the public model ID is gpt-image-2.5-sunburst. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
-        "zh": "GPT Image 2.5 Sunburst 是 OpenAI GPT Image 2.5 系列中注重精度的档位，在 Flare 之上强化编辑精度与多轮可控性——只改指定区域、多轮编辑不走样，适合反复打磨的营销主视觉与精修商品图。在 APIPod 中，公开模型 ID 为 gpt-image-2.5-sunburst，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。"
+        "en": "GPT Image 2.5 Sunburst is the precision tier of OpenAI's GPT Image 2.5 image generation and editing family, exposed through APIPod's official-route public ID. It builds on Flare with tighter editing accuracy and multi-round controllability, suited to production-ready campaign key visuals and polished product imagery. In APIPod, the public model ID is gpt-image-2.5-sunburst. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "GPT Image 2.5 Sunburst 是 OpenAI GPT Image 2.5 系列中注重精度的档位，通过 APIPod 官方转发通道提供。在 Flare 之上强化编辑精度与多轮可控性——只改指定区域、多轮编辑不走样，适合营销主视觉与精修商品图。在 APIPod 中，公开模型 ID 为 gpt-image-2.5-sunburst，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。"
       },
       "source": "localhost:8080/public/schemas/gpt-image-2.5-sunburst"
+    },
+    {
+      "slug": "gpt-image-2.5/gpt-image-2.5-sunburst-lite",
+      "title": "GPT Image 2.5 Sunburst Lite",
+      "legacy": "/gpt-image-2.5/gpt-image-2.5-sunburst-lite",
+      "schema": true,
+      "modelId": "gpt-image-2.5-sunburst-lite",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "openai",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "GPT Image 2.5 Sunburst Lite",
+          "zh": "GPT Image 2.5 Sunburst 轻量版"
+        }
+      },
+      "introduction": {
+        "en": "GPT Image 2.5 Sunburst Lite is APIPod's cost-oriented routing variant for GPT Image 2.5 Sunburst rather than a separate OpenAI model. It uses the shared generation and editing contract with lower-cost configured channels, suited to iterative creative work on a budget. In APIPod, the public model ID is gpt-image-2.5-sunburst-lite. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "GPT Image 2.5 Sunburst 轻量版是 APIPod 面向低成本通道提供的 GPT Image 2.5 Sunburst 路由版本，并非独立的 OpenAI 模型。沿用相同的生成与编辑参数契约，适合对成本敏感的反复打磨类创作。在 APIPod 中，公开模型 ID 为 gpt-image-2.5-sunburst-lite，支持文生图和图片生成与编辑；接受文本和图片输入，并通过异步图片任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/gpt-image-2.5-sunburst-lite"
     },
     {
       "slug": "gpt-image-2/gpt-image-2-lite",
@@ -448,6 +509,37 @@
       "source": "localhost:8080/public/schemas/nano-banana-pro"
     },
     {
+      "slug": "nano-banana-2.1/nano-banana-2.1",
+      "title": "Nano Banana 2.1",
+      "legacy": "/nano-banana-2.1/nano-banana-2.1",
+      "schema": true,
+      "modelId": "nano-banana-2.1",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Nano Banana 2.1",
+          "zh": "Nano Banana 2.1"
+        }
+      },
+      "introduction": {
+        "en": "Nano Banana 2.1 is Google's next-generation Nano Banana 2 image generation and editing model, built on Gemini 3.6 Flash, with improved realism, visual design, text rendering and character consistency across editing turns. In APIPod, the public model ID is nano-banana-2.1. It generates and edits images at 1K, 2K or 4K (the 512px tier is not supported), accepts text and up to 14 image inputs, and returns results through asynchronous image tasks.",
+        "zh": "Nano Banana 2.1 是 Google 基于 Gemini 3.6 Flash 打造的新一代 Nano Banana 2 图片生成与编辑模型，写实度、视觉设计、文字渲染与多轮编辑中的角色一致性全面提升。在 APIPod 中，公开模型 ID 为 nano-banana-2.1，支持 1K、2K、4K 分辨率（不支持 512px 档）；接受文本与最多 14 张参考图输入，并通过异步图片任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/nano-banana-2.1"
+    },
+    {
       "slug": "seedream/4-5-text-to-image",
       "title": "Seedream V4.5 Text to Image",
       "legacy": "/seedream/4-5-text-to-image",
@@ -564,6 +656,184 @@
         "zh": "Seedream 5.0 Lite Edit 是 APIPod 在 Seedream 5 系列中开放的效率型图片编辑路由，用于参考图引导和保持主体一致性的图像修改。在 APIPod 中，公开模型 ID 为 seedream-5.0-lite-edit，支持图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
       },
       "source": "localhost:8080/public/schemas/seedream-5.0-lite-edit"
+    },
+    {
+      "slug": "seedream/5-0-pro-text-to-image",
+      "title": "Seedream 5.0 Pro Text to Image",
+      "legacy": "/seedream/5-0-pro-text-to-image",
+      "schema": true,
+      "modelId": "seedream-5.0-pro",
+      "classifications": [
+        "text_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedream 5.0 Pro",
+          "zh": "Seedream 5.0 Pro"
+        }
+      },
+      "introduction": {
+        "en": "Seedream 5.0 Pro is the flagship tier of ByteDance's Seedream 5 family, focused on prompt fidelity, legible text rendering, and photorealistic detail. In APIPod, the public model ID is seedream-5.0-pro. It generates a single 1K or 2K image per request in PNG or JPEG, accepts text inputs, and returns results through asynchronous image tasks.",
+        "zh": "Seedream 5.0 Pro 是字节跳动 Seedream 5 系列的旗舰档位，重点提升提示词遵循、文字渲染清晰度和写实细节。在 APIPod 中，公开模型 ID 为 seedream-5.0-pro，每次请求生成 1 张 1K 或 2K 的 PNG / JPEG 图片；接受文本输入，并通过异步图片任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedream-5.0-pro"
+    },
+    {
+      "slug": "seedream/5-0-pro-image-to-image",
+      "title": "Seedream 5.0 Pro Image to Image",
+      "legacy": "/seedream/5-0-pro-image-to-image",
+      "schema": true,
+      "modelId": "seedream-5.0-pro-edit",
+      "classifications": [
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedream 5.0 Pro Edit",
+          "zh": "Seedream 5.0 Pro 图生图"
+        }
+      },
+      "introduction": {
+        "en": "Seedream 5.0 Pro Edit is the reference-guided editing mode of Seedream 5.0 Pro, supporting multi-image composition and interactive edits driven by hand-drawn marks or <bbox>/<point> coordinates in the prompt. In APIPod, the public model ID is seedream-5.0-pro-edit. It accepts text and 1-10 reference images, outputs a single 1K or 2K image, and returns results through asynchronous image tasks.",
+        "zh": "Seedream 5.0 Pro Edit 是 Seedream 5.0 Pro 的参考图编辑模式，支持多图融合，以及基于手绘标记或提示词中 <bbox>/<point> 坐标的交互式编辑。在 APIPod 中，公开模型 ID 为 seedream-5.0-pro-edit，接受文本与 1-10 张参考图输入，每次输出 1 张 1K 或 2K 图片，并通过异步图片任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedream-5.0-pro-edit"
+    },
+    {
+      "slug": "seedream/5-0-pro-layer",
+      "title": "Seedream 5.0 Pro Layer",
+      "legacy": "/seedream/5-0-pro-layer",
+      "schema": true,
+      "modelId": "seedream-5.0-pro-layer",
+      "classifications": [
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedream 5.0 Pro Layer",
+          "zh": "Seedream 5.0 Pro 图层拆分"
+        }
+      },
+      "introduction": {
+        "en": "Seedream 5.0 Pro Layer decomposes one design image into a base image and up to 16 transparent PNG layers. In APIPod, the public model ID is seedream-5.0-pro-layer. It accepts text and exactly one image input, returns each layer's z_index, bounding box, name, and description in the images array, and is billed once per request.",
+        "zh": "Seedream 5.0 Pro 图层拆分可将 1 张设计图拆成底图和最多 16 个透明 PNG 图层。在 APIPod 中，公开模型 ID 为 seedream-5.0-pro-layer，接受文本与恰好 1 张图片输入，在 images 数组中返回每个图层的 z_index、位置框、名称和描述，按次计费。"
+      },
+      "source": "localhost:8080/public/schemas/seedream-5.0-pro-layer"
+    },
+    {
+      "slug": "seedream/5-0-flash-text-to-image",
+      "title": "Seedream 5.0 Flash Text to Image",
+      "legacy": "/seedream/5-0-flash-text-to-image",
+      "schema": true,
+      "modelId": "seedream-5.0-flash",
+      "classifications": [
+        "text_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedream 5.0 Flash",
+          "zh": "Seedream 5.0 Flash"
+        }
+      },
+      "introduction": {
+        "en": "Seedream 5.0 Flash is the faster tier of ByteDance's Seedream 5 family with Pro-level prompt fidelity and text rendering. In APIPod, the public model ID is seedream-5.0-flash. It generates a single 1K, 1.5K or 2K image per request in PNG or JPEG, accepts text inputs, and returns results through asynchronous image tasks.",
+        "zh": "Seedream 5.0 Flash 是字节跳动 Seedream 5 系列的极速档位，提示词遵循与文字渲染达到 Pro 水准。在 APIPod 中，公开模型 ID 为 seedream-5.0-flash，每次请求生成 1 张 1K、1.5K 或 2K 的 PNG / JPEG 图片；接受文本输入，并通过异步图片任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedream-5.0-flash"
+    },
+    {
+      "slug": "seedream/5-0-flash-image-to-image",
+      "title": "Seedream 5.0 Flash Image to Image",
+      "legacy": "/seedream/5-0-flash-image-to-image",
+      "schema": true,
+      "modelId": "seedream-5.0-flash-edit",
+      "classifications": [
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedream 5.0 Flash Edit",
+          "zh": "Seedream 5.0 Flash 图生图"
+        }
+      },
+      "introduction": {
+        "en": "Seedream 5.0 Flash Edit is the faster reference-guided editing mode of the Seedream 5 family. In APIPod, the public model ID is seedream-5.0-flash-edit. It accepts text and 1-10 reference images, supports interactive edits and transparent-background editing of a single PNG input, and returns one image through asynchronous image tasks.",
+        "zh": "Seedream 5.0 Flash Edit 是 Seedream 5 系列中更快速的参考图编辑模式。在 APIPod 中，公开模型 ID 为 seedream-5.0-flash-edit，接受文本与 1-10 张参考图输入，支持交互式编辑和对单张透明 PNG 的透明背景编辑，并通过异步图片任务返回 1 张图片。"
+      },
+      "source": "localhost:8080/public/schemas/seedream-5.0-flash-edit"
+    },
+    {
+      "slug": "seedream/5-0-flash-layer",
+      "title": "Seedream 5.0 Flash Layer",
+      "legacy": "/seedream/5-0-flash-layer",
+      "schema": true,
+      "modelId": "seedream-5.0-flash-layer",
+      "classifications": [
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedream 5.0 Flash Layer",
+          "zh": "Seedream 5.0 Flash 图层拆分"
+        }
+      },
+      "introduction": {
+        "en": "Seedream 5.0 Flash Layer is the faster layer-decomposition mode of the Seedream 5 family. In APIPod, the public model ID is seedream-5.0-flash-layer. It accepts text and exactly one image input, outputs a base image plus up to 16 transparent PNG layers with z_index, bounding box, name, and description in the images array, and is billed once per request.",
+        "zh": "Seedream 5.0 Flash 图层拆分是 Seedream 5 系列中更快速的图层拆分模式。在 APIPod 中，公开模型 ID 为 seedream-5.0-flash-layer，接受文本与恰好 1 张图片输入，输出底图和最多 16 个透明 PNG 图层，并在 images 数组中附带 z_index、位置框、名称和描述，按次计费。"
+      },
+      "source": "localhost:8080/public/schemas/seedream-5.0-flash-layer"
     },
     {
       "slug": "wan/2-7-text-to-image",

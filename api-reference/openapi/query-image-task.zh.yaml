@@ -61,6 +61,44 @@ paths:
                         items:
                           type: string
                         description: 任务完成后返回的生成结果 URL 列表。
+                      images:
+                        type: array
+                        description: 带逐图元数据的结果图片，与 result 顺序一致。仅返回元数据的模型（如图层拆分 seedream-5.0-pro-layer / seedream-5.0-flash-layer）才会出现。
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              description: 与 result 中同一位置的 URL 相同。
+                            z_index:
+                              type: integer
+                              description: 图层叠放顺序，0 为底图。
+                            bounding_box:
+                              type: object
+                              description: 图层在底图上的位置。
+                              properties:
+                                absolute:
+                                  type: array
+                                  items:
+                                    type: integer
+                                  minItems: 4
+                                  maxItems: 4
+                                  description: 像素坐标 [x1, y1, x2, y2]。
+                                normalized:
+                                  type: array
+                                  items:
+                                    type: integer
+                                  minItems: 4
+                                  maxItems: 4
+                                  description: 0-1000 归一化坐标 [x1, y1, x2, y2]。
+                            name:
+                              type: string
+                              description: 模型给出的图层名称。
+                            description:
+                              type: string
+                              description: 图层内容描述。
+                          required:
+                            - url
                       completed_at:
                         type: integer
                         description: 任务完成时间，Unix 秒级时间戳。

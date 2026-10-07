@@ -70,7 +70,9 @@
                     "icon": "wand-sparkles",
                     "pages": [
                       "gpt-image-2.5/gpt-image-2.5-flare",
-                      "gpt-image-2.5/gpt-image-2.5-sunburst"
+                      "gpt-image-2.5/gpt-image-2.5-flare-lite",
+                      "gpt-image-2.5/gpt-image-2.5-sunburst",
+                      "gpt-image-2.5/gpt-image-2.5-sunburst-lite"
                     ]
                   },
                   {
@@ -80,6 +82,13 @@
                       "nano-banana/nano-banana-2",
                       "nano-banana/nano-banana-2-lite",
                       "nano-banana/nano-banana-pro"
+                    ]
+                  },
+                  {
+                    "group": "Nano Banana 2.1",
+                    "icon": "banana",
+                    "pages": [
+                      "nano-banana-2.1/nano-banana-2.1"
                     ]
                   },
                   {
@@ -442,7 +451,9 @@
                     "icon": "wand-sparkles",
                     "pages": [
                       "zh-CN/gpt-image-2.5/gpt-image-2.5-flare",
-                      "zh-CN/gpt-image-2.5/gpt-image-2.5-sunburst"
+                      "zh-CN/gpt-image-2.5/gpt-image-2.5-flare-lite",
+                      "zh-CN/gpt-image-2.5/gpt-image-2.5-sunburst",
+                      "zh-CN/gpt-image-2.5/gpt-image-2.5-sunburst-lite"
                     ]
                   },
                   {
@@ -452,6 +463,13 @@
                       "zh-CN/nano-banana/nano-banana-2",
                       "zh-CN/nano-banana/nano-banana-2-lite",
                       "zh-CN/nano-banana/nano-banana-pro"
+                    ]
+                  },
+                  {
+                    "group": "Nano Banana 2.1",
+                    "icon": "banana",
+                    "pages": [
+                      "zh-CN/nano-banana-2.1/nano-banana-2.1"
                     ]
                   },
                   {
@@ -791,9 +809,13 @@
     "openapi": [
       "api-reference/openapi/gpt-image-2--gpt-image-2.yaml",
       "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-flare.yaml",
+      "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-flare-lite.yaml",
       "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-flare.zh.yaml",
+      "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-flare-lite.zh.yaml",
       "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-sunburst.yaml",
+      "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-sunburst-lite.yaml",
       "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-sunburst.zh.yaml",
+      "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-sunburst-lite.zh.yaml",
       "api-reference/openapi/gpt-image-2--gpt-image-2.zh.yaml",
       "api-reference/openapi/gpt-image-2--gpt-image-2-lite.yaml",
       "api-reference/openapi/gpt-image-2--gpt-image-2-lite.zh.yaml",
@@ -807,6 +829,8 @@
       "api-reference/openapi/nano-banana--nano-banana-2-lite.zh.yaml",
       "api-reference/openapi/nano-banana--nano-banana-pro.yaml",
       "api-reference/openapi/nano-banana--nano-banana-pro.zh.yaml",
+      "api-reference/openapi/nano-banana-2.1--nano-banana-2.1.yaml",
+      "api-reference/openapi/nano-banana-2.1--nano-banana-2.1.zh.yaml",
       "api-reference/openapi/seedream--4-5-text-to-image.yaml",
       "api-reference/openapi/seedream--4-5-text-to-image.zh.yaml",
       "api-reference/openapi/seedream--4-5-image-to-image.yaml",

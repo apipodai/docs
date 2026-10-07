@@ -65,6 +65,10 @@ Completed callbacks include a `usage` object with the final amount charged for t
 
 `usage` appears only on `completed` callbacks. Failed tasks are refunded per the model's refund policy and carry no usage object.
 
+## Image metadata
+
+Completed callbacks for layer-decomposition models (`seedream-5.0-pro-layer`, `seedream-5.0-flash-layer`) also include an `images` array, in the same order as `result`, with `z_index`, `bounding_box`, `name` and `description` for each image. The format is identical to the `images` field of the [query image task](/query-image-task) endpoint. Other models never include `images`.
+
 ## Delivery behavior
 
 - Any HTTP status from `200` through `299` acknowledges the callback.
