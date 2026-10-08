@@ -741,8 +741,8 @@
         }
       },
       "introduction": {
-        "en": "Seedream 5.0 Pro Layer decomposes one design image into a base image and up to 16 transparent PNG layers. In APIPod, the public model ID is seedream-5.0-pro-layer. It accepts text and exactly one image input, returns each layer's z_index, bounding box, name, and description in the images array, and is billed once per request.",
-        "zh": "Seedream 5.0 Pro 图层拆分可将 1 张设计图拆成底图和最多 16 个透明 PNG 图层。在 APIPod 中，公开模型 ID 为 seedream-5.0-pro-layer，接受文本与恰好 1 张图片输入，在 images 数组中返回每个图层的 z_index、位置框、名称和描述，按次计费。"
+        "en": "Seedream 5.0 Pro Layer decomposes one design image into a base image and up to 16 transparent PNG layers. In APIPod, the public model ID is seedream-5.0-pro-layer. It accepts a prompt and one image URL in image_url, returns each layer as an object in result with its url, z_index, bounding box, name, and description, and is billed once per request.",
+        "zh": "Seedream 5.0 Pro 图层拆分可将 1 张设计图拆成底图和最多 16 个透明 PNG 图层。在 APIPod 中，公开模型 ID 为 seedream-5.0-pro-layer，接受提示词与 image_url 传入的 1 个图片地址，result 中每一项都是包含图层 url、z_index、位置框、名称和描述的对象，按次计费。"
       },
       "source": "localhost:8080/public/schemas/seedream-5.0-pro-layer"
     },
@@ -830,8 +830,8 @@
         }
       },
       "introduction": {
-        "en": "Seedream 5.0 Flash Layer is the faster layer-decomposition mode of the Seedream 5 family. In APIPod, the public model ID is seedream-5.0-flash-layer. It accepts text and exactly one image input, outputs a base image plus up to 16 transparent PNG layers with z_index, bounding box, name, and description in the images array, and is billed once per request.",
-        "zh": "Seedream 5.0 Flash 图层拆分是 Seedream 5 系列中更快速的图层拆分模式。在 APIPod 中，公开模型 ID 为 seedream-5.0-flash-layer，接受文本与恰好 1 张图片输入，输出底图和最多 16 个透明 PNG 图层，并在 images 数组中附带 z_index、位置框、名称和描述，按次计费。"
+        "en": "Seedream 5.0 Flash Layer is the faster layer-decomposition mode of the Seedream 5 family. In APIPod, the public model ID is seedream-5.0-flash-layer. It accepts a prompt and one image URL in image_url, outputs a base image plus up to 16 transparent PNG layers as objects in result with url, z_index, bounding box, name, and description, and is billed once per request.",
+        "zh": "Seedream 5.0 Flash 图层拆分是 Seedream 5 系列中更快速的图层拆分模式。在 APIPod 中，公开模型 ID 为 seedream-5.0-flash-layer，接受提示词与 image_url 传入的 1 个图片地址，输出底图和最多 16 个透明 PNG 图层，result 中每一项都是包含 url、z_index、位置框、名称和描述的对象，按次计费。"
       },
       "source": "localhost:8080/public/schemas/seedream-5.0-flash-layer"
     },

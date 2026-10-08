@@ -23,17 +23,13 @@
 
 ## 图片元数据（图层拆分）
 
-图层拆分模型（`seedream-5.0-pro-layer`、`seedream-5.0-flash-layer`）会返回一张底图和最多 16 个透明 PNG 图层。任务完成后，除 `result` 外还会返回 `images` 数组，携带每张图片的元数据。`images` 与 `result` 顺序一致，底图（`z_index: 0`）始终在第一位。
+图层拆分模型（`seedream-5.0-pro-layer`、`seedream-5.0-flash-layer`）会返回一张底图和最多 16 个透明 PNG 图层。对于这类模型，`result` 中的每一项不再是 URL 字符串，而是携带图片 URL 及其元数据的对象。底图（`z_index: 0`）始终在第一位。
 
 ```json
 {
   "task_id": "img_task_01JEXAMPLE",
   "status": "completed",
   "result": [
-    "https://cdn.example.com/base.png",
-    "https://cdn.example.com/layer_1.png"
-  ],
-  "images": [
     { "url": "https://cdn.example.com/base.png", "z_index": 0 },
     {
       "url": "https://cdn.example.com/layer_1.png",
@@ -52,13 +48,13 @@
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `images[].url` | string | 与 `result` 中同一位置的 URL 相同。 |
-| `images[].z_index` | integer | 图层叠放顺序。`0` 为底图，数值越大越靠上。 |
-| `images[].bounding_box.absolute` | integer[4] | 图层在底图上的像素坐标 `[x1, y1, x2, y2]`。 |
-| `images[].bounding_box.normalized` | integer[4] | 同一位置的 0–1000 归一化坐标。 |
-| `images[].name` | string | 模型给出的图层名称。 |
-| `images[].description` | string | 图层内容描述。 |
+| `result[].url` | string | 图片 URL。 |
+| `result[].z_index` | integer | 图层叠放顺序。`0` 为底图，数值越大越靠上。 |
+| `result[].bounding_box.absolute` | integer[4] | 图层在底图上的像素坐标 `[x1, y1, x2, y2]`。 |
+| `result[].bounding_box.normalized` | integer[4] | 同一位置的 0–1000 归一化坐标。 |
+| `result[].name` | string | 模型给出的图层名称。 |
+| `result[].description` | string | 图层内容描述。 |
 
-- `result` 始终是 URL 字符串数组，现有客户端无需任何改动。
-- 只有返回逐图元数据的模型才会出现 `images`，其它模型不会包含该字段。
+- 只有返回逐图元数据的模型，`result` 中才会是对象；其它模型仍返回 URL 字符串数组。
+- 读取 URL 时可用 `typeof item === "string" ? item : item.url` 同时兼容两种形状。
 - 元数据字段均为可选；上游未返回某个字段时会直接省略，而不是返回 `null`。

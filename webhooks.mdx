@@ -67,7 +67,7 @@ Completed callbacks include a `usage` object with the final amount charged for t
 
 ## Image metadata
 
-Completed callbacks for layer-decomposition models (`seedream-5.0-pro-layer`, `seedream-5.0-flash-layer`) also include an `images` array, in the same order as `result`, with `z_index`, `bounding_box`, `name` and `description` for each image. The format is identical to the `images` field of the [query image task](/query-image-task) endpoint. Other models never include `images`.
+For layer-decomposition models (`seedream-5.0-pro-layer`, `seedream-5.0-flash-layer`), each item in the completed callback's `result` is an object with `url`, `z_index`, `bounding_box`, `name` and `description` instead of a plain URL string. The format is identical to the `result` field of the [query image task](/query-image-task) endpoint. Other models keep sending `result` as an array of URL strings.
 
 ## Delivery behavior
 

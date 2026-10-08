@@ -23,16 +23,13 @@
         "type": "object",
         "title": "Seedream 5.0 Pro Layer",
         "properties": {
-          "image_urls": {
-            "type": "array",
-            "title": "Image Urls",
+          "image_url": {
+            "type": "string",
+            "title": "Image Url",
+            "description": "Publicly accessible URL of the image to decompose into a base image and up to 16 transparent PNG layers.",
             "x-apipod-ui": {
-              "component": "image-upload",
-              "maxCount": 1
-            },
-            "minItems": 1,
-            "maxItems": 1,
-            "description": "Exactly 1 image to decompose into a base image and up to 16 transparent PNG layers."
+              "component": "single-image"
+            }
           },
           "model": {
             "type": "string",
@@ -72,14 +69,13 @@
         "required": [
           "model",
           "prompt",
-          "image_urls"
+          "image_url"
         ],
         "x-apipod-order-properties": [
           "model",
           "prompt",
-          "image_urls",
-          "quality",
-          "aspect_ratio"
+          "image_url",
+          "quality"
         ]
       },
       "Output": {

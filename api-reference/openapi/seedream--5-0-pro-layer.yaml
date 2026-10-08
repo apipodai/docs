@@ -4,9 +4,9 @@ info:
   version: 1.0.0
   description: Seedream 5.0 Pro Layer decomposes one design image into a base
     image and up to 16 transparent PNG layers. In APIPod, the public model ID is
-    seedream-5.0-pro-layer. It accepts text and exactly one image input, returns
-    each layer's z_index, bounding box, name, and description in the images
-    array, and is billed once per request.
+    seedream-5.0-pro-layer. It accepts a prompt and one image URL in image_url,
+    returns each layer as an object in result with its url, z_index, bounding
+    box, name, and description, and is billed once per request.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -16,9 +16,10 @@ paths:
       summary: Create Generation Task
       description: Seedream 5.0 Pro Layer decomposes one design image into a base
         image and up to 16 transparent PNG layers. In APIPod, the public model
-        ID is seedream-5.0-pro-layer. It accepts text and exactly one image
-        input, returns each layer's z_index, bounding box, name, and description
-        in the images array, and is billed once per request.
+        ID is seedream-5.0-pro-layer. It accepts a prompt and one image URL in
+        image_url, returns each layer as an object in result with its url,
+        z_index, bounding box, name, and description, and is billed once per
+        request.
       operationId: create-seedream-5-0-pro-layer
       tags:
         - Seedream 5.0 Pro Layer
@@ -43,15 +44,11 @@ paths:
                   description: Describe the layers to extract; use <bbox>x1 y1 x2 y2</bbox>
                     (0-1000 normalized) to target text or subjects.
                   maxLength: 2000
-                image_urls:
-                  type: array
-                  title: Image Urls
-                  minItems: 1
-                  maxItems: 1
-                  description: Exactly 1 image to decompose into a base image and up to 16
-                    transparent PNG layers.
-                  items:
-                    type: string
+                image_url:
+                  type: string
+                  title: Image Url
+                  description: Publicly accessible URL of the image to decompose into a base image
+                    and up to 16 transparent PNG layers.
                 quality:
                   type: string
                   title: Quality
@@ -67,13 +64,12 @@ paths:
               required:
                 - model
                 - prompt
-                - image_urls
+                - image_url
             example:
               model: seedream-5.0-pro-layer
               prompt: A premium product photograph on a dark studio set, precise typography,
                 soft rim lighting, highly detailed.
-              image_urls:
-                - https://cdn.example.com/reference-1.jpg
+              image_url: https://cdn.example.com/reference.jpg
               quality: auto
       responses:
         "200":
@@ -116,9 +112,7 @@ paths:
               -d '{
               "model": "seedream-5.0-pro-layer",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
+              "image_url": "https://cdn.example.com/reference.jpg",
               "quality": "auto"
             }'
         - lang: Python
@@ -132,9 +126,7 @@ paths:
             payload = {
               "model": "seedream-5.0-pro-layer",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
+              "image_url": "https://cdn.example.com/reference.jpg",
               "quality": "auto"
             }
 
@@ -172,9 +164,7 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "seedream-5.0-pro-layer",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
+              "image_url": "https://cdn.example.com/reference.jpg",
               "quality": "auto"
             }`), &payload); err != nil {
                     panic(err)
@@ -214,9 +204,7 @@ paths:
                 let payload = json!({
               "model": "seedream-5.0-pro-layer",
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "image_urls": [
-                "https://cdn.example.com/reference-1.jpg"
-              ],
+              "image_url": "https://cdn.example.com/reference.jpg",
               "quality": "auto"
             });
                 let response = Client::new()
@@ -244,9 +232,7 @@ paths:
               {
                 "model": "seedream-5.0-pro-layer",
                 "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "image_urls": [
-                  "https://cdn.example.com/reference-1.jpg"
-                ],
+                "image_url": "https://cdn.example.com/reference.jpg",
                 "quality": "auto"
               }
               ),

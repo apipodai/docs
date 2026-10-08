@@ -49,7 +49,7 @@ APIPod 发送 `Content-Type: application/json` 和 `User-Agent: APIPod-Callback/
 
 ## 图片元数据
 
-图层拆分模型（`seedream-5.0-pro-layer`、`seedream-5.0-flash-layer`）的完成回调还会包含 `images` 数组，与 `result` 顺序一致，每张图片附带 `z_index`、`bounding_box`、`name` 和 `description`。格式与[查询图片任务](/zh-CN/query-image-task)接口的 `images` 字段完全相同。其它模型不会包含 `images`。
+图层拆分模型（`seedream-5.0-pro-layer`、`seedream-5.0-flash-layer`）完成回调的 `result` 中，每一项都是包含 `url`、`z_index`、`bounding_box`、`name` 和 `description` 的对象，而不是 URL 字符串。格式与[查询图片任务](/zh-CN/query-image-task)接口的 `result` 字段完全相同。其它模型的 `result` 仍是 URL 字符串数组。
 
 ## 投递行为
 
