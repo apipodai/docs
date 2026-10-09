@@ -214,6 +214,24 @@ const descriptionOverrides = {
     en: "Seedance 2.0 T2V VIP is APIPod's full-capability text-to-video route for Seedance 2.0, intended for prompt-driven generation with synchronized audio and the configured standard-quality channel.",
     zh: "Seedance 2.0 T2V VIP 是 APIPod 为 Seedance 2.0 提供的完整能力文生视频路由，面向提示词驱动、同步音频和已配置标准质量通道的生成任务。",
   },
+  // Seedance X 低价版：familyDescription 的家族推断不覆盖 X 档位（且不识别 2.5 前缀），
+  // 这里显式给出与公开契约一致的介绍。
+  "seedance-2.0-x-t2v": {
+    en: "Seedance 2.0 X Text to Video is APIPod's lowest-cost Seedance 2.0 route, billed at a flat price per request regardless of duration. It turns text prompts into 5-15 second 720p videos in 16:9, 9:16, 4:3, 3:4, 1:1 or 21:9. It is less stable than the official and deal editions, with longer queues and higher failure rates at peak times; seed, generate_audio and watermark are not supported.",
+    zh: "Seedance 2.0 X 低价版文生视频是 APIPod 中成本最低的 Seedance 2.0 路由，按次固定计费、与时长无关。根据文本提示词生成 5–15 秒、720P 的视频，画幅支持 16:9、9:16、4:3、3:4、1:1 和 21:9。稳定性低于官方版与特价版，高峰期排队更长、失败率更高；不支持 seed、generate_audio 与 watermark 参数。",
+  },
+  "seedance-2.0-x-r2v": {
+    en: "Seedance 2.0 X Reference to Video is APIPod's lowest-cost Seedance 2.0 multimodal route, billed at a flat price per request regardless of duration or reference length. It combines up to 9 reference images, 3 videos and 3 audios into a 5-15 second 720p video; audio must be paired with at least one image or video. First/last-frame image-to-video is not offered on this tier because the upstream has no dedicated frame fields.",
+    zh: "Seedance 2.0 X 低价版参考生视频是 APIPod 中成本最低的 Seedance 2.0 多模态路由，按次固定计费，与时长和参考素材长度无关。最多组合 9 张参考图、3 段视频与 3 段音频，生成 5–15 秒、720P 的视频；音频需搭配至少一张图片或一段视频。由于上游没有独立的首尾帧字段，该档位不提供首尾帧图生视频。",
+  },
+  "seedance-2.5-x-t2v": {
+    en: "Seedance 2.5 X Text to Video is the lowest-cost route in APIPod's Seedance 2.5 family, billed per second. It turns text prompts into 5-30 second 720p videos in 1:1, 2:3, 3:2, 3:4, 4:3, 9:16, 16:9 or 21:9. It is less stable than the discount and special-offer editions, with longer queues and higher failure rates at peak times; seed, generate_audio and watermark are not supported.",
+    zh: "Seedance 2.5 X 低价版文生视频是 APIPod Seedance 2.5 系列中成本最低的路由，按秒计费。根据文本提示词生成 5–30 秒、720P 的视频，画幅支持 1:1、2:3、3:2、3:4、4:3、9:16、16:9 和 21:9。稳定性低于折扣版与特价版，高峰期排队更长、失败率更高；不支持 seed、generate_audio 与 watermark 参数。",
+  },
+  "seedance-2.5-x-r2v": {
+    en: "Seedance 2.5 X Reference to Video is the lowest-cost multimodal route in APIPod's Seedance 2.5 family, billed per second. It combines up to 30 reference images, 10 videos and 10 audios into a 5-30 second 720p video in eight aspect ratios; audio must be paired with at least one image or video, and reference video duration is billed together with the output duration. First/last-frame image-to-video is not offered on this tier because the upstream has no dedicated frame fields.",
+    zh: "Seedance 2.5 X 低价版参考生视频是 APIPod Seedance 2.5 系列中成本最低的多模态路由，按秒计费。最多组合 30 张参考图、10 段视频与 10 段音频，生成 5–30 秒、720P 的视频，支持 8 种画幅；音频需搭配至少一张图片或一段视频，参考视频时长会与输出时长合并计费。由于上游没有独立的首尾帧字段，该档位不提供首尾帧图生视频。",
+  },
   "sora-2-vip": {
     en: "Sora 2 VIP is APIPod's official-provider routing ID for Sora 2. Its public contract supports 4-, 8-, or 12-second clips and an optional first-frame image.",
     zh: "Sora 2 VIP 是 APIPod 为 Sora 2 提供的官方供应商路由 ID，公开契约支持 4、8、12 秒视频以及可选首帧图片。",

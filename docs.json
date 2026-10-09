@@ -238,6 +238,49 @@
                               "seedance/2-0-mini-reference-to-video",
                               "seedance/2-0-mini-text-to-video"
                             ]
+                          },
+                          {
+                            "group": "Seedance 2.0 X",
+                            "pages": [
+                              "seedance/2-0-x-text-to-video",
+                              "seedance/2-0-x-reference-to-video"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "group": "Seedance 2.5",
+                        "pages": [
+                          {
+                            "group": "Seedance 2.5",
+                            "pages": [
+                              "seedance/2-5-text-to-video",
+                              "seedance/2-5-image-to-video",
+                              "seedance/2-5-reference-to-video"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 2.5 Lite",
+                            "pages": [
+                              "seedance/2-5-lite-text-to-video",
+                              "seedance/2-5-lite-image-to-video",
+                              "seedance/2-5-lite-reference-to-video"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 2.5 X",
+                            "pages": [
+                              "seedance/2-5-x-text-to-video",
+                              "seedance/2-5-x-reference-to-video"
+                            ]
+                          },
+                          {
+                            "group": "Draft / Edit / Extend",
+                            "pages": [
+                              "seedance/2-5-draft",
+                              "seedance/2-5-video-edit",
+                              "seedance/2-5-video-extend"
+                            ]
                           }
                         ]
                       }
@@ -566,6 +609,49 @@
                               "zh-CN/seedance/2-0-mini-image-to-video",
                               "zh-CN/seedance/2-0-mini-reference-to-video",
                               "zh-CN/seedance/2-0-mini-text-to-video"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 2.0 X 低价版",
+                            "pages": [
+                              "zh-CN/seedance/2-0-x-text-to-video",
+                              "zh-CN/seedance/2-0-x-reference-to-video"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "group": "Seedance 2.5",
+                        "pages": [
+                          {
+                            "group": "Seedance 2.5",
+                            "pages": [
+                              "zh-CN/seedance/2-5-text-to-video",
+                              "zh-CN/seedance/2-5-image-to-video",
+                              "zh-CN/seedance/2-5-reference-to-video"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 2.5 特价版",
+                            "pages": [
+                              "zh-CN/seedance/2-5-lite-text-to-video",
+                              "zh-CN/seedance/2-5-lite-image-to-video",
+                              "zh-CN/seedance/2-5-lite-reference-to-video"
+                            ]
+                          },
+                          {
+                            "group": "Seedance 2.5 X 低价版",
+                            "pages": [
+                              "zh-CN/seedance/2-5-x-text-to-video",
+                              "zh-CN/seedance/2-5-x-reference-to-video"
+                            ]
+                          },
+                          {
+                            "group": "样片 / 编辑 / 延长",
+                            "pages": [
+                              "zh-CN/seedance/2-5-draft",
+                              "zh-CN/seedance/2-5-video-edit",
+                              "zh-CN/seedance/2-5-video-extend"
                             ]
                           }
                         ]
@@ -928,7 +1014,15 @@
       "api-reference/openapi/seedance--2-5-spicy-video-edit.yaml",
       "api-reference/openapi/seedance--2-5-spicy-video-edit.zh.yaml",
       "api-reference/openapi/seedance--2-5-spicy-video-extend.yaml",
-      "api-reference/openapi/seedance--2-5-spicy-video-extend.zh.yaml"
+      "api-reference/openapi/seedance--2-5-spicy-video-extend.zh.yaml",
+      "api-reference/openapi/seedance--2-0-x-text-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-x-text-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-0-x-reference-to-video.yaml",
+      "api-reference/openapi/seedance--2-0-x-reference-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-5-x-text-to-video.yaml",
+      "api-reference/openapi/seedance--2-5-x-text-to-video.zh.yaml",
+      "api-reference/openapi/seedance--2-5-x-reference-to-video.yaml",
+      "api-reference/openapi/seedance--2-5-x-reference-to-video.zh.yaml"
     ],
     "playground": {
       "display": "interactive",
@@ -2260,6 +2354,46 @@
     {
       "source": "/zh/seedance/2-5-spicy-video-extend",
       "destination": "/zh-CN/seedance/2-5-spicy-video-extend",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-x-text-to-video",
+      "destination": "/seedance/2-0-x-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-x-text-to-video",
+      "destination": "/zh-CN/seedance/2-0-x-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-0-x-reference-to-video",
+      "destination": "/seedance/2-0-x-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-0-x-reference-to-video",
+      "destination": "/zh-CN/seedance/2-0-x-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-x-text-to-video",
+      "destination": "/seedance/2-5-x-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-x-text-to-video",
+      "destination": "/zh-CN/seedance/2-5-x-text-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/seedance/2-5-x-reference-to-video",
+      "destination": "/seedance/2-5-x-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/zh/seedance/2-5-x-reference-to-video",
+      "destination": "/zh-CN/seedance/2-5-x-reference-to-video",
       "permanent": true
     },
     {

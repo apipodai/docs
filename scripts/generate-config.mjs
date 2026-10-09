@@ -90,6 +90,20 @@ const apiGroups = [
               { en: "Seedance 2.0 Pro", zh: "Seedance 2.0 Pro", slugs: ["seedance/2-0-text-to-video", "seedance/2-0-image-to-video", "seedance/2-0-reference-to-video"] },
               { en: "Seedance 2.0 Fast", zh: "Seedance 2.0 Fast", slugs: ["seedance/2-0-fast-text-to-video", "seedance/2-0-fast-image-to-video", "seedance/2-0-fast-reference-to-video"] },
               { en: "Seedance 2.0 Mini", zh: "Seedance 2.0 Mini", slugs: ["seedance/2-0-mini-image-to-video", "seedance/2-0-mini-reference-to-video", "seedance/2-0-mini-text-to-video"] },
+              // X 低价版只开放 t2v / r2v：上游没有独立的首尾帧字段。
+              { en: "Seedance 2.0 X", zh: "Seedance 2.0 X 低价版", slugs: ["seedance/2-0-x-text-to-video", "seedance/2-0-x-reference-to-video"] },
+            ],
+          },
+          {
+            en: "Seedance 2.5",
+            zh: "Seedance 2.5",
+            // spicy 版不对中国大陆/港/澳地区开放，与 2.0 spicy 一致不进导航。
+            groups: [
+              { en: "Seedance 2.5", zh: "Seedance 2.5", slugs: ["seedance/2-5-text-to-video", "seedance/2-5-image-to-video", "seedance/2-5-reference-to-video"] },
+              { en: "Seedance 2.5 Lite", zh: "Seedance 2.5 特价版", slugs: ["seedance/2-5-lite-text-to-video", "seedance/2-5-lite-image-to-video", "seedance/2-5-lite-reference-to-video"] },
+              // X 低价版只开放 t2v / r2v：上游没有独立的首尾帧字段。
+              { en: "Seedance 2.5 X", zh: "Seedance 2.5 X 低价版", slugs: ["seedance/2-5-x-text-to-video", "seedance/2-5-x-reference-to-video"] },
+              { en: "Draft / Edit / Extend", zh: "样片 / 编辑 / 延长", slugs: ["seedance/2-5-draft", "seedance/2-5-video-edit", "seedance/2-5-video-extend"] },
             ],
           },
         ],
