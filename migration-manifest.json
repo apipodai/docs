@@ -86,7 +86,7 @@
     "/16809456d0",
     "/16809458d0"
   ],
-  "publicPageCount": 118,
+  "publicPageCount": 130,
   "schemaOnlyCount": 36,
   "schemaPaths": [
     "/14024404d0",
@@ -3671,6 +3671,390 @@
         "zh": "Seedance 2.5 X 低价版参考生视频是 APIPod Seedance 2.5 系列中成本最低的多模态路由，按秒计费。最多组合 30 张参考图、10 段视频与 10 段音频，生成 5–30 秒、720P 的视频，支持 8 种画幅；音频需搭配至少一张图片或一段视频，参考视频时长会与输出时长合并计费。由于上游没有独立的首尾帧字段，该档位不提供首尾帧图生视频。在 APIPod 中，公开模型 ID 为 seedance-2.5-x-r2v，支持图生视频；接受文本、图片、视频输入，并通过异步视频任务返回结果。当前 APIPod 模型目录将其标记为beta。"
       },
       "source": "localhost:8080/public/schemas/seedance-2.5-x-r2v"
+    },
+    {
+      "slug": "wan/wan3-0-spicy-t2v",
+      "title": "WAN 3.0 Spicy Text to Video",
+      "legacy": "/wan/wan3-0-spicy-t2v",
+      "schema": true,
+      "modelId": "wan3.0-spicy-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/wan3.0-spicy-t2v",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Spicy Text to Video",
+          "zh": "WAN 3.0 Spicy 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Spicy Text to Video is a dedicated task mode in Alibaba's Wan video family that creates video directly from text prompts without source media. In APIPod, the public model ID is wan3.0-spicy-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 Spicy 文生视频是阿里 Wan Video模型的独立任务模式，直接根据文本提示词生成视频，不要求源媒体。在 APIPod 中，公开模型 ID 为 wan3.0-spicy-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-spicy-i2v",
+      "title": "WAN 3.0 Spicy Image to Video",
+      "legacy": "/wan/wan3-0-spicy-i2v",
+      "schema": true,
+      "modelId": "wan3.0-spicy-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/wan3.0-spicy-i2v",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Spicy Image to Video",
+          "zh": "WAN 3.0 Spicy 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Spicy Image to Video is a dedicated task mode in Alibaba's Wan video family that animates a first-frame image and supports last-frame control where exposed. In APIPod, the public model ID is wan3.0-spicy-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 Spicy 图生视频是阿里 Wan Video模型的独立任务模式，将首帧图片生成视频，并在公开契约中支持尾帧控制。在 APIPod 中，公开模型 ID 为 wan3.0-spicy-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-spicy-r2v",
+      "title": "WAN 3.0 Spicy Reference to Video",
+      "legacy": "/wan/wan3-0-spicy-r2v",
+      "schema": true,
+      "modelId": "wan3.0-spicy-r2v",
+      "classifications": [
+        "image_to_video",
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/wan3.0-spicy-r2v",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "file"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Spicy Reference to Video",
+          "zh": "WAN 3.0 Spicy 参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Spicy Reference to Video is a dedicated task mode in Alibaba's Wan video family that uses image, video, audio, file, or web references to guide generation. In APIPod, the public model ID is wan3.0-spicy-r2v. It supports image-to-video and video-to-video, accepts text, image, audio, video and file inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 Spicy 参考生视频是阿里 Wan Video模型的独立任务模式，使用图片、视频、音频、文件或网页参考素材引导生成。在 APIPod 中，公开模型 ID 为 wan3.0-spicy-r2v，支持图生视频、视频到视频；接受文本、图片、音频、视频、文件输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-video-spicy",
+      "title": "WAN 3.0 Spicy Video",
+      "legacy": "/wan/wan3-0-video-spicy",
+      "schema": true,
+      "modelId": "wan3.0-video-spicy",
+      "classifications": [
+        "text_to_video",
+        "image_to_video",
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "file"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Spicy Video",
+          "zh": "WAN 3.0 Spicy Video"
+        }
+      },
+      "introduction": {
+        "en": "WAN 3.0 Spicy Video is the all-in-one model of Alibaba's Wan 3.0 Spicy family: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, audio, file, or web link selects reference generation. In APIPod, the public model ID is wan3.0-video-spicy. It accepts up to 10 reference images, 5 videos, 5 audios, 1 file, and 1 link, with duration -1 or 2-30 seconds at 480P/720P/1080P, and returns results through asynchronous video tasks.",
+        "zh": "WAN 3.0 Spicy Video 是阿里 Wan 3.0 Spicy 系列的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。只传提示词即文生视频，image_urls 传 1-2 张图即图生视频（首帧/首尾帧），role=reference_images、参考视频、参考音频、参考文件或网页链接即参考生视频。在 APIPod 中，公开模型 ID 为 wan3.0-video-spicy，参考素材上限为图 10 / 视频 5 / 音频 5 / 文件 1 / 链接 1，时长 -1 或 2-30 秒，分辨率 480P/720P/1080P，通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/wan3.0-video-spicy"
+    },
+    {
+      "slug": "wan/wan3-0-pro-spicy-t2v",
+      "title": "WAN 3.0 Pro Spicy Text to Video",
+      "legacy": "/wan/wan3-0-pro-spicy-t2v",
+      "schema": true,
+      "modelId": "wan3.0-pro-spicy-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/wan3.0-pro-spicy-t2v",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Pro Spicy Text to Video",
+          "zh": "WAN 3.0 Pro Spicy 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Pro Spicy Text to Video is a dedicated task mode in Alibaba's Wan video family that creates video directly from text prompts without source media. In APIPod, the public model ID is wan3.0-pro-spicy-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 Pro Spicy 文生视频是阿里 Wan Video模型的独立任务模式，直接根据文本提示词生成视频，不要求源媒体。在 APIPod 中，公开模型 ID 为 wan3.0-pro-spicy-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-pro-spicy-i2v",
+      "title": "WAN 3.0 Pro Spicy Image to Video",
+      "legacy": "/wan/wan3-0-pro-spicy-i2v",
+      "schema": true,
+      "modelId": "wan3.0-pro-spicy-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/wan3.0-pro-spicy-i2v",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Pro Spicy Image to Video",
+          "zh": "WAN 3.0 Pro Spicy 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Pro Spicy Image to Video is a dedicated task mode in Alibaba's Wan video family that animates a first-frame image and supports last-frame control where exposed. In APIPod, the public model ID is wan3.0-pro-spicy-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 Pro Spicy 图生视频是阿里 Wan Video模型的独立任务模式，将首帧图片生成视频，并在公开契约中支持尾帧控制。在 APIPod 中，公开模型 ID 为 wan3.0-pro-spicy-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-pro-spicy-r2v",
+      "title": "WAN 3.0 Pro Spicy Reference to Video",
+      "legacy": "/wan/wan3-0-pro-spicy-r2v",
+      "schema": true,
+      "modelId": "wan3.0-pro-spicy-r2v",
+      "classifications": [
+        "image_to_video",
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/wan3.0-pro-spicy-r2v",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "file"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Pro Spicy Reference to Video",
+          "zh": "WAN 3.0 Pro Spicy 参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Pro Spicy Reference to Video is a dedicated task mode in Alibaba's Wan video family that uses image, video, audio, file, or web references to guide generation. In APIPod, the public model ID is wan3.0-pro-spicy-r2v. It supports image-to-video and video-to-video, accepts text, image, audio, video and file inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 Pro Spicy 参考生视频是阿里 Wan Video模型的独立任务模式，使用图片、视频、音频、文件或网页参考素材引导生成。在 APIPod 中，公开模型 ID 为 wan3.0-pro-spicy-r2v，支持图生视频、视频到视频；接受文本、图片、音频、视频、文件输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-video-pro-spicy",
+      "title": "WAN 3.0 Pro Spicy Video",
+      "legacy": "/wan/wan3-0-video-pro-spicy",
+      "schema": true,
+      "modelId": "wan3.0-video-pro-spicy",
+      "classifications": [
+        "text_to_video",
+        "image_to_video",
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "file"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Pro Spicy Video",
+          "zh": "WAN 3.0 Pro Spicy Video"
+        }
+      },
+      "introduction": {
+        "en": "WAN 3.0 Pro Spicy Video is the all-in-one model of Alibaba's Wan 3.0 Pro Spicy family: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, audio, file, or web link selects reference generation. In APIPod, the public model ID is wan3.0-video-pro-spicy. It accepts up to 10 reference images, 5 videos, 5 audios, 1 file, and 1 link, with duration -1 or 2-30 seconds at 1080P/2K/4K, and returns results through asynchronous video tasks.",
+        "zh": "WAN 3.0 Pro Spicy Video 是阿里 Wan 3.0 Pro Spicy 系列的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。只传提示词即文生视频，image_urls 传 1-2 张图即图生视频（首帧/首尾帧），role=reference_images、参考视频、参考音频、参考文件或网页链接即参考生视频。在 APIPod 中，公开模型 ID 为 wan3.0-video-pro-spicy，参考素材上限为图 10 / 视频 5 / 音频 5 / 文件 1 / 链接 1，时长 -1 或 2-30 秒，分辨率 1080P/2K/4K，通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/wan3.0-video-pro-spicy"
+    },
+    {
+      "slug": "wan/wan3-0-prime-spicy-t2v",
+      "title": "WAN 3.0 Prime Spicy Text to Video",
+      "legacy": "/wan/wan3-0-prime-spicy-t2v",
+      "schema": true,
+      "modelId": "wan3.0-prime-spicy-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/wan3.0-prime-spicy-t2v",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Prime Spicy Text to Video",
+          "zh": "WAN 3.0 Prime Spicy 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Prime Spicy Text to Video is a dedicated task mode in Alibaba's Wan video family that creates video directly from text prompts without source media. In APIPod, the public model ID is wan3.0-prime-spicy-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 Prime Spicy 文生视频是阿里 Wan Video模型的独立任务模式，直接根据文本提示词生成视频，不要求源媒体。在 APIPod 中，公开模型 ID 为 wan3.0-prime-spicy-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-prime-spicy-i2v",
+      "title": "WAN 3.0 Prime Spicy Image to Video",
+      "legacy": "/wan/wan3-0-prime-spicy-i2v",
+      "schema": true,
+      "modelId": "wan3.0-prime-spicy-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/wan3.0-prime-spicy-i2v",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Prime Spicy Image to Video",
+          "zh": "WAN 3.0 Prime Spicy 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Prime Spicy Image to Video is a dedicated task mode in Alibaba's Wan video family that animates a first-frame image and supports last-frame control where exposed. In APIPod, the public model ID is wan3.0-prime-spicy-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 Prime Spicy 图生视频是阿里 Wan Video模型的独立任务模式，将首帧图片生成视频，并在公开契约中支持尾帧控制。在 APIPod 中，公开模型 ID 为 wan3.0-prime-spicy-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-prime-spicy-r2v",
+      "title": "WAN 3.0 Prime Spicy Reference to Video",
+      "legacy": "/wan/wan3-0-prime-spicy-r2v",
+      "schema": true,
+      "modelId": "wan3.0-prime-spicy-r2v",
+      "classifications": [
+        "image_to_video",
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/wan3.0-prime-spicy-r2v",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "file"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Prime Spicy Reference to Video",
+          "zh": "WAN 3.0 Prime Spicy 参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "Wan 3.0 Prime Spicy Reference to Video is a dedicated task mode in Alibaba's Wan video family that uses image, video, audio, file, or web references to guide generation. In APIPod, the public model ID is wan3.0-prime-spicy-r2v. It supports image-to-video and video-to-video, accepts text, image, audio, video and file inputs, and returns results through asynchronous video tasks.",
+        "zh": "Wan 3.0 Prime Spicy 参考生视频是阿里 Wan Video模型的独立任务模式，使用图片、视频、音频、文件或网页参考素材引导生成。在 APIPod 中，公开模型 ID 为 wan3.0-prime-spicy-r2v，支持图生视频、视频到视频；接受文本、图片、音频、视频、文件输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "wan/wan3-0-video-prime-spicy",
+      "title": "WAN 3.0 Prime Spicy Video",
+      "legacy": "/wan/wan3-0-video-prime-spicy",
+      "schema": true,
+      "modelId": "wan3.0-video-prime-spicy",
+      "classifications": [
+        "text_to_video",
+        "image_to_video",
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "file"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "WAN 3.0 Prime Spicy Video",
+          "zh": "WAN 3.0 Prime Spicy Video"
+        }
+      },
+      "introduction": {
+        "en": "WAN 3.0 Prime Spicy Video is the all-in-one model of Alibaba's Wan 3.0 Prime Spicy family: one public model ID covers every scenario. Prompt-only requests are text-to-video, 1-2 images in image_urls are image-to-video with first/last frame control, and the role field set to reference_images, any reference video, audio, file, or web link selects reference generation. In APIPod, the public model ID is wan3.0-video-prime-spicy. It accepts up to 10 reference images, 5 videos, 5 audios, 1 file, and 1 link, with duration -1 or 2-30 seconds at 480P/720P/1080P, and returns results through asynchronous video tasks.",
+        "zh": "WAN 3.0 Prime Spicy Video 是阿里 Wan 3.0 Prime Spicy 系列的 all-in-one 模型：一个公开模型 ID 覆盖全部场景。只传提示词即文生视频，image_urls 传 1-2 张图即图生视频（首帧/首尾帧），role=reference_images、参考视频、参考音频、参考文件或网页链接即参考生视频。在 APIPod 中，公开模型 ID 为 wan3.0-video-prime-spicy，参考素材上限为图 10 / 视频 5 / 音频 5 / 文件 1 / 链接 1，时长 -1 或 2-30 秒，分辨率 480P/720P/1080P，通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/wan3.0-video-prime-spicy"
     }
   ]
 }

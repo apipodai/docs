@@ -52,15 +52,6 @@
               "component": "slider"
             }
           },
-          "first_frame_image": {
-            "type": "string",
-            "title": "First Frame Image",
-            "default": "",
-            "x-apipod-ui": {
-              "component": "single-image",
-              "maxSize": 20971520
-            }
-          },
           "generate_audio": {
             "type": "boolean",
             "title": "Generate Audio",
@@ -69,13 +60,18 @@
               "component": "switch"
             }
           },
-          "last_frame_image": {
-            "type": "string",
-            "title": "Last Frame Image",
-            "default": "",
+          "image_urls": {
+            "type": "array",
+            "title": "Image Urls",
+            "description": "First frame image URL, plus an optional last frame image URL: pass 1 URL for first-frame image-to-video, or 2 URLs for first-and-last-frame image-to-video.",
+            "minItems": 1,
+            "maxItems": 2,
+            "items": {
+              "type": "string"
+            },
             "x-apipod-ui": {
-              "component": "single-image",
-              "maxSize": 47185920
+              "component": "double-image",
+              "maxSize": 20971520
             }
           },
           "model": {
@@ -125,8 +121,7 @@
         "x-apipod-order-properties": [
           "model",
           "prompt",
-          "first_frame_image",
-          "last_frame_image",
+          "image_urls",
           "resolution",
           "aspect_ratio",
           "duration",

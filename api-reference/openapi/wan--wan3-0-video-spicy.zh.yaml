@@ -1,0 +1,323 @@
+openapi: 3.1.0
+info:
+  title: WAN 3.0 Spicy Video API
+  version: 1.0.0
+  description: WAN 3.0 Spicy Video 是阿里 Wan 3.0 Spicy 系列的 all-in-one 模型：一个公开模型 ID
+    覆盖全部场景。只传提示词即文生视频，image_urls 传 1-2
+    张图即图生视频（首帧/首尾帧），role=reference_images、参考视频、参考音频、参考文件或网页链接即参考生视频。在 APIPod
+    中，公开模型 ID 为 wan3.0-video-spicy，参考素材上限为图 10 / 视频 5 / 音频 5 / 文件 1 / 链接 1，时长 -1 或
+    2-30 秒，分辨率 480P/720P/1080P，通过异步视频任务返回结果。
+servers:
+  - url: https://api.apipod.ai
+    description: 生产环境
+paths:
+  /v1/videos/generations:
+    post:
+      summary: 创建生成任务
+      description: WAN 3.0 Spicy Video 是阿里 Wan 3.0 Spicy 系列的 all-in-one 模型：一个公开模型 ID
+        覆盖全部场景。只传提示词即文生视频，image_urls 传 1-2
+        张图即图生视频（首帧/首尾帧），role=reference_images、参考视频、参考音频、参考文件或网页链接即参考生视频。在 APIPod
+        中，公开模型 ID 为 wan3.0-video-spicy，参考素材上限为图 10 / 视频 5 / 音频 5 / 文件 1 / 链接 1，时长 -1 或
+        2-30 秒，分辨率 480P/720P/1080P，通过异步视频任务返回结果。
+      operationId: create-wan-wan3-0-video-spicy
+      tags:
+        - WAN 3.0 Spicy Video
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: WAN 3.0 Spicy Video
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: APIPod 公开模型 ID。
+                  const: wan3.0-video-spicy
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: 生成或编辑指令。 最大字符串长度：20000。 最小字符串长度：0。
+                image_urls:
+                  type: array
+                  title: Image Urls
+                  description: 可公开访问的源图片或参考图 URL。 最多项目数：10。
+                  items:
+                    type: string
+                role:
+                  type: string
+                  title: Role
+                  description: "Explicit interpretation of image_urls. reference_images: all
+                    images are treated as reference images regardless of count.
+                    first_last_frame: images are treated as the first frame plus
+                    an optional last frame (max 2; cannot be combined with
+                    reference videos or audios). When omitted, the scenario is
+                    inferred from the materials."
+                  enum:
+                    - reference_images
+                    - first_last_frame
+                video_urls:
+                  type: array
+                  title: Reference Videos
+                  description: 可公开访问的参考视频 URL。 最多项目数：5。
+                  items:
+                    type: string
+                audio_urls:
+                  type: array
+                  title: Reference Audio
+                  description: 可公开访问的参考音频 URL。 最多项目数：5。
+                  items:
+                    type: string
+                file_url:
+                  type: string
+                  title: Reference File
+                  description: 可公开访问的参考文件 URL。
+                  default: ""
+                link_url:
+                  type: string
+                  title: Reference Link
+                  description: 公开网页 URL，仅支持无需登录即可访问的页面，不能与 file_url 同时提供。
+                  default: ""
+                duration:
+                  type: integer
+                  title: Duration
+                  description: 视频时长，单位为秒。 最小值：2。 最大值：30。
+                  enum:
+                    - -1
+                  default: 5
+                resolution:
+                  type: string
+                  title: Resolution
+                  enum:
+                    - 480P
+                    - 720P
+                    - 1080P
+                  default: 1080P
+                  description: 输出分辨率档位。
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  enum:
+                    - adaptive
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                  default: adaptive
+                  description: 输出宽高比。
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  default: true
+                  description: 为视频生成同步音频。
+                prompt_extend:
+                  type: boolean
+                  title: Prompt Extend
+                  description: "是否由上游改写（扩写）提示词后再生成。不传则使用上游默认值（true）；设为 false 可让生成贴近字面提示词。"
+              required:
+                - model
+            example:
+              model: wan3.0-video-spicy
+              prompt: A premium product photograph on a dark studio set, precise typography,
+                soft rim lighting, highly detailed.
+              duration: 5
+              resolution: 1080P
+              aspect_ratio: adaptive
+              generate_audio: true
+      responses:
+        "200":
+          description: 任务已受理
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                description: Standard response for task submission
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP 状态码。
+                  data:
+                    type: object
+                    title: Task Submit Data
+                    description: 响应数据。
+                    properties:
+                      task_id:
+                        type: string
+                        description: 用于查询任务状态的 APIPod 任务 ID。
+                  message:
+                    type: string
+                    description: 响应消息。
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "wan3.0-video-spicy",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "duration": 5,
+              "resolution": "1080P",
+              "aspect_ratio": "adaptive",
+              "generate_audio": true
+            }'
+        - lang: Python
+          label: Python
+          source: >-
+            import os
+
+            import requests
+
+
+            payload = {
+              "model": "wan3.0-video-spicy",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "duration": 5,
+              "resolution": "1080P",
+              "aspect_ratio": "adaptive",
+              "generate_audio": True
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+        - lang: Go
+          label: Go
+          source: >-
+            package main
+
+
+            import (
+                "bytes"
+                "encoding/json"
+                "fmt"
+                "net/http"
+                "os"
+            )
+
+
+            func main() {
+                payload := map[string]any{}
+                if err := json.Unmarshal([]byte(`{
+              "model": "wan3.0-video-spicy",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "duration": 5,
+              "resolution": "1080P",
+              "aspect_ratio": "adaptive",
+              "generate_audio": true
+            }`), &payload); err != nil {
+                    panic(err)
+                }
+                body, err := json.Marshal(payload)
+                if err != nil {
+                    panic(err)
+                }
+
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+                if err != nil {
+                    panic(err)
+                }
+                req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+                req.Header.Set("Content-Type", "application/json")
+
+                resp, err := http.DefaultClient.Do(req)
+                if err != nil {
+                    panic(err)
+                }
+                defer resp.Body.Close()
+                fmt.Println(resp.Status)
+            }
+        - lang: Rust
+          label: Rust
+          source: >-
+            use reqwest::Client;
+
+            use serde_json::json;
+
+            use std::env;
+
+
+            #[tokio::main]
+
+            async fn main() -> Result<(), Box<dyn std::error::Error>> {
+                let payload = json!({
+              "model": "wan3.0-video-spicy",
+              "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+              "duration": 5,
+              "resolution": "1080P",
+              "aspect_ratio": "adaptive",
+              "generate_audio": true
+            });
+                let response = Client::new()
+                    .post("https://api.apipod.ai/v1/videos/generations")
+                    .bearer_auth(env::var("APIPOD_API_KEY")?)
+                    .json(&payload)
+                    .send()
+                    .await?
+                    .error_for_status()?;
+
+                println!("{}", response.text().await?);
+                Ok(())
+            }
+        - lang: JavaScript
+          label: JavaScript
+          source: >-
+            const response = await
+            fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(
+              {
+                "model": "wan3.0-video-spicy",
+                "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
+                "duration": 5,
+                "resolution": "1080P",
+                "aspect_ratio": "adaptive",
+                "generate_audio": true
+              }
+              ),
+            });
+
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+
+            console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。

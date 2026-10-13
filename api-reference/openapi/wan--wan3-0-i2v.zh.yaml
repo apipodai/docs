@@ -35,14 +35,14 @@ paths:
                   type: string
                   title: Prompt
                   description: 生成或编辑指令。 最大字符串长度：20000。 最小字符串长度：0。
-                first_frame_image:
-                  type: string
-                  title: First Frame Image
-                  default: ""
-                last_frame_image:
-                  type: string
-                  title: Last Frame Image
-                  default: ""
+                image_urls:
+                  type: array
+                  title: Image Urls
+                  description: "首帧图片 URL，可选追加尾帧：传 1 个 URL 为首帧图生视频，传 2 个 URL 为首尾帧图生视频。"
+                  minItems: 1
+                  maxItems: 2
+                  items:
+                    type: string
                 resolution:
                   type: string
                   title: Resolution
@@ -87,6 +87,8 @@ paths:
               model: wan3.0-i2v
               prompt: Animate the subject with a slow camera push-in, natural motion, and soft
                 cinematic lighting.
+              image_urls:
+                - https://example.com/first-frame.png
               resolution: 1080P
               aspect_ratio: adaptive
               duration: 5
@@ -134,6 +136,7 @@ paths:
               -d '{
               "model": "wan3.0-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": ["https://example.com/first-frame.png"],
               "resolution": "1080P",
               "aspect_ratio": "adaptive",
               "duration": 5,
@@ -150,6 +153,7 @@ paths:
             payload = {
               "model": "wan3.0-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": ["https://example.com/first-frame.png"],
               "resolution": "1080P",
               "aspect_ratio": "adaptive",
               "duration": 5,
@@ -190,6 +194,7 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "wan3.0-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": ["https://example.com/first-frame.png"],
               "resolution": "1080P",
               "aspect_ratio": "adaptive",
               "duration": 5,
@@ -232,6 +237,7 @@ paths:
                 let payload = json!({
               "model": "wan3.0-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": ["https://example.com/first-frame.png"],
               "resolution": "1080P",
               "aspect_ratio": "adaptive",
               "duration": 5,
@@ -262,6 +268,7 @@ paths:
               {
                 "model": "wan3.0-i2v",
                 "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+                "image_urls": ["https://example.com/first-frame.png"],
                 "resolution": "1080P",
                 "aspect_ratio": "adaptive",
                 "duration": 5,

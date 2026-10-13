@@ -1022,7 +1022,31 @@
       "api-reference/openapi/seedance--2-5-x-text-to-video.yaml",
       "api-reference/openapi/seedance--2-5-x-text-to-video.zh.yaml",
       "api-reference/openapi/seedance--2-5-x-reference-to-video.yaml",
-      "api-reference/openapi/seedance--2-5-x-reference-to-video.zh.yaml"
+      "api-reference/openapi/seedance--2-5-x-reference-to-video.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-spicy-t2v.yaml",
+      "api-reference/openapi/wan--wan3-0-spicy-t2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-spicy-i2v.yaml",
+      "api-reference/openapi/wan--wan3-0-spicy-i2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-spicy-r2v.yaml",
+      "api-reference/openapi/wan--wan3-0-spicy-r2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-video-spicy.yaml",
+      "api-reference/openapi/wan--wan3-0-video-spicy.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-pro-spicy-t2v.yaml",
+      "api-reference/openapi/wan--wan3-0-pro-spicy-t2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-pro-spicy-i2v.yaml",
+      "api-reference/openapi/wan--wan3-0-pro-spicy-i2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-pro-spicy-r2v.yaml",
+      "api-reference/openapi/wan--wan3-0-pro-spicy-r2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-video-pro-spicy.yaml",
+      "api-reference/openapi/wan--wan3-0-video-pro-spicy.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-spicy-t2v.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-spicy-t2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-spicy-i2v.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-spicy-i2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-spicy-r2v.yaml",
+      "api-reference/openapi/wan--wan3-0-prime-spicy-r2v.zh.yaml",
+      "api-reference/openapi/wan--wan3-0-video-prime-spicy.yaml",
+      "api-reference/openapi/wan--wan3-0-video-prime-spicy.zh.yaml"
     ],
     "playground": {
       "display": "interactive",
@@ -2394,6 +2418,126 @@
     {
       "source": "/zh/seedance/2-5-x-reference-to-video",
       "destination": "/zh-CN/seedance/2-5-x-reference-to-video",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-spicy-t2v",
+      "destination": "/wan/wan3-0-spicy-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-spicy-t2v",
+      "destination": "/zh-CN/wan/wan3-0-spicy-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-spicy-i2v",
+      "destination": "/wan/wan3-0-spicy-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-spicy-i2v",
+      "destination": "/zh-CN/wan/wan3-0-spicy-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-spicy-r2v",
+      "destination": "/wan/wan3-0-spicy-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-spicy-r2v",
+      "destination": "/zh-CN/wan/wan3-0-spicy-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-video-spicy",
+      "destination": "/wan/wan3-0-video-spicy",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-video-spicy",
+      "destination": "/zh-CN/wan/wan3-0-video-spicy",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-pro-spicy-t2v",
+      "destination": "/wan/wan3-0-pro-spicy-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-pro-spicy-t2v",
+      "destination": "/zh-CN/wan/wan3-0-pro-spicy-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-pro-spicy-i2v",
+      "destination": "/wan/wan3-0-pro-spicy-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-pro-spicy-i2v",
+      "destination": "/zh-CN/wan/wan3-0-pro-spicy-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-pro-spicy-r2v",
+      "destination": "/wan/wan3-0-pro-spicy-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-pro-spicy-r2v",
+      "destination": "/zh-CN/wan/wan3-0-pro-spicy-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-video-pro-spicy",
+      "destination": "/wan/wan3-0-video-pro-spicy",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-video-pro-spicy",
+      "destination": "/zh-CN/wan/wan3-0-video-pro-spicy",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-prime-spicy-t2v",
+      "destination": "/wan/wan3-0-prime-spicy-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-prime-spicy-t2v",
+      "destination": "/zh-CN/wan/wan3-0-prime-spicy-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-prime-spicy-i2v",
+      "destination": "/wan/wan3-0-prime-spicy-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-prime-spicy-i2v",
+      "destination": "/zh-CN/wan/wan3-0-prime-spicy-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-prime-spicy-r2v",
+      "destination": "/wan/wan3-0-prime-spicy-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-prime-spicy-r2v",
+      "destination": "/zh-CN/wan/wan3-0-prime-spicy-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/wan/wan3-0-video-prime-spicy",
+      "destination": "/wan/wan3-0-video-prime-spicy",
+      "permanent": true
+    },
+    {
+      "source": "/zh/wan/wan3-0-video-prime-spicy",
+      "destination": "/zh-CN/wan/wan3-0-video-prime-spicy",
       "permanent": true
     },
     {

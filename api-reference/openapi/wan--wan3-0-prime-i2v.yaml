@@ -44,14 +44,14 @@ paths:
                   title: Prompt
                   minLength: 0
                   maxLength: 20000
-                first_frame_image:
-                  type: string
-                  title: First Frame Image
-                  default: ""
-                last_frame_image:
-                  type: string
-                  title: Last Frame Image
-                  default: ""
+                image_urls:
+                  type: array
+                  title: Image Urls
+                  description: "First frame image URL, plus an optional last frame image URL: pass 1 URL for first-frame image-to-video, or 2 URLs for first-and-last-frame image-to-video."
+                  minItems: 1
+                  maxItems: 2
+                  items:
+                    type: string
                 resolution:
                   type: string
                   title: Resolution
@@ -93,6 +93,8 @@ paths:
               model: wan3.0-prime-i2v
               prompt: Animate the subject with a slow camera push-in, natural motion, and soft
                 cinematic lighting.
+              image_urls:
+                - https://example.com/first-frame.png
               resolution: 1080P
               aspect_ratio: adaptive
               duration: 5
@@ -138,6 +140,7 @@ paths:
               -d '{
               "model": "wan3.0-prime-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": ["https://example.com/first-frame.png"],
               "resolution": "1080P",
               "aspect_ratio": "adaptive",
               "duration": 5,
@@ -154,6 +157,7 @@ paths:
             payload = {
               "model": "wan3.0-prime-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": ["https://example.com/first-frame.png"],
               "resolution": "1080P",
               "aspect_ratio": "adaptive",
               "duration": 5,
@@ -194,6 +198,7 @@ paths:
                 if err := json.Unmarshal([]byte(`{
               "model": "wan3.0-prime-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": ["https://example.com/first-frame.png"],
               "resolution": "1080P",
               "aspect_ratio": "adaptive",
               "duration": 5,
@@ -236,6 +241,7 @@ paths:
                 let payload = json!({
               "model": "wan3.0-prime-i2v",
               "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+              "image_urls": ["https://example.com/first-frame.png"],
               "resolution": "1080P",
               "aspect_ratio": "adaptive",
               "duration": 5,
@@ -266,6 +272,7 @@ paths:
               {
                 "model": "wan3.0-prime-i2v",
                 "prompt": "Animate the subject with a slow camera push-in, natural motion, and soft cinematic lighting.",
+                "image_urls": ["https://example.com/first-frame.png"],
                 "resolution": "1080P",
                 "aspect_ratio": "adaptive",
                 "duration": 5,
