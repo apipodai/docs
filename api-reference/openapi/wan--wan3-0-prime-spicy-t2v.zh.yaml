@@ -60,9 +60,9 @@ paths:
                   type: integer
                   title: Duration
                   description: 视频时长，单位为秒。 最小值：2。 最大值：30。
-                  enum:
-                    - -1
                   default: 5
+                  minimum: 2
+                  maximum: 30
                 generate_audio:
                   type: boolean
                   title: Generate Audio

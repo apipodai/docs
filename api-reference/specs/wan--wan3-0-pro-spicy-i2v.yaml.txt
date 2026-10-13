@@ -42,9 +42,6 @@
           "duration": {
             "type": "integer",
             "title": "Duration",
-            "enum": [
-              "-1"
-            ],
             "default": 5,
             "minimum": 2,
             "maximum": 30,

@@ -69,10 +69,10 @@ paths:
                 duration:
                   type: integer
                   title: Duration
-                  enum:
-                    - -1
                   default: 5
-                  description: 视频时长，单位为秒。 最小值：2。 最大值：51。
+                  minimum: 2
+                  maximum: 30
+                  description: 视频时长，单位为秒。 最小值：2。 最大值：30。
                 resolution:
                   type: string
                   title: Resolution

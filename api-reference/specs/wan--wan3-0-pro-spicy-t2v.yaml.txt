@@ -44,9 +44,6 @@
             "type": "integer",
             "title": "Duration",
             "description": "The duration of the generated video, in seconds.",
-            "enum": [
-              "-1"
-            ],
             "default": 5,
             "minimum": 2,
             "maximum": 30,

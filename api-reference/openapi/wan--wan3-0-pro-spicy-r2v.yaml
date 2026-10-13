@@ -81,11 +81,9 @@ paths:
                 duration:
                   type: integer
                   title: Duration
-                  enum:
-                    - -1
                   default: 5
                   minimum: 2
-                  maximum: 51
+                  maximum: 30
                 resolution:
                   type: string
                   title: Resolution

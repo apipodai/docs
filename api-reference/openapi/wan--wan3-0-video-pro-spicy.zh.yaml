@@ -5,7 +5,7 @@ info:
   description: WAN 3.0 Pro Spicy Video 是阿里 Wan 3.0 Pro Spicy 系列的 all-in-one 模型：一个公开模型 ID
     覆盖全部场景。只传提示词即文生视频，image_urls 传 1-2
     张图即图生视频（首帧/首尾帧），role=reference_images、参考视频、参考音频、参考文件或网页链接即参考生视频。在 APIPod
-    中，公开模型 ID 为 wan3.0-video-pro-spicy，参考素材上限为图 10 / 视频 5 / 音频 5 / 文件 1 / 链接 1，时长 -1 或
+    中，公开模型 ID 为 wan3.0-video-pro-spicy，参考素材上限为图 10 / 视频 5 / 音频 5 / 文件 1 / 链接 1，时长
     2-30 秒，分辨率 1080P/2K/4K，通过异步视频任务返回结果。
 servers:
   - url: https://api.apipod.ai
@@ -17,7 +17,7 @@ paths:
       description: WAN 3.0 Pro Spicy Video 是阿里 Wan 3.0 Pro Spicy 系列的 all-in-one 模型：一个公开模型 ID
         覆盖全部场景。只传提示词即文生视频，image_urls 传 1-2
         张图即图生视频（首帧/首尾帧），role=reference_images、参考视频、参考音频、参考文件或网页链接即参考生视频。在 APIPod
-        中，公开模型 ID 为 wan3.0-video-pro-spicy，参考素材上限为图 10 / 视频 5 / 音频 5 / 文件 1 / 链接 1，时长 -1 或
+        中，公开模型 ID 为 wan3.0-video-pro-spicy，参考素材上限为图 10 / 视频 5 / 音频 5 / 文件 1 / 链接 1，时长
         2-30 秒，分辨率 1080P/2K/4K，通过异步视频任务返回结果。
       operationId: create-wan-wan3-0-video-pro-spicy
       tags:
@@ -85,9 +85,9 @@ paths:
                   type: integer
                   title: Duration
                   description: 视频时长，单位为秒。 最小值：2。 最大值：30。
-                  enum:
-                    - -1
                   default: 5
+                  minimum: 2
+                  maximum: 30
                 resolution:
                   type: string
                   title: Resolution

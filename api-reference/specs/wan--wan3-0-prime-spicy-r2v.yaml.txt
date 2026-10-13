@@ -52,12 +52,9 @@
           "duration": {
             "type": "integer",
             "title": "Duration",
-            "enum": [
-              "-1"
-            ],
             "default": 5,
             "minimum": 2,
-            "maximum": 51,
+            "maximum": 30,
             "x-apipod-ui": {
               "component": "slider"
             }
