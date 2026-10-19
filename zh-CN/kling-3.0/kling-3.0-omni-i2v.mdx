@@ -1,0 +1,20 @@
+---
+title: "Kling 3.0 Omni 图生视频"
+description: "Kling 3.0 Omni I2V 是 APIPod 面向 Kling 3.0 Omni 提供的首尾帧图生视频模式，最高支持 4K 输出，要求提供首帧，可选提供尾帧。"
+openapi: "api-reference/openapi/kling-3.0--kling-3.0-omni-i2v.zh.yaml POST /v1/videos/generations"
+---
+
+## 使用说明
+
+- **首尾帧**：`image_urls[0]` 为首帧，可选的 `image_urls[1]` 为尾帧。输出宽高比跟随首帧。
+- **引用输入**：图片按顺序编号为 `image_1`..`image_N`，视频为 `video_1`。在 prompt 中用 `@image_1` / `@video_1` 指向具体输入。
+- **多镜头**：将 `multi_shot` 设为 `true` 且不传 `multi_prompt` 时由模型自动分镜；也可在 `multi_prompt` 中描述最多 6 个镜头（`{prompt, duration}`，每个最多 512 字），各镜头时长之和必须等于 `duration`。
+- **不支持**：`negative_prompt`（请把排除项写进 prompt）、`audio_urls`、`video_url`（请使用 `video_urls`）。
+
+## 计费
+
+按输出视频时长逐秒计费。每秒费率分档：720p 基础、720p 增强、1080p 基础、1080p 增强、4K。开启原生音频或带任何视频输入时按增强档计费。具体价格以 [模型页](https://www.apipod.ai/models) 展示为准。
+
+## 任务流程
+
+创建请求返回 `data.task_id`。使用[查询视频任务](/zh-CN/query-video-task)轮询，直到 `status` 变为 `completed`（结果位于 `data.result`）或 `failed`；也可以传入 `callback_url`，在任务进入终态时接收通知。

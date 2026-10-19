@@ -1,0 +1,364 @@
+openapi: 3.1.0
+info:
+  title: Kling 3.0 Text to Video API
+  version: 1.0.0
+  description: Kling 3.0 T2V 是 APIPod 面向快手可灵 Kling 3.0 提供的文生视频模式，支持多镜头叙事、可复用主体元素和可选原生音频。在 APIPod
+    中，公开模型 ID 为 kling-3.0-t2v。它接受文本提示词（以及可选的元素参考图），并通过异步视频任务返回结果。
+servers:
+  - url: https://api.apipod.ai
+    description: 生产环境
+paths:
+  /v1/videos/generations:
+    post:
+      summary: 创建生成任务
+      description: Kling 3.0 T2V 是 APIPod 面向快手可灵 Kling 3.0 提供的文生视频模式，支持多镜头叙事、可复用主体元素和可选原生音频。在 APIPod
+        中，公开模型 ID 为 kling-3.0-t2v。它接受文本提示词（以及可选的元素参考图），并通过异步视频任务返回结果。
+      operationId: create-kling-3.0-kling-3.0-t2v
+      tags:
+        - Kling 3.0 Text to Video
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Kling 3.0 Text to Video
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: APIPod 公开模型 ID。
+                  const: kling-3.0-t2v
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: 文本提示词，最多 2500 字。未提供 `multi_prompt` 时必填。可用 `@name` 引用 `kling_elements` 中的元素。
+                  maxLength: 2500
+                duration:
+                  type: integer
+                  title: Duration
+                  description: 输出时长（秒），3-15，默认 5；多镜头模式下省略时取各镜头时长之和。
+                  minimum: 3
+                  maximum: 15
+                  default: 5
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: 输出分辨率（最高 4K），默认 720p。每秒费率取决于分辨率；720p / 1080p 还区分是否开启原生音频。
+                  enum:
+                    - 720p
+                    - 1080p
+                    - 4k
+                  default: 720p
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  description: 输出宽高比，默认 16:9。
+                  enum:
+                    - 16:9
+                    - 9:16
+                    - 1:1
+                  default: 16:9
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  description: 是否生成原生音频（别名 `audio`）。单镜头默认 false，多镜头默认 true。
+                multi_shot:
+                  type: boolean
+                  title: Multi Shot
+                  description: 开启多镜头生成（兼容 `multi_shots`）。配合 `multi_prompt` 定义每个镜头。
+                multi_prompt:
+                  type: array
+                  title: Multi Prompt
+                  description: 多镜头分镜列表，最多 5 个镜头。每个镜头为 `{prompt, duration}`，prompt 最多 500 字，时长 1-12 秒；总时长不得超过
+                    `duration`。
+                  maxItems: 5
+                  items:
+                    type: object
+                    properties:
+                      prompt:
+                        type: string
+                        description: 镜头描述，最多 500 字。
+                        maxLength: 500
+                      duration:
+                        type: integer
+                        description: 镜头时长（秒），1-12。
+                        minimum: 1
+                        maximum: 12
+                    required:
+                      - prompt
+                      - duration
+                kling_elements:
+                  type: array
+                  title: Kling Elements
+                  description: 可复用的主体元素（最多 3 个）。每个元素包含 `name`、`description` 以及 `element_input_urls` 中的 2-4 张参考图。在
+                    prompt 中以 `@name` 引用元素，每个引用按 37 字计入 prompt 长度。
+                  maxItems: 3
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: 元素名称，在 prompt 中以 `@name` 引用。
+                      description:
+                        type: string
+                        description: 元素的简短描述。
+                      element_input_urls:
+                        type: array
+                        title: 角色素材
+                        description: 主体的 2-4 张可公开访问图片 URL，或视频角色素材的恰好 1 个视频 URL；图片与视频不能混用。
+                        minItems: 1
+                        maxItems: 4
+                        items:
+                          type: string
+                      element_input_audio_urls:
+                        type: array
+                        title: 声音参考
+                        description: 可选音频 URL，用于引导元素的声音、语气或音效；时长需为 5-30 秒。
+                        maxItems: 1
+                        items:
+                          type: string
+                      start_time:
+                        type: integer
+                        title: 截取起点
+                        description: 视频角色素材的截取起点（毫秒），仅视频素材生效，默认 0。
+                        minimum: 0
+                      end_time:
+                        type: integer
+                        title: 截取终点
+                        description: 视频角色素材的截取终点（毫秒），仅视频素材生效；须大于 start_time，且差值在 3000-8000 毫秒之间。
+                        minimum: 3000
+                    required:
+                      - name
+                      - description
+                      - element_input_urls
+                callback_url:
+                  type: string
+                  title: Callback URL
+                  description: 接收任务终态通知的 HTTPS 地址。
+                  default: ""
+              required:
+                - model
+            examples:
+              basic:
+                summary: 单镜头
+                value:
+                  model: kling-3.0-t2v
+                  prompt: A red fox runs through a snowy birch forest at sunrise, tracking shot, cinematic lighting.
+                  duration: 5
+                  resolution: 720p
+                  aspect_ratio: 16:9
+                  generate_audio: false
+              multi_shot:
+                summary: 多镜头（multi_prompt）
+                value:
+                  model: kling-3.0-t2v
+                  multi_shot: true
+                  multi_prompt:
+                    - prompt: "Wide shot: a lighthouse on a rocky cliff at dawn, waves crashing below."
+                      duration: 2
+                    - prompt: "Close-up: the lighthouse keeper opens the door and looks at the sea."
+                      duration: 3
+                  duration: 5
+                  resolution: 1080p
+                  aspect_ratio: 16:9
+              elements:
+                summary: 主体元素（kling_elements）
+                value:
+                  model: kling-3.0-t2v
+                  prompt: "@hero walks through a neon-lit night market and stops to look at the camera."
+                  kling_elements:
+                    - name: hero
+                      description: A young woman in a yellow raincoat
+                      element_input_urls:
+                        - https://cdn.example.com/kling-ref-1.jpg
+                        - https://cdn.example.com/kling-ref-2.jpg
+                  duration: 5
+                  resolution: 720p
+                  aspect_ratio: 9:16
+      responses:
+        "200":
+          description: 任务已受理
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                description: Standard response for task submission
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP 状态码。
+                  data:
+                    type: object
+                    title: Task Submit Data
+                    description: 响应数据。
+                    properties:
+                      task_id:
+                        type: string
+                        description: 用于查询任务状态的 APIPod 任务 ID。
+                  message:
+                    type: string
+                    description: 响应消息。
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "kling-3.0-t2v",
+              "prompt": "A red fox runs through a snowy birch forest at sunrise, tracking shot, cinematic lighting.",
+              "duration": 5,
+              "resolution": "720p",
+              "aspect_ratio": "16:9",
+              "generate_audio": false
+            }'
+        - lang: Python
+          label: Python
+          source: >-
+            import os
+
+            import requests
+
+
+            payload = {
+              "model": "kling-3.0-t2v",
+              "prompt": "A red fox runs through a snowy birch forest at sunrise, tracking shot, cinematic lighting.",
+              "duration": 5,
+              "resolution": "720p",
+              "aspect_ratio": "16:9",
+              "generate_audio": False
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+        - lang: Go
+          label: Go
+          source: >-
+            package main
+
+
+            import (
+                "bytes"
+                "fmt"
+                "io"
+                "net/http"
+                "os"
+            )
+
+
+            func main() {
+                body := []byte(`{
+              "model": "kling-3.0-t2v",
+              "prompt": "A red fox runs through a snowy birch forest at sunrise, tracking shot, cinematic lighting.",
+              "duration": 5,
+              "resolution": "720p",
+              "aspect_ratio": "16:9",
+              "generate_audio": false
+            }`)
+
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+                if err != nil {
+                    panic(err)
+                }
+                req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+                req.Header.Set("Content-Type", "application/json")
+
+                resp, err := http.DefaultClient.Do(req)
+                if err != nil {
+                    panic(err)
+                }
+                defer resp.Body.Close()
+                out, _ := io.ReadAll(resp.Body)
+                fmt.Println(resp.Status, string(out))
+            }
+        - lang: Rust
+          label: Rust
+          source: >-
+            use reqwest::Client;
+
+            use serde_json::json;
+
+            use std::env;
+
+
+            #[tokio::main]
+
+            async fn main() -> Result<(), Box<dyn std::error::Error>> {
+                let payload = json!({
+                  "model": "kling-3.0-t2v",
+                  "prompt": "A red fox runs through a snowy birch forest at sunrise, tracking shot, cinematic lighting.",
+                  "duration": 5,
+                  "resolution": "720p",
+                  "aspect_ratio": "16:9",
+                  "generate_audio": false
+                });
+                let response = Client::new()
+                    .post("https://api.apipod.ai/v1/videos/generations")
+                    .bearer_auth(env::var("APIPOD_API_KEY")?)
+                    .json(&payload)
+                    .send()
+                    .await?
+                    .error_for_status()?;
+
+                println!("{}", response.text().await?);
+                Ok(())
+            }
+        - lang: JavaScript
+          label: JavaScript
+          source: >-
+            const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                "model": "kling-3.0-t2v",
+                "prompt": "A red fox runs through a snowy birch forest at sunrise, tracking shot, cinematic lighting.",
+                "duration": 5,
+                "resolution": "720p",
+                "aspect_ratio": "16:9",
+                "generate_audio": false
+              }),
+            });
+
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+
+            console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 在 Authorization 请求头中以 Bearer Token 形式传入 APIPod API Key。

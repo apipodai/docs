@@ -1,8 +1,16 @@
 {
   "source": "https://docs.apipod.ai",
   "generatedAt": "2026-08-11T12:30:09.646Z",
-  "sitemapCount": 81,
+  "sitemapCount": 90,
   "sourcePaths": [
+    "/kling-3.0/kling-3.0-t2v",
+    "/kling-3.0/kling-3.0-i2v",
+    "/kling-3.0/kling-3.0-turbo-t2v",
+    "/kling-3.0/kling-3.0-turbo-i2v",
+    "/kling-3.0/kling-3.0-omni-t2v",
+    "/kling-3.0/kling-3.0-omni-i2v",
+    "/kling-3.0/kling-3.0-omni-r2v",
+    "/kling-3.0/kling-3.0-omni-edit",
     "/2065583m0",
     "/gpt-image-2/gpt-image-2",
     "/gpt-image-2/gpt-image-2-lite",
@@ -86,7 +94,7 @@
     "/16809456d0",
     "/16809458d0"
   ],
-  "publicPageCount": 130,
+  "publicPageCount": 138,
   "schemaOnlyCount": 36,
   "schemaPaths": [
     "/14024404d0",
@@ -1891,6 +1899,247 @@
         "en": "Kling 2.6 Motion Control transfers motion and timing from a reference video to a character or subject in a reference image, with optional preservation of the reference video's audio. In APIPod, the public model ID is kling-2.6-motion-control. It supports text-to-video, image-to-video and video-to-video, accepts text, image and video inputs, and returns results through asynchronous video tasks.",
         "zh": "Kling 2.6 Motion Control 是可灵的动作控制模型，将参考视频中的动作和时序迁移到参考图片中的人物或主体，并可按请求保留参考视频音频。在 APIPod 中，公开模型 ID 为 kling-2.6-motion-control，支持文生视频、图生视频、视频到视频；接受文本、图片、视频输入，并通过异步视频任务返回结果。"
       }
+    },
+    {
+      "slug": "kling-3.0/kling-3.0-t2v",
+      "title": "Kling 3.0 Text to Video",
+      "legacy": "/kling-3.0/kling-3.0-t2v",
+      "schema": true,
+      "modelId": "kling-3.0-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "kling",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Kling 3.0 Text to Video",
+          "zh": "Kling 3.0 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Kling 3.0 T2V is APIPod's text-to-video mode for Kling 3.0, Kuaishou's video model with multi-shot storytelling, reusable subject elements, and optional native audio. In APIPod, the public model ID is kling-3.0-t2v. It accepts a text prompt (plus optional element reference images) and returns results through asynchronous video tasks.",
+        "zh": "Kling 3.0 T2V 是 APIPod 面向快手可灵 Kling 3.0 提供的文生视频模式，支持多镜头叙事、可复用主体元素和可选原生音频。在 APIPod 中，公开模型 ID 为 kling-3.0-t2v。它接受文本提示词（以及可选的元素参考图），并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/kling-3.0-t2v"
+    },
+    {
+      "slug": "kling-3.0/kling-3.0-i2v",
+      "title": "Kling 3.0 Image to Video",
+      "legacy": "/kling-3.0/kling-3.0-i2v",
+      "schema": true,
+      "modelId": "kling-3.0-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "kling",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Kling 3.0 Image to Video",
+          "zh": "Kling 3.0 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Kling 3.0 I2V is APIPod's first/last-frame image-to-video mode for Kling 3.0, Kuaishou's video model with multi-shot storytelling, reusable subject elements, and optional native audio. In APIPod, the public model ID is kling-3.0-i2v. It requires a first frame, accepts an optional last frame, and returns results through asynchronous video tasks.",
+        "zh": "Kling 3.0 I2V 是 APIPod 面向快手可灵 Kling 3.0 提供的首尾帧图生视频模式，要求提供首帧，可选提供尾帧。在 APIPod 中，公开模型 ID 为 kling-3.0-i2v。它支持多镜头、主体元素和可选原生音频，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/kling-3.0-i2v"
+    },
+    {
+      "slug": "kling-3.0/kling-3.0-turbo-t2v",
+      "title": "Kling 3.0 Turbo Text to Video",
+      "legacy": "/kling-3.0/kling-3.0-turbo-t2v",
+      "schema": true,
+      "modelId": "kling-3.0-turbo-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "kling",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Kling 3.0 Turbo Text to Video",
+          "zh": "Kling 3.0 Turbo 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Kling 3.0 Turbo T2V is APIPod's text-to-video mode for Kling 3.0 Turbo, the faster Kling 3.0 tier that always generates native audio and supports multi-shot prompts. In APIPod, the public model ID is kling-3.0-turbo-t2v. It accepts text input and returns results through asynchronous video tasks.",
+        "zh": "Kling 3.0 Turbo T2V 是 APIPod 面向 Kling 3.0 Turbo 提供的文生视频模式，Turbo 是 Kling 3.0 的高速档，始终生成原生音频并支持多镜头提示词。在 APIPod 中，公开模型 ID 为 kling-3.0-turbo-t2v。它接受文本输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/kling-3.0-turbo-t2v"
+    },
+    {
+      "slug": "kling-3.0/kling-3.0-turbo-i2v",
+      "title": "Kling 3.0 Turbo Image to Video",
+      "legacy": "/kling-3.0/kling-3.0-turbo-i2v",
+      "schema": true,
+      "modelId": "kling-3.0-turbo-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "kling",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Kling 3.0 Turbo Image to Video",
+          "zh": "Kling 3.0 Turbo 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Kling 3.0 Turbo I2V is APIPod's first-frame image-to-video mode for Kling 3.0 Turbo, the faster Kling 3.0 tier that always generates native audio. In APIPod, the public model ID is kling-3.0-turbo-i2v. It accepts exactly one first-frame image plus an optional prompt and returns results through asynchronous video tasks.",
+        "zh": "Kling 3.0 Turbo I2V 是 APIPod 面向 Kling 3.0 Turbo 提供的首帧图生视频模式，Turbo 是 Kling 3.0 的高速档，始终生成原生音频。在 APIPod 中，公开模型 ID 为 kling-3.0-turbo-i2v。它接受 1 张首帧图片和可选提示词，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/kling-3.0-turbo-i2v"
+    },
+    {
+      "slug": "kling-3.0/kling-3.0-omni-t2v",
+      "title": "Kling 3.0 Omni Text to Video",
+      "legacy": "/kling-3.0/kling-3.0-omni-t2v",
+      "schema": true,
+      "modelId": "kling-3.0-omni-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "kling",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Kling 3.0 Omni Text to Video",
+          "zh": "Kling 3.0 Omni 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Kling 3.0 Omni T2V is APIPod's text-to-video mode for Kling 3.0 Omni, the unified Kling 3.0 model for generation, references, and editing with up to 4K output. In APIPod, the public model ID is kling-3.0-omni-t2v. It accepts text input, supports manual or automatic multi-shot, and returns results through asynchronous video tasks.",
+        "zh": "Kling 3.0 Omni T2V 是 APIPod 面向 Kling 3.0 Omni 提供的文生视频模式，Omni 是 Kling 3.0 集生成、参考与编辑于一体的统一模型，最高支持 4K 输出。在 APIPod 中，公开模型 ID 为 kling-3.0-omni-t2v。它接受文本输入，支持手动或自动多镜头，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/kling-3.0-omni-t2v"
+    },
+    {
+      "slug": "kling-3.0/kling-3.0-omni-i2v",
+      "title": "Kling 3.0 Omni Image to Video",
+      "legacy": "/kling-3.0/kling-3.0-omni-i2v",
+      "schema": true,
+      "modelId": "kling-3.0-omni-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "kling",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Kling 3.0 Omni Image to Video",
+          "zh": "Kling 3.0 Omni 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Kling 3.0 Omni I2V is APIPod's first/last-frame image-to-video mode for Kling 3.0 Omni, the unified Kling 3.0 model with up to 4K output. In APIPod, the public model ID is kling-3.0-omni-i2v. It requires a first frame, accepts an optional last frame, and returns results through asynchronous video tasks.",
+        "zh": "Kling 3.0 Omni I2V 是 APIPod 面向 Kling 3.0 Omni 提供的首尾帧图生视频模式，最高支持 4K 输出，要求提供首帧，可选提供尾帧。在 APIPod 中，公开模型 ID 为 kling-3.0-omni-i2v。它接受文本、图片输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/kling-3.0-omni-i2v"
+    },
+    {
+      "slug": "kling-3.0/kling-3.0-omni-r2v",
+      "title": "Kling 3.0 Omni Reference to Video",
+      "legacy": "/kling-3.0/kling-3.0-omni-r2v",
+      "schema": true,
+      "modelId": "kling-3.0-omni-r2v",
+      "classifications": [
+        "image_to_video",
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "kling",
+        "inputTypes": [
+          "text",
+          "image",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Kling 3.0 Omni Reference to Video",
+          "zh": "Kling 3.0 Omni 参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "Kling 3.0 Omni R2V is APIPod's reference-to-video mode for Kling 3.0 Omni, guiding generation with up to 7 reference images or one motion reference video. In APIPod, the public model ID is kling-3.0-omni-r2v. It accepts text, image, and video inputs referenced as @image_N / @video_1 and returns results through asynchronous video tasks.",
+        "zh": "Kling 3.0 Omni R2V 是 APIPod 面向 Kling 3.0 Omni 提供的参考生视频模式，可用最多 7 张参考图或 1 个运动参考视频引导生成。在 APIPod 中，公开模型 ID 为 kling-3.0-omni-r2v。它接受文本、图片、视频输入，可在提示词中以 @image_N / @video_1 引用，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/kling-3.0-omni-r2v"
+    },
+    {
+      "slug": "kling-3.0/kling-3.0-omni-edit",
+      "title": "Kling 3.0 Omni Video Edit",
+      "legacy": "/kling-3.0/kling-3.0-omni-edit",
+      "schema": true,
+      "modelId": "kling-3.0-omni-edit",
+      "classifications": [
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "kling",
+        "inputTypes": [
+          "text",
+          "image",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Kling 3.0 Omni Video Edit",
+          "zh": "Kling 3.0 Omni 视频编辑"
+        }
+      },
+      "introduction": {
+        "en": "Kling 3.0 Omni Edit is APIPod's video editing mode for Kling 3.0 Omni, rewriting a source video from a text instruction with up to 4 optional reference images. In APIPod, the public model ID is kling-3.0-omni-edit. It accepts text, image, and video inputs; duration and aspect ratio follow the source video, and results are returned through asynchronous video tasks.",
+        "zh": "Kling 3.0 Omni Edit 是 APIPod 面向 Kling 3.0 Omni 提供的视频编辑模式，根据文本指令改写源视频，可附加最多 4 张参考图。在 APIPod 中，公开模型 ID 为 kling-3.0-omni-edit。它接受文本、图片、视频输入，时长与宽高比跟随源视频，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/kling-3.0-omni-edit"
     },
     {
       "slug": "motion-control/motion-control-m1",

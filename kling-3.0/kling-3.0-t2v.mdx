@@ -1,0 +1,20 @@
+---
+title: "Kling 3.0 Text to Video"
+description: "Kling 3.0 T2V is APIPod's text-to-video mode for Kling 3.0, Kuaishou's video model with multi-shot storytelling, reusable subject elements, and optional native audio."
+openapi: "api-reference/openapi/kling-3.0--kling-3.0-t2v.yaml POST /v1/videos/generations"
+---
+
+## Usage notes
+
+- **Multi-shot**: set `multi_shot` to `true` and describe up to 5 shots in `multi_prompt` (`{prompt, duration}`, 1-12 seconds and up to 500 characters each). The total shot duration must not exceed `duration`; when `duration` is omitted it defaults to the sum of the shots, and `prompt` may be omitted.
+- **Elements**: define up to 3 reusable subjects in `kling_elements` and reference them as `@name` in the prompt. Each element uses either 2-4 reference images or exactly one video clip (optionally trimmed with `start_time` / `end_time`, a 3-8 second window in milliseconds), plus an optional 5-30 second voice reference in `element_input_audio_urls`. Each reference counts as 37 characters toward the 2,500-character prompt limit.
+- **Audio**: `generate_audio` defaults to `false` for single-shot requests and `true` for multi-shot requests.
+- **Not supported**: `negative_prompt` (write exclusions into the prompt), top-level `audio_urls`, and `video_url`.
+
+## Billing
+
+Billed per second of output video. The per-second rate has five tiers: 720p or 1080p, each with or without native audio, plus 4K (same rate with or without audio). Current prices are shown on the [model page](https://www.apipod.ai/models).
+
+## Task flow
+
+The create call returns `data.task_id`. Poll [Query video task](/query-video-task) until `status` is `completed` (outputs in `data.result`) or `failed`, or pass `callback_url` to be notified when the task reaches a terminal state.

@@ -1,0 +1,20 @@
+---
+title: "Kling 3.0 Omni Image to Video"
+description: "Kling 3.0 Omni I2V is APIPod's first/last-frame image-to-video mode for Kling 3.0 Omni, the unified Kling 3.0 model with up to 4K output."
+openapi: "api-reference/openapi/kling-3.0--kling-3.0-omni-i2v.yaml POST /v1/videos/generations"
+---
+
+## Usage notes
+
+- **First / last frame**: `image_urls[0]` is the first frame and the optional `image_urls[1]` is the last frame. The output aspect ratio follows the first frame.
+- **Referencing inputs**: images are numbered `image_1`..`image_N` in order and the video is `video_1`. Use `@image_1` / `@video_1` in the prompt to point at a specific input.
+- **Multi-shot**: set `multi_shot` to `true` without `multi_prompt` to let the model split the prompt into shots automatically, or describe up to 6 shots in `multi_prompt` (`{prompt, duration}`, up to 512 characters each) whose durations add up to exactly `duration`.
+- **Not supported**: `negative_prompt` (write exclusions into the prompt), `audio_urls`, and `video_url` (use `video_urls`).
+
+## Billing
+
+Billed per second of output video. The per-second rate depends on the tier: 720p basic, 720p enhanced, 1080p basic, 1080p enhanced, or 4K. The enhanced tier applies when native audio is enabled or any video input is provided. Current prices are shown on the [model page](https://www.apipod.ai/models).
+
+## Task flow
+
+The create call returns `data.task_id`. Poll [Query video task](/query-video-task) until `status` is `completed` (outputs in `data.result`) or `failed`, or pass `callback_url` to be notified when the task reaches a terminal state.

@@ -1,0 +1,307 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Kling 3.0 Text to Video",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "kling-3.0-t2v",
+      "modelType": "video",
+      "provider": "kling"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "APIPod API Key"
+      }
+    },
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "Kling 3.0 Text to Video",
+        "properties": {
+          "aspect_ratio": {
+            "type": "string",
+            "title": "Aspect Ratio",
+            "description": "Output aspect ratio. Defaults to 16:9.",
+            "enum": [
+              "16:9",
+              "9:16",
+              "1:1"
+            ],
+            "default": "16:9",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "callback_url": {
+            "type": "string",
+            "title": "Callback URL",
+            "description": "HTTPS URL that receives the task's terminal state.",
+            "default": "",
+            "x-apipod-ui": {
+              "component": "hidden"
+            }
+          },
+          "duration": {
+            "type": "integer",
+            "title": "Duration",
+            "description": "Output duration in seconds (3-15). Defaults to 5; in multi-shot mode it defaults to the sum of the shot durations when omitted.",
+            "minimum": 3,
+            "maximum": 15,
+            "default": 5,
+            "x-apipod-ui": {
+              "component": "slider"
+            }
+          },
+          "generate_audio": {
+            "type": "boolean",
+            "title": "Generate Audio",
+            "description": "Generate native audio (alias `audio`). Defaults to false for single-shot requests and true for multi-shot requests.",
+            "x-apipod-ui": {
+              "component": "switch"
+            }
+          },
+          "kling_elements": {
+            "type": "array",
+            "title": "Kling Elements",
+            "description": "Reusable subject elements (up to 3). Each element has a `name`, a `description` and a character media set in `element_input_urls`: either 2-4 reference images, or exactly one video character clip (optionally with `start_time`/`end_time` and an `element_input_audio_urls` audio reference). Reference an element in the prompt with `@name`; each reference counts as 37 characters toward the prompt length.",
+            "maxItems": 3,
+            "x-apipod-ui": {
+              "component": "hidden"
+            }
+          },
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "Public APIPod model ID.",
+            "x-apipod-ui": {
+              "component": "hidden",
+              "value": "{modelId}"
+            }
+          },
+          "multi_prompt": {
+            "type": "array",
+            "title": "Multi Prompt",
+            "description": "Shot list for multi-shot generation, up to 5 shots. Each shot is `{prompt, duration}` with a prompt of up to 500 characters and a duration of 1-12 seconds; the total must not exceed `duration`.",
+            "maxItems": 5,
+            "x-apipod-ui": {
+              "component": "hidden"
+            }
+          },
+          "multi_shot": {
+            "type": "boolean",
+            "title": "Multi Shot",
+            "description": "Enable multi-shot generation (alias `multi_shots`). Use together with `multi_prompt` to define each shot.",
+            "x-apipod-ui": {
+              "component": "switch"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "Text prompt, up to 2,500 characters. Required unless `multi_prompt` is provided. Reference `kling_elements` with `@name`.",
+            "maxLength": 2500,
+            "default": "",
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "resolution": {
+            "type": "string",
+            "title": "Resolution",
+            "description": "Output resolution (up to 4K). Defaults to 720p. The per-second rate depends on the resolution and, for 720p and 1080p, on native audio.",
+            "enum": [
+              "720p",
+              "1080p",
+              "4k"
+            ],
+            "default": "720p",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          }
+        },
+        "required": [
+          "model"
+        ],
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "duration",
+          "resolution",
+          "aspect_ratio",
+          "generate_audio",
+          "multi_shot",
+          "multi_prompt",
+          "kling_elements",
+          "callback_url"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "video"
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "description": "Standard response for task submission",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "description": "Data content for task submission",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "description": "Standard response for task status polling",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "description": "Data content for task status",
+            "properties": {
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              },
+              "result": {
+                "type": "array",
+                "description": "generated video url list",
+                "items": {
+                  "type": "string",
+                  "description": "video url"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "task status",
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ]
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "data"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/videos/generations": {
+      "post": {
+        "summary": "video API",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "taskIdField": "data.task_id",
+          "statusPath": "/v1/videos/status/{task_id}",
+          "polling": {
+            "interval": 4000,
+            "maxAttempts": 900,
+            "statusField": "data.status",
+            "outputField": "data.result",
+            "completedValues": [
+              "completed"
+            ],
+            "failedValues": [
+              "failed",
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    "/v1/videos/status/{task_id}": {
+      "get": {
+        "summary": "Kling 3.0 Text to Video Task Status",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-apipod-mode": "async-status"
+      }
+    }
+  }
+}

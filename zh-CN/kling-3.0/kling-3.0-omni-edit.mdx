@@ -1,0 +1,19 @@
+---
+title: "Kling 3.0 Omni 视频编辑"
+description: "Kling 3.0 Omni Edit 是 APIPod 面向 Kling 3.0 Omni 提供的视频编辑模式，根据文本指令改写源视频，可附加最多 4 张参考图。"
+openapi: "api-reference/openapi/kling-3.0--kling-3.0-omni-edit.zh.yaml POST /v1/videos/generations"
+---
+
+## 使用说明
+
+- **源视频**：`video_urls` 中必须且只能传 1 个 MP4/MOV 视频（3-15.5 秒），可附加最多 4 张参考图。输出时长与宽高比跟随源视频，因此不接受 `duration` 和 `aspect_ratio`。将 `keep_original_sound` 设为 `true` 可保留原声。
+- **引用输入**：图片按顺序编号为 `image_1`..`image_N`，视频为 `video_1`。在 prompt 中用 `@image_1` / `@video_1` 指向具体输入。
+- **不支持**：`negative_prompt`（请把排除项写进 prompt）、`audio_urls`、`video_url`（请使用 `video_urls`）。
+
+## 计费
+
+按源视频时长（向上取整到整秒）逐秒计费，720p / 1080p 按增强档计费（4K 按 4K 档）。每秒费率分档：720p 基础、720p 增强、1080p 基础、1080p 增强、4K。开启原生音频或带任何视频输入时按增强档计费。具体价格以 [模型页](https://www.apipod.ai/models) 展示为准。
+
+## 任务流程
+
+创建请求返回 `data.task_id`。使用[查询视频任务](/zh-CN/query-video-task)轮询，直到 `status` 变为 `completed`（结果位于 `data.result`）或 `failed`；也可以传入 `callback_url`，在任务进入终态时接收通知。

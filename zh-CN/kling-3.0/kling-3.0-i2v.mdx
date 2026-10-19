@@ -1,0 +1,23 @@
+---
+title: "Kling 3.0 图生视频"
+description: "Kling 3.0 I2V 是 APIPod 面向快手可灵 Kling 3.0 提供的首尾帧图生视频模式，支持多镜头分镜与主体元素；使用主体元素时首尾帧可不填。"
+openapi: "api-reference/openapi/kling-3.0--kling-3.0-i2v.zh.yaml POST /v1/videos/generations"
+---
+
+## 使用说明
+
+- **首尾帧**：`image_urls` 为选填项，使用 `kling_elements` 时无需填写。`multi_shot` 为 false 时，2 张图依次为首帧（`image_urls[0]`）与尾帧（`image_urls[1]`），1 张图作为首帧；`multi_shot` 为 true 时仅支持首帧。
+- **画幅**：提供首帧时输出画幅跟随首帧；仅在未提供首尾帧时才需要设置 `aspect_ratio`（`16:9`、`9:16` 或 `1:1`）。
+- **多镜头**：将 `multi_shot` 设为 `true`，并在 `multi_prompt` 中描述最多 5 个镜头（`{prompt, duration}`，每个 1-12 秒、最多 500 字）。镜头总时长不得超过 `duration`；省略 `duration` 时取各镜头时长之和，此时 `prompt` 也可省略。
+- **主体元素**：在 `kling_elements` 中定义最多 3 个可复用主体，并在 prompt 中以 `@name` 引用。每个元素使用 2-4 张参考图，或恰好 1 段视频（可用 `start_time` / `end_time` 以毫秒截取 3-8 秒），并可在 `element_input_audio_urls` 中附 5-30 秒的声音参考。每个引用按 37 字计入 2500 字的 prompt 上限。
+- **音频**：`generate_audio` 单镜头默认 `false`，多镜头默认 `true`。
+- **提示词**：单镜头请求必填；多镜头模式下请把每个镜头的描述写进 `multi_prompt`。
+- **不支持**：`negative_prompt`（请把排除项写进 prompt）、顶层 `audio_urls`、`video_url`。
+
+## 计费
+
+按输出视频时长逐秒计费。每秒费率分五档：720p / 1080p 各自区分是否开启原生音频，另有 4K 一档（有无音频同价）。具体价格以 [模型页](https://www.apipod.ai/models) 展示为准。
+
+## 任务流程
+
+创建请求返回 `data.task_id`。使用[查询视频任务](/zh-CN/query-video-task)轮询，直到 `status` 变为 `completed`（结果位于 `data.result`）或 `failed`；也可以传入 `callback_url`，在任务进入终态时接收通知。

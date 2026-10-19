@@ -1,0 +1,352 @@
+openapi: 3.1.0
+info:
+  title: Kling 3.0 Omni Reference to Video API
+  version: 1.0.0
+  description: Kling 3.0 Omni R2V 是 APIPod 面向 Kling 3.0 Omni 提供的参考生视频模式，可用最多 7 张参考图或 1 个运动参考视频引导生成。在
+    APIPod 中，公开模型 ID 为 kling-3.0-omni-r2v。它接受文本、图片、视频输入，可在提示词中以 @image_N / @video_1
+    引用，并通过异步视频任务返回结果。
+servers:
+  - url: https://api.apipod.ai
+    description: 生产环境
+paths:
+  /v1/videos/generations:
+    post:
+      summary: 创建生成任务
+      description: Kling 3.0 Omni R2V 是 APIPod 面向 Kling 3.0 Omni 提供的参考生视频模式，可用最多 7 张参考图或 1 个运动参考视频引导生成。在
+        APIPod 中，公开模型 ID 为 kling-3.0-omni-r2v。它接受文本、图片、视频输入，可在提示词中以 @image_N / @video_1
+        引用，并通过异步视频任务返回结果。
+      operationId: create-kling-3.0-kling-3.0-omni-r2v
+      tags:
+        - Kling 3.0 Omni Reference to Video
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Kling 3.0 Omni Reference to Video
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: APIPod 公开模型 ID。
+                  const: kling-3.0-omni-r2v
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: 文本提示词，最多 2500 字；未使用 `multi_prompt` 时必填。输入会自动编号：图片按顺序为 `image_1`..`image_N`，视频为 `video_1`；可在 prompt 中以
+                    `@image_1`、`@video_1` 引用。
+                  maxLength: 2500
+                image_urls:
+                  type: array
+                  title: Reference Images
+                  description: 参考图 URL：1-7 张；提供运动参考视频时最多 4 张。
+                  maxItems: 7
+                  items:
+                    type: string
+                video_urls:
+                  type: array
+                  title: Motion Reference Video
+                  description: 可选的运动参考视频（最多 1 个）。提供运动参考时 `duration` 限制为 3-10 秒，且不支持原生音频。
+                  maxItems: 1
+                  items:
+                    type: string
+                duration:
+                  type: integer
+                  title: Duration
+                  description: 输出时长（秒），3-15（带运动参考视频时 3-10），默认 5。使用 `multi_prompt` 时各镜头时长之和必须等于该值。
+                  minimum: 3
+                  maximum: 15
+                  default: 5
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: 输出分辨率，默认 720p。每秒费率取决于分辨率档位。
+                  enum:
+                    - 720p
+                    - 1080p
+                    - 4k
+                  default: 720p
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  description: 输出宽高比，默认 16:9。
+                  enum:
+                    - 16:9
+                    - 9:16
+                    - 1:1
+                  default: 16:9
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  description: 是否生成原生音频（别名 `audio`），默认 false。`video_urls` 中提供运动参考视频时不支持。开启后按增强档计费。
+                  default: false
+                multi_shot:
+                  type: boolean
+                  title: Multi Shot
+                  description: 开启多镜头生成（兼容 `multi_shots`）。不传 `multi_prompt` 时由模型自动分镜。
+                multi_prompt:
+                  type: array
+                  title: Multi Prompt
+                  description: 多镜头分镜列表，最多 6 个镜头。每个镜头为 `{prompt, duration}`，prompt 最多 512 字；各镜头时长之和必须等于 `duration`（3-15
+                    秒）。
+                  maxItems: 6
+                  items:
+                    type: object
+                    properties:
+                      prompt:
+                        type: string
+                        description: 镜头描述，最多 512 字。
+                        maxLength: 512
+                      duration:
+                        type: integer
+                        description: 镜头时长（秒），1-15。
+                        minimum: 1
+                        maximum: 15
+                    required:
+                      - prompt
+                      - duration
+                watermark:
+                  type: boolean
+                  title: Watermark
+                  description: 为 true 时额外生成带水印的副本，任务结果返回水印副本。
+                  default: false
+                callback_url:
+                  type: string
+                  title: Callback URL
+                  description: 接收任务终态通知的 HTTPS 地址。
+                  default: ""
+              required:
+                - model
+            examples:
+              basic:
+                summary: 参考图
+                value:
+                  model: kling-3.0-omni-r2v
+                  prompt: The woman from @image_1 wears the jacket from @image_2 and walks along the beach in
+                    @image_3.
+                  image_urls:
+                    - https://cdn.example.com/kling-ref-1.jpg
+                    - https://cdn.example.com/kling-ref-2.jpg
+                    - https://cdn.example.com/kling-ref-3.jpg
+                  duration: 5
+                  resolution: 1080p
+                  aspect_ratio: 16:9
+              motion_reference:
+                summary: 运动参考视频
+                value:
+                  model: kling-3.0-omni-r2v
+                  prompt: The character in @image_1 performs the dance moves from @video_1 on a rooftop at sunset.
+                  image_urls:
+                    - https://cdn.example.com/kling-ref-1.jpg
+                  video_urls:
+                    - https://cdn.example.com/motion-reference.mp4
+                  duration: 8
+                  resolution: 720p
+                  aspect_ratio: 9:16
+      responses:
+        "200":
+          description: 任务已受理
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                description: Standard response for task submission
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP 状态码。
+                  data:
+                    type: object
+                    title: Task Submit Data
+                    description: 响应数据。
+                    properties:
+                      task_id:
+                        type: string
+                        description: 用于查询任务状态的 APIPod 任务 ID。
+                  message:
+                    type: string
+                    description: 响应消息。
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "kling-3.0-omni-r2v",
+              "prompt": "The woman from @image_1 wears the jacket from @image_2 and walks along the beach in @image_3.",
+              "image_urls": [
+                "https://cdn.example.com/kling-ref-1.jpg",
+                "https://cdn.example.com/kling-ref-2.jpg",
+                "https://cdn.example.com/kling-ref-3.jpg"
+              ],
+              "duration": 5,
+              "resolution": "1080p",
+              "aspect_ratio": "16:9"
+            }'
+        - lang: Python
+          label: Python
+          source: >-
+            import os
+
+            import requests
+
+
+            payload = {
+              "model": "kling-3.0-omni-r2v",
+              "prompt": "The woman from @image_1 wears the jacket from @image_2 and walks along the beach in @image_3.",
+              "image_urls": [
+                "https://cdn.example.com/kling-ref-1.jpg",
+                "https://cdn.example.com/kling-ref-2.jpg",
+                "https://cdn.example.com/kling-ref-3.jpg"
+              ],
+              "duration": 5,
+              "resolution": "1080p",
+              "aspect_ratio": "16:9"
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+        - lang: Go
+          label: Go
+          source: >-
+            package main
+
+
+            import (
+                "bytes"
+                "fmt"
+                "io"
+                "net/http"
+                "os"
+            )
+
+
+            func main() {
+                body := []byte(`{
+              "model": "kling-3.0-omni-r2v",
+              "prompt": "The woman from @image_1 wears the jacket from @image_2 and walks along the beach in @image_3.",
+              "image_urls": [
+                "https://cdn.example.com/kling-ref-1.jpg",
+                "https://cdn.example.com/kling-ref-2.jpg",
+                "https://cdn.example.com/kling-ref-3.jpg"
+              ],
+              "duration": 5,
+              "resolution": "1080p",
+              "aspect_ratio": "16:9"
+            }`)
+
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+                if err != nil {
+                    panic(err)
+                }
+                req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+                req.Header.Set("Content-Type", "application/json")
+
+                resp, err := http.DefaultClient.Do(req)
+                if err != nil {
+                    panic(err)
+                }
+                defer resp.Body.Close()
+                out, _ := io.ReadAll(resp.Body)
+                fmt.Println(resp.Status, string(out))
+            }
+        - lang: Rust
+          label: Rust
+          source: >-
+            use reqwest::Client;
+
+            use serde_json::json;
+
+            use std::env;
+
+
+            #[tokio::main]
+
+            async fn main() -> Result<(), Box<dyn std::error::Error>> {
+                let payload = json!({
+                  "model": "kling-3.0-omni-r2v",
+                  "prompt": "The woman from @image_1 wears the jacket from @image_2 and walks along the beach in @image_3.",
+                  "image_urls": [
+                    "https://cdn.example.com/kling-ref-1.jpg",
+                    "https://cdn.example.com/kling-ref-2.jpg",
+                    "https://cdn.example.com/kling-ref-3.jpg"
+                  ],
+                  "duration": 5,
+                  "resolution": "1080p",
+                  "aspect_ratio": "16:9"
+                });
+                let response = Client::new()
+                    .post("https://api.apipod.ai/v1/videos/generations")
+                    .bearer_auth(env::var("APIPOD_API_KEY")?)
+                    .json(&payload)
+                    .send()
+                    .await?
+                    .error_for_status()?;
+
+                println!("{}", response.text().await?);
+                Ok(())
+            }
+        - lang: JavaScript
+          label: JavaScript
+          source: >-
+            const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                "model": "kling-3.0-omni-r2v",
+                "prompt": "The woman from @image_1 wears the jacket from @image_2 and walks along the beach in @image_3.",
+                "image_urls": [
+                  "https://cdn.example.com/kling-ref-1.jpg",
+                  "https://cdn.example.com/kling-ref-2.jpg",
+                  "https://cdn.example.com/kling-ref-3.jpg"
+                ],
+                "duration": 5,
+                "resolution": "1080p",
+                "aspect_ratio": "16:9"
+              }),
+            });
+
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+
+            console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 在 Authorization 请求头中以 Bearer Token 形式传入 APIPod API Key。

@@ -1,0 +1,19 @@
+---
+title: "Kling 3.0 Turbo Text to Video"
+description: "Kling 3.0 Turbo T2V is APIPod's text-to-video mode for Kling 3.0 Turbo, the faster Kling 3.0 tier that always generates native audio and supports multi-shot prompts."
+openapi: "api-reference/openapi/kling-3.0--kling-3.0-turbo-t2v.yaml POST /v1/videos/generations"
+---
+
+## Usage notes
+
+- **Multi-shot**: describe up to 6 shots in `multi_prompt` (`{prompt, duration}`, up to 512 characters each). Shot durations must add up to exactly `duration` (3-15 seconds). `multi_shot` is not accepted.
+- **Audio**: native audio is always generated; `generate_audio: false` is rejected.
+- **Not supported**: `negative_prompt` (write exclusions into the prompt), `audio_urls`, and `video_url` (use `video_urls`).
+
+## Billing
+
+Billed per second of output video. The per-second rate depends on the resolution (720p or 1080p); native audio is always included. Current prices are shown on the [model page](https://www.apipod.ai/models).
+
+## Task flow
+
+The create call returns `data.task_id`. Poll [Query video task](/query-video-task) until `status` is `completed` (outputs in `data.result`) or `failed`, or pass `callback_url` to be notified when the task reaches a terminal state.

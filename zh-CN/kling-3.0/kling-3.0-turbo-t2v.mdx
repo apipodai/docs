@@ -1,0 +1,19 @@
+---
+title: "Kling 3.0 Turbo 文生视频"
+description: "Kling 3.0 Turbo T2V 是 APIPod 面向 Kling 3.0 Turbo 提供的文生视频模式，Turbo 是 Kling 3.0 的高速档，始终生成原生音频并支持多镜头提示词。"
+openapi: "api-reference/openapi/kling-3.0--kling-3.0-turbo-t2v.zh.yaml POST /v1/videos/generations"
+---
+
+## 使用说明
+
+- **多镜头**：在 `multi_prompt` 中描述最多 6 个镜头（`{prompt, duration}`，每个最多 512 字），各镜头时长之和必须等于 `duration`（3-15 秒）。不接受 `multi_shot` 字段。
+- **音频**：始终生成原生音频，传 `generate_audio: false` 会被拒绝。
+- **不支持**：`negative_prompt`（请把排除项写进 prompt）、`audio_urls`、`video_url`（请使用 `video_urls`）。
+
+## 计费
+
+按输出视频时长逐秒计费。每秒费率按分辨率（720p 或 1080p）区分，原生音频已包含在内。具体价格以 [模型页](https://www.apipod.ai/models) 展示为准。
+
+## 任务流程
+
+创建请求返回 `data.task_id`。使用[查询视频任务](/zh-CN/query-video-task)轮询，直到 `status` 变为 `completed`（结果位于 `data.result`）或 `failed`；也可以传入 `callback_url`，在任务进入终态时接收通知。
