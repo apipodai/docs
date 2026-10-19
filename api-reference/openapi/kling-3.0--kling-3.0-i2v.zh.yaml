@@ -3,7 +3,7 @@ info:
   title: Kling 3.0 Image to Video API
   version: 1.0.0
   description: Kling 3.0 I2V 是 APIPod 面向快手可灵 Kling 3.0 提供的首尾帧图生视频模式，要求提供首帧，可选提供尾帧。在 APIPod 中，公开模型 ID 为
-    kling-3.0-i2v。它支持多镜头、主体元素和可选原生音频，并通过异步视频任务返回结果。
+    kling-3.0-i2v。它支持多镜头和可选原生音频，并通过异步视频任务返回结果。
 servers:
   - url: https://api.apipod.ai
     description: 生产环境
@@ -12,7 +12,7 @@ paths:
     post:
       summary: 创建生成任务
       description: Kling 3.0 I2V 是 APIPod 面向快手可灵 Kling 3.0 提供的首尾帧图生视频模式，要求提供首帧，可选提供尾帧。在 APIPod 中，公开模型 ID 为
-        kling-3.0-i2v。它支持多镜头、主体元素和可选原生音频，并通过异步视频任务返回结果。
+        kling-3.0-i2v。它支持多镜头和可选原生音频，并通过异步视频任务返回结果。
       operationId: create-kling-3.0-kling-3.0-i2v
       tags:
         - Kling 3.0 Image to Video
@@ -34,24 +34,16 @@ paths:
                 prompt:
                   type: string
                   title: Prompt
-                  description: 描述画面运动的文本提示词，最多 2500 字。未提供 `multi_prompt` 时必填。可用 `@name` 引用 `kling_elements` 中的元素。
+                  description: 描述画面运动的文本提示词，最多 2500 字。未提供 `multi_prompt` 时必填。
                   maxLength: 2500
                 image_urls:
                   type: array
                   title: Image Urls
-                  description: 选填的首尾帧图片；使用 `kling_elements` 时无需填写。`multi_shot` 为 false 时，2 张图依次为首帧（下标 0）与尾帧（下标 1），1 张图作为首帧；`multi_shot` 为 true 时仅支持首帧。也接受 `first_frame_image` / `last_frame_image`。输出宽高比跟随首帧。
+                  description: 首尾帧图片（必填）。`multi_shot` 为 false 时，2 张图依次为首帧（下标 0）与尾帧（下标 1），1 张图作为首帧；`multi_shot` 为 true 时仅支持首帧。也接受 `first_frame_image` / `last_frame_image`。输出宽高比跟随首帧。
+                  minItems: 1
                   maxItems: 2
                   items:
                     type: string
-                aspect_ratio:
-                  type: string
-                  title: Aspect Ratio
-                  description: 输出宽高比，仅在未提供首尾帧（例如只使用 `kling_elements`）时生效；提供首帧时画幅跟随首帧，该字段被忽略。默认 16:9。
-                  enum:
-                    - 16:9
-                    - 9:16
-                    - 1:1
-                  default: 16:9
                 duration:
                   type: integer
                   title: Duration
@@ -97,50 +89,6 @@ paths:
                     required:
                       - prompt
                       - duration
-                kling_elements:
-                  type: array
-                  title: Kling Elements
-                  description: 可复用的主体元素（最多 3 个）。每个元素包含 `name`、`description` 以及 `element_input_urls` 中的 2-4 张参考图。在
-                    prompt 中以 `@name` 引用元素，每个引用按 37 字计入 prompt 长度。
-                  maxItems: 3
-                  items:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                        description: 元素名称，在 prompt 中以 `@name` 引用。
-                      description:
-                        type: string
-                        description: 元素的简短描述。
-                      element_input_urls:
-                        type: array
-                        title: 角色素材
-                        description: 主体的 2-4 张可公开访问图片 URL，或视频角色素材的恰好 1 个视频 URL；图片与视频不能混用。
-                        minItems: 1
-                        maxItems: 4
-                        items:
-                          type: string
-                      element_input_audio_urls:
-                        type: array
-                        title: 声音参考
-                        description: 可选音频 URL，用于引导元素的声音、语气或音效；时长需为 5-30 秒。
-                        maxItems: 1
-                        items:
-                          type: string
-                      start_time:
-                        type: integer
-                        title: 截取起点
-                        description: 视频角色素材的截取起点（毫秒），仅视频素材生效，默认 0。
-                        minimum: 0
-                      end_time:
-                        type: integer
-                        title: 截取终点
-                        description: 视频角色素材的截取终点（毫秒），仅视频素材生效；须大于 start_time，且差值在 3000-8000 毫秒之间。
-                        minimum: 3000
-                    required:
-                      - name
-                      - description
-                      - element_input_urls
                 callback_url:
                   type: string
                   title: Callback URL
@@ -148,6 +96,7 @@ paths:
                   default: ""
               required:
                 - model
+                - image_urls
             examples:
               basic:
                 summary: 首尾帧
@@ -172,22 +121,6 @@ paths:
                       duration: 2
                     - prompt: "Close-up: the lighthouse keeper opens the door and looks at the sea."
                       duration: 3
-                  duration: 5
-                  resolution: 720p
-              elements:
-                summary: 首帧 + 主体元素
-                value:
-                  model: kling-3.0-i2v
-                  prompt: "@robot rolls into the room and hands a flower to the girl."
-                  image_urls:
-                    - https://cdn.example.com/first-frame.jpg
-                  kling_elements:
-                    - name: robot
-                      description: A small round white robot
-                      element_input_urls:
-                        - https://cdn.example.com/kling-ref-1.jpg
-                        - https://cdn.example.com/kling-ref-2.jpg
-                        - https://cdn.example.com/kling-ref-3.jpg
                   duration: 5
                   resolution: 720p
       responses:

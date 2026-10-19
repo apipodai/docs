@@ -3,9 +3,9 @@ info:
   title: Kling 3.0 Image to Video API
   version: 1.0.0
   description: Kling 3.0 I2V is APIPod's first/last-frame image-to-video mode for Kling 3.0,
-    Kuaishou's video model with multi-shot storytelling, reusable subject elements, and optional
-    native audio. In APIPod, the public model ID is kling-3.0-i2v. It requires a first frame,
-    accepts an optional last frame, and returns results through asynchronous video tasks.
+    Kuaishou's video model with multi-shot storytelling and optional native audio. In APIPod,
+    the public model ID is kling-3.0-i2v. It requires a first frame, accepts an optional last
+    frame, and returns results through asynchronous video tasks.
 servers:
   - url: https://api.apipod.ai
     description: Production
@@ -14,9 +14,9 @@ paths:
     post:
       summary: Create Generation Task
       description: Kling 3.0 I2V is APIPod's first/last-frame image-to-video mode for Kling 3.0,
-        Kuaishou's video model with multi-shot storytelling, reusable subject elements, and optional
-        native audio. In APIPod, the public model ID is kling-3.0-i2v. It requires a first frame,
-        accepts an optional last frame, and returns results through asynchronous video tasks.
+        Kuaishou's video model with multi-shot storytelling and optional native audio. In APIPod,
+        the public model ID is kling-3.0-i2v. It requires a first frame, accepts an optional last
+        frame, and returns results through asynchronous video tasks.
       operationId: create-kling-3.0-kling-3.0-i2v
       tags:
         - Kling 3.0 Image to Video
@@ -39,30 +39,19 @@ paths:
                   type: string
                   title: Prompt
                   description: Text prompt describing the motion, up to 2,500 characters. Required unless
-                    `multi_prompt` is provided. Reference `kling_elements` with `@name`.
+                    `multi_prompt` is provided.
                   maxLength: 2500
                 image_urls:
                   type: array
                   title: Image Urls
-                  description: Optional first/last frame images; not required when `kling_elements` is used.
-                    With `multi_shot` off, 2 images are the first and last frame (index 0 and 1)
-                    and 1 image is the first frame; with `multi_shot` on, only a first frame is
-                    supported. `first_frame_image` / `last_frame_image` are accepted as aliases. The
-                    aspect ratio follows the first frame.
+                  description: First/last frame images. With `multi_shot` off, 2 images are the first
+                    and last frame (index 0 and 1) and 1 image is the first frame; with `multi_shot`
+                    on, only a first frame is supported. `first_frame_image` / `last_frame_image` are
+                    accepted as aliases. The aspect ratio follows the first frame.
+                  minItems: 1
                   maxItems: 2
                   items:
                     type: string
-                aspect_ratio:
-                  type: string
-                  title: Aspect Ratio
-                  description: Output aspect ratio, used only when no frame image is provided (for example
-                    when only `kling_elements` are used). With a first frame the output follows the
-                    image and this field is ignored. Defaults to 16:9.
-                  enum:
-                    - 16:9
-                    - 9:16
-                    - 1:1
-                  default: 16:9
                 duration:
                   type: integer
                   title: Duration
@@ -113,55 +102,6 @@ paths:
                     required:
                       - prompt
                       - duration
-                kling_elements:
-                  type: array
-                  title: Kling Elements
-                  description: Reusable subject elements (up to 3). Each element has a `name`, a `description` and 2-4
-                    reference images in `element_input_urls`. Reference an element in the prompt
-                    with `@name`; each reference counts as 37 characters toward the prompt length.
-                  maxItems: 3
-                  items:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                        description: Element name, referenced in the prompt as `@name`.
-                      description:
-                        type: string
-                        description: Short description of the element.
-                      element_input_urls:
-                        type: array
-                        title: Character Media
-                        description: Either 2-4 publicly accessible image URLs of the subject, or exactly
-                          one video URL for a video character subject. Images and video cannot be mixed.
-                        minItems: 1
-                        maxItems: 4
-                        items:
-                          type: string
-                      element_input_audio_urls:
-                        type: array
-                        title: Voice or Sound Reference
-                        description: Optional audio URL that guides the element's voice, tone or sound.
-                          The audio must be 5-30 seconds long.
-                        maxItems: 1
-                        items:
-                          type: string
-                      start_time:
-                        type: integer
-                        title: Clip Start
-                        description: Start of the clip window in milliseconds, for a video character
-                          subject only. Defaults to 0.
-                        minimum: 0
-                      end_time:
-                        type: integer
-                        title: Clip End
-                        description: End of the clip window in milliseconds, for a video character
-                          subject only. Must exceed `start_time`, and the window must span 3000-8000 ms.
-                        minimum: 3000
-                    required:
-                      - name
-                      - description
-                      - element_input_urls
                 callback_url:
                   type: string
                   title: Callback URL
@@ -169,6 +109,7 @@ paths:
                   default: ""
               required:
                 - model
+                - image_urls
             examples:
               basic:
                 summary: First and last frame
@@ -193,22 +134,6 @@ paths:
                       duration: 2
                     - prompt: "Close-up: the lighthouse keeper opens the door and looks at the sea."
                       duration: 3
-                  duration: 5
-                  resolution: 720p
-              elements:
-                summary: First frame with kling_elements
-                value:
-                  model: kling-3.0-i2v
-                  prompt: "@robot rolls into the room and hands a flower to the girl."
-                  image_urls:
-                    - https://cdn.example.com/first-frame.jpg
-                  kling_elements:
-                    - name: robot
-                      description: A small round white robot
-                      element_input_urls:
-                        - https://cdn.example.com/kling-ref-1.jpg
-                        - https://cdn.example.com/kling-ref-2.jpg
-                        - https://cdn.example.com/kling-ref-3.jpg
                   duration: 5
                   resolution: 720p
       responses:

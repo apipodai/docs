@@ -1,18 +1,16 @@
 ---
 title: "Kling 3.0 Image to Video"
-description: "Kling 3.0 I2V is APIPod's first/last-frame image-to-video mode for Kling 3.0, Kuaishou's video model with multi-shot storytelling, reusable subject elements, and optional native audio. Frame images are optional when elements are used."
+description: "Kling 3.0 I2V is APIPod's first/last-frame image-to-video mode for Kling 3.0, Kuaishou's video model with multi-shot storytelling and optional native audio."
 openapi: "api-reference/openapi/kling-3.0--kling-3.0-i2v.yaml POST /v1/videos/generations"
 ---
 
 ## Usage notes
 
-- **First / last frame**: `image_urls` is optional and can be omitted when `kling_elements` is used. With `multi_shot` off, 2 images are the first frame (`image_urls[0]`) and last frame (`image_urls[1]`), and 1 image is the first frame. With `multi_shot` on, only a first frame is supported.
-- **Aspect ratio**: with a first frame the output follows the image. Set `aspect_ratio` (`16:9`, `9:16` or `1:1`) only when no frame image is given.
+- **First / last frame**: `image_urls` is required and takes 1-2 images. With `multi_shot` off, 2 images are the first frame (`image_urls[0]`) and last frame (`image_urls[1]`), and 1 image is the first frame. With `multi_shot` on, only a first frame is supported. The output aspect ratio follows the first frame.
 - **Multi-shot**: set `multi_shot` to `true` and describe up to 5 shots in `multi_prompt` (`{prompt, duration}`, 1-12 seconds and up to 500 characters each). The total shot duration must not exceed `duration`; when `duration` is omitted it defaults to the sum of the shots, and `prompt` may be omitted.
-- **Elements**: define up to 3 reusable subjects in `kling_elements` and reference them as `@name` in the prompt. Each element uses either 2-4 reference images or exactly one video clip (optionally trimmed with `start_time` / `end_time`, a 3-8 second window in milliseconds), plus an optional 5-30 second voice reference in `element_input_audio_urls`. Each reference counts as 37 characters toward the 2,500-character prompt limit.
 - **Audio**: `generate_audio` defaults to `false` for single-shot requests and `true` for multi-shot requests.
 - **Prompt**: required for single-shot requests; in multi-shot mode put each shot's description in `multi_prompt` instead.
-- **Not supported**: `negative_prompt` (write exclusions into the prompt), top-level `audio_urls`, and `video_url`.
+- **Not supported**: `kling_elements`, `aspect_ratio` (the output follows the first frame), `negative_prompt` (write exclusions into the prompt), top-level `audio_urls`, and `video_url`.
 
 ## Billing
 

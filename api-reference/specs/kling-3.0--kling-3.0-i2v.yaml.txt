@@ -54,34 +54,12 @@
           "image_urls": {
             "type": "array",
             "title": "Image Urls",
-            "description": "Optional first/last frame images; not required when `kling_elements` is used. With `multi_shot` off, 2 images are the first and last frame (index 0 and 1) and 1 image is the first frame; with `multi_shot` on, only a first frame is supported. `first_frame_image` / `last_frame_image` are accepted as aliases. The aspect ratio follows the first frame.",
+            "description": "First/last frame images. With `multi_shot` off, 2 images are the first and last frame (index 0 and 1) and 1 image is the first frame; with `multi_shot` on, only a first frame is supported. `first_frame_image` / `last_frame_image` are accepted as aliases. The aspect ratio follows the first frame.",
+            "minItems": 1,
             "maxItems": 2,
             "x-apipod-ui": {
               "component": "double-image",
               "maxSize": 10485760
-            }
-          },
-          "aspect_ratio": {
-            "type": "string",
-            "title": "Aspect Ratio",
-            "description": "Output aspect ratio, used only when no frame image is provided (for example when only `kling_elements` are used). With a first frame the output follows the image and this field is ignored. Defaults to 16:9.",
-            "enum": [
-              "16:9",
-              "9:16",
-              "1:1"
-            ],
-            "default": "16:9",
-            "x-apipod-ui": {
-              "component": "button-group"
-            }
-          },
-          "kling_elements": {
-            "type": "array",
-            "title": "Kling Elements",
-            "description": "Reusable subject elements (up to 3). Each element has a `name`, a `description` and a character media set in `element_input_urls`: either 2-4 reference images, or exactly one video character clip (optionally with `start_time`/`end_time` and an `element_input_audio_urls` audio reference). Reference an element in the prompt with `@name`; each reference counts as 37 characters toward the prompt length.",
-            "maxItems": 3,
-            "x-apipod-ui": {
-              "component": "hidden"
             }
           },
           "model": {
@@ -113,7 +91,7 @@
           "prompt": {
             "type": "string",
             "title": "Prompt",
-            "description": "Text prompt describing the motion, up to 2,500 characters. Required unless `multi_prompt` is provided. Reference `kling_elements` with `@name`.",
+            "description": "Text prompt describing the motion, up to 2,500 characters. Required unless `multi_prompt` is provided.",
             "maxLength": 2500,
             "default": "",
             "x-apipod-ui": {
@@ -136,19 +114,18 @@
           }
         },
         "required": [
-          "model"
+          "model",
+          "image_urls"
         ],
         "x-apipod-order-properties": [
           "model",
           "prompt",
           "image_urls",
-          "aspect_ratio",
           "duration",
           "resolution",
           "generate_audio",
           "multi_shot",
           "multi_prompt",
-          "kling_elements",
           "callback_url"
         ]
       },
