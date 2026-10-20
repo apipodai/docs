@@ -50,6 +50,14 @@ paths:
                     - 16:9
                     - 9:16
                   default: 16:9
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: 输出分辨率，支持 720p 和 1080p；4k 输出请使用对应的 -4k 模型。
+                  enum:
+                    - 720p
+                    - 1080p
+                  default: 720p
                 callback_url:
                   type: string
                   title: Callback URL
