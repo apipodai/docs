@@ -365,6 +365,15 @@
                     ]
                   },
                   {
+                    "group": "Kling 4.0",
+                    "icon": "clapperboard",
+                    "pages": [
+                      "kling-4.0/kling-4.0-t2v",
+                      "kling-4.0/kling-4.0-i2v",
+                      "kling-4.0/kling-4.0-r2v"
+                    ]
+                  },
+                  {
                     "group": "Kling 3.0",
                     "icon": "clapperboard",
                     "pages": [
@@ -766,6 +775,15 @@
                     ]
                   },
                   {
+                    "group": "Kling 4.0",
+                    "icon": "clapperboard",
+                    "pages": [
+                      "zh-CN/kling-4.0/kling-4.0-t2v",
+                      "zh-CN/kling-4.0/kling-4.0-i2v",
+                      "zh-CN/kling-4.0/kling-4.0-r2v"
+                    ]
+                  },
+                  {
                     "group": "Kling 3.0",
                     "icon": "clapperboard",
                     "pages": [
@@ -981,6 +999,12 @@
       "api-reference/openapi/kling-3.0--kling-3.0-omni-r2v.zh.yaml",
       "api-reference/openapi/kling-3.0--kling-3.0-omni-edit.yaml",
       "api-reference/openapi/kling-3.0--kling-3.0-omni-edit.zh.yaml",
+      "api-reference/openapi/kling-4.0--kling-4.0-t2v.yaml",
+      "api-reference/openapi/kling-4.0--kling-4.0-t2v.zh.yaml",
+      "api-reference/openapi/kling-4.0--kling-4.0-i2v.yaml",
+      "api-reference/openapi/kling-4.0--kling-4.0-i2v.zh.yaml",
+      "api-reference/openapi/kling-4.0--kling-4.0-r2v.yaml",
+      "api-reference/openapi/kling-4.0--kling-4.0-r2v.zh.yaml",
       "api-reference/openapi/motion-control--motion-control-m1.yaml",
       "api-reference/openapi/motion-control--motion-control-m1.zh.yaml",
       "api-reference/openapi/seedance--doubao-seedance-1-0-pro-fast-i2v.yaml",
@@ -1992,6 +2016,36 @@
     {
       "source": "/zh/kling-3.0/kling-3.0-omni-edit",
       "destination": "/zh-CN/kling-3.0/kling-3.0-omni-edit",
+      "permanent": true
+    },
+    {
+      "source": "/en/kling-4.0/kling-4.0-t2v",
+      "destination": "/kling-4.0/kling-4.0-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/kling-4.0/kling-4.0-t2v",
+      "destination": "/zh-CN/kling-4.0/kling-4.0-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/kling-4.0/kling-4.0-i2v",
+      "destination": "/kling-4.0/kling-4.0-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/kling-4.0/kling-4.0-i2v",
+      "destination": "/zh-CN/kling-4.0/kling-4.0-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/kling-4.0/kling-4.0-r2v",
+      "destination": "/kling-4.0/kling-4.0-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/kling-4.0/kling-4.0-r2v",
+      "destination": "/zh-CN/kling-4.0/kling-4.0-r2v",
       "permanent": true
     },
     {

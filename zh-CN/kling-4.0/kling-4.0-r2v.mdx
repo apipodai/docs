@@ -1,0 +1,27 @@
+---
+title: "Kling 4.0 参考生视频"
+description: "Kling 4.0 R2V 是 APIPod 面向可灵 Kling 4.0 提供的全能参考生视频模式，可组合最多 10 张参考图、5 段参考视频、7 个主体与 3 个音色，生成 3-30 秒带原生音频的视频。"
+openapi: "api-reference/openapi/kling-4.0--kling-4.0-r2v.zh.yaml POST /v1/videos/generations"
+---
+
+## 使用说明
+
+- **素材**：至少提供以下一种：`image_urls`（最多 10 张，`@image_N`）、`video_urls`（最多 5 段，每段 2-30 秒，`@video_N`）、`kling_elements`（最多 7 个，`@名称`）、`voices`（最多 3 个，`@名称`）。四类合计不超过 15 个；参考视频与视频主体合计不超过 5 段、总时长不超过 30 秒。
+- **主体**：每个主体为 2-4 张图片（第一张为主视角），或恰好 1 段 3-8 秒、单镜头的角色视频；可选 `tag`（`character`、`animal`、`prop`、`costume`、`scene`、`effect`、`others`，视频主体只能是 `character`）与 `description`（最多 100 字）。character 主体可在 `element_input_audio_urls` 中绑定 1 段音色。不支持截取窗（`start_time` / `end_time`）。
+- **名称**：主体与音色名称为 1-20 个汉字、字母、数字或下划线，在两个列表之间唯一（不区分大小写），且不能使用 `image_N`、`video_N`、`keyframe_N`、`object_N`、`audio_N`、`first_frame`、`last_frame` 等保留名。
+- **引用**：prompt 中的每个 `@` 引用都必须对应请求中的素材，按最长匹配解析；匹配到的名称以字母、数字或下划线结尾时，其后不能紧跟字母、数字或下划线。无法匹配的引用会在创建任务前直接返回 400。
+- **音频**：始终生成原生音频，因此没有 `generate_audio` 参数，传入会被拒绝。带 `video_urls` 时，可将 `keep_original_sound` 设为 `true` 保留参考视频原声。
+- **不支持**：`keyframe_urls`（请使用 [Kling 4.0 图生视频](/zh-CN/kling-4.0/kling-4.0-i2v)）、`audio_urls`（请使用 `voices`）、`video_url`（请使用 `video_urls`）、`negative_prompt`、`multi_shot` / `multi_prompt` 与 4K 输出。
+
+## 计费
+
+按秒计费，每秒费率按分辨率与是否带视频输入区分。
+
+- **无视频输入**（仅文本、图片、图片主体或音色）：费率 × 输出时长。
+- **含视频输入**（`video_urls` 或视频主体）：各输入视频时长合并后同样计费，每秒费率更低。总输入时长 ≤ 输出时长时按 输出时长 × 2 计费；输入时长更长时按 输入时长 + 输出时长 计费。例如输出 10 秒 + 输入 5 秒按 20 秒计费；输入 15 秒则按 25 秒计费。
+
+提交任务时会探测输入视频时长，无法读取时直接返回 400，不扣费。具体价格以 [模型页](https://www.apipod.ai/models) 展示为准。
+
+## 任务流程
+
+创建请求返回 `data.task_id`。使用[查询视频任务](/zh-CN/query-video-task)轮询，直到 `status` 变为 `completed`（结果位于 `data.result`）或 `failed`；也可以传入 `callback_url`，在任务进入终态时接收通知。参考视频时长、音色检测等上游校验在生成阶段进行，因此类原因失败的任务会退款。

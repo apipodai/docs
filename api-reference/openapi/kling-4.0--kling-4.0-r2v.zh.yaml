@@ -1,0 +1,478 @@
+openapi: 3.1.0
+info:
+  title: Kling 4.0 Reference to Video API
+  version: 1.0.0
+  description: Kling 4.0 R2V 是 APIPod 面向可灵 Kling 4.0 提供的全能参考生视频模式，可组合最多 10 张参考图、5 段参考视频、7 个主体与 3 个音色，生成
+    3-30 秒带原生音频的视频。在 APIPod 中，公开模型 ID 为 kling-4.0-r2v。它接受文本、图片、视频与音频输入，可在提示词中以 @image_N / @video_N / @名称
+    引用，并通过异步视频任务返回结果。
+servers:
+- url: https://api.apipod.ai
+  description: 生产环境
+paths:
+  /v1/videos/generations:
+    post:
+      summary: 创建生成任务
+      description: Kling 4.0 R2V 是 APIPod 面向可灵 Kling 4.0 提供的全能参考生视频模式，可组合最多 10 张参考图、5 段参考视频、7 个主体与 3 个音色，生成
+        3-30 秒带原生音频的视频。在 APIPod 中，公开模型 ID 为 kling-4.0-r2v。它接受文本、图片、视频与音频输入，可在提示词中以 @image_N / @video_N
+        / @名称 引用，并通过异步视频任务返回结果。
+      operationId: create-kling-4.0-kling-4.0-r2v
+      tags:
+      - Kling 4.0 Reference to Video
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Kling 4.0 Reference to Video
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: APIPod 公开模型 ID。
+                  const: kling-4.0-r2v
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: 必填，最多 8000 字。素材以 `@image_1`..`@image_N`、`@video_1`..`@video_N`（按数组顺序，从
+                    1 开始）引用，主体与音色以 `@名称` 引用。每个 `@` 引用都必须对应本次请求中的素材；按最长匹配解析，匹配到的名称以字母、数字或下划线结尾时，其后不能紧跟字母、数字或下划线。
+                  minLength: 1
+                  maxLength: 8000
+                image_urls:
+                  type: array
+                  title: Reference Images
+                  description: 参考图，最多 10 个可公开访问的 URL，按数组顺序以 `@image_1`..`@image_N` 引用。每边 300-65536 像素，宽高比
+                    0.40-2.5。
+                  maxItems: 10
+                  items:
+                    type: string
+                video_urls:
+                  type: array
+                  title: Reference Videos
+                  description: 参考视频，最多 5 段，每段 2-30 秒，以 `@video_1`..`@video_N` 引用。参考视频与视频主体合计不超过 5 段、总时长不超过
+                    30 秒。输入视频时长同样计费（视频输入档费率更低）：计费秒数 = 输出 + max(输出, 输入总时长)（输出 10 秒 + 输入 5 秒按 20 秒，输入 15
+                    秒按 25 秒）。
+                  maxItems: 5
+                  items:
+                    type: string
+                kling_elements:
+                  type: array
+                  title: Elements
+                  description: 仅用于本次任务的主体，最多 7 个（其中视频主体最多 3 个），以 `@名称` 引用。每个主体为 2-4 张图片（第一张为主视角），或恰好 1
+                    段 3-8 秒、单镜头的角色视频。`image_urls`、`video_urls`、`kling_elements`、`voices` 合计不超过 15 个。
+                  maxItems: 7
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: 在 prompt 中以 `@名称` 引用：1-20 个汉字、字母、数字或下划线，在 `kling_elements` 与 `voices`
+                          之间唯一（不区分大小写）。不能使用保留名，如 `image_N`、`video_N`、`keyframe_N`、`object_N`、`audio_N`、`first_frame`、`last_frame`。
+                        maxLength: 20
+                      element_input_urls:
+                        type: array
+                        description: 图片主体为 2-4 张图片 URL；视频主体为恰好 1 个视频 URL（MP4/MOV，3-8 秒，单一连续镜头，短边不低于 700
+                          像素）。
+                        minItems: 1
+                        maxItems: 4
+                        items:
+                          type: string
+                      tag:
+                        type: string
+                        description: 主体类别。图片主体可省略（按主视角图推断）；视频主体只能是 `character`。
+                        enum:
+                        - character
+                        - animal
+                        - prop
+                        - costume
+                        - scene
+                        - effect
+                        - others
+                      description:
+                        type: string
+                        description: 可选的主体描述，最多 100 字。
+                        maxLength: 100
+                      element_input_audio_urls:
+                        type: array
+                        description: 可选的主体绑定音色（最多 1 段）。仅 character 主体可绑定；不能单独 @ 引用，也不占用 `voices` 配额。
+                        maxItems: 1
+                        items:
+                          type: string
+                    required:
+                    - name
+                    - element_input_urls
+                voices:
+                  type: array
+                  title: Voices
+                  description: 仅用于本次任务的独立音色参考，最多 3 个，以 `@名称` 引用。若音频中检测不到可用人声，任务会失败。
+                  maxItems: 3
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: 在 prompt 中以 `@名称` 引用：1-20 个汉字、字母、数字或下划线，在 `kling_elements` 与 `voices`
+                          之间唯一（不区分大小写）。不能使用保留名，如 `image_N`、`video_N`、`keyframe_N`、`object_N`、`audio_N`、`first_frame`、`last_frame`。
+                        maxLength: 20
+                      audio_url:
+                        type: string
+                        description: 可公开访问的参考音频 URL。
+                    required:
+                    - name
+                    - audio_url
+                keep_original_sound:
+                  type: boolean
+                  title: Keep Original Sound
+                  description: 是否保留参考视频的原声，仅在提供 `video_urls` 时可用；默认 false（重新生成声音）。
+                  default: false
+                duration:
+                  type: integer
+                  title: Duration
+                  description: 输出时长（秒），3-30，默认 5。
+                  minimum: 3
+                  maximum: 30
+                  default: 5
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: 输出分辨率，默认 720p。每秒费率取决于分辨率以及是否带视频输入。
+                  enum:
+                  - 720p
+                  - 1080p
+                  default: 720p
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  description: 输出宽高比，默认 `auto`（随参考素材自适应）。
+                  enum:
+                  - auto
+                  - '16:9'
+                  - '9:16'
+                  - '1:1'
+                  - '21:9'
+                  default: auto
+                callback_url:
+                  type: string
+                  title: Callback URL
+                  description: 接收任务终态通知的 HTTPS 地址。
+                  default: ''
+              required:
+              - model
+              - prompt
+            examples:
+              omni:
+                summary: 图片、视频、主体与音色
+                value:
+                  model: kling-4.0-r2v
+                  prompt: '@Hero sits at the desk in @video_1, picks up the doll from @image_1, and greets
+                    the camera using @Narrator.'
+                  image_urls:
+                  - https://cdn.example.com/doll.png
+                  video_urls:
+                  - https://cdn.example.com/room.mp4
+                  kling_elements:
+                  - name: Hero
+                    tag: character
+                    description: Young man in a red jacket
+                    element_input_urls:
+                    - https://cdn.example.com/hero-front.jpg
+                    - https://cdn.example.com/hero-side.jpg
+                  voices:
+                  - name: Narrator
+                    audio_url: https://cdn.example.com/narrator.mp3
+                  keep_original_sound: false
+                  duration: 10
+                  resolution: 1080p
+              images:
+                summary: 参考图
+                value:
+                  model: kling-4.0-r2v
+                  prompt: The woman from @image_1 wears the jacket from @image_2 and walks along the beach
+                    in @image_3.
+                  image_urls:
+                  - https://cdn.example.com/ref-1.jpg
+                  - https://cdn.example.com/ref-2.jpg
+                  - https://cdn.example.com/ref-3.jpg
+                  duration: 5
+                  aspect_ratio: '16:9'
+      responses:
+        '200':
+          description: 任务已受理
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                description: 创建任务的标准响应
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    title: Task Submit Data
+                    description: 创建任务的数据内容
+                    properties:
+                      task_id:
+                        type: string
+                        description: 用于查询任务状态的 APIPod 任务 ID。
+                  message:
+                    type: string
+                required:
+                - code
+                - message
+                - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+      - lang: Shell
+        label: cURL
+        source: |-
+          curl https://api.apipod.ai/v1/videos/generations \
+            -H "Authorization: Bearer $APIPOD_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{
+            "model": "kling-4.0-r2v",
+            "prompt": "@Hero sits at the desk in @video_1, picks up the doll from @image_1, and greets the camera using @Narrator.",
+            "image_urls": [
+              "https://cdn.example.com/doll.png"
+            ],
+            "video_urls": [
+              "https://cdn.example.com/room.mp4"
+            ],
+            "kling_elements": [
+              {
+                "name": "Hero",
+                "tag": "character",
+                "description": "Young man in a red jacket",
+                "element_input_urls": [
+                  "https://cdn.example.com/hero-front.jpg",
+                  "https://cdn.example.com/hero-side.jpg"
+                ]
+              }
+            ],
+            "voices": [
+              {
+                "name": "Narrator",
+                "audio_url": "https://cdn.example.com/narrator.mp3"
+              }
+            ],
+            "keep_original_sound": false,
+            "duration": 10,
+            "resolution": "1080p"
+          }'
+      - lang: Python
+        label: Python
+        source: |-
+          import os
+          import requests
+
+          payload = {
+            "model": "kling-4.0-r2v",
+            "prompt": "@Hero sits at the desk in @video_1, picks up the doll from @image_1, and greets the camera using @Narrator.",
+            "image_urls": [
+              "https://cdn.example.com/doll.png"
+            ],
+            "video_urls": [
+              "https://cdn.example.com/room.mp4"
+            ],
+            "kling_elements": [
+              {
+                "name": "Hero",
+                "tag": "character",
+                "description": "Young man in a red jacket",
+                "element_input_urls": [
+                  "https://cdn.example.com/hero-front.jpg",
+                  "https://cdn.example.com/hero-side.jpg"
+                ]
+              }
+            ],
+            "voices": [
+              {
+                "name": "Narrator",
+                "audio_url": "https://cdn.example.com/narrator.mp3"
+              }
+            ],
+            "keep_original_sound": False,
+            "duration": 10,
+            "resolution": "1080p"
+          }
+
+          response = requests.post(
+              "https://api.apipod.ai/v1/videos/generations",
+              headers={
+                  "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                  "Content-Type": "application/json",
+              },
+              json=payload,
+              timeout=60,
+          )
+          response.raise_for_status()
+          print(response.json())
+      - lang: Go
+        label: Go
+        source: |-
+          package main
+
+          import (
+              "bytes"
+              "fmt"
+              "io"
+              "net/http"
+              "os"
+          )
+
+          func main() {
+              body := []byte(`{
+            "model": "kling-4.0-r2v",
+            "prompt": "@Hero sits at the desk in @video_1, picks up the doll from @image_1, and greets the camera using @Narrator.",
+            "image_urls": [
+              "https://cdn.example.com/doll.png"
+            ],
+            "video_urls": [
+              "https://cdn.example.com/room.mp4"
+            ],
+            "kling_elements": [
+              {
+                "name": "Hero",
+                "tag": "character",
+                "description": "Young man in a red jacket",
+                "element_input_urls": [
+                  "https://cdn.example.com/hero-front.jpg",
+                  "https://cdn.example.com/hero-side.jpg"
+                ]
+              }
+            ],
+            "voices": [
+              {
+                "name": "Narrator",
+                "audio_url": "https://cdn.example.com/narrator.mp3"
+              }
+            ],
+            "keep_original_sound": false,
+            "duration": 10,
+            "resolution": "1080p"
+          }`)
+
+              req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+              if err != nil {
+                  panic(err)
+              }
+              req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+              req.Header.Set("Content-Type", "application/json")
+
+              resp, err := http.DefaultClient.Do(req)
+              if err != nil {
+                  panic(err)
+              }
+              defer resp.Body.Close()
+              out, _ := io.ReadAll(resp.Body)
+              fmt.Println(resp.Status, string(out))
+          }
+      - lang: Rust
+        label: Rust
+        source: |-
+          use reqwest::Client;
+          use serde_json::json;
+          use std::env;
+
+          #[tokio::main]
+          async fn main() -> Result<(), Box<dyn std::error::Error>> {
+              let payload = json!({
+                "model": "kling-4.0-r2v",
+                "prompt": "@Hero sits at the desk in @video_1, picks up the doll from @image_1, and greets the camera using @Narrator.",
+                "image_urls": [
+                  "https://cdn.example.com/doll.png"
+                ],
+                "video_urls": [
+                  "https://cdn.example.com/room.mp4"
+                ],
+                "kling_elements": [
+                  {
+                    "name": "Hero",
+                    "tag": "character",
+                    "description": "Young man in a red jacket",
+                    "element_input_urls": [
+                      "https://cdn.example.com/hero-front.jpg",
+                      "https://cdn.example.com/hero-side.jpg"
+                    ]
+                  }
+                ],
+                "voices": [
+                  {
+                    "name": "Narrator",
+                    "audio_url": "https://cdn.example.com/narrator.mp3"
+                  }
+                ],
+                "keep_original_sound": false,
+                "duration": 10,
+                "resolution": "1080p"
+              });
+              let response = Client::new()
+                  .post("https://api.apipod.ai/v1/videos/generations")
+                  .bearer_auth(env::var("APIPOD_API_KEY")?)
+                  .json(&payload)
+                  .send()
+                  .await?
+                  .error_for_status()?;
+
+              println!("{}", response.text().await?);
+              Ok(())
+          }
+      - lang: JavaScript
+        label: JavaScript
+        source: |-
+          const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              "model": "kling-4.0-r2v",
+              "prompt": "@Hero sits at the desk in @video_1, picks up the doll from @image_1, and greets the camera using @Narrator.",
+              "image_urls": [
+                "https://cdn.example.com/doll.png"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/room.mp4"
+              ],
+              "kling_elements": [
+                {
+                  "name": "Hero",
+                  "tag": "character",
+                  "description": "Young man in a red jacket",
+                  "element_input_urls": [
+                    "https://cdn.example.com/hero-front.jpg",
+                    "https://cdn.example.com/hero-side.jpg"
+                  ]
+                }
+              ],
+              "voices": [
+                {
+                  "name": "Narrator",
+                  "audio_url": "https://cdn.example.com/narrator.mp3"
+                }
+              ],
+              "keep_original_sound": false,
+              "duration": 10,
+              "resolution": "1080p"
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+          }
+
+          console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。

@@ -1,0 +1,290 @@
+{
+  "info": {
+    "title": "Kling 4.0 Image to Video API",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "kling-4.0-i2v",
+      "provider": "kling",
+      "modelType": "video"
+    }
+  },
+  "paths": {
+    "/v1/videos/generations": {
+      "post": {
+        "summary": "video API",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          },
+          "required": true
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "polling": {
+            "interval": 3000,
+            "maxAttempts": 600,
+            "outputField": "data.result",
+            "statusField": "data.status",
+            "failedValues": [
+              "failed",
+              "error"
+            ],
+            "completedValues": [
+              "completed"
+            ]
+          },
+          "statusPath": "/v1/videos/status/{task_id}",
+          "taskIdField": "data.task_id"
+        }
+      }
+    },
+    "/v1/videos/status/{task_id}": {
+      "get": {
+        "summary": "Kling 4.0 Image to Video Task Status",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            },
+            "description": "Task status"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "task_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "x-apipod-mode": "async-status"
+      }
+    }
+  },
+  "openapi": "3.0.4",
+  "components": {
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "Kling 4.0 Image to Video",
+        "required": [
+          "model",
+          "prompt",
+          "image_urls"
+        ],
+        "properties": {
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "Public APIPod model ID.",
+            "x-apipod-ui": {
+              "value": "{modelId}",
+              "component": "hidden"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "default": "",
+            "maxLength": 8000,
+            "minLength": 1,
+            "description": "Required, up to 8000 characters. Reference the frames you uploaded as @first_frame, @keyframe_1..@keyframe_N and @last_frame; only provided frames can be mentioned.",
+            "x-apipod-ui": {
+              "component": "textarea",
+              "mentionSources": [
+                "frames"
+              ]
+            }
+          },
+          "duration": {
+            "type": "integer",
+            "title": "Duration",
+            "default": 5,
+            "maximum": 30,
+            "minimum": 3,
+            "description": "Output video duration in seconds (3-30).",
+            "x-apipod-ui": {
+              "max": 30,
+              "min": 3,
+              "step": 1,
+              "component": "slider"
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "First / Last Frame",
+            "maxItems": 2,
+            "minItems": 1,
+            "description": "Required. image_urls[0] is the first frame; an optional image_urls[1] is the last frame. The output aspect ratio follows the first frame.",
+            "x-apipod-ui": {
+              "maxCount": 2,
+              "component": "image-upload"
+            }
+          },
+          "resolution": {
+            "enum": [
+              "720p",
+              "1080p"
+            ],
+            "type": "string",
+            "title": "Resolution",
+            "default": "720p",
+            "description": "Output resolution.",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "callback_url": {
+            "type": "string",
+            "title": "Callback URL",
+            "default": "",
+            "description": "HTTPS URL that receives the task's terminal state.",
+            "x-apipod-ui": {
+              "component": "hidden"
+            }
+          },
+          "keyframe_urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Keyframes",
+            "maxItems": 8,
+            "description": "Optional middle frames in chronological order (up to 8), referenced as @keyframe_1..@keyframe_N. Total frames (first + middle + last) are capped by duration: 3s → 4, 4s → 5 … 8s → 9, 9s or longer → 10.",
+            "x-apipod-ui": {
+              "maxCount": 8,
+              "component": "image-upload"
+            }
+          }
+        },
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_urls",
+          "keyframe_urls",
+          "duration",
+          "resolution"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "video"
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "required": [
+          "code",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generation task id"
+              }
+            },
+            "description": "Data content for task submission"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "description": "Standard response for task submission"
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "required": [
+          "code",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "properties": {
+              "result": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "video url"
+                },
+                "description": "generated video url list"
+              },
+              "status": {
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ],
+                "type": "string",
+                "description": "task status"
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generation task id"
+              },
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              }
+            },
+            "description": "Data content for task status"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "description": "Standard response for task status polling"
+      }
+    },
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey",
+        "description": "APIPod API Key"
+      }
+    }
+  }
+}

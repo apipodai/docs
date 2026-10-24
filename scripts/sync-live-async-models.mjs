@@ -67,6 +67,8 @@ function modelSlug(modelID) {
   if (modelID.startsWith("grok-imagine-1.5-")) return `grok-imagine-1-5/${modelID.replace("grok-imagine-1.5-", "grok-imagine-1-5-").replaceAll(".", "-")}`;
   if (modelID.startsWith("sora-2")) return `sora-2/${modelID}`;
   if (modelID.startsWith("kling-")) return `kling/${modelID.replaceAll(".", "-")}`;
+  if (modelID.startsWith("z-image-")) return `z-image/${modelID}`;
+  if (modelID.startsWith("qwen-image-")) return `qwen-image/${modelID}`;
   if (modelID === "motion-control-m1") return "motion-control/motion-control-m1";
   return `models/${modelID.replaceAll(".", "-")}`;
 }

@@ -1,0 +1,27 @@
+---
+title: "Kling 4.0 Reference to Video"
+description: "Kling 4.0 R2V is APIPod's Omni Reference mode for Kling 4.0, combining up to 10 reference images, 5 reference videos, 7 elements and 3 voices into 3-30 second clips with native audio."
+openapi: "api-reference/openapi/kling-4.0--kling-4.0-r2v.yaml POST /v1/videos/generations"
+---
+
+## Usage notes
+
+- **Materials**: provide at least one of `image_urls` (up to 10, `@image_N`), `video_urls` (up to 5 clips of 2-30 seconds, `@video_N`), `kling_elements` (up to 7, `@name`) and `voices` (up to 3, `@name`). All four types together are limited to 15; reference videos plus video elements are limited to 5 clips and 30 seconds combined.
+- **Elements**: each element is either 2-4 images (the first is the primary view) or exactly one 3-8 second single-shot character video, with an optional `tag` (`character`, `animal`, `prop`, `costume`, `scene`, `effect`, `others`; video subjects are always `character`) and `description` (up to 100 characters). Character elements can bind one voice in `element_input_audio_urls`. Clip windows (`start_time` / `end_time`) are not supported.
+- **Names**: element and voice names are 1-20 Chinese characters, letters, digits or underscores, unique across both lists (case-insensitive), and cannot use reserved names such as `image_N`, `video_N`, `keyframe_N`, `object_N`, `audio_N`, `first_frame` or `last_frame`.
+- **Mentions**: every `@` mention in the prompt must match a material in the request, using longest match; a name ending with a letter, digit or underscore cannot be directly followed by another letter, digit or underscore. Unmatched mentions return a 400 error before a task is created.
+- **Audio**: native audio is always generated, so there is no `generate_audio` parameter — sending it is rejected. With `video_urls`, set `keep_original_sound` to `true` to keep the reference videos' sound.
+- **Not supported**: `keyframe_urls` (use [Kling 4.0 Image to Video](/kling-4.0/kling-4.0-i2v)), `audio_urls` (use `voices`), `video_url` (use `video_urls`), `negative_prompt`, `multi_shot` / `multi_prompt`, and 4K output.
+
+## Billing
+
+Billed per second at a rate that depends on the resolution and on whether video input is present.
+
+- **No video input** (text, images, image elements or voices only): rate × output seconds.
+- **With video input** (`video_urls` or video elements): input video durations are merged and billed too, at a lower per-second video-input rate. If the total input is no longer than the output, you pay for output × 2; if it is longer, you pay for input + output. For example, a 10-second output with 5 seconds of input bills 20 seconds; with 15 seconds of input it bills 25 seconds.
+
+Input videos are probed when the task is submitted; if a duration cannot be read, the request is rejected with a 400 error and nothing is charged. Current prices are shown on the [model page](https://www.apipod.ai/models).
+
+## Task flow
+
+The create call returns `data.task_id`. Poll [Query video task](/query-video-task) until `status` is `completed` (outputs in `data.result`) or `failed`, or pass `callback_url` to be notified when the task reaches a terminal state. Upstream checks such as reference video length or voice detection happen during generation; such failures are refunded.

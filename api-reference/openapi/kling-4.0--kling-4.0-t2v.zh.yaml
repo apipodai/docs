@@ -1,0 +1,246 @@
+openapi: 3.1.0
+info:
+  title: Kling 4.0 Text to Video API
+  version: 1.0.0
+  description: Kling 4.0 T2V 是 APIPod 面向可灵 Kling 4.0 提供的文生视频模式，根据一段提示词生成 3-30 秒、720p 或 1080p、带原生音频的视频。在
+    APIPod 中，公开模型 ID 为 kling-4.0-t2v。它接受文本输入，并通过异步视频任务返回结果。
+servers:
+- url: https://api.apipod.ai
+  description: 生产环境
+paths:
+  /v1/videos/generations:
+    post:
+      summary: 创建生成任务
+      description: Kling 4.0 T2V 是 APIPod 面向可灵 Kling 4.0 提供的文生视频模式，根据一段提示词生成 3-30 秒、720p 或 1080p、带原生音频的视频。在
+        APIPod 中，公开模型 ID 为 kling-4.0-t2v。它接受文本输入，并通过异步视频任务返回结果。
+      operationId: create-kling-4.0-kling-4.0-t2v
+      tags:
+      - Kling 4.0 Text to Video
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Kling 4.0 Text to Video
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: APIPod 公开模型 ID。
+                  const: kling-4.0-t2v
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: 必填。视频的文本描述，最多 8000 字。不支持 `negative_prompt`，请把需要排除的内容写进 prompt。
+                  minLength: 1
+                  maxLength: 8000
+                duration:
+                  type: integer
+                  title: Duration
+                  description: 输出时长（秒），3-30，默认 5。
+                  minimum: 3
+                  maximum: 30
+                  default: 5
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: 输出分辨率，默认 720p。Kling 4.0 不提供 4K。
+                  enum:
+                  - 720p
+                  - 1080p
+                  default: 720p
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  description: 输出宽高比，默认 16:9。
+                  enum:
+                  - '16:9'
+                  - '9:16'
+                  - '1:1'
+                  - '21:9'
+                  default: '16:9'
+                callback_url:
+                  type: string
+                  title: Callback URL
+                  description: 接收任务终态通知的 HTTPS 地址。
+                  default: ''
+              required:
+              - model
+              - prompt
+            examples:
+              basic:
+                summary: 文生视频
+                value:
+                  model: kling-4.0-t2v
+                  prompt: 'Handheld long take at dusk: two old friends meet on a rainy London street and
+                    embrace as traffic hisses past.'
+                  duration: 15
+                  resolution: 1080p
+                  aspect_ratio: '21:9'
+      responses:
+        '200':
+          description: 任务已受理
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                description: 创建任务的标准响应
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    title: Task Submit Data
+                    description: 创建任务的数据内容
+                    properties:
+                      task_id:
+                        type: string
+                        description: 用于查询任务状态的 APIPod 任务 ID。
+                  message:
+                    type: string
+                required:
+                - code
+                - message
+                - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+      - lang: Shell
+        label: cURL
+        source: |-
+          curl https://api.apipod.ai/v1/videos/generations \
+            -H "Authorization: Bearer $APIPOD_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{
+            "model": "kling-4.0-t2v",
+            "prompt": "Handheld long take at dusk: two old friends meet on a rainy London street and embrace as traffic hisses past.",
+            "duration": 15,
+            "resolution": "1080p",
+            "aspect_ratio": "21:9"
+          }'
+      - lang: Python
+        label: Python
+        source: |-
+          import os
+          import requests
+
+          payload = {
+            "model": "kling-4.0-t2v",
+            "prompt": "Handheld long take at dusk: two old friends meet on a rainy London street and embrace as traffic hisses past.",
+            "duration": 15,
+            "resolution": "1080p",
+            "aspect_ratio": "21:9"
+          }
+
+          response = requests.post(
+              "https://api.apipod.ai/v1/videos/generations",
+              headers={
+                  "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                  "Content-Type": "application/json",
+              },
+              json=payload,
+              timeout=60,
+          )
+          response.raise_for_status()
+          print(response.json())
+      - lang: Go
+        label: Go
+        source: |-
+          package main
+
+          import (
+              "bytes"
+              "fmt"
+              "io"
+              "net/http"
+              "os"
+          )
+
+          func main() {
+              body := []byte(`{
+            "model": "kling-4.0-t2v",
+            "prompt": "Handheld long take at dusk: two old friends meet on a rainy London street and embrace as traffic hisses past.",
+            "duration": 15,
+            "resolution": "1080p",
+            "aspect_ratio": "21:9"
+          }`)
+
+              req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+              if err != nil {
+                  panic(err)
+              }
+              req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+              req.Header.Set("Content-Type", "application/json")
+
+              resp, err := http.DefaultClient.Do(req)
+              if err != nil {
+                  panic(err)
+              }
+              defer resp.Body.Close()
+              out, _ := io.ReadAll(resp.Body)
+              fmt.Println(resp.Status, string(out))
+          }
+      - lang: Rust
+        label: Rust
+        source: |-
+          use reqwest::Client;
+          use serde_json::json;
+          use std::env;
+
+          #[tokio::main]
+          async fn main() -> Result<(), Box<dyn std::error::Error>> {
+              let payload = json!({
+                "model": "kling-4.0-t2v",
+                "prompt": "Handheld long take at dusk: two old friends meet on a rainy London street and embrace as traffic hisses past.",
+                "duration": 15,
+                "resolution": "1080p",
+                "aspect_ratio": "21:9"
+              });
+              let response = Client::new()
+                  .post("https://api.apipod.ai/v1/videos/generations")
+                  .bearer_auth(env::var("APIPOD_API_KEY")?)
+                  .json(&payload)
+                  .send()
+                  .await?
+                  .error_for_status()?;
+
+              println!("{}", response.text().await?);
+              Ok(())
+          }
+      - lang: JavaScript
+        label: JavaScript
+        source: |-
+          const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              "model": "kling-4.0-t2v",
+              "prompt": "Handheld long take at dusk: two old friends meet on a rainy London street and embrace as traffic hisses past.",
+              "duration": 15,
+              "resolution": "1080p",
+              "aspect_ratio": "21:9"
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+          }
+
+          console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。

@@ -1,0 +1,19 @@
+---
+title: "Kling 4.0 文生视频"
+description: "Kling 4.0 T2V 是 APIPod 面向可灵 Kling 4.0 提供的文生视频模式，根据一段提示词生成 3-30 秒、720p 或 1080p、带原生音频的视频。"
+openapi: "api-reference/openapi/kling-4.0--kling-4.0-t2v.zh.yaml POST /v1/videos/generations"
+---
+
+## 使用说明
+
+- **只需提示词**：传 `prompt`（必填，最多 8000 字），可选 `duration`（3-30 秒）、`resolution`（`720p` 或 `1080p`）与 `aspect_ratio`（`16:9`、`9:16`、`1:1`、`21:9`）。不接受图片或参考素材，请改用 [Kling 4.0 图生视频](/zh-CN/kling-4.0/kling-4.0-i2v) 或 [Kling 4.0 参考生视频](/zh-CN/kling-4.0/kling-4.0-r2v)。
+- **音频**：每段视频都会与画面一同生成原生音频，因此没有 `generate_audio` 参数，传入会被拒绝。
+- **不支持**：`negative_prompt`（请把排除项写进 prompt）、`multi_shot` / `multi_prompt`、`mode` 与 4K 输出。
+
+## 计费
+
+按输出视频时长逐秒计费，每秒费率按分辨率（720p / 1080p）区分。具体价格以 [模型页](https://www.apipod.ai/models) 展示为准。
+
+## 任务流程
+
+创建请求返回 `data.task_id`。使用[查询视频任务](/zh-CN/query-video-task)轮询，直到 `status` 变为 `completed`（结果位于 `data.result`）或 `failed`；也可以传入 `callback_url`，在任务进入终态时接收通知。

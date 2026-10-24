@@ -1,0 +1,498 @@
+openapi: 3.1.0
+info:
+  title: Kling 4.0 Reference to Video API
+  version: 1.0.0
+  description: Kling 4.0 R2V is APIPod's Omni Reference mode for Kling 4.0, combining up to 10 reference
+    images, 5 reference videos, 7 elements and 3 voices into 3-30 second clips with native audio. In APIPod,
+    the public model ID is kling-4.0-r2v. It accepts text, image, video and audio inputs mentioned as
+    @image_N / @video_N / @name and returns results through asynchronous video tasks.
+servers:
+- url: https://api.apipod.ai
+  description: Production
+paths:
+  /v1/videos/generations:
+    post:
+      summary: Create Generation Task
+      description: Kling 4.0 R2V is APIPod's Omni Reference mode for Kling 4.0, combining up to 10 reference
+        images, 5 reference videos, 7 elements and 3 voices into 3-30 second clips with native audio.
+        In APIPod, the public model ID is kling-4.0-r2v. It accepts text, image, video and audio inputs
+        mentioned as @image_N / @video_N / @name and returns results through asynchronous video tasks.
+      operationId: create-kling-4.0-kling-4.0-r2v
+      tags:
+      - Kling 4.0 Reference to Video
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Kling 4.0 Reference to Video
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: Public APIPod model ID.
+                  const: kling-4.0-r2v
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: Required, up to 8,000 characters. Mention materials as `@image_1`..`@image_N`
+                    and `@video_1`..`@video_N` (1-based, in array order), and elements / voices by `@name`.
+                    Every `@` mention must match a material in this request; mentions use longest-match,
+                    and a name ending with a letter, digit or underscore cannot be followed by another
+                    letter, digit or underscore.
+                  minLength: 1
+                  maxLength: 8000
+                image_urls:
+                  type: array
+                  title: Reference Images
+                  description: Reference images, up to 10 publicly accessible URLs, mentioned as `@image_1`..`@image_N`
+                    in array order. Each side must be 300-65536 pixels; aspect ratio 0.40-2.5.
+                  maxItems: 10
+                  items:
+                    type: string
+                video_urls:
+                  type: array
+                  title: Reference Videos
+                  description: 'Reference videos, up to 5 clips of 2-30 seconds each, mentioned as `@video_1`..`@video_N`.
+                    Reference videos plus video elements cannot exceed 5 clips or 30 seconds combined.
+                    Input video time is billed too, at the lower video-input rate: output + max(output,
+                    total input) seconds (10 s output + 5 s input bills 20 s; + 15 s input bills 25 s).'
+                  maxItems: 5
+                  items:
+                    type: string
+                kling_elements:
+                  type: array
+                  title: Elements
+                  description: Subjects used only for this task, up to 7 (at most 3 video subjects), mentioned
+                    as `@name`. Each element is either 2-4 images (the first is the primary view) or exactly
+                    one 3-8 second single-shot character video. `image_urls`, `video_urls`, `kling_elements`
+                    and `voices` together cannot exceed 15 items.
+                  maxItems: 7
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: 'Name mentioned in the prompt as `@name`: 1-20 Chinese characters,
+                          letters, digits or underscores, unique across `kling_elements` and `voices`
+                          (case-insensitive). Reserved names such as `image_N`, `video_N`, `keyframe_N`,
+                          `object_N`, `audio_N`, `first_frame` and `last_frame` cannot be used.'
+                        maxLength: 20
+                      element_input_urls:
+                        type: array
+                        description: 2-4 image URLs for an image subject, or exactly one video URL (MP4/MOV,
+                          3-8 seconds, single continuous shot, shortest side at least 700 px) for a video
+                          subject.
+                        minItems: 1
+                        maxItems: 4
+                        items:
+                          type: string
+                      tag:
+                        type: string
+                        description: Subject category. Optional for image subjects (inferred from the
+                          primary image when omitted); video subjects are always `character`.
+                        enum:
+                        - character
+                        - animal
+                        - prop
+                        - costume
+                        - scene
+                        - effect
+                        - others
+                      description:
+                        type: string
+                        description: Optional subject description, up to 100 characters.
+                        maxLength: 100
+                      element_input_audio_urls:
+                        type: array
+                        description: Optional voice bound to this subject (at most 1). Only character
+                          subjects can bind a voice; it cannot be mentioned on its own and does not count
+                          toward the `voices` quota.
+                        maxItems: 1
+                        items:
+                          type: string
+                    required:
+                    - name
+                    - element_input_urls
+                voices:
+                  type: array
+                  title: Voices
+                  description: Standalone voice references used only for this task, up to 3, mentioned
+                    as `@name`. The task fails if no usable voice can be detected in the audio.
+                  maxItems: 3
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: 'Name mentioned in the prompt as `@name`: 1-20 Chinese characters,
+                          letters, digits or underscores, unique across `kling_elements` and `voices`
+                          (case-insensitive). Reserved names such as `image_N`, `video_N`, `keyframe_N`,
+                          `object_N`, `audio_N`, `first_frame` and `last_frame` cannot be used.'
+                        maxLength: 20
+                      audio_url:
+                        type: string
+                        description: Publicly accessible reference audio URL.
+                    required:
+                    - name
+                    - audio_url
+                keep_original_sound:
+                  type: boolean
+                  title: Keep Original Sound
+                  description: Keep the original audio of the reference videos. Only applies when `video_urls`
+                    is provided; defaults to false (audio is regenerated).
+                  default: false
+                duration:
+                  type: integer
+                  title: Duration
+                  description: Output duration in seconds (3-30). Defaults to 5.
+                  minimum: 3
+                  maximum: 30
+                  default: 5
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: Output resolution. Defaults to 720p. The per-second rate depends on the
+                    resolution and on whether video input is present.
+                  enum:
+                  - 720p
+                  - 1080p
+                  default: 720p
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  description: Output aspect ratio. Defaults to `auto`, which adapts to the reference
+                    materials.
+                  enum:
+                  - auto
+                  - '16:9'
+                  - '9:16'
+                  - '1:1'
+                  - '21:9'
+                  default: auto
+                callback_url:
+                  type: string
+                  title: Callback URL
+                  description: HTTPS URL that receives the task's terminal state.
+                  default: ''
+              required:
+              - model
+              - prompt
+            examples:
+              omni:
+                summary: Images, video, element and voice
+                value:
+                  model: kling-4.0-r2v
+                  prompt: '@Hero sits at the desk in @video_1, picks up the doll from @image_1, and greets
+                    the camera using @Narrator.'
+                  image_urls:
+                  - https://cdn.example.com/doll.png
+                  video_urls:
+                  - https://cdn.example.com/room.mp4
+                  kling_elements:
+                  - name: Hero
+                    tag: character
+                    description: Young man in a red jacket
+                    element_input_urls:
+                    - https://cdn.example.com/hero-front.jpg
+                    - https://cdn.example.com/hero-side.jpg
+                  voices:
+                  - name: Narrator
+                    audio_url: https://cdn.example.com/narrator.mp3
+                  keep_original_sound: false
+                  duration: 10
+                  resolution: 1080p
+              images:
+                summary: Reference images
+                value:
+                  model: kling-4.0-r2v
+                  prompt: The woman from @image_1 wears the jacket from @image_2 and walks along the beach
+                    in @image_3.
+                  image_urls:
+                  - https://cdn.example.com/ref-1.jpg
+                  - https://cdn.example.com/ref-2.jpg
+                  - https://cdn.example.com/ref-3.jpg
+                  duration: 5
+                  aspect_ratio: '16:9'
+      responses:
+        '200':
+          description: Task accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                description: Standard response for task submission
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    title: Task Submit Data
+                    description: Data content for task submission
+                    properties:
+                      task_id:
+                        type: string
+                        description: Task ID used to query the task status.
+                  message:
+                    type: string
+                required:
+                - code
+                - message
+                - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+      - lang: Shell
+        label: cURL
+        source: |-
+          curl https://api.apipod.ai/v1/videos/generations \
+            -H "Authorization: Bearer $APIPOD_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{
+            "model": "kling-4.0-r2v",
+            "prompt": "@Hero sits at the desk in @video_1, picks up the doll from @image_1, and greets the camera using @Narrator.",
+            "image_urls": [
+              "https://cdn.example.com/doll.png"
+            ],
+            "video_urls": [
+              "https://cdn.example.com/room.mp4"
+            ],
+            "kling_elements": [
+              {
+                "name": "Hero",
+                "tag": "character",
+                "description": "Young man in a red jacket",
+                "element_input_urls": [
+                  "https://cdn.example.com/hero-front.jpg",
+                  "https://cdn.example.com/hero-side.jpg"
+                ]
+              }
+            ],
+            "voices": [
+              {
+                "name": "Narrator",
+                "audio_url": "https://cdn.example.com/narrator.mp3"
+              }
+            ],
+            "keep_original_sound": false,
+            "duration": 10,
+            "resolution": "1080p"
+          }'
+      - lang: Python
+        label: Python
+        source: |-
+          import os
+          import requests
+
+          payload = {
+            "model": "kling-4.0-r2v",
+            "prompt": "@Hero sits at the desk in @video_1, picks up the doll from @image_1, and greets the camera using @Narrator.",
+            "image_urls": [
+              "https://cdn.example.com/doll.png"
+            ],
+            "video_urls": [
+              "https://cdn.example.com/room.mp4"
+            ],
+            "kling_elements": [
+              {
+                "name": "Hero",
+                "tag": "character",
+                "description": "Young man in a red jacket",
+                "element_input_urls": [
+                  "https://cdn.example.com/hero-front.jpg",
+                  "https://cdn.example.com/hero-side.jpg"
+                ]
+              }
+            ],
+            "voices": [
+              {
+                "name": "Narrator",
+                "audio_url": "https://cdn.example.com/narrator.mp3"
+              }
+            ],
+            "keep_original_sound": False,
+            "duration": 10,
+            "resolution": "1080p"
+          }
+
+          response = requests.post(
+              "https://api.apipod.ai/v1/videos/generations",
+              headers={
+                  "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                  "Content-Type": "application/json",
+              },
+              json=payload,
+              timeout=60,
+          )
+          response.raise_for_status()
+          print(response.json())
+      - lang: Go
+        label: Go
+        source: |-
+          package main
+
+          import (
+              "bytes"
+              "fmt"
+              "io"
+              "net/http"
+              "os"
+          )
+
+          func main() {
+              body := []byte(`{
+            "model": "kling-4.0-r2v",
+            "prompt": "@Hero sits at the desk in @video_1, picks up the doll from @image_1, and greets the camera using @Narrator.",
+            "image_urls": [
+              "https://cdn.example.com/doll.png"
+            ],
+            "video_urls": [
+              "https://cdn.example.com/room.mp4"
+            ],
+            "kling_elements": [
+              {
+                "name": "Hero",
+                "tag": "character",
+                "description": "Young man in a red jacket",
+                "element_input_urls": [
+                  "https://cdn.example.com/hero-front.jpg",
+                  "https://cdn.example.com/hero-side.jpg"
+                ]
+              }
+            ],
+            "voices": [
+              {
+                "name": "Narrator",
+                "audio_url": "https://cdn.example.com/narrator.mp3"
+              }
+            ],
+            "keep_original_sound": false,
+            "duration": 10,
+            "resolution": "1080p"
+          }`)
+
+              req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+              if err != nil {
+                  panic(err)
+              }
+              req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+              req.Header.Set("Content-Type", "application/json")
+
+              resp, err := http.DefaultClient.Do(req)
+              if err != nil {
+                  panic(err)
+              }
+              defer resp.Body.Close()
+              out, _ := io.ReadAll(resp.Body)
+              fmt.Println(resp.Status, string(out))
+          }
+      - lang: Rust
+        label: Rust
+        source: |-
+          use reqwest::Client;
+          use serde_json::json;
+          use std::env;
+
+          #[tokio::main]
+          async fn main() -> Result<(), Box<dyn std::error::Error>> {
+              let payload = json!({
+                "model": "kling-4.0-r2v",
+                "prompt": "@Hero sits at the desk in @video_1, picks up the doll from @image_1, and greets the camera using @Narrator.",
+                "image_urls": [
+                  "https://cdn.example.com/doll.png"
+                ],
+                "video_urls": [
+                  "https://cdn.example.com/room.mp4"
+                ],
+                "kling_elements": [
+                  {
+                    "name": "Hero",
+                    "tag": "character",
+                    "description": "Young man in a red jacket",
+                    "element_input_urls": [
+                      "https://cdn.example.com/hero-front.jpg",
+                      "https://cdn.example.com/hero-side.jpg"
+                    ]
+                  }
+                ],
+                "voices": [
+                  {
+                    "name": "Narrator",
+                    "audio_url": "https://cdn.example.com/narrator.mp3"
+                  }
+                ],
+                "keep_original_sound": false,
+                "duration": 10,
+                "resolution": "1080p"
+              });
+              let response = Client::new()
+                  .post("https://api.apipod.ai/v1/videos/generations")
+                  .bearer_auth(env::var("APIPOD_API_KEY")?)
+                  .json(&payload)
+                  .send()
+                  .await?
+                  .error_for_status()?;
+
+              println!("{}", response.text().await?);
+              Ok(())
+          }
+      - lang: JavaScript
+        label: JavaScript
+        source: |-
+          const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              "model": "kling-4.0-r2v",
+              "prompt": "@Hero sits at the desk in @video_1, picks up the doll from @image_1, and greets the camera using @Narrator.",
+              "image_urls": [
+                "https://cdn.example.com/doll.png"
+              ],
+              "video_urls": [
+                "https://cdn.example.com/room.mp4"
+              ],
+              "kling_elements": [
+                {
+                  "name": "Hero",
+                  "tag": "character",
+                  "description": "Young man in a red jacket",
+                  "element_input_urls": [
+                    "https://cdn.example.com/hero-front.jpg",
+                    "https://cdn.example.com/hero-side.jpg"
+                  ]
+                }
+              ],
+              "voices": [
+                {
+                  "name": "Narrator",
+                  "audio_url": "https://cdn.example.com/narrator.mp3"
+                }
+              ],
+              "keep_original_sound": false,
+              "duration": 10,
+              "resolution": "1080p"
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+          }
+
+          console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

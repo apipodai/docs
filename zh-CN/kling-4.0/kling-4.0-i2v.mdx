@@ -1,0 +1,21 @@
+---
+title: "Kling 4.0 图生视频"
+description: "Kling 4.0 I2V 是 APIPod 面向可灵 Kling 4.0 提供的关键帧图生视频模式，按首帧、最多 8 张中间帧与可选尾帧生成 3-30 秒视频。"
+openapi: "api-reference/openapi/kling-4.0--kling-4.0-i2v.zh.yaml POST /v1/videos/generations"
+---
+
+## 使用说明
+
+- **帧**：`image_urls[0]` 为必填的首帧，可选的 `image_urls[1]` 为尾帧；中间帧按时间顺序放在 `keyframe_urls`（最多 8 张）。输出画幅跟随首帧，因此不接受 `aspect_ratio`。
+- **帧数上限**：帧总数（首帧 + 中间帧 + 尾帧）受 `duration` 限制：3 秒 4 帧、4 秒 5 帧、5 秒 6 帧、6 秒 7 帧、7 秒 8 帧、8 秒 9 帧，9 秒及以上 10 帧。超出上限会在创建任务前直接返回 400。
+- **引用帧**：在 prompt 中用 `@first_frame`、`@keyframe_1`..`@keyframe_N`、`@last_frame` 描述各帧发生的内容，只能引用实际提供的帧。
+- **音频**：每段视频都带原生音频，因此没有 `generate_audio` 参数，传入会被拒绝。
+- **不支持**：`negative_prompt`、`multi_shot` / `multi_prompt`、参考视频、`kling_elements`、`voices` 与 4K 输出。
+
+## 计费
+
+按输出视频时长逐秒计费，每秒费率按分辨率（720p / 1080p）区分，与帧数无关。具体价格以 [模型页](https://www.apipod.ai/models) 展示为准。
+
+## 任务流程
+
+创建请求返回 `data.task_id`。使用[查询视频任务](/zh-CN/query-video-task)轮询，直到 `status` 变为 `completed`（结果位于 `data.result`）或 `failed`；也可以传入 `callback_url`，在任务进入终态时接收通知。

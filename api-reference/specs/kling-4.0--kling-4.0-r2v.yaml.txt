@@ -1,0 +1,416 @@
+{
+  "info": {
+    "title": "Kling 4.0 Reference to Video API",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "kling-4.0-r2v",
+      "provider": "kling",
+      "modelType": "video"
+    }
+  },
+  "paths": {
+    "/v1/videos/generations": {
+      "post": {
+        "summary": "video API",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          },
+          "required": true
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "polling": {
+            "interval": 3000,
+            "maxAttempts": 600,
+            "outputField": "data.result",
+            "statusField": "data.status",
+            "failedValues": [
+              "failed",
+              "error"
+            ],
+            "completedValues": [
+              "completed"
+            ]
+          },
+          "statusPath": "/v1/videos/status/{task_id}",
+          "taskIdField": "data.task_id"
+        }
+      }
+    },
+    "/v1/videos/status/{task_id}": {
+      "get": {
+        "summary": "Kling 4.0 Reference to Video Task Status",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            },
+            "description": "Task status"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "task_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "x-apipod-mode": "async-status"
+      }
+    }
+  },
+  "openapi": "3.0.4",
+  "components": {
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "Kling 4.0 Reference to Video",
+        "required": [
+          "model",
+          "prompt"
+        ],
+        "properties": {
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "Public APIPod model ID.",
+            "x-apipod-ui": {
+              "value": "{modelId}",
+              "component": "hidden"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "default": "",
+            "maxLength": 8000,
+            "minLength": 1,
+            "description": "Required, up to 8000 characters. Reference materials as @image_1..@image_N, @video_1..@video_N, and elements / voices by @name. Every @ mention must match a material in this request.",
+            "x-apipod-ui": {
+              "component": "textarea",
+              "mentionSources": [
+                "images",
+                "videos",
+                "elements",
+                "voices"
+              ]
+            }
+          },
+          "voices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "name",
+                "audio_url"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "title": "Name",
+                  "maxLength": 20,
+                  "minLength": 1
+                },
+                "audio_url": {
+                  "type": "string",
+                  "title": "Audio",
+                  "format": "uri"
+                }
+              }
+            },
+            "title": "Voices",
+            "maxItems": 3,
+            "description": "Standalone voice references (up to 3), referenced as @name. The task fails if no usable voice is detected in the audio.",
+            "x-apipod-ui": {
+              "component": "voices-editor"
+            }
+          },
+          "duration": {
+            "type": "integer",
+            "title": "Duration",
+            "default": 5,
+            "maximum": 30,
+            "minimum": 3,
+            "description": "Output video duration in seconds (3-30).",
+            "x-apipod-ui": {
+              "max": 30,
+              "min": 3,
+              "step": 1,
+              "component": "slider"
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Reference Images",
+            "maxItems": 10,
+            "description": "Up to 10 reference images, referenced as @image_1..@image_N in order. Each side 300-65536 px, aspect ratio 0.40-2.5.",
+            "x-apipod-ui": {
+              "maxCount": 10,
+              "component": "image-upload"
+            }
+          },
+          "resolution": {
+            "enum": [
+              "720p",
+              "1080p"
+            ],
+            "type": "string",
+            "title": "Resolution",
+            "default": "720p",
+            "description": "Output resolution.",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "video_urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Reference Videos",
+            "maxItems": 5,
+            "description": "Up to 5 reference videos (2-30 seconds each), referenced as @video_1..@video_N. Reference videos plus video elements: at most 5 clips and 30 seconds combined. Input video time is billed too: output + max(output, total input) seconds at the video-input rate.",
+            "x-apipod-ui": {
+              "accept": ".mp4,.mov",
+              "maxCount": 5,
+              "component": "files-upload"
+            }
+          },
+          "aspect_ratio": {
+            "enum": [
+              "auto",
+              "16:9",
+              "9:16",
+              "1:1",
+              "21:9"
+            ],
+            "type": "string",
+            "title": "Aspect Ratio",
+            "default": "auto",
+            "description": "Output aspect ratio; auto adapts to the reference materials.",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "callback_url": {
+            "type": "string",
+            "title": "Callback URL",
+            "default": "",
+            "description": "HTTPS URL that receives the task's terminal state.",
+            "x-apipod-ui": {
+              "component": "hidden"
+            }
+          },
+          "kling_elements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "name",
+                "element_input_urls"
+              ],
+              "properties": {
+                "tag": {
+                  "enum": [
+                    "character",
+                    "animal",
+                    "prop",
+                    "costume",
+                    "scene",
+                    "effect",
+                    "others"
+                  ],
+                  "type": "string",
+                  "title": "Tag"
+                },
+                "name": {
+                  "type": "string",
+                  "title": "Name",
+                  "maxLength": 20,
+                  "minLength": 1
+                },
+                "description": {
+                  "type": "string",
+                  "title": "Description",
+                  "maxLength": 100
+                },
+                "element_input_urls": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "title": "Subject Media"
+                },
+                "element_input_audio_urls": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "title": "Voice Reference",
+                  "maxItems": 1
+                }
+              }
+            },
+            "title": "Elements",
+            "maxItems": 7,
+            "description": "Subjects referenced as @name (up to 7, at most 3 video subjects). Each takes 2-4 images (the first is the primary view) or one 3-8 second single-shot character video, plus an optional voice for character subjects. Names: 1-20 Chinese characters, letters, digits or underscores, unique across elements and voices.",
+            "x-apipod-ui": {
+              "component": "kling40-elements-editor"
+            }
+          },
+          "keep_original_sound": {
+            "type": "boolean",
+            "title": "Keep Original Sound",
+            "default": false,
+            "description": "Keep the audio of the reference videos (only with video_urls; default false regenerates audio).",
+            "x-apipod-ui": {
+              "component": "switch"
+            },
+            "x-apipod-logic": [
+              {
+                "when": "video_urls",
+                "action": "hide",
+                "filled": false
+              }
+            ]
+          }
+        },
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_urls",
+          "video_urls",
+          "kling_elements",
+          "voices",
+          "keep_original_sound",
+          "duration",
+          "resolution",
+          "aspect_ratio"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "video"
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "required": [
+          "code",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generation task id"
+              }
+            },
+            "description": "Data content for task submission"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "description": "Standard response for task submission"
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "required": [
+          "code",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "properties": {
+              "result": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "video url"
+                },
+                "description": "generated video url list"
+              },
+              "status": {
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ],
+                "type": "string",
+                "description": "task status"
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generation task id"
+              },
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              }
+            },
+            "description": "Data content for task status"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "description": "Standard response for task status polling"
+      }
+    },
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey",
+        "description": "APIPod API Key"
+      }
+    }
+  }
+}
