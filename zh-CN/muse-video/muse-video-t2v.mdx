@@ -1,0 +1,83 @@
+---
+title: "MU Video 文生视频"
+description: "MU Video 文生视频仅需提示词即可生成 5-60 秒的 720P 视频，支持五种画幅、七档风格预设，并原生生成人声与音效。"
+openapi: "api-reference/openapi/muse-video--muse-video-t2v.zh.yaml POST /v1/videos/generations"
+---
+
+`muse-video-t2v` 把一段文字变成完整成片。不需要准备任何素材——你描述镜头，MU Video 负责运动、光线与风格，同时生成与画面同步的人声和音效。
+
+## 模型速览
+
+| | |
+| --- | --- |
+| 公开模型 ID | `muse-video-t2v` |
+| 输入 | 文本 |
+| 输出 | 带音频的视频 |
+| 时长 | 5 / 10 / 20 / 30 / 40 / 50 / 60 秒（默认 5） |
+| 清晰度 | 720p |
+| 画幅 | `16:9`、`9:16`、`1:1`、`4:3`、`3:4`（默认 `16:9`） |
+| 计费 | 按输出秒数 |
+
+## 参数
+
+| 参数 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `prompt` | string | — | 必填，最多 4000 个字符。 |
+| `duration` | integer | `5` | 只能是 5、10、20、30、40、50、60。 |
+| `aspect_ratio` | string | `16:9` | 可选 `16:9`、`9:16`、`1:1`、`4:3`、`3:4`。 |
+| `resolution` | string | `720p` | 目前仅支持 720p。 |
+| `style_preset` | string | `none` | 见下方风格预设。 |
+| `generate_audio` | boolean | `true` | 设为 `false` 可静音人声。 |
+
+本模型不支持 `negative_prompt`、`seed` 与参考素材——需要用图片引导画面时请用 [`muse-video-i2v`](./muse-video-i2v) 或 [`muse-video-r2v`](./muse-video-r2v)。
+
+## 风格预设
+
+| 取值 | 画面风格 |
+| --- | --- |
+| `none` | 交给提示词决定。 |
+| `cinematic_realistic` | 真人电影感，自然光与浅景深。 |
+| `2d_anime` | 手绘动画，平涂上色与硬朗线条。 |
+| `3d_xianxia` | 3D 国漫仙侠，飘动衣袂、云雾山峰、流光灵气。 |
+| `american_comic` | 美漫风格，重墨线与网点质感。 |
+| `cyberpunk_neon` | 雨夜街道、霓虹招牌、高反差。 |
+| `ecommerce_ugc` | 明亮干净、手机实拍感的产品演示构图。 |
+
+## 提示词写法
+
+MU Video 对镜头语言的理解很直接。写清镜头、光线和一两个材质，比堆砌形容词可控得多。
+
+```
+海边日落，一只柯基冲浪，低角度跟拍，逆光水花，
+浅景深，暖色高光，电影感慢镜头
+```
+
+这段提示词固定了三件模型本来会自己猜的事：**构图**（低角度跟拍）、**光线**（逆光水花、暖色高光）与**节奏**（电影感慢镜头）。主体与材质保持简短，避免注意力被分散。
+
+提示词控制在 400 字左右时遵循度最好；4000 字的上限是留给结构化脚本和多镜头描述的。
+
+## 调用流程
+
+1. 带上述参数调用 `POST /v1/videos/generations`。
+2. 从响应里取 `data.task_id`。
+3. 每隔几秒轮询 `GET /v1/videos/status/{task_id}`，直到 `status` 为 `completed`。
+4. 从 `data.result` 下载成片。
+
+5 秒片段通常在 1-3 分钟内返回，60 秒片段可能明显更久。请轮询到终态，不要按固定等待时间判断。
+
+```bash
+curl https://api.apipod.ai/v1/videos/generations \
+  -H "Authorization: Bearer $APIPOD_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "muse-video-t2v",
+    "prompt": "海边日落，一只柯基冲浪，低角度跟拍，逆光水花，电影感慢镜头",
+    "duration": 10,
+    "aspect_ratio": "16:9",
+    "style_preset": "cinematic_realistic"
+  }'
+```
+
+## 费用
+
+按输出秒计费：`时长 × 每秒单价`。文生视频没有参考素材，费用完全由你传入的 `duration` 决定，批量提交前可以用 [`POST /v1/pricing/estimate`](/endpoint-conventions) 先估价。

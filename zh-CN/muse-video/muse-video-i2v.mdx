@@ -1,0 +1,77 @@
+---
+title: "MU Video 图生视频"
+description: "MU Video 图生视频以必填首帧加可选尾帧实现首帧 / 首尾帧生成，输出 5-60 秒 720P 带原生音频的视频。"
+openapi: "api-reference/openapi/muse-video--muse-video-i2v.zh.yaml POST /v1/videos/generations"
+---
+
+`muse-video-i2v` 让一张静态图动起来。传一张图，它就是首帧；传两张图，MU Video 会在首帧到尾帧之间插值出一段镜头，让你精确控制运动从哪里开始、在哪里结束。
+
+## 模型速览
+
+| | |
+| --- | --- |
+| 公开模型 ID | `muse-video-i2v` |
+| 输入 | 文本 + 图片（1-2 张） |
+| 输出 | 带音频的视频 |
+| 时长 | 5 / 10 / 20 / 30 / 40 / 50 / 60 秒（默认 5） |
+| 清晰度 | 720p |
+| 画幅 | `16:9`、`9:16`、`1:1`、`4:3`、`3:4`（默认 `16:9`） |
+| 计费 | 按输出秒数 |
+
+## 参数
+
+| 参数 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `prompt` | string | — | 必填，最多 4000 个字符。描述运动，不要描述画面内容。 |
+| `first_frame_image` | string | — | 必填。首帧的公网 URL。 |
+| `image_urls` | string[] | — | 可选。传第二个 URL 即作为尾帧。 |
+| `duration` | integer | `5` | 只能是 5、10、20、30、40、50、60。 |
+| `aspect_ratio` | string | `16:9` | 输出画幅，不必与源图一致。 |
+| `resolution` | string | `720p` | 目前仅支持 720p。 |
+| `style_preset` | string | `none` | 与文生视频相同的七档预设。 |
+| `generate_audio` | boolean | `true` | 设为 `false` 可静音人声。 |
+
+通过 `reference_images` 传图在这里会被拒绝——那个别名属于 [`muse-video-r2v`](./muse-video-r2v)，它把每张图都当主体参考而不是关键帧。
+
+## 只传首帧 vs 首尾帧
+
+| 你传的 | 上游模式 | 效果 |
+| --- | --- | --- |
+| 1 张图 | `first-frame` | 画面从静帧自然延续出运动。 |
+| 2 张图 | `first-last` | 从首帧到第二张图的受控转场。 |
+
+需要精确落在某个构图上时，首尾帧是最可靠的做法。提示词里描述**过程**即可，两个端点模型已经知道了。
+
+```
+镜头穿过飘动的雾气缓缓推向灯塔，光束扫过画面，冷调蓝调时刻
+```
+
+## 调用流程
+
+1. 带 `first_frame_image`（可选在 `image_urls` 里再传一项）调用 `POST /v1/videos/generations`。
+2. 取 `data.task_id`。
+3. 轮询 `GET /v1/videos/status/{task_id}` 直到 `completed`。
+4. 从 `data.result` 下载。
+
+```bash
+curl https://api.apipod.ai/v1/videos/generations \
+  -H "Authorization: Bearer $APIPOD_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "muse-video-i2v",
+    "prompt": "镜头穿过飘动的雾气缓缓推向灯塔",
+    "first_frame_image": "https://cdn.example.com/lighthouse.jpg",
+    "duration": 5,
+    "aspect_ratio": "16:9"
+  }'
+```
+
+## 图片要求
+
+- 使用可直接访问的公网 HTTPS 地址。会过期的签名链接、开了防盗链的域名、需要登录才能打开的地址都会在提交阶段失败。
+- 人像、商品、风景都可以；首帧里的主体不要被遮挡。
+- 真人照片尽量用光线充足的中远景——极近特写能给模型发挥的空间很小。
+
+## 费用
+
+按输出秒计费，且与参考生视频不同，这里的关键帧**不计入费用**：`时长 × 每秒单价`。

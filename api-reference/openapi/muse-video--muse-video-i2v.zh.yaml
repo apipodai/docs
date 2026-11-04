@@ -1,0 +1,298 @@
+openapi: 3.1.0
+info:
+  title: MU Video 图生视频 API
+  version: 1.0.0
+  description: MU Video 图生视频以必填首帧加可选尾帧实现首帧 / 首尾帧生成，支持 5-60 秒 720P 输出、五种画幅、七档风格预设，并原生生成人声与音效。在 APIPod 中，公开模型 ID 为 muse-video-i2v。
+servers:
+  - url: https://api.apipod.ai
+    description: 生产环境
+paths:
+  /v1/videos/generations:
+    post:
+      summary: 创建生成任务
+      description: MU Video 图生视频以必填首帧加可选尾帧实现首帧 / 首尾帧生成，支持 5-60 秒 720P 输出、五种画幅、七档风格预设，并原生生成人声与音效。在 APIPod 中，公开模型 ID 为 muse-video-i2v。
+      operationId: create-muse-video-muse-video-i2v
+      tags:
+        - MU Video 图生视频
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: MU Video 图生视频
+              properties:
+                model:
+                  type: string
+                  title: 模型 ID
+                  description: APIPod 公开模型 ID。
+                  const: muse-video-i2v
+                prompt:
+                  type: string
+                  title: 提示词
+                  description: 视频内容描述，必填，最多 4000 个字符。
+                  minLength: 1
+                  maxLength: 4000
+                first_frame_image:
+                  type: string
+                  title: 首帧图片
+                  description: 必填。首帧图片的公网 URL。在 image_urls 中传第二个 URL（最多两个）即可作为尾帧。
+                duration:
+                  type: integer
+                  title: 时长
+                  description: 视频时长（秒）。
+                  enum:
+                    - 5
+                    - 10
+                    - 20
+                    - 30
+                    - 40
+                    - 50
+                    - 60
+                  default: 5
+                aspect_ratio:
+                  type: string
+                  title: 画幅
+                  description: 生成视频的画幅比例。
+                  enum:
+                    - 16:9
+                    - 9:16
+                    - 1:1
+                    - 4:3
+                    - 3:4
+                  default: 16:9
+                resolution:
+                  type: string
+                  title: 清晰度
+                  description: 输出清晰度。MU Video 目前仅支持 720p。
+                  enum:
+                    - 720p
+                  default: 720p
+                style_preset:
+                  type: string
+                  title: 风格预设
+                  description: 视频风格预设。
+                  enum:
+                    - none
+                    - cinematic_realistic
+                    - 2d_anime
+                    - 3d_xianxia
+                    - american_comic
+                    - cyberpunk_neon
+                    - ecommerce_ugc
+                  default: none
+                generate_audio:
+                  type: boolean
+                  title: 生成声音
+                  description: 是否生成人声与音效。设为 false 即静音人声。
+                  default: true
+              required:
+                - model
+                - prompt
+                - first_frame_image
+            example:
+              model: muse-video-i2v
+              prompt: A corgi surfing at sunset, cinematic, slow motion
+              duration: 10
+              aspect_ratio: "16:9"
+              style_preset: cinematic_realistic
+              generate_audio: true
+      responses:
+        "200":
+          description: 任务已受理
+          content:
+            application/json:
+              schema:
+                type: object
+                title: 任务提交响应
+                description: 任务提交标准响应
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    title: 任务提交数据
+                    description: 任务提交数据体
+                    properties:
+                      task_id:
+                        type: string
+                        description: 生成任务 ID
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "muse-video-i2v",
+              "prompt": "A corgi surfing at sunset, cinematic, slow motion",
+              "first_frame_image": "https://cdn.example.com/first-frame.jpg",
+              "duration": 10,
+              "aspect_ratio": "16:9",
+              "style_preset": "cinematic_realistic",
+              "generate_audio": true
+            }'
+        - lang: Python
+          label: Python
+          source: >-
+            import os
+
+            import requests
+
+
+            payload = {
+              "model": "muse-video-i2v",
+              "prompt": "A corgi surfing at sunset, cinematic, slow motion",
+              "first_frame_image": "https://cdn.example.com/first-frame.jpg",
+              "duration": 10,
+              "aspect_ratio": "16:9",
+              "style_preset": "cinematic_realistic",
+              "generate_audio": True
+            }
+
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json=payload,
+                timeout=60,
+            )
+
+            response.raise_for_status()
+
+            print(response.json())
+        - lang: Go
+          label: Go
+          source: >-
+            package main
+
+
+            import (
+                "bytes"
+                "encoding/json"
+                "fmt"
+                "net/http"
+                "os"
+            )
+
+
+            func main() {
+                payload := map[string]any{}
+                if err := json.Unmarshal([]byte(`{
+              "model": "muse-video-i2v",
+              "prompt": "A corgi surfing at sunset, cinematic, slow motion",
+              "first_frame_image": "https://cdn.example.com/first-frame.jpg",
+              "duration": 10,
+              "aspect_ratio": "16:9",
+              "style_preset": "cinematic_realistic",
+              "generate_audio": true
+            }`), &payload); err != nil {
+                    panic(err)
+                }
+                body, err := json.Marshal(payload)
+                if err != nil {
+                    panic(err)
+                }
+
+                req, err := http.NewRequest(http.MethodPost, "https://api.apipod.ai/v1/videos/generations", bytes.NewReader(body))
+                if err != nil {
+                    panic(err)
+                }
+                req.Header.Set("Authorization", "Bearer "+os.Getenv("APIPOD_API_KEY"))
+                req.Header.Set("Content-Type", "application/json")
+
+                resp, err := http.DefaultClient.Do(req)
+                if err != nil {
+                    panic(err)
+                }
+                defer resp.Body.Close()
+                fmt.Println(resp.Status)
+            }
+        - lang: Rust
+          label: Rust
+          source: >-
+            use reqwest::Client;
+
+            use serde_json::json;
+
+            use std::env;
+
+
+            #[tokio::main]
+
+            async fn main() -> Result<(), Box<dyn std::error::Error>> {
+                let payload = json!({
+              "model": "muse-video-i2v",
+              "prompt": "A corgi surfing at sunset, cinematic, slow motion",
+              "first_frame_image": "https://cdn.example.com/first-frame.jpg",
+              "duration": 10,
+              "aspect_ratio": "16:9",
+              "style_preset": "cinematic_realistic",
+              "generate_audio": true
+            });
+                let response = Client::new()
+                    .post("https://api.apipod.ai/v1/videos/generations")
+                    .bearer_auth(env::var("APIPOD_API_KEY")?)
+                    .json(&payload)
+                    .send()
+                    .await?
+                    .error_for_status()?;
+
+                println!("{}", response.text().await?);
+                Ok(())
+            }
+        - lang: JavaScript
+          label: JavaScript
+          source: >-
+            const response = await
+            fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(
+              {
+                "model": "muse-video-i2v",
+                "prompt": "A corgi surfing at sunset, cinematic, slow motion",
+                "first_frame_image": "https://cdn.example.com/first-frame.jpg",
+              "first_frame_image": "https://cdn.example.com/first-frame.jpg",
+                "duration": 10,
+                "aspect_ratio": "16:9",
+                "style_preset": "cinematic_realistic",
+                "generate_audio": true
+              }
+              ),
+            });
+
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+
+            console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 使用 APIPod API Key 作为 Bearer token 放在 Authorization 请求头。

@@ -1,0 +1,83 @@
+---
+title: "MU Video Text to Video"
+description: "MU Video Text to Video generates 5-60 second 720p clips from a prompt alone, with five aspect ratios, seven style presets and native voice and sound."
+openapi: "api-reference/openapi/muse-video--muse-video-t2v.yaml POST /v1/videos/generations"
+---
+
+`muse-video-t2v` turns a written prompt into a finished clip. There is no source media to prepare — you describe the shot and MU Video handles motion, lighting and style, and generates synchronized voice and sound alongside the picture.
+
+## Model at a glance
+
+| | |
+| --- | --- |
+| Public model ID | `muse-video-t2v` |
+| Input | text |
+| Output | video with audio |
+| Duration | 5, 10, 20, 30, 40, 50 or 60 seconds (default 5) |
+| Resolution | 720p |
+| Aspect ratio | `16:9`, `9:16`, `1:1`, `4:3`, `3:4` (default `16:9`) |
+| Billing | per second of output |
+
+## Parameters
+
+| Parameter | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `prompt` | string | — | Required, up to 4000 characters. |
+| `duration` | integer | `5` | Must be one of 5, 10, 20, 30, 40, 50, 60. |
+| `aspect_ratio` | string | `16:9` | One of `16:9`, `9:16`, `1:1`, `4:3`, `3:4`. |
+| `resolution` | string | `720p` | 720p is the only supported tier. |
+| `style_preset` | string | `none` | See below. |
+| `generate_audio` | boolean | `true` | Set `false` to mute voices. |
+
+`negative_prompt`, `seed` and reference media are not supported on this model — use [`muse-video-i2v`](./muse-video-i2v) or [`muse-video-r2v`](./muse-video-r2v) when you need to guide the picture with images.
+
+## Style presets
+
+| Value | Look |
+| --- | --- |
+| `none` | Let the prompt decide. |
+| `cinematic_realistic` | Live-action film look, natural light and shallow depth of field. |
+| `2d_anime` | Hand-drawn animation with flat shading and bold linework. |
+| `3d_xianxia` | Chinese-fantasy CGI — flowing robes, misty peaks, glowing energy. |
+| `american_comic` | Western comic panels with heavy ink and halftone texture. |
+| `cyberpunk_neon` | Rain-soaked streets, neon signage, high contrast. |
+| `ecommerce_ugc` | Bright, clean, phone-shot product-demo framing. |
+
+## Prompting
+
+MU Video follows camera language closely. A prompt that names the shot, the light and one or two materials produces noticeably more controlled results than a stack of adjectives.
+
+```
+A corgi surfing at sunset, low-angle tracking shot, backlit spray,
+shallow depth of field, warm highlights, cinematic slow motion
+```
+
+That prompt fixes three things the model would otherwise guess: **framing** (`low-angle tracking shot`), **light** (`backlit spray`, `warm highlights`) and **pace** (`cinematic slow motion`). Materials and subject stay short so nothing competes for attention.
+
+Keep prompts under roughly 400 characters for the most reliable prompt adherence; the 4000-character limit exists for structured briefs and multi-shot descriptions.
+
+## Workflow
+
+1. `POST /v1/videos/generations` with the parameters above.
+2. Read `data.task_id` from the response.
+3. Poll `GET /v1/videos/status/{task_id}` every few seconds until `status` is `completed`.
+4. Download from `data.result`.
+
+A 5-second clip typically returns in one to three minutes; 60-second clips can take considerably longer. Poll until the task reaches a terminal state rather than assuming a fixed wait.
+
+```bash
+curl https://api.apipod.ai/v1/videos/generations \
+  -H "Authorization: Bearer $APIPOD_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "muse-video-t2v",
+    "prompt": "A corgi surfing at sunset, low-angle tracking shot, backlit spray, cinematic slow motion",
+    "duration": 10,
+    "aspect_ratio": "16:9",
+    "style_preset": "cinematic_realistic"
+  }'
+```
+
+## Cost
+
+Billing is per output second: `duration × per-second price`. Because text-to-video has no reference media, the charge is fully determined by the `duration` you send — quote it with [`POST /v1/pricing/estimate`](/endpoint-conventions) before submitting a batch.

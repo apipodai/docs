@@ -1,0 +1,83 @@
+---
+title: "MU Video Reference to Video"
+description: "MU Video Reference to Video keeps characters, products and scenes consistent across a 5-60 second 720p clip using 1-4 reference images, with native voice and sound."
+openapi: "api-reference/openapi/muse-video--muse-video-r2v.yaml POST /v1/videos/generations"
+---
+
+`muse-video-r2v` generates a clip that stays faithful to the things you care about. Instead of pinning a single frame, you hand MU Video one to four reference images — a character, a product, a location — and it composes the shot around them, holding identity and material detail across the whole clip.
+
+## Model at a glance
+
+| | |
+| --- | --- |
+| Public model ID | `muse-video-r2v` |
+| Input | text + image (1-4) |
+| Output | video with audio |
+| Duration | 5, 10, 20, 30, 40, 50 or 60 seconds (default 5) |
+| Resolution | 720p |
+| Aspect ratio | `16:9`, `9:16`, `1:1`, `4:3`, `3:4` (default `16:9`) |
+| Billing | per second of output |
+
+## Parameters
+
+| Parameter | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `prompt` | string | — | Required, up to 4000 characters. Describe the action, not the references. |
+| `image_urls` | string[] | — | Required, 1-4 public image URLs. |
+| `duration` | integer | `5` | Must be one of 5, 10, 20, 30, 40, 50, 60. |
+| `aspect_ratio` | string | `16:9` | Output framing, independent of the reference images. |
+| `resolution` | string | `720p` | 720p is the only supported tier. |
+| `style_preset` | string | `none` | Same seven presets as text-to-video. |
+| `generate_audio` | boolean | `true` | Set `false` to mute voices. |
+
+## What each reference does
+
+| References | Best for |
+| --- | --- |
+| 1 image | A single hero subject — one character or one product, in a new scene. |
+| 2-3 images | Subject plus environment, so the model doesn't invent a backdrop. |
+| 4 images | Multi-angle subject consistency, e.g. four sides of a product or a character sheet. |
+
+Keep each reference focused on one thing. A photo that contains two competing subjects will pull the generated clip toward both.
+
+## Prompting
+
+Describe what happens, not what the subject looks like — the references already carry appearance. Naming the shot and the motion is usually enough.
+
+```
+The character walks through a rain-soaked night market, neon reflections
+on wet asphalt, camera tracks at shoulder height, shallow focus
+```
+
+If a reference is a product, state the action rather than the object: "a hand lifts the bottle", not "a white glass bottle". Adjectives about the reference tend to be reapplied as style changes.
+
+## Workflow
+
+1. `POST /v1/videos/generations` with `image_urls` and a prompt.
+2. Read `data.task_id`.
+3. Poll `GET /v1/videos/status/{task_id}` until `completed`.
+4. Download from `data.result`.
+
+```bash
+curl https://api.apipod.ai/v1/videos/generations \
+  -H "Authorization: Bearer $APIPOD_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "muse-video-r2v",
+    "prompt": "The character walks through a rain-soaked night market, camera tracks at shoulder height",
+    "image_urls": [
+      "https://cdn.example.com/character-front.jpg",
+      "https://cdn.example.com/night-market.jpg"
+    ],
+    "duration": 10,
+    "aspect_ratio": "9:16",
+    "style_preset": "cyberpunk_neon"
+  }'
+```
+
+## Reference requirements
+
+- Public HTTPS URLs only — expiring signed links and login-gated hosts fail at submission.
+- Use one image per subject. Character sheets, product cutouts and location plates all work well.
+- Real-person references should be well lit and front-facing; extreme crops lose identity detail.
+- Reference images do not add to the bill on this model: billing is `duration × per-second price`.

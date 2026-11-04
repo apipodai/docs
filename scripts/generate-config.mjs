@@ -118,6 +118,12 @@ const apiGroups = [
         ],
       },
       { en: "Sora 2", zh: "Sora 2", icon: "aperture", prefix: "sora-2/" },
+      {
+        en: "MU Video",
+        zh: "MU Video",
+        icon: "sparkles",
+        slugs: ["muse-video/muse-video-t2v", "muse-video/muse-video-i2v", "muse-video/muse-video-r2v"],
+      },
       { en: "Gemini Omni", zh: "Gemini Omni", icon: "gem", prefix: "gemini-omni/" },
       { en: "MiniMax H3", zh: "MiniMax H3", icon: "scan", prefix: "minimax-h3/" },
       {
@@ -128,6 +134,26 @@ const apiGroups = [
           { en: "Wan 2.7", zh: "Wan 2.7", slugs: ["wan/wan2-7-i2v", "wan/wan2-7-t2v", "wan/wan2-7-videoedit"] },
           { en: "Wan 3.0", zh: "Wan 3.0", slugs: ["wan/wan3-0-i2v", "wan/wan3-0-r2v", "wan/wan3-0-t2v"] },
           { en: "Wan 3.0 Prime", zh: "Wan 3.0 Prime", slugs: ["wan/wan3-0-prime-i2v", "wan/wan3-0-prime-r2v", "wan/wan3-0-prime-t2v"] },
+        ],
+      },
+      {
+        en: "Kling 4.0",
+        zh: "Kling 4.0",
+        icon: "clapperboard",
+        slugs: ["kling-4.0/kling-4.0-t2v", "kling-4.0/kling-4.0-i2v", "kling-4.0/kling-4.0-r2v"],
+      },
+      {
+        en: "Kling 3.0",
+        zh: "Kling 3.0",
+        icon: "clapperboard",
+        groups: [
+          { en: "Kling 3.0", zh: "Kling 3.0", slugs: ["kling-3.0/kling-3.0-t2v", "kling-3.0/kling-3.0-i2v"] },
+          { en: "Kling 3.0 Turbo", zh: "Kling 3.0 Turbo", slugs: ["kling-3.0/kling-3.0-turbo-t2v", "kling-3.0/kling-3.0-turbo-i2v"] },
+          {
+            en: "Kling 3.0 Omni",
+            zh: "Kling 3.0 Omni",
+            slugs: ["kling-3.0/kling-3.0-omni-t2v", "kling-3.0/kling-3.0-omni-i2v", "kling-3.0/kling-3.0-omni-r2v", "kling-3.0/kling-3.0-omni-edit"],
+          },
         ],
       },
       { en: "Kling Motion Control", zh: "Kling 动作控制", icon: "person-standing", prefix: "kling/" },

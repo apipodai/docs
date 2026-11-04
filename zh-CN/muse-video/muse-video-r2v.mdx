@@ -1,0 +1,82 @@
+---
+title: "MU Video 参考生视频"
+description: "MU Video 参考生视频用 1-4 张参考图保持人物、商品与场景一致，生成 5-60 秒 720P 带原生音频的视频。"
+openapi: "api-reference/openapi/muse-video--muse-video-r2v.zh.yaml POST /v1/videos/generations"
+---
+
+`muse-video-r2v` 生成忠于你所关心对象成片。它不锁定某一帧，而是让你交出一到四张参考图——一个角色、一件商品、一个场景——它围绕这些参考构图，在全片保持身份与材质细节。
+
+## 模型速览
+
+| | |
+| --- | --- |
+| 公开模型 ID | `muse-video-r2v` |
+| 输入 | 文本 + 图片（1-4 张） |
+| 输出 | 带音频的视频 |
+| 时长 | 5 / 10 / 20 / 30 / 40 / 50 / 60 秒（默认 5） |
+| 清晰度 | 720p |
+| 画幅 | `16:9`、`9:16`、`1:1`、`4:3`、`3:4`（默认 `16:9`） |
+| 计费 | 按输出秒数 |
+
+## 参数
+
+| 参数 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `prompt` | string | — | 必填，最多 4000 个字符。描述动作，不要描述参考图。 |
+| `image_urls` | string[] | — | 必填，1-4 个公网图片 URL。 |
+| `duration` | integer | `5` | 只能是 5、10、20、30、40、50、60。 |
+| `aspect_ratio` | string | `16:9` | 输出画幅，与参考图无关。 |
+| `resolution` | string | `720p` | 目前仅支持 720p。 |
+| `style_preset` | string | `none` | 与文生视频相同的七档预设。 |
+| `generate_audio` | boolean | `true` | 设为 `false` 可静音人声。 |
+
+## 每张参考图的作用
+
+| 参考图数量 | 适合场景 |
+| --- | --- |
+| 1 张 | 单一主体——一个角色或一件商品，放进新场景。 |
+| 2-3 张 | 主体加环境，避免模型自己编背景。 |
+| 4 张 | 多角度主体一致性，例如商品四面图或角色设定稿。 |
+
+每张参考图只聚焦一件事。一张图里塞两个互相抢戏的主体，会把成片往两个方向拉扯。
+
+## 提示词写法
+
+描述**发生什么**，而不是主体长什么样——外观已经由参考图承载了。点明镜头和运动通常就够了。
+
+```
+角色走过雨夜夜市，霓虹倒映在湿沥青上，肩部高度跟拍，浅景深
+```
+
+如果参考图是商品，写动作而不是写物体：写「一只手拿起瓶子」，不要写「一个白色玻璃瓶」。关于参考图的形容词很容易被当成风格改动重新施加。
+
+## 调用流程
+
+1. 带 `image_urls` 与提示词调用 `POST /v1/videos/generations`。
+2. 取 `data.task_id`。
+3. 轮询 `GET /v1/videos/status/{task_id}` 直到 `completed`。
+4. 从 `data.result` 下载。
+
+```bash
+curl https://api.apipod.ai/v1/videos/generations \
+  -H "Authorization: Bearer $APIPOD_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "muse-video-r2v",
+    "prompt": "角色走过雨夜夜市，肩部高度跟拍",
+    "image_urls": [
+      "https://cdn.example.com/character-front.jpg",
+      "https://cdn.example.com/night-market.jpg"
+    ],
+    "duration": 10,
+    "aspect_ratio": "9:16",
+    "style_preset": "cyberpunk_neon"
+  }'
+```
+
+## 参考图要求
+
+- 只接受公网 HTTPS 地址——会过期的签名链接、需要登录的域名在提交阶段就会失败。
+- 一个主体一张图。角色设定稿、商品抠图、场景底图都很合适。
+- 真人参考图要光线充足、正面清楚；极端裁切会丢失身份细节。
+- 本模型的参考图不计入费用：计费为 `时长 × 每秒单价`。

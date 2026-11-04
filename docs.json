@@ -315,6 +315,15 @@
                     ]
                   },
                   {
+                    "group": "MU Video",
+                    "icon": "sparkles",
+                    "pages": [
+                      "muse-video/muse-video-t2v",
+                      "muse-video/muse-video-i2v",
+                      "muse-video/muse-video-r2v"
+                    ]
+                  },
+                  {
                     "group": "Gemini Omni",
                     "icon": "gem",
                     "pages": [
@@ -722,6 +731,15 @@
                     "icon": "aperture",
                     "pages": [
                       "zh-CN/sora-2/sora-2-vip"
+                    ]
+                  },
+                  {
+                    "group": "MU Video",
+                    "icon": "sparkles",
+                    "pages": [
+                      "zh-CN/muse-video/muse-video-t2v",
+                      "zh-CN/muse-video/muse-video-i2v",
+                      "zh-CN/muse-video/muse-video-r2v"
                     ]
                   },
                   {
@@ -1144,7 +1162,13 @@
       "api-reference/openapi/wan--wan3-0-prime-spicy-r2v.yaml",
       "api-reference/openapi/wan--wan3-0-prime-spicy-r2v.zh.yaml",
       "api-reference/openapi/wan--wan3-0-video-prime-spicy.yaml",
-      "api-reference/openapi/wan--wan3-0-video-prime-spicy.zh.yaml"
+      "api-reference/openapi/wan--wan3-0-video-prime-spicy.zh.yaml",
+      "api-reference/openapi/muse-video--muse-video-t2v.yaml",
+      "api-reference/openapi/muse-video--muse-video-t2v.zh.yaml",
+      "api-reference/openapi/muse-video--muse-video-i2v.yaml",
+      "api-reference/openapi/muse-video--muse-video-i2v.zh.yaml",
+      "api-reference/openapi/muse-video--muse-video-r2v.yaml",
+      "api-reference/openapi/muse-video--muse-video-r2v.zh.yaml"
     ],
     "playground": {
       "display": "interactive",
@@ -2746,6 +2770,36 @@
     {
       "source": "/zh/wan/wan3-0-video-prime-spicy",
       "destination": "/zh-CN/wan/wan3-0-video-prime-spicy",
+      "permanent": true
+    },
+    {
+      "source": "/en/muse-video/muse-video-t2v",
+      "destination": "/muse-video/muse-video-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/muse-video/muse-video-t2v",
+      "destination": "/zh-CN/muse-video/muse-video-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/muse-video/muse-video-i2v",
+      "destination": "/muse-video/muse-video-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/muse-video/muse-video-i2v",
+      "destination": "/zh-CN/muse-video/muse-video-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/muse-video/muse-video-r2v",
+      "destination": "/muse-video/muse-video-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/muse-video/muse-video-r2v",
+      "destination": "/zh-CN/muse-video/muse-video-r2v",
       "permanent": true
     },
     {

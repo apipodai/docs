@@ -1,0 +1,78 @@
+---
+title: "MU Video Image to Video"
+description: "MU Video Image to Video animates a required first frame, with an optional last frame for first-to-last keyframe control, producing 5-60 second 720p clips with native audio."
+openapi: "api-reference/openapi/muse-video--muse-video-i2v.yaml POST /v1/videos/generations"
+---
+
+`muse-video-i2v` animates a still image. Pass one image and it becomes the first frame; pass a second image and MU Video interpolates a shot from the first frame to that last frame, giving you exact control over where the motion begins and ends.
+
+## Model at a glance
+
+| | |
+| --- | --- |
+| Public model ID | `muse-video-i2v` |
+| Input | text + image (1-2) |
+| Output | video with audio |
+| Duration | 5, 10, 20, 30, 40, 50 or 60 seconds (default 5) |
+| Resolution | 720p |
+| Aspect ratio | `16:9`, `9:16`, `1:1`, `4:3`, `3:4` (default `16:9`) |
+| Billing | per second of output |
+
+## Parameters
+
+| Parameter | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `prompt` | string | — | Required, up to 4000 characters. Describe the motion, not the still. |
+| `first_frame_image` | string | — | Required. Public URL of the first frame. |
+| `image_urls` | string[] | — | Optional. Pass a second URL to use it as the last frame. |
+| `duration` | integer | `5` | Must be one of 5, 10, 20, 30, 40, 50, 60. |
+| `aspect_ratio` | string | `16:9` | Output framing. It does not have to match the source image. |
+| `resolution` | string | `720p` | 720p is the only supported tier. |
+| `style_preset` | string | `none` | Same seven presets as text-to-video. |
+| `generate_audio` | boolean | `true` | Set `false` to mute voices. |
+
+Reference images supplied through `reference_images` are rejected here — that alias belongs to [`muse-video-r2v`](./muse-video-r2v), which treats every image as a subject reference rather than a frame.
+
+## First frame only vs. first and last
+
+| You send | Upstream mode | What you get |
+| --- | --- | --- |
+| 1 image | `first-frame` | Motion continues naturally from the still. |
+| 2 images | `first-last` | A controlled transition from the first image to the second. |
+
+First-to-last is the reliable way to land on an exact composition. Describe the journey in the prompt rather than both endpoints — the model already knows the endpoints.
+
+```
+Camera pushes slowly through drifting fog toward the lighthouse,
+the beam sweeping across frame, cool blue hour light
+```
+
+## Workflow
+
+1. `POST /v1/videos/generations` with `first_frame_image` (and optionally a second entry in `image_urls`).
+2. Read `data.task_id`.
+3. Poll `GET /v1/videos/status/{task_id}` until `completed`.
+4. Download from `data.result`.
+
+```bash
+curl https://api.apipod.ai/v1/videos/generations \
+  -H "Authorization: Bearer $APIPOD_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "muse-video-i2v",
+    "prompt": "Camera pushes slowly through drifting fog toward the lighthouse",
+    "first_frame_image": "https://cdn.example.com/lighthouse.jpg",
+    "duration": 5,
+    "aspect_ratio": "16:9"
+  }'
+```
+
+## Image requirements
+
+- Use plain, public HTTPS URLs. Signed links that expire, hotlink-protected hosts, and URLs that require a login all fail at submission.
+- Portrait, product and landscape photos all work; keep the subject unobstructed in the first frame.
+- For real-person portraits, prefer wide, well-lit shots — extreme close-ups give the model very little to animate.
+
+## Cost
+
+Billing is per output second and, unlike reference-to-video, the frames you supply do not add to the bill: `duration × per-second price`.
