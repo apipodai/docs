@@ -97,7 +97,7 @@
     "/16809456d0",
     "/16809458d0"
   ],
-  "publicPageCount": 108,
+  "publicPageCount": 147,
   "schemaOnlyCount": 36,
   "schemaPaths": [
     "/14024404d0",
@@ -1669,6 +1669,95 @@
         "zh": "Gemini Omni Flash 1.1 R2V 是 APIPod 面向 Gemini Omni Flash 1.1 提供的参考生视频模式，支持 1-7 张参考图引导主体与视觉一致性。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.1-r2v。它支持 1-7 张参考图引导主体与视觉一致性，接受文本、图片输入，并通过异步视频任务返回结果。"
       },
       "source": "localhost:8080/public/schemas/gemini-omni-flash-1.1-r2v"
+    },
+    {
+      "slug": "gemini-omni-flash-1.1-lite/gemini-omni-flash-1.1-lite-t2v",
+      "title": "Gemini Omni Flash 1.1 Lite Text to Video",
+      "legacy": "/gemini-omni-flash-1.1-lite/gemini-omni-flash-1.1-lite-t2v",
+      "schema": true,
+      "modelId": "gemini-omni-flash-1.1-lite-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "tokengo",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Flash 1.1 Lite Text to Video",
+          "zh": "Gemini Omni Flash 1.1 Lite 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Flash 1.1 Lite is the budget tier of Gemini Omni Flash 1.1, producing a fixed 10-second clip with synchronized audio from a prompt alone. In APIPod, the public model ID is gemini-omni-flash-1.1-lite-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Flash 1.1 Lite 是 Gemini Omni Flash 1.1 的特价档，仅需提示词即可生成固定 10 秒、自带同步音频的视频。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.1-lite-t2v，支持文生视频，接受文本输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/gemini-omni-flash-1.1-lite-t2v"
+    },
+    {
+      "slug": "gemini-omni-flash-1.1-lite/gemini-omni-flash-1.1-lite-i2v",
+      "title": "Gemini Omni Flash 1.1 Lite Image to Video",
+      "legacy": "/gemini-omni-flash-1.1-lite/gemini-omni-flash-1.1-lite-i2v",
+      "schema": true,
+      "modelId": "gemini-omni-flash-1.1-lite-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "tokengo",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Flash 1.1 Lite Image to Video",
+          "zh": "Gemini Omni Flash 1.1 Lite 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Flash 1.1 Lite I2V is the first/last-frame image-to-video mode of the Gemini Omni Flash 1.1 budget tier. It requires a first frame, accepts one optional last frame, and returns a fixed 10-second clip with synchronized audio. In APIPod, the public model ID is gemini-omni-flash-1.1-lite-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Flash 1.1 Lite 图生视频是 Gemini Omni Flash 1.1 特价档的首尾帧图生视频模式，要求提供首帧，可选提供尾帧，输出固定 10 秒、自带同步音频的视频。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.1-lite-i2v，支持图生视频，接受文本、图片输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/gemini-omni-flash-1.1-lite-i2v"
+    },
+    {
+      "slug": "gemini-omni-flash-1.1-lite/gemini-omni-flash-1.1-lite-r2v",
+      "title": "Gemini Omni Flash 1.1 Lite Reference to Video",
+      "legacy": "/gemini-omni-flash-1.1-lite/gemini-omni-flash-1.1-lite-r2v",
+      "schema": true,
+      "modelId": "gemini-omni-flash-1.1-lite-r2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "tokengo",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Flash 1.1 Lite Reference to Video",
+          "zh": "Gemini Omni Flash 1.1 Lite 参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Flash 1.1 Lite R2V is the reference-to-video mode of the Gemini Omni Flash 1.1 budget tier, fusing one to seven reference images into a fixed 10-second clip with synchronized audio while keeping subject consistency. In APIPod, the public model ID is gemini-omni-flash-1.1-lite-r2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Flash 1.1 Lite 参考生视频是 Gemini Omni Flash 1.1 特价档的参考生视频模式，融合 1-7 张参考图保持主体一致，输出固定 10 秒、自带同步音频的视频。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.1-lite-r2v，支持图生视频，接受文本、图片输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/gemini-omni-flash-1.1-lite-r2v"
     },
     {
       "slug": "gemini-omni-flash-1.1/gemini-omni-flash-1.1-extend",

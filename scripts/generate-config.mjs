@@ -125,6 +125,16 @@ const apiGroups = [
         slugs: ["muse-video/muse-video-t2v", "muse-video/muse-video-i2v", "muse-video/muse-video-r2v"],
       },
       { en: "Gemini Omni", zh: "Gemini Omni", icon: "gem", prefix: "gemini-omni/" },
+      {
+        en: "Gemini Omni Flash 1.1 Lite",
+        zh: "Gemini Omni Flash 1.1 特价版",
+        icon: "gem",
+        slugs: [
+          "gemini-omni-flash-1.1-lite/gemini-omni-flash-1.1-lite-t2v",
+          "gemini-omni-flash-1.1-lite/gemini-omni-flash-1.1-lite-i2v",
+          "gemini-omni-flash-1.1-lite/gemini-omni-flash-1.1-lite-r2v",
+        ],
+      },
       { en: "MiniMax H3", zh: "MiniMax H3", icon: "scan", prefix: "minimax-h3/" },
       {
         en: "Wan Video",
