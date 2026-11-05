@@ -30,6 +30,7 @@ const apiGroups = [
     groups: [
       { en: "GPT Image 2", zh: "GPT Image 2", icon: "wand-sparkles", prefix: "gpt-image-2/" },
       { en: "GPT Image 2.5", zh: "GPT Image 2.5", icon: "wand-sparkles", prefix: "gpt-image-2.5/" },
+      { en: "GPT Image 2.6", zh: "GPT Image 2.6", icon: "wand-sparkles", prefix: "gpt-image-2.6/" },
       { en: "Nano Banana", zh: "Nano Banana", icon: "banana", prefix: "nano-banana/" },
       {
         en: "Seedream",

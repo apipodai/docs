@@ -1,0 +1,375 @@
+{
+  "info": {
+    "title": "GPT Image 2.6 Flare",
+    "version": "1.0.0",
+    "x-apipod-metadata": {
+      "modelId": "gpt-image-2.6-flare",
+      "provider": "openai",
+      "modelType": "image"
+    }
+  },
+  "paths": {
+    "/v1/images/generations": {
+      "post": {
+        "summary": "image API",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          },
+          "required": true
+        },
+        "x-apipod-mode": "async",
+        "x-apipod-async": {
+          "polling": {
+            "interval": 3000,
+            "maxAttempts": 900,
+            "outputField": "data.result",
+            "statusField": "data.status",
+            "failedValues": [
+              "failed",
+              "error"
+            ],
+            "completedValues": [
+              "completed"
+            ]
+          },
+          "statusPath": "/v1/images/status/{task_id}",
+          "taskIdField": "data.task_id"
+        }
+      }
+    },
+    "/v1/images/status/{task_id}": {
+      "get": {
+        "summary": "GPT Image 2.5 Flare Task Status",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                }
+              }
+            },
+            "description": "Task status"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "task_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "x-apipod-mode": "async-status"
+      }
+    }
+  },
+  "openapi": "3.0.4",
+  "components": {
+    "schemas": {
+      "Input": {
+        "type": "object",
+        "title": "GPT Image 2.6 Flare",
+        "required": [
+          "model",
+          "prompt"
+        ],
+        "properties": {
+          "model": {
+            "type": "string",
+            "title": "Model ID",
+            "description": "Public APIPod model ID.",
+            "x-apipod-ui": {
+              "value": "{modelId}",
+              "component": "hidden"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "maxLength": 32000,
+            "description": "Used to describe the generated images. For GIF output, describe the subject, the motion and how the loop should close.",
+            "x-apipod-ui": {
+              "component": "textarea"
+            }
+          },
+          "image_urls": {
+            "type": "array",
+            "title": "Image Urls",
+            "maxItems": 16,
+            "items": {
+              "type": "string"
+            },
+            "description": "Publicly reachable source or reference image URLs. Not supported together with gif or svg output.",
+            "x-apipod-ui": {
+              "maxCount": 16,
+              "component": "image-upload"
+            }
+          },
+          "output_format": {
+            "enum": [
+              "png",
+              "jpeg",
+              "webp",
+              "gif",
+              "svg"
+            ],
+            "type": "string",
+            "title": "Output Format",
+            "default": "png",
+            "description": "Output format. gif and svg are new in GPT Image 2.6 and are only available for text-to-image; svg returns a single result, and neither format supports output_compression or transparent backgrounds.",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "complexity": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "type": "string",
+            "title": "Complexity",
+            "default": "high",
+            "description": "How much the model plans before rendering. low suits focused edits such as changing a background; high helps with dense text and complex layouts. Defaults to high and costs nothing extra.",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "quality": {
+            "enum": [
+              "auto",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "type": "string",
+            "title": "Quality",
+            "default": "auto",
+            "description": "Output fidelity tier. Must be at least medium when background is transparent.",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "background": {
+            "enum": [
+              "auto",
+              "opaque",
+              "transparent"
+            ],
+            "type": "string",
+            "title": "Background",
+            "default": "auto",
+            "description": "Background mode. transparent returns an alpha-channel image and requires quality of medium or higher.",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "aspect_ratio": {
+            "enum": [
+              "auto",
+              "1:1",
+              "2:3",
+              "3:2",
+              "3:4",
+              "4:3",
+              "4:5",
+              "5:4",
+              "9:16",
+              "16:9",
+              "21:9"
+            ],
+            "type": "string",
+            "title": "Aspect Ratio",
+            "default": "auto",
+            "description": "Aspect ratio of the generated image.",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "resolution": {
+            "enum": [
+              "1K",
+              "2K",
+              "4K"
+            ],
+            "type": "string",
+            "title": "Resolution",
+            "default": "1K",
+            "description": "Resolution tier of the generated images.",
+            "x-apipod-ui": {
+              "component": "button-group"
+            }
+          },
+          "size": {
+            "type": "string",
+            "title": "Size",
+            "description": "Exact pixel size as WIDTHxHEIGHT, for example 1024x1536. Each side must be a multiple of 16 and at most 3840. Takes precedence over resolution and aspect_ratio, and sets the GIF frame size."
+          },
+          "frame_count": {
+            "type": "integer",
+            "title": "Frame Count",
+            "minimum": 2,
+            "maximum": 64,
+            "default": 9,
+            "description": "Number of GIF frames, 2-64. Only read when output_format is gif; defaults to 9.",
+            "x-apipod-ui": {
+              "component": "number"
+            }
+          },
+          "frame_duration_ms": {
+            "type": "integer",
+            "title": "Frame Duration (ms)",
+            "minimum": 20,
+            "maximum": 2000,
+            "default": 200,
+            "description": "Duration of each GIF frame in milliseconds, 20-2000. Only read when output_format is gif; defaults to 200.",
+            "x-apipod-ui": {
+              "component": "number"
+            }
+          },
+          "output_compression": {
+            "type": "integer",
+            "title": "Output Compression",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Compression level 0-100 for jpeg and webp output. Not supported by gif or svg."
+          }
+        },
+        "x-apipod-order-properties": [
+          "model",
+          "prompt",
+          "image_urls",
+          "output_format",
+          "complexity",
+          "quality",
+          "background",
+          "aspect_ratio",
+          "resolution",
+          "size",
+          "frame_count",
+          "frame_duration_ms",
+          "output_compression"
+        ]
+      },
+      "Output": {
+        "type": "",
+        "x-apipod-display": {
+          "component": "image",
+          "previewMedia": [
+            "https://s.apipod.ai/images/2026/04/23/5957e13c-339d-4488-98c1-9ad66d7e35c7.png"
+          ]
+        }
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "title": "Task Submit Response",
+        "required": [
+          "code",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Submit Data",
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              }
+            },
+            "description": "Data content for task submission"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "description": "Standard response for task submission"
+      },
+      "TaskStatusResponse": {
+        "type": "object",
+        "title": "Task Status Response",
+        "required": [
+          "code",
+          "message",
+          "data"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "title": "Task Status Data",
+            "properties": {
+              "result": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "image url"
+                },
+                "description": "generated image url list"
+              },
+              "status": {
+                "enum": [
+                  "pending",
+                  "processing",
+                  "completed",
+                  "failed"
+                ],
+                "type": "string",
+                "description": "task status"
+              },
+              "task_id": {
+                "type": "string",
+                "description": "generatation task id"
+              },
+              "completed_at": {
+                "type": "integer",
+                "description": "completed timestamp"
+              }
+            },
+            "description": "Data content for task status"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "description": "Standard response for task status polling"
+      }
+    },
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey",
+        "description": "APIPod API Key"
+      }
+    }
+  }
+}
