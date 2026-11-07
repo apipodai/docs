@@ -48,6 +48,16 @@ paths:
                   items:
                     type: string
                   description: 可公开访问的源图或参考图 URL。与 gif、svg 输出不能同时使用。
+                mask_url:
+                  type: string
+                  title: Mask Url
+                  description: 局部重绘遮罩图，支持公网 URL 或 base64 数据 URI。透明像素标记允许编辑的区域，其余区域保持不变；须伴随
+                    image_urls 使用，且不能与 markup_url 同时使用。
+                markup_url:
+                  type: string
+                  title: Markup Url
+                  description: 编辑标注图，支持公网 URL 或 base64 数据 URI（GPT Image 2.5/2.6 新增）。透明 PNG 叠加在第一张参考图上，不透明笔迹引导模型编辑对应区域；尺寸须与第一张参考图一致。须伴随
+                    image_urls 使用，且不能与 mask_url 同时使用。
                 output_format:
                   enum:
                     - png

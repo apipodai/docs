@@ -56,6 +56,19 @@ paths:
                     type: string
                   description: Publicly reachable source or reference image URLs. Not supported together with gif or
                     svg output.
+                mask_url:
+                  type: string
+                  title: Mask Url
+                  description: Inpaint mask image as a public URL or base64 data URI. Transparent pixels mark the
+                    region the model may edit; the rest of the image stays unchanged. Requires image_urls and
+                    cannot be combined with markup_url.
+                markup_url:
+                  type: string
+                  title: Markup Url
+                  description: Markup overlay image as a public URL or base64 data URI. A transparent PNG placed on
+                    top of the first reference image whose opaque strokes guide the model to the regions to edit;
+                    dimensions must match the first image after orientation. Requires image_urls and cannot be
+                    combined with mask_url.
                 output_format:
                   enum:
                     - png
