@@ -136,6 +136,30 @@ const apiGroups = [
           "gemini-omni-flash-1.1-lite/gemini-omni-flash-1.1-lite-r2v",
         ],
       },
+      {
+        en: "Gemini Omni Flash 1.2",
+        zh: "Gemini Omni Flash 1.2",
+        icon: "gem",
+        slugs: [
+          "gemini-omni-flash-1.2/gemini-omni-flash-1.2-t2v",
+          "gemini-omni-flash-1.2/gemini-omni-flash-1.2-i2v",
+          "gemini-omni-flash-1.2/gemini-omni-flash-1.2-r2v",
+          "gemini-omni-flash-1.2/gemini-omni-flash-1.2-edit",
+          "gemini-omni-flash-1.2/gemini-omni-flash-1.2-extend",
+        ],
+      },
+      {
+        en: "Gemini Omni Flash 1.2 Lite",
+        zh: "Gemini Omni Flash 1.2 特价版",
+        icon: "gem",
+        slugs: [
+          "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-t2v",
+          "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-i2v",
+          "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-r2v",
+          "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-edit",
+          "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-extend",
+        ],
+      },
       { en: "MiniMax H3", zh: "MiniMax H3", icon: "scan", prefix: "minimax-h3/" },
       {
         en: "Wan Video",

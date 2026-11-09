@@ -21,6 +21,10 @@ const legacyModelIDs = {
   "grok-imagine-1-5/grok-imagine-1-5-preview": "grok-imagine-1.5-preview",
   "sora-2/sora-2-vip": "sora-2-vip",
 };
+// SYNC_ONLY=前缀1,前缀2：只新增 / 刷新模型 ID 以这些前缀开头的页面，其余页面保持原样。
+// 用于线上目录与文档存在无关差异（下线模型、未计划收录的模型）时做定点同步。
+const syncOnlyPrefixes = (process.env.SYNC_ONLY || "").split(",").map((item) => item.trim()).filter(Boolean);
+const inSyncScope = (modelID) => !syncOnlyPrefixes.length || syncOnlyPrefixes.some((prefix) => String(modelID || "").startsWith(prefix));
 const manifestPath = path.join(root, "migration-manifest.json");
 const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
 
@@ -70,6 +74,9 @@ function modelSlug(modelID) {
   if (modelID.startsWith("z-image-")) return `z-image/${modelID}`;
   if (modelID.startsWith("qwen-image-")) return `qwen-image/${modelID}`;
   if (modelID === "motion-control-m1") return "motion-control/motion-control-m1";
+  // gemini-omni-flash-1.2-t2v → gemini-omni-flash-1.2/gemini-omni-flash-1.2-t2v（与 1.1 / Lite 目录保持一致）
+  const omniFlash = modelID.match(/^(gemini-omni-flash-[\d.]+(?:-lite)?)-[a-z0-9]+$/);
+  if (omniFlash) return `${omniFlash[1]}/${modelID}`;
   return `models/${modelID.replaceAll(".", "-")}`;
 }
 
@@ -486,6 +493,7 @@ for (const page of manifest.pages.filter((item) => item.schema && !item.handwrit
 const missing = [...catalog.values()]
   .filter((model) => !excludedDocumentationModelIDs.has(model.model_id))
   .filter((model) => !existing.has(model.model_id))
+  .filter((model) => inSyncScope(model.model_id))
   .sort((a, b) => modelSlug(a.model_id).localeCompare(modelSlug(b.model_id)));
 
 await fs.mkdir(path.join(root, "api-reference/specs"), { recursive: true });
@@ -502,7 +510,7 @@ for (const model of missing) {
   });
 }
 
-for (const page of manifest.pages.filter((item) => item.schema && !item.handwritten && !item.slug.startsWith("query-"))) {
+for (const page of manifest.pages.filter((item) => item.schema && !item.handwritten && !item.slug.startsWith("query-") && inSyncScope(item.modelId))) {
   const model = catalog.get(page.modelId);
   if (!model) throw new Error(`Model metadata missing for documented model: ${page.modelId || page.slug}`);
   const zhModel = catalogZh.get(page.modelId) || model;
@@ -523,7 +531,7 @@ for (const page of manifest.pages.filter((item) => item.schema && !item.handwrit
   };
 }
 
-const refreshPages = manifest.pages.filter((page) => page.schema && !page.handwritten && !page.slug.startsWith("query-"));
+const refreshPages = manifest.pages.filter((page) => page.schema && !page.handwritten && !page.slug.startsWith("query-") && inSyncScope(page.modelId || legacyModelIDs[page.slug]));
 for (const page of refreshPages) {
   const modelID = page.modelId || legacyModelIDs[page.slug];
   const model = catalog.get(modelID);

@@ -351,6 +351,28 @@
                     ]
                   },
                   {
+                    "group": "Gemini Omni Flash 1.2",
+                    "icon": "gem",
+                    "pages": [
+                      "gemini-omni-flash-1.2/gemini-omni-flash-1.2-t2v",
+                      "gemini-omni-flash-1.2/gemini-omni-flash-1.2-i2v",
+                      "gemini-omni-flash-1.2/gemini-omni-flash-1.2-r2v",
+                      "gemini-omni-flash-1.2/gemini-omni-flash-1.2-edit",
+                      "gemini-omni-flash-1.2/gemini-omni-flash-1.2-extend"
+                    ]
+                  },
+                  {
+                    "group": "Gemini Omni Flash 1.2 Lite",
+                    "icon": "gem",
+                    "pages": [
+                      "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-t2v",
+                      "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-i2v",
+                      "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-r2v",
+                      "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-edit",
+                      "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-extend"
+                    ]
+                  },
+                  {
                     "group": "MiniMax H3",
                     "icon": "scan",
                     "pages": [
@@ -787,6 +809,28 @@
                     ]
                   },
                   {
+                    "group": "Gemini Omni Flash 1.2",
+                    "icon": "gem",
+                    "pages": [
+                      "zh-CN/gemini-omni-flash-1.2/gemini-omni-flash-1.2-t2v",
+                      "zh-CN/gemini-omni-flash-1.2/gemini-omni-flash-1.2-i2v",
+                      "zh-CN/gemini-omni-flash-1.2/gemini-omni-flash-1.2-r2v",
+                      "zh-CN/gemini-omni-flash-1.2/gemini-omni-flash-1.2-edit",
+                      "zh-CN/gemini-omni-flash-1.2/gemini-omni-flash-1.2-extend"
+                    ]
+                  },
+                  {
+                    "group": "Gemini Omni Flash 1.2 特价版",
+                    "icon": "gem",
+                    "pages": [
+                      "zh-CN/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-t2v",
+                      "zh-CN/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-i2v",
+                      "zh-CN/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-r2v",
+                      "zh-CN/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-edit",
+                      "zh-CN/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-extend"
+                    ]
+                  },
+                  {
                     "group": "MiniMax H3",
                     "icon": "scan",
                     "pages": [
@@ -1027,6 +1071,16 @@
       "api-reference/openapi/gemini-omni-flash-1.1-lite--gemini-omni-flash-1.1-lite-i2v.zh.yaml",
       "api-reference/openapi/gemini-omni-flash-1.1-lite--gemini-omni-flash-1.1-lite-r2v.yaml",
       "api-reference/openapi/gemini-omni-flash-1.1-lite--gemini-omni-flash-1.1-lite-r2v.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2-lite--gemini-omni-flash-1.2-lite-t2v.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2-lite--gemini-omni-flash-1.2-lite-t2v.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2-lite--gemini-omni-flash-1.2-lite-i2v.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2-lite--gemini-omni-flash-1.2-lite-i2v.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2-lite--gemini-omni-flash-1.2-lite-r2v.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2-lite--gemini-omni-flash-1.2-lite-r2v.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2-lite--gemini-omni-flash-1.2-lite-edit.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2-lite--gemini-omni-flash-1.2-lite-edit.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2-lite--gemini-omni-flash-1.2-lite-extend.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2-lite--gemini-omni-flash-1.2-lite-extend.zh.yaml",
       "api-reference/openapi/gemini-omni-flash-1.1--gemini-omni-flash-1.1-extend.yaml",
       "api-reference/openapi/gemini-omni-flash-1.1--gemini-omni-flash-1.1-extend.zh.yaml",
       "api-reference/openapi/minimax-h3--minimax-h3.yaml",
@@ -1212,7 +1266,17 @@
       "api-reference/openapi/muse-video--muse-video-i2v.yaml",
       "api-reference/openapi/muse-video--muse-video-i2v.zh.yaml",
       "api-reference/openapi/muse-video--muse-video-r2v.yaml",
-      "api-reference/openapi/muse-video--muse-video-r2v.zh.yaml"
+      "api-reference/openapi/muse-video--muse-video-r2v.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2--gemini-omni-flash-1.2-edit.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2--gemini-omni-flash-1.2-edit.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2--gemini-omni-flash-1.2-extend.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2--gemini-omni-flash-1.2-extend.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2--gemini-omni-flash-1.2-i2v.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2--gemini-omni-flash-1.2-i2v.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2--gemini-omni-flash-1.2-r2v.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2--gemini-omni-flash-1.2-r2v.zh.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2--gemini-omni-flash-1.2-t2v.yaml",
+      "api-reference/openapi/gemini-omni-flash-1.2--gemini-omni-flash-1.2-t2v.zh.yaml"
     ],
     "playground": {
       "display": "interactive",
@@ -1964,6 +2028,56 @@
     {
       "source": "/zh/gemini-omni-flash-1.1-lite/gemini-omni-flash-1.1-lite-r2v",
       "destination": "/zh-CN/gemini-omni-flash-1.1-lite/gemini-omni-flash-1.1-lite-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-t2v",
+      "destination": "/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-t2v",
+      "destination": "/zh-CN/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-i2v",
+      "destination": "/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-i2v",
+      "destination": "/zh-CN/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-r2v",
+      "destination": "/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-r2v",
+      "destination": "/zh-CN/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-edit",
+      "destination": "/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-edit",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-edit",
+      "destination": "/zh-CN/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-edit",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-extend",
+      "destination": "/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-extend",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-extend",
+      "destination": "/zh-CN/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-extend",
       "permanent": true
     },
     {
@@ -2894,6 +3008,56 @@
     {
       "source": "/zh/muse-video/muse-video-r2v",
       "destination": "/zh-CN/muse-video/muse-video-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni-flash-1.2/gemini-omni-flash-1.2-edit",
+      "destination": "/gemini-omni-flash-1.2/gemini-omni-flash-1.2-edit",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni-flash-1.2/gemini-omni-flash-1.2-edit",
+      "destination": "/zh-CN/gemini-omni-flash-1.2/gemini-omni-flash-1.2-edit",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni-flash-1.2/gemini-omni-flash-1.2-extend",
+      "destination": "/gemini-omni-flash-1.2/gemini-omni-flash-1.2-extend",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni-flash-1.2/gemini-omni-flash-1.2-extend",
+      "destination": "/zh-CN/gemini-omni-flash-1.2/gemini-omni-flash-1.2-extend",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni-flash-1.2/gemini-omni-flash-1.2-i2v",
+      "destination": "/gemini-omni-flash-1.2/gemini-omni-flash-1.2-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni-flash-1.2/gemini-omni-flash-1.2-i2v",
+      "destination": "/zh-CN/gemini-omni-flash-1.2/gemini-omni-flash-1.2-i2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni-flash-1.2/gemini-omni-flash-1.2-r2v",
+      "destination": "/gemini-omni-flash-1.2/gemini-omni-flash-1.2-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni-flash-1.2/gemini-omni-flash-1.2-r2v",
+      "destination": "/zh-CN/gemini-omni-flash-1.2/gemini-omni-flash-1.2-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/gemini-omni-flash-1.2/gemini-omni-flash-1.2-t2v",
+      "destination": "/gemini-omni-flash-1.2/gemini-omni-flash-1.2-t2v",
+      "permanent": true
+    },
+    {
+      "source": "/zh/gemini-omni-flash-1.2/gemini-omni-flash-1.2-t2v",
+      "destination": "/zh-CN/gemini-omni-flash-1.2/gemini-omni-flash-1.2-t2v",
       "permanent": true
     },
     {

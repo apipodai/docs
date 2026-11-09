@@ -1,6 +1,6 @@
 {
   "source": "https://docs.apipod.ai",
-  "generatedAt": "2026-08-11T12:30:09.646Z",
+  "generatedAt": "2026-11-09T08:04:58.754Z",
   "sitemapCount": 93,
   "sourcePaths": [
     "/kling-3.0/kling-3.0-t2v",
@@ -97,7 +97,7 @@
     "/16809456d0",
     "/16809458d0"
   ],
-  "publicPageCount": 149,
+  "publicPageCount": 159,
   "schemaOnlyCount": 36,
   "schemaPaths": [
     "/14024404d0",
@@ -1818,6 +1818,155 @@
         "zh": "Gemini Omni Flash 1.1 Lite 参考生视频是 Gemini Omni Flash 1.1 特价档的参考生视频模式，融合 1-7 张参考图保持主体一致，输出固定 10 秒、自带同步音频的视频。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.1-lite-r2v，支持图生视频，接受文本、图片输入，并通过异步视频任务返回结果。"
       },
       "source": "localhost:8080/public/schemas/gemini-omni-flash-1.1-lite-r2v"
+    },
+    {
+      "slug": "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-t2v",
+      "title": "Gemini Omni Flash 1.2 Lite Text to Video",
+      "legacy": "/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-t2v",
+      "schema": true,
+      "modelId": "gemini-omni-flash-1.2-lite-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Flash 1.2 Lite Text to Video",
+          "zh": "Gemini Omni Flash 1.2 特价版文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Flash 1.2 Lite turns a prompt into a 3-15 second video from 360P up to 4K with synchronized audio, in 16:9 or 9:16. In APIPod, the public model ID is gemini-omni-flash-1.2-lite-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Flash 1.2 特价版文生视频仅需提示词即可生成 3-15 秒、360P 至 4K 的视频，支持 16:9 横屏与 9:16 竖屏，成片自带同步音频。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.2-lite-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/gemini-omni-flash-1.2-lite-t2v"
+    },
+    {
+      "slug": "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-i2v",
+      "title": "Gemini Omni Flash 1.2 Lite Image to Video",
+      "legacy": "/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-i2v",
+      "schema": true,
+      "modelId": "gemini-omni-flash-1.2-lite-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Flash 1.2 Lite Image to Video",
+          "zh": "Gemini Omni Flash 1.2 特价版首尾帧"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Flash 1.2 Lite animates a required first frame, with an optional last frame for first-to-last control, producing a 3-15 second video (up to 10 seconds with a last frame) with synchronized audio. In APIPod, the public model ID is gemini-omni-flash-1.2-lite-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Flash 1.2 特价版图生视频以必填首帧加可选尾帧实现首帧 / 首尾帧生成，输出 3-15 秒视频（带尾帧时最长 10 秒），成片自带同步音频。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.2-lite-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/gemini-omni-flash-1.2-lite-i2v"
+    },
+    {
+      "slug": "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-r2v",
+      "title": "Gemini Omni Flash 1.2 Lite Reference to Video",
+      "legacy": "/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-r2v",
+      "schema": true,
+      "modelId": "gemini-omni-flash-1.2-lite-r2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Flash 1.2 Lite Reference to Video",
+          "zh": "Gemini Omni Flash 1.2 特价版参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Flash 1.2 Lite fuses 1-10 reference images of characters, products or scenes into a consistent 3-15 second video with synchronized audio. In APIPod, the public model ID is gemini-omni-flash-1.2-lite-r2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Flash 1.2 特价版参考生视频融合 1-10 张人物、商品或场景参考图，生成主体一致的 3-15 秒视频，成片自带同步音频。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.2-lite-r2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/gemini-omni-flash-1.2-lite-r2v"
+    },
+    {
+      "slug": "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-edit",
+      "title": "Gemini Omni Flash 1.2 Lite Video Edit",
+      "legacy": "/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-edit",
+      "schema": true,
+      "modelId": "gemini-omni-flash-1.2-lite-edit",
+      "classifications": [
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Flash 1.2 Lite Video Edit",
+          "zh": "Gemini Omni Flash 1.2 特价版视频编辑"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Flash 1.2 Lite edits one source video of up to 15 seconds from a prompt, keeping the original duration and framing, with synchronized audio. 🔸Note🔸: Billing method -> Source video duration * unit price. In APIPod, the public model ID is gemini-omni-flash-1.2-lite-edit. It supports video-to-video, accepts text and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Flash 1.2 特价版视频编辑按提示词修改 1 段 15 秒以内的源视频，保持原有时长与画幅，成片自带同步音频。 🔸注意🔸：计费方式为 -> 源视频时长 * 单价。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.2-lite-edit，支持视频到视频；接受文本、视频输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/gemini-omni-flash-1.2-lite-edit"
+    },
+    {
+      "slug": "gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-extend",
+      "title": "Gemini Omni Flash 1.2 Lite Video Extend",
+      "legacy": "/gemini-omni-flash-1.2-lite/gemini-omni-flash-1.2-lite-extend",
+      "schema": true,
+      "modelId": "gemini-omni-flash-1.2-lite-extend",
+      "classifications": [
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Flash 1.2 Lite Video Extend",
+          "zh": "Gemini Omni Flash 1.2 特价版视频延长"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Flash 1.2 Lite continues one source video of up to 15 seconds by another 3-10 seconds, following the prompt with synchronized audio. 🔸Note🔸: Billing method -> (Source video duration + Extended duration) * Unit price. In APIPod, the public model ID is gemini-omni-flash-1.2-lite-extend. It supports video-to-video, accepts text and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Flash 1.2 特价版视频延长在 1 段 15 秒以内的源视频后按提示词续写 3-10 秒，成片自带同步音频。 🔸注意🔸：计费方式为 -> (源视频时长 + 延长时长) * 单价。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.2-lite-extend，支持视频到视频；接受文本、视频输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/gemini-omni-flash-1.2-lite-extend"
     },
     {
       "slug": "gemini-omni-flash-1.1/gemini-omni-flash-1.1-extend",
@@ -4637,6 +4786,155 @@
         "zh": "MU Video 参考生视频用 1-4 张参考图保持人物、商品与场景一致，生成 5-60 秒 720P 带原生音频的视频。在 APIPod 中，公开模型 ID 为 muse-video-r2v，通过异步视频任务返回结果。"
       },
       "source": "localhost:8080/public/schemas/muse-video-r2v"
+    },
+    {
+      "slug": "gemini-omni-flash-1.2/gemini-omni-flash-1.2-edit",
+      "title": "Gemini Omni Flash 1.2 Video Edit",
+      "legacy": "/gemini-omni-flash-1.2/gemini-omni-flash-1.2-edit",
+      "schema": true,
+      "modelId": "gemini-omni-flash-1.2-edit",
+      "classifications": [
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/gemini-omni-flash-1.2-edit",
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Flash 1.2 Video Edit",
+          "zh": "Gemini Omni Flash 1.2 视频编辑"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Flash 1.2 edits one source video of up to 15 seconds from a prompt, keeping the original duration and framing, with synchronized audio. In APIPod, the public model ID is gemini-omni-flash-1.2-edit. It supports video-to-video, accepts text and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Flash 1.2 视频编辑按提示词修改 1 段 15 秒以内的源视频，保持原有时长与画幅，成片自带同步音频。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.2-edit，支持视频到视频；接受文本、视频输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "gemini-omni-flash-1.2/gemini-omni-flash-1.2-extend",
+      "title": "Gemini Omni Flash 1.2 Video Extend",
+      "legacy": "/gemini-omni-flash-1.2/gemini-omni-flash-1.2-extend",
+      "schema": true,
+      "modelId": "gemini-omni-flash-1.2-extend",
+      "classifications": [
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/gemini-omni-flash-1.2-extend",
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Flash 1.2 Video Extend",
+          "zh": "Gemini Omni Flash 1.2 视频延长"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Flash 1.2 continues one source video of up to 15 seconds by another 3-10 seconds, following the prompt with synchronized audio. In APIPod, the public model ID is gemini-omni-flash-1.2-extend. It supports video-to-video, accepts text and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Flash 1.2 视频延长在 1 段 15 秒以内的源视频后按提示词续写 3-10 秒，成片自带同步音频。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.2-extend，支持视频到视频；接受文本、视频输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "gemini-omni-flash-1.2/gemini-omni-flash-1.2-i2v",
+      "title": "Gemini Omni Flash 1.2 Image to Video",
+      "legacy": "/gemini-omni-flash-1.2/gemini-omni-flash-1.2-i2v",
+      "schema": true,
+      "modelId": "gemini-omni-flash-1.2-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/gemini-omni-flash-1.2-i2v",
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Flash 1.2 Image to Video",
+          "zh": "Gemini Omni Flash 1.2 首尾帧"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Flash 1.2 animates a required first frame, with an optional last frame for first-to-last control, producing a 3-15 second video (up to 10 seconds with a last frame) with synchronized audio. In APIPod, the public model ID is gemini-omni-flash-1.2-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Flash 1.2 图生视频以必填首帧加可选尾帧实现首帧 / 首尾帧生成，输出 3-15 秒视频（带尾帧时最长 10 秒），成片自带同步音频。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.2-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "gemini-omni-flash-1.2/gemini-omni-flash-1.2-r2v",
+      "title": "Gemini Omni Flash 1.2 Reference to Video",
+      "legacy": "/gemini-omni-flash-1.2/gemini-omni-flash-1.2-r2v",
+      "schema": true,
+      "modelId": "gemini-omni-flash-1.2-r2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/gemini-omni-flash-1.2-r2v",
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Flash 1.2 Reference to Video",
+          "zh": "Gemini Omni Flash 1.2 全能参考"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Flash 1.2 fuses 1-10 reference images of characters, products or scenes into a consistent 3-15 second video with synchronized audio. In APIPod, the public model ID is gemini-omni-flash-1.2-r2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Flash 1.2 参考生视频融合 1-10 张人物、商品或场景参考图，生成主体一致的 3-15 秒视频，成片自带同步音频。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.2-r2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "gemini-omni-flash-1.2/gemini-omni-flash-1.2-t2v",
+      "title": "Gemini Omni Flash 1.2 Text to Video",
+      "legacy": "/gemini-omni-flash-1.2/gemini-omni-flash-1.2-t2v",
+      "schema": true,
+      "modelId": "gemini-omni-flash-1.2-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/gemini-omni-flash-1.2-t2v",
+      "modelInfo": {
+        "providerId": "google",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Gemini Omni Flash 1.2 Text to Video",
+          "zh": "Gemini Omni Flash 1.2 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Gemini Omni Flash 1.2 turns a prompt into a 3-15 second video from 360P up to 4K with synchronized audio, in 16:9 or 9:16. In APIPod, the public model ID is gemini-omni-flash-1.2-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Gemini Omni Flash 1.2 文生视频仅需提示词即可生成 3-15 秒、360P 至 4K 的视频，支持 16:9 横屏与 9:16 竖屏，成片自带同步音频。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.2-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
     }
   ]
 }
