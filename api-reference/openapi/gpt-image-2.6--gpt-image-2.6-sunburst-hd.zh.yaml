@@ -1,0 +1,284 @@
+openapi: 3.1.0
+info:
+  title: GPT Image 2.6 Sunburst HD API
+  version: 1.0.0
+  description: GPT Image 2.6 Sunburst HD 是 APIPod 面向超分通道提供的 GPT Image 2.6 Sunburst 路由版本，并非独立的 OpenAI 模型。沿用相同的生成与编辑参数契约，经由超分通道产出更锐利、更高保真的位图；该版本不支持
+    GIF 与 SVG 输出。在 APIPod 中，公开模型 ID 为 gpt-image-2.6-sunburst-hd，支持文生图与参考图编辑。
+servers:
+- url: https://api.apipod.ai
+  description: 生产环境
+paths:
+  /v1/images/generations:
+    post:
+      summary: 创建生成任务
+      description: GPT Image 2.6 Sunburst HD 是 APIPod 面向超分通道提供的 GPT Image 2.6 Sunburst 路由版本，并非独立的 OpenAI
+        模型。沿用相同的生成与编辑参数契约，经由超分通道产出更锐利、更高保真的位图；该版本不支持 GIF 与 SVG 输出。在 APIPod 中，公开模型 ID 为 gpt-image-2.6-sunburst-hd，支持文生图与参考图编辑。
+      operationId: create-gpt-image-2.6-gpt-image-2.6-sunburst-hd
+      tags:
+      - GPT Image 2.6 Sunburst HD
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: GPT Image 2.6 Sunburst HD
+              required:
+              - model
+              - prompt
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: APIPod 公开模型 ID。
+                  const: gpt-image-2.6-sunburst-hd
+                prompt:
+                  type: string
+                  title: Prompt
+                  maxLength: 32000
+                  description: 生成或编辑指令。输出 GIF 时需写明主体、运动方式与循环目标。
+                image_urls:
+                  type: array
+                  title: Image Urls
+                  maxItems: 16
+                  items:
+                    type: string
+                  description: 可公开访问的源图或参考图 URL。与 gif、svg 输出不能同时使用。
+                mask_url:
+                  type: string
+                  title: Mask Url
+                  description: 局部重绘遮罩图，支持公网 URL 或 base64 数据 URI。透明像素标记允许编辑的区域，其余区域保持不变；须伴随 image_urls
+                    使用，且不能与 markup_url 同时使用。
+                markup_url:
+                  type: string
+                  title: Markup Url
+                  description: 编辑标注图，支持公网 URL 或 base64 数据 URI（GPT Image 2.5/2.6 新增）。透明 PNG 叠加在第一张参考图上，不透明笔迹引导模型编辑对应区域；尺寸须与第一张参考图一致。须伴随
+                    image_urls 使用，且不能与 mask_url 同时使用。
+                output_format:
+                  enum:
+                  - png
+                  - jpeg
+                  - webp
+                  type: string
+                  title: Output Format
+                  default: png
+                  description: 输出格式。GPT Image 2.6 HD 仅输出位图，不支持 gif 与 svg。
+                complexity:
+                  enum:
+                  - low
+                  - medium
+                  - high
+                  type: string
+                  title: Complexity
+                  default: high
+                  description: 渲染前的规划复杂度。low 适合改背景这类聚焦型编辑，high 适合密集文字与复杂版式；缺省为 high，不额外收费。
+                quality:
+                  enum:
+                  - auto
+                  - low
+                  - medium
+                  - high
+                  - xhigh
+                  - max
+                  type: string
+                  title: Quality
+                  default: auto
+                  description: 保真档位。background 为 transparent 时不得低于 medium。
+                background:
+                  enum:
+                  - auto
+                  - opaque
+                  - transparent
+                  type: string
+                  title: Background
+                  default: auto
+                  description: 背景模式。transparent 返回带 alpha 通道的图片，并要求 quality 不低于 medium。
+                aspect_ratio:
+                  enum:
+                  - auto
+                  - 61
+                  - 123
+                  - 182
+                  - 184
+                  - 243
+                  - 245
+                  - 304
+                  - 556
+                  - 969
+                  - 1269
+                  type: string
+                  title: Aspect Ratio
+                  default: auto
+                  description: 生成图片的宽高比。
+                resolution:
+                  enum:
+                  - 1K
+                  - 2K
+                  - 4K
+                  type: string
+                  title: Resolution
+                  default: 1K
+                  description: 生成图片的分辨率档位。
+                size:
+                  type: string
+                  title: Size
+                  description: 可选的精确像素通道，格式为 宽x高（例如 1024x1536）。宽高必须是 16 的倍数且不超过 3840；与 resolution、aspect_ratio
+                    同时出现时以 size 为准。1K/2K/4K 档位配合 15 种宽高比已覆盖常见尺寸，GIF 单帧也可直接使用，因此只有像素级对齐或非标准比例时才需要 size。
+                frame_count:
+                  type: integer
+                  title: Frame Count
+                  minimum: 2
+                  maximum: 64
+                  default: 9
+                  description: GIF 总帧数，取值 2-64。仅当 output_format 为 gif 时生效，缺省为 9。
+                frame_duration_ms:
+                  type: integer
+                  title: Frame Duration (ms)
+                  minimum: 20
+                  maximum: 2000
+                  default: 200
+                  description: GIF 每帧时长（毫秒），取值 20-2000。仅当 output_format 为 gif 时生效，缺省为 200。
+                output_compression:
+                  type: integer
+                  title: Output Compression
+                  minimum: 0
+                  maximum: 100
+                  description: jpeg 与 webp 的输出压缩率，取值 0-100。gif 与 svg 不支持该参数。
+                moderation:
+                  enum:
+                  - low
+                  - auto
+                  type: string
+                  title: Moderation
+                  default: low
+                  description: 内容审核严格度。APIPod 对 GPT Image 2.6 默认下发 low 以减少误拦；传 auto 可恢复 OpenAI 默认的严格过滤。
+                svg:
+                  type: object
+                  title: SVG Config
+                  description: SVG 写作模型配置，仅在 output_format=svg 时读取。SVG 的生成方式是先出一张参考位图，再由文本模型重写成矢量。省略整个对象时平台默认使用写作模型
+                    gpt-5.4-mini，也可通过 svg.model 指定其它具备文本 token 定价的模型。
+                  properties:
+                    model:
+                      type: string
+                      title: SVG Model
+                      minLength: 1
+                      default: gpt-5.4-mini
+                      description: 用于写作 SVG 的文本模型，必须具备文本 token 定价。省略时默认 gpt-5.4-mini。
+                    reasoning:
+                      type: object
+                      title: SVG Reasoning
+                      description: SVG 写作模型的推理设置，与图片 complexity 相互独立。省略 effort 时使用该模型的默认值。
+                      properties:
+                        effort:
+                          enum:
+                          - none
+                          - minimal
+                          - low
+                          - medium
+                          - high
+                          - xhigh
+                          - max
+                          type: string
+                          title: Reasoning Effort
+                          description: SVG 写作模型投入的推理强度。
+                  x-apipod-ui:
+                    component: hidden
+            example:
+              model: gpt-image-2.6-sunburst-hd
+              prompt: A premium product photograph on a dark studio set, precise typography, soft rim
+                lighting, highly detailed.
+              quality: auto
+              aspect_ratio: auto
+              resolution: 1K
+      responses:
+        '200':
+          description: 任务已受理
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                required:
+                - code
+                - message
+                - data
+                properties:
+                  code:
+                    type: integer
+                    description: HTTP 状态码。
+                  data:
+                    type: object
+                    title: Task Submit Data
+                    properties:
+                      task_id:
+                        type: string
+                        description: 用于查询任务状态的 APIPod 任务 ID。
+                    description: 响应数据。
+                  message:
+                    type: string
+                    description: 响应消息。
+                description: Standard response for task submission
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: img_task_01JEXAMPLE
+      x-codeSamples:
+      - lang: Shell
+        label: cURL
+        source: "curl https://api.apipod.ai/v1/images/generations \\\n  -H \"Authorization: Bearer $APIPOD_API_KEY\"\
+          \ \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n  \"model\": \"gpt-image-2.6-sunburst-hd\"\
+          ,\n  \"prompt\": \"A premium product photograph on a dark studio set, precise typography, soft\
+          \ rim lighting, highly detailed.\",\n  \"quality\": \"auto\",\n  \"aspect_ratio\": \"auto\"\
+          ,\n  \"resolution\": \"1K\"\n}'"
+      - lang: Python
+        label: Python
+        source: "import os\nimport requests\n\npayload = {\n  \"model\": \"gpt-image-2.6-sunburst-hd\"\
+          ,\n  \"prompt\": \"A premium product photograph on a dark studio set, precise typography, soft\
+          \ rim lighting, highly detailed.\",\n  \"quality\": \"auto\",\n  \"aspect_ratio\": \"auto\"\
+          ,\n  \"resolution\": \"1K\"\n}\n\nresponse = requests.post(\n    \"https://api.apipod.ai/v1/images/generations\"\
+          ,\n    headers={\n        \"Authorization\": f\"Bearer {os.environ['APIPOD_API_KEY']}\",\n \
+          \       \"Content-Type\": \"application/json\",\n    },\n    json=payload,\n    timeout=60,\n\
+          )\nresponse.raise_for_status()\nprint(response.json())"
+      - lang: Go
+        label: Go
+        source: "package main\n\nimport (\n    \"bytes\"\n    \"encoding/json\"\n    \"fmt\"\n    \"net/http\"\
+          \n    \"os\"\n)\n\nfunc main() {\n    payload := map[string]any{}\n    if err := json.Unmarshal([]byte(`{\n\
+          \  \"model\": \"gpt-image-2.6-sunburst-hd\",\n  \"prompt\": \"A premium product photograph on\
+          \ a dark studio set, precise typography, soft rim lighting, highly detailed.\",\n  \"quality\"\
+          : \"auto\",\n  \"aspect_ratio\": \"auto\",\n  \"resolution\": \"1K\"\n}`), &payload); err !=\
+          \ nil {\n        panic(err)\n    }\n    body, err := json.Marshal(payload)\n    if err != nil\
+          \ {\n        panic(err)\n    }\n\n    req, err := http.NewRequest(http.MethodPost, \"https://api.apipod.ai/v1/images/generations\"\
+          , bytes.NewReader(body))\n    if err != nil {\n        panic(err)\n    }\n    req.Header.Set(\"\
+          Authorization\", \"Bearer \"+os.Getenv(\"APIPOD_API_KEY\"))\n    req.Header.Set(\"Content-Type\"\
+          , \"application/json\")\n\n    resp, err := http.DefaultClient.Do(req)\n    if err != nil {\n\
+          \        panic(err)\n    }\n    defer resp.Body.Close()\n    fmt.Println(resp.Status)\n}"
+      - lang: Rust
+        label: Rust
+        source: "use reqwest::Client;\nuse serde_json::json;\nuse std::env;\n\n#[tokio::main]\nasync fn\
+          \ main() -> Result<(), Box<dyn std::error::Error>> {\n    let payload = json!({\n  \"model\"\
+          : \"gpt-image-2.6-sunburst-hd\",\n  \"prompt\": \"A premium product photograph on a dark studio\
+          \ set, precise typography, soft rim lighting, highly detailed.\",\n  \"quality\": \"auto\",\n\
+          \  \"aspect_ratio\": \"auto\",\n  \"resolution\": \"1K\"\n});\n    let response = Client::new()\n\
+          \        .post(\"https://api.apipod.ai/v1/images/generations\")\n        .bearer_auth(env::var(\"\
+          APIPOD_API_KEY\")?)\n        .json(&payload)\n        .send()\n        .await?\n        .error_for_status()?;\n\
+          \n    println!(\"{}\", response.text().await?);\n    Ok(())\n}"
+      - lang: JavaScript
+        label: JavaScript
+        source: "const response = await fetch(\"https://api.apipod.ai/v1/images/generations\", {\n  method:\
+          \ \"POST\",\n  headers: {\n    Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,\n    \"\
+          Content-Type\": \"application/json\",\n  },\n  body: JSON.stringify(\n  {\n    \"model\": \"\
+          gpt-image-2.6-sunburst-hd\",\n    \"prompt\": \"A premium product photograph on a dark studio\
+          \ set, precise typography, soft rim lighting, highly detailed.\",\n    \"quality\": \"auto\"\
+          ,\n    \"aspect_ratio\": \"auto\",\n    \"resolution\": \"1K\"\n  }\n  ),\n});\n\nif (!response.ok)\
+          \ {\n  throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);\n\
+          }\n\nconsole.log(await response.json());"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: 在 Authorization 请求头中使用 Bearer APIPod_API_KEY。
