@@ -393,6 +393,126 @@
       "source": "localhost:8080/public/schemas/gpt-image-2.6-sunburst"
     },
     {
+      "slug": "gpt-image-2.6/gpt-image-2.6-flare-hd",
+      "title": "GPT Image 2.6 Flare HD",
+      "legacy": "/gpt-image-2.6/gpt-image-2.6-flare-hd",
+      "schema": true,
+      "modelId": "gpt-image-2.6-flare-hd",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "openai",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "GPT Image 2.6 Flare HD",
+          "zh": "GPT Image 2.6 Flare HD 超分版"
+        }
+      },
+      "introduction": {
+        "en": "GPT Image 2.6 Flare HD is APIPod's super-resolution routing variant for GPT Image 2.6 Flare rather than a separate OpenAI model. It routes the shared generation and editing contract through super-resolution channels for higher-fidelity output, and does not support GIF or SVG output. In APIPod, the public model ID is gpt-image-2.6-flare-hd. It supports text-to-image and reference-image editing.",
+        "zh": "GPT Image 2.6 Flare HD 是 APIPod 面向超分通道提供的 GPT Image 2.6 Flare 路由版本，并非独立的 OpenAI 模型。沿用相同的生成与编辑参数契约并经由超分通道产出更高保真的图像，不支持 GIF 与 SVG 输出。在 APIPod 中，公开模型 ID 为 gpt-image-2.6-flare-hd，支持文生图与参考图编辑。"
+      },
+      "source": "localhost:8080/public/schemas/gpt-image-2.6-flare-hd"
+    },
+    {
+      "slug": "gpt-image-2.6/gpt-image-2.6-sunburst-hd",
+      "title": "GPT Image 2.6 Sunburst HD",
+      "legacy": "/gpt-image-2.6/gpt-image-2.6-sunburst-hd",
+      "schema": true,
+      "modelId": "gpt-image-2.6-sunburst-hd",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "openai",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "GPT Image 2.6 Sunburst HD",
+          "zh": "GPT Image 2.6 Sunburst HD 超分版"
+        }
+      },
+      "introduction": {
+        "en": "GPT Image 2.6 Sunburst HD is APIPod's super-resolution routing variant for GPT Image 2.6 Sunburst rather than a separate OpenAI model. It routes the shared generation and editing contract through super-resolution channels for higher-fidelity output, and does not support GIF or SVG output. In APIPod, the public model ID is gpt-image-2.6-sunburst-hd. It supports text-to-image and reference-image editing.",
+        "zh": "GPT Image 2.6 Sunburst HD 是 APIPod 面向超分通道提供的 GPT Image 2.6 Sunburst 路由版本，并非独立的 OpenAI 模型。沿用相同的生成与编辑参数契约并经由超分通道产出更高保真的图像，不支持 GIF 与 SVG 输出。在 APIPod 中，公开模型 ID 为 gpt-image-2.6-sunburst-hd，支持文生图与参考图编辑。"
+      },
+      "source": "localhost:8080/public/schemas/gpt-image-2.6-sunburst-hd"
+    },
+    {
+      "slug": "gpt-image-2.6/gpt-image-2.6-flare-lite",
+      "title": "GPT Image 2.6 Flare Lite",
+      "legacy": "/gpt-image-2.6/gpt-image-2.6-flare-lite",
+      "schema": true,
+      "modelId": "gpt-image-2.6-flare-lite",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "openai",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "GPT Image 2.6 Flare Lite",
+          "zh": "GPT Image 2.6 Flare Lite 轻量版"
+        }
+      },
+      "introduction": {
+        "en": "GPT Image 2.6 Flare Lite is APIPod's cost-oriented routing variant for GPT Image 2.6 Flare rather than a separate OpenAI model. It routes the shared generation and editing contract through lower-cost channels, and does not support SVG output. In APIPod, the public model ID is gpt-image-2.6-flare-lite. It supports text-to-image and reference-image editing.",
+        "zh": "GPT Image 2.6 Flare Lite 是 APIPod 面向低成本通道提供的 GPT Image 2.6 Flare 路由版本，并非独立的 OpenAI 模型。沿用相同的生成与编辑参数契约并经由低成本通道提供服务，不支持 SVG 输出。在 APIPod 中，公开模型 ID 为 gpt-image-2.6-flare-lite，支持文生图与参考图编辑。"
+      },
+      "source": "localhost:8080/public/schemas/gpt-image-2.6-flare-lite"
+    },
+    {
+      "slug": "gpt-image-2.6/gpt-image-2.6-sunburst-lite",
+      "title": "GPT Image 2.6 Sunburst Lite",
+      "legacy": "/gpt-image-2.6/gpt-image-2.6-sunburst-lite",
+      "schema": true,
+      "modelId": "gpt-image-2.6-sunburst-lite",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "modelInfo": {
+        "providerId": "openai",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "GPT Image 2.6 Sunburst Lite",
+          "zh": "GPT Image 2.6 Sunburst Lite 轻量版"
+        }
+      },
+      "introduction": {
+        "en": "GPT Image 2.6 Sunburst Lite is APIPod's cost-oriented routing variant for GPT Image 2.6 Sunburst rather than a separate OpenAI model. It routes the shared generation and editing contract through lower-cost channels, and does not support SVG output. In APIPod, the public model ID is gpt-image-2.6-sunburst-lite. It supports text-to-image and reference-image editing.",
+        "zh": "GPT Image 2.6 Sunburst Lite 是 APIPod 面向低成本通道提供的 GPT Image 2.6 Sunburst 路由版本，并非独立的 OpenAI 模型。沿用相同的生成与编辑参数契约并经由低成本通道提供服务，不支持 SVG 输出。在 APIPod 中，公开模型 ID 为 gpt-image-2.6-sunburst-lite，支持文生图与参考图编辑。"
+      },
+      "source": "localhost:8080/public/schemas/gpt-image-2.6-sunburst-lite"
+    },
+    {
       "slug": "gpt-image-2/gpt-image-2-lite",
       "title": "GPT Image 2 Lite",
       "legacy": "/gpt-image-2/gpt-image-2-lite",

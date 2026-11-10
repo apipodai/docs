@@ -79,7 +79,11 @@
                     "icon": "wand-sparkles",
                     "pages": [
                       "gpt-image-2.6/gpt-image-2.6-flare",
-                      "gpt-image-2.6/gpt-image-2.6-sunburst"
+                      "gpt-image-2.6/gpt-image-2.6-sunburst",
+                      "gpt-image-2.6/gpt-image-2.6-flare-hd",
+                      "gpt-image-2.6/gpt-image-2.6-sunburst-hd",
+                      "gpt-image-2.6/gpt-image-2.6-flare-lite",
+                      "gpt-image-2.6/gpt-image-2.6-sunburst-lite"
                     ]
                   },
                   {
@@ -537,7 +541,11 @@
                     "icon": "wand-sparkles",
                     "pages": [
                       "zh-CN/gpt-image-2.6/gpt-image-2.6-flare",
-                      "zh-CN/gpt-image-2.6/gpt-image-2.6-sunburst"
+                      "zh-CN/gpt-image-2.6/gpt-image-2.6-sunburst",
+                      "zh-CN/gpt-image-2.6/gpt-image-2.6-flare-hd",
+                      "zh-CN/gpt-image-2.6/gpt-image-2.6-sunburst-hd",
+                      "zh-CN/gpt-image-2.6/gpt-image-2.6-flare-lite",
+                      "zh-CN/gpt-image-2.6/gpt-image-2.6-sunburst-lite"
                     ]
                   },
                   {
@@ -973,8 +981,16 @@
       "api-reference/openapi/gpt-image-2.5--gpt-image-2.5-sunburst-lite.zh.yaml",
       "api-reference/openapi/gpt-image-2.6--gpt-image-2.6-flare.yaml",
       "api-reference/openapi/gpt-image-2.6--gpt-image-2.6-flare.zh.yaml",
+      "api-reference/openapi/gpt-image-2.6--gpt-image-2.6-flare-hd.yaml",
+      "api-reference/openapi/gpt-image-2.6--gpt-image-2.6-flare-hd.zh.yaml",
+      "api-reference/openapi/gpt-image-2.6--gpt-image-2.6-flare-lite.yaml",
+      "api-reference/openapi/gpt-image-2.6--gpt-image-2.6-flare-lite.zh.yaml",
       "api-reference/openapi/gpt-image-2.6--gpt-image-2.6-sunburst.yaml",
       "api-reference/openapi/gpt-image-2.6--gpt-image-2.6-sunburst.zh.yaml",
+      "api-reference/openapi/gpt-image-2.6--gpt-image-2.6-sunburst-hd.yaml",
+      "api-reference/openapi/gpt-image-2.6--gpt-image-2.6-sunburst-hd.zh.yaml",
+      "api-reference/openapi/gpt-image-2.6--gpt-image-2.6-sunburst-lite.yaml",
+      "api-reference/openapi/gpt-image-2.6--gpt-image-2.6-sunburst-lite.zh.yaml",
       "api-reference/openapi/gpt-image-2--gpt-image-2-lite.yaml",
       "api-reference/openapi/gpt-image-2--gpt-image-2-lite.zh.yaml",
       "api-reference/openapi/gpt-image-2--gpt-image-2-1k.yaml",
