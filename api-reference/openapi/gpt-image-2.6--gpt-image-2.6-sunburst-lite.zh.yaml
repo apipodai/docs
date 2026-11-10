@@ -46,7 +46,7 @@ paths:
                   maxItems: 16
                   items:
                     type: string
-                  description: 可公开访问的源图或参考图 URL。与 gif、svg 输出不能同时使用。
+                  description: 可公开访问的源图或参考图 URL。与 gif 输出不能同时使用。
                 mask_url:
                   type: string
                   title: Mask Url
@@ -147,7 +147,7 @@ paths:
                   title: Output Compression
                   minimum: 0
                   maximum: 100
-                  description: jpeg 与 webp 的输出压缩率，取值 0-100。gif 与 svg 不支持该参数。
+                  description: jpeg 与 webp 的输出压缩率，取值 0-100。gif 不支持该参数。
                 moderation:
                   enum:
                   - low
@@ -156,37 +156,6 @@ paths:
                   title: Moderation
                   default: low
                   description: 内容审核严格度。APIPod 对 GPT Image 2.6 默认下发 low 以减少误拦；传 auto 可恢复 OpenAI 默认的严格过滤。
-                svg:
-                  type: object
-                  title: SVG Config
-                  description: SVG 写作模型配置，仅在 output_format=svg 时读取。SVG 的生成方式是先出一张参考位图，再由文本模型重写成矢量。省略整个对象时平台默认使用写作模型
-                    gpt-5.4-mini，也可通过 svg.model 指定其它具备文本 token 定价的模型。
-                  properties:
-                    model:
-                      type: string
-                      title: SVG Model
-                      minLength: 1
-                      default: gpt-5.4-mini
-                      description: 用于写作 SVG 的文本模型，必须具备文本 token 定价。省略时默认 gpt-5.4-mini。
-                    reasoning:
-                      type: object
-                      title: SVG Reasoning
-                      description: SVG 写作模型的推理设置，与图片 complexity 相互独立。省略 effort 时使用该模型的默认值。
-                      properties:
-                        effort:
-                          enum:
-                          - none
-                          - minimal
-                          - low
-                          - medium
-                          - high
-                          - xhigh
-                          - max
-                          type: string
-                          title: Reasoning Effort
-                          description: SVG 写作模型投入的推理强度。
-                  x-apipod-ui:
-                    component: hidden
             example:
               model: gpt-image-2.6-sunburst-lite
               prompt: A premium product photograph on a dark studio set, precise typography, soft rim

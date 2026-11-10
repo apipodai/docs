@@ -53,7 +53,7 @@ paths:
                   items:
                     type: string
                   description: Publicly reachable source or reference image URLs. Not supported together
-                    with gif or svg output.
+                    with gif output.
                 mask_url:
                   type: string
                   title: Mask Url
@@ -167,8 +167,7 @@ paths:
                   title: Output Compression
                   minimum: 0
                   maximum: 100
-                  description: Compression level 0-100 for jpeg and webp output. Not supported by gif
-                    or svg.
+                  description: Compression level 0-100 for jpeg and webp output. Not supported by gif.
                 moderation:
                   enum:
                   - low
@@ -178,41 +177,6 @@ paths:
                   default: low
                   description: Moderation strictness. APIPod defaults to low for GPT Image 2.6 to reduce
                     false blocks; pass auto to restore OpenAI's default filtering.
-                svg:
-                  type: object
-                  title: SVG Config
-                  description: SVG authoring config, only read when output_format=svg. SVG is produced
-                    by first rendering a reference bitmap and then having a text model rewrite it as vectors.
-                    Omit the whole object to author with the platform default gpt-5.4-mini, or set svg.model
-                    to another model with text token pricing.
-                  properties:
-                    model:
-                      type: string
-                      title: SVG Model
-                      minLength: 1
-                      default: gpt-5.4-mini
-                      description: Text model that authors the SVG. Must be a model with text token pricing.
-                        Defaults to gpt-5.4-mini when omitted.
-                    reasoning:
-                      type: object
-                      title: SVG Reasoning
-                      description: Reasoning settings for the SVG author, independent of image complexity.
-                        Omit effort to use the author model's default.
-                      properties:
-                        effort:
-                          enum:
-                          - none
-                          - minimal
-                          - low
-                          - medium
-                          - high
-                          - xhigh
-                          - max
-                          type: string
-                          title: Reasoning Effort
-                          description: How much effort the SVG author spends on reasoning.
-                  x-apipod-ui:
-                    component: hidden
             example:
               model: gpt-image-2.6-flare-lite
               prompt: A premium product photograph on a dark studio set, precise typography, soft rim
