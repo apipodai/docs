@@ -53,6 +53,10 @@ paths:
                     - 16:9
                     - 9:21
                     - 21:9
+                enable_thinking:
+                  type: boolean
+                  title: Enable Thinking
+                  description: 渲染前先推理以提升出图质量，但会增加耗时。仅在 prompt_extend 开启时生效；上游默认开启。
                 image_urls:
                   type: array
                   title: Reference Images
@@ -86,6 +90,13 @@ paths:
                   title: Prompt Extend
                   description: 渲染前先扩写简短提示词（增加 3 到 5 秒）；提示词已精确详尽时建议关闭。
                   default: true
+                prompt_extend_mode:
+                  type: string
+                  title: Prompt Extend Mode
+                  description: prompt_extend 开启时的提示词改写方式。direct（默认）文生图与编辑均可用；agent 改写更精细，仅支持文生图。
+                  enum:
+                    - direct
+                    - agent
                 resolution:
                   type: string
                   title: Resolution
