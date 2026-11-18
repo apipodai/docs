@@ -238,6 +238,8 @@ function requestExample(schema, spec, page) {
   const slug = page.slug;
   const important = new Set(["model", "prompt", "aspect_ratio", "resolution", "quality", "duration", "generate_audio", "n", "size"]);
   const modelID = page.modelId || "";
+  // resolution + aspect_ratio 是推荐路径；同时展示 size 会与其矛盾（size 优先级最高，会把两者变成无效参数）。
+  if (schema.properties?.resolution && schema.properties?.aspect_ratio) important.delete("size");
   if (slug.includes("image-to-image") || slug.endsWith("-edit") || slug.endsWith("/grok-imagine-i2v") || slug.includes("preview") || slug.includes("image-to-video") || slug.endsWith("gemini-omni-i2v") || slug.endsWith("gemini-omni-r2v") || slug.endsWith("minimax-h3-i2v") || slug.endsWith("minimax-h3-r2v") || slug.includes("reference-to-video") || slug.endsWith("fast-ref") || /(?:i2v|r2v)/.test(modelID)) important.add("image_urls");
   if (slug.includes("preview") || slug.includes("1-5-vip") || slug.startsWith("sora-2/") || slug.startsWith("kling/") || slug.startsWith("motion-control/")) important.add("image_url");
   if (/(?:t2v|i2v|r2v|videoedit)/.test(modelID) && slug.startsWith("wan/")) {
@@ -310,6 +312,17 @@ const zhSchemaDescriptions = {
 };
 
 const zhDescriptionTranslations = {
+  "Number of images to generate per request. Each returned image is billed separately.": "单次请求生成的图片数量；每张返回的图片分别计费。",
+  "Optional. Omit for text-to-image; pass 1 to 3 images to switch the same model into instruction-based editing.": "可选。不传即为文生图；传入 1 到 3 张图片后，同一模型切换为指令式编辑。",
+  "Optional. Omit for text-to-image; pass 1 to 10 images to switch the same model into instruction-based editing.": "可选。不传即为文生图；传入 1 到 10 张图片后，同一模型切换为指令式编辑。",
+  "Output aspect ratio, used together with resolution. Any ratio from 1:8 to 8:1 is accepted.": "输出宽高比，与 resolution 搭配使用；接受 1:8 到 8:1 的任意比例。",
+  "Recommended output tier. Combined with aspect_ratio the API derives the exact pixel size.": "推荐的输出档位；与 aspect_ratio 搭配时由 API 换算出精确像素。",
+  "Recommended output tier. Combined with aspect_ratio the API derives the exact pixel size. Requests without size are billed at the 2K tier.": "推荐的输出档位；与 aspect_ratio 搭配时由 API 换算出精确像素。未传 size 的请求按 2K 档计费。",
+  "What to generate, or how to edit the reference images when image_urls is present. Prompts up to about 4.5k tokens are accepted.": "要生成的内容；传入 image_urls 时则为编辑指令。提示词最长约 4.5k token。",
+  "Exact pixel override, WIDTHxHEIGHT. Total pixels must stay between 512*512 and 2048*2048 at 1:8 to 8:1. Takes precedence over resolution and aspect_ratio; omit to let the model choose.": "精确像素覆盖，格式为「宽*高」；总像素须在 512*512 到 2048*2048 之间、比例 1:8 到 8:1。优先级高于 resolution 与 aspect_ratio；不传则由模型自选。",
+  "Random seed from 0 to 2147483647. Reuse a seed for more stable results.": "随机种子；复用同一种子可获得更稳定的结果。",
+  "Expand short prompts before rendering (adds 3 to 5 seconds). Disable for precise, already-detailed prompts.": "渲染前先扩写简短提示词（增加 3 到 5 秒）；提示词已精确详尽时建议关闭。",
+  "Add an AI-generated watermark in the bottom right corner.": "在右下角添加 AI 生成的水印。",
   "Final usage snapshot for this task; present only when status is completed.": "任务终态用量快照，仅在 status 为 completed 时返回。",
   "Prompt token count, present only when the upstream provider reports token usage.": "输入 token 数，仅在上游上报 token 用量时返回。",
   "Completion token count, present only when the upstream provider reports token usage.": "输出 token 数，仅在上游上报 token 用量时返回。",

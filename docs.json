@@ -288,7 +288,10 @@
                             "pages": [
                               "seedance/2-5-text-to-video",
                               "seedance/2-5-image-to-video",
-                              "seedance/2-5-reference-to-video"
+                              "seedance/2-5-reference-to-video",
+                              "seedance/2-5-draft",
+                              "seedance/2-5-video-edit",
+                              "seedance/2-5-video-extend"
                             ]
                           },
                           {
@@ -314,14 +317,6 @@
                             "pages": [
                               "seedance/2-5-x-text-to-video",
                               "seedance/2-5-x-reference-to-video"
-                            ]
-                          },
-                          {
-                            "group": "Draft / Edit / Extend",
-                            "pages": [
-                              "seedance/2-5-draft",
-                              "seedance/2-5-video-edit",
-                              "seedance/2-5-video-extend"
                             ]
                           }
                         ]
@@ -780,7 +775,10 @@
                             "pages": [
                               "zh-CN/seedance/2-5-text-to-video",
                               "zh-CN/seedance/2-5-image-to-video",
-                              "zh-CN/seedance/2-5-reference-to-video"
+                              "zh-CN/seedance/2-5-reference-to-video",
+                              "zh-CN/seedance/2-5-draft",
+                              "zh-CN/seedance/2-5-video-edit",
+                              "zh-CN/seedance/2-5-video-extend"
                             ]
                           },
                           {
@@ -806,14 +804,6 @@
                             "pages": [
                               "zh-CN/seedance/2-5-x-text-to-video",
                               "zh-CN/seedance/2-5-x-reference-to-video"
-                            ]
-                          },
-                          {
-                            "group": "样片 / 编辑 / 延长",
-                            "pages": [
-                              "zh-CN/seedance/2-5-draft",
-                              "zh-CN/seedance/2-5-video-edit",
-                              "zh-CN/seedance/2-5-video-extend"
                             ]
                           }
                         ]

@@ -31,22 +31,32 @@ paths:
                 aspect_ratio:
                   type: string
                   title: Aspect Ratio
-                  description: 输出宽高比。
+                  description: 输出宽高比，与 resolution 搭配使用；接受 1:8 到 8:1 的任意比例。
                   enum:
+                    - auto
                     - 1:1
+                    - 1:2
+                    - 2:1
+                    - 1:3
+                    - 3:1
+                    - 1:4
+                    - 4:1
+                    - 1:8
+                    - 8:1
                     - 2:3
                     - 3:2
                     - 3:4
                     - 4:3
                     - 4:5
                     - 5:4
-                    - 16:9
                     - 9:16
+                    - 16:9
+                    - 9:21
                     - 21:9
                 image_urls:
                   type: array
                   title: Reference Images
-                  description: 可公开访问的源图片或参考图 URL。
+                  description: 可选。不传即为文生图；传入 1 到 3 张图片后，同一模型切换为指令式编辑。
                   items:
                     type: string
                     title: Image URL
@@ -66,20 +76,20 @@ paths:
                     - 5
                     - 6
                   default: 1
-                  description: 生成图片数量。 最小值：1。 最大值：6。
+                  description: 单次请求生成的图片数量；每张返回的图片分别计费。 最小值：1。 最大值：6。
                 prompt:
                   type: string
                   title: Prompt
-                  description: 生成或编辑指令。 最大字符串长度：32000。
+                  description: 要生成的内容；传入 image_urls 时则为编辑指令。提示词最长约 4.5k token。 最大字符串长度：32000。
                 prompt_extend:
                   type: boolean
                   title: Prompt Extend
-                  description: 是否启用智能提示词改写。
+                  description: 渲染前先扩写简短提示词（增加 3 到 5 秒）；提示词已精确详尽时建议关闭。
                   default: true
                 resolution:
                   type: string
                   title: Resolution
-                  description: 输出分辨率档位。
+                  description: 推荐的输出档位；与 aspect_ratio 搭配时由 API 换算出精确像素。未传 size 的请求按 2K 档计费。
                   enum:
                     - 1K
                     - 2K
@@ -87,15 +97,15 @@ paths:
                 seed:
                   type: integer
                   title: Seed
-                  description: 用于复现结果的随机种子。 最小值：0。 最大值：2147483647。
+                  description: 随机种子；复用同一种子可获得更稳定的结果。 最小值：0。 最大值：2147483647。
                 size:
                   type: string
                   title: Size
-                  description: 输出尺寸或分辨率简写。
+                  description: 精确像素覆盖，格式为「宽*高」；总像素须在 512*512 到 2048*2048 之间、比例 1:8 到 8:1。优先级高于 resolution 与 aspect_ratio；不传则由模型自选。
                 watermark:
                   type: boolean
                   title: Watermark
-                  description: 添加上游水印。
+                  description: 在右下角添加 AI 生成的水印。
                   default: false
               required:
                 - model
@@ -107,7 +117,6 @@ paths:
               prompt: A premium product photograph on a dark studio set, precise typography,
                 soft rim lighting, highly detailed.
               resolution: 2K
-              size: 2K
       responses:
         "200":
           description: 任务已受理
@@ -153,8 +162,8 @@ paths:
               "model": "qwen-image-3.0",
               "n": 1,
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "resolution": "2K",
-              "size": "2K"
+              "resolution": "2K"
+              
             }'
         - lang: Python
           label: Python
@@ -169,8 +178,8 @@ paths:
               "model": "qwen-image-3.0",
               "n": 1,
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "resolution": "2K",
-              "size": "2K"
+              "resolution": "2K"
+              
             }
 
 
@@ -209,8 +218,8 @@ paths:
               "model": "qwen-image-3.0",
               "n": 1,
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "resolution": "2K",
-              "size": "2K"
+              "resolution": "2K"
+              
             }`), &payload); err != nil {
                     panic(err)
                 }
@@ -251,8 +260,8 @@ paths:
               "model": "qwen-image-3.0",
               "n": 1,
               "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-              "resolution": "2K",
-              "size": "2K"
+              "resolution": "2K"
+              
             });
                 let response = Client::new()
                     .post("https://api.apipod.ai/v1/images/generations")
@@ -281,8 +290,8 @@ paths:
                 "model": "qwen-image-3.0",
                 "n": 1,
                 "prompt": "A premium product photograph on a dark studio set, precise typography, soft rim lighting, highly detailed.",
-                "resolution": "2K",
-                "size": "2K"
+                "resolution": "2K"
+                
               }
               ),
             });
