@@ -7,11 +7,11 @@ icon: "sparkles"
 APIPod exposes an OpenAI-native, **synchronous** images API under a dedicated base URL. Point any OpenAI SDK, agent framework, or OpenAI-compatible software at it and the image result is returned in the HTTP response itself — no task polling required.
 
 ```text
-Base URL: https://apid.apipod.ai/openai/v1
+Base URL: https://api-sync.apipod.ai/openai/v1
 ```
 
 <Important>
-  Use **`https://apid.apipod.ai`** for non-streaming and long-running synchronous requests such as image generation. The default host `https://api.apipod.ai` applies a **120-second read timeout** at the edge, which can terminate a generation that takes longer. All examples in this page use the long-request host.
+  Use **`https://api-sync.apipod.ai`** for non-streaming and long-running synchronous requests such as image generation. The default host `https://api.apipod.ai` applies a **120-second read timeout** at the edge, which can terminate a generation that takes longer. All examples in this page use the long-request host.
 </Important>
 
 <Note>
@@ -25,7 +25,7 @@ Base URL: https://apid.apipod.ai/openai/v1
 Returns the generated images directly, in the standard OpenAI response format.
 
 ```bash
-curl https://apid.apipod.ai/openai/v1/images/generations \
+curl https://api-sync.apipod.ai/openai/v1/images/generations \
   -H "Authorization: Bearer $APIPOD_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -74,7 +74,7 @@ from openai import OpenAI
 
 client = OpenAI(
     api_key="apipod-...",
-    base_url="https://apid.apipod.ai/openai/v1",
+    base_url="https://api-sync.apipod.ai/openai/v1",
 )
 
 image = client.images.generate(
@@ -112,7 +112,7 @@ See [query image task](/query-image-task) for the field reference. Other models 
 Accepts `multipart/form-data` with the image to edit, an optional `mask` for inpainting, and a text prompt. Use an edit-capable model such as `gpt-image-2` / `gpt-image-2-edit` or a `seedream-*-edit` variant.
 
 ```bash
-curl https://apid.apipod.ai/openai/v1/images/edits \
+curl https://api-sync.apipod.ai/openai/v1/images/edits \
   -H "Authorization: Bearer $APIPOD_API_KEY" \
   -F model="gpt-image-2-edit" \
   -F prompt="add a red wool hat to the cat" \
@@ -146,7 +146,7 @@ Synchronous calls block until the image is ready. If the task takes longer than 
 ```
 
 <Important>
-  The default host `https://api.apipod.ai` applies a **120-second read timeout** at the edge, which is shorter than the 300-second wait window. Always call these endpoints through **`https://apid.apipod.ai`** so slow generations can finish inside the wait window instead of being cut off at 120 seconds.
+  The default host `https://api.apipod.ai` applies a **120-second read timeout** at the edge, which is shorter than the 300-second wait window. Always call these endpoints through **`https://api-sync.apipod.ai`** so slow generations can finish inside the wait window instead of being cut off at 120 seconds.
 </Important>
 
 The task is not cancelled — it keeps running to completion, billing settles normally, and the result can be fetched with the standard asynchronous status endpoint:

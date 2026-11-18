@@ -21,10 +21,10 @@ An OpenAI-native **synchronous** images API is also available below `/openai/v1`
 The default host `https://api.apipod.ai` applies a **120-second read timeout** at the edge. Non-streaming requests that can take longer than that — including the OpenAI-compatible synchronous image endpoints (`/openai/v1/images/*`) — must use the dedicated long-request host:
 
 ```text
-https://apid.apipod.ai
+https://api-sync.apipod.ai
 ```
 
-The same paths and authentication are served on both hosts. Choose `https://apid.apipod.ai` whenever the request can run longer than two minutes; use `https://api.apipod.ai` for short, streaming, or asynchronous task requests.
+The same paths and authentication are served on both hosts. Choose `https://api-sync.apipod.ai` whenever the request can run longer than two minutes; use `https://api.apipod.ai` for short, streaming, or asynchronous task requests.
 
 ## Media endpoints
 

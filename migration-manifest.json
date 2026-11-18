@@ -1,6 +1,6 @@
 {
   "source": "https://docs.apipod.ai",
-  "generatedAt": "2026-11-09T08:04:58.754Z",
+  "generatedAt": "2026-11-18T00:01:07.721Z",
   "sitemapCount": 93,
   "sourcePaths": [
     "/kling-3.0/kling-3.0-t2v",
@@ -97,7 +97,7 @@
     "/16809456d0",
     "/16809458d0"
   ],
-  "publicPageCount": 159,
+  "publicPageCount": 177,
   "schemaOnlyCount": 36,
   "schemaPaths": [
     "/14024404d0",
@@ -5054,6 +5054,450 @@
       "introduction": {
         "en": "Gemini Omni Flash 1.2 turns a prompt into a 3-15 second video from 360P up to 4K with synchronized audio, in 16:9 or 9:16. In APIPod, the public model ID is gemini-omni-flash-1.2-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
         "zh": "Gemini Omni Flash 1.2 文生视频仅需提示词即可生成 3-15 秒、360P 至 4K 的视频，支持 16:9 横屏与 9:16 竖屏，成片自带同步音频。在 APIPod 中，公开模型 ID 为 gemini-omni-flash-1.2-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      }
+    },
+    {
+      "slug": "seedance/2-5-flash-text-to-video",
+      "title": "Seedance 2.5 Flash Text to Video",
+      "legacy": "/seedance/2-5-flash-text-to-video",
+      "schema": true,
+      "modelId": "seedance-2.5-flash-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.5 Flash Text to Video",
+          "zh": "Seedance 2.5 Flash 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.5 Flash Text to Video is the fast tier of Seedance 2.5 that turns text instructions into video without requiring source media. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.5-flash-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.5 Flash 文生视频是 Seedance 2.5 的官方高速档，根据文本指令生成视频，不要求提供源媒体。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5-flash-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.5-flash-t2v"
+    },
+    {
+      "slug": "seedance/2-5-flash-image-to-video",
+      "title": "Seedance 2.5 Flash Image to Video",
+      "legacy": "/seedance/2-5-flash-image-to-video",
+      "schema": true,
+      "modelId": "seedance-2.5-flash-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.5 Flash Image to Video",
+          "zh": "Seedance 2.5 Flash 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.5 Flash Image to Video is the fast tier of Seedance 2.5 that animates a first frame (and optionally a last frame) into video. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. Reference media is passed to the upstream as public URLs. In APIPod, the public model ID is seedance-2.5-flash-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.5 Flash 图生视频是 Seedance 2.5 的官方高速档，将首帧图（可选尾帧图）动画化为视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。参考素材以公网 URL 直接传给上游。在 APIPod 中，公开模型 ID 为 seedance-2.5-flash-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.5-flash-i2v"
+    },
+    {
+      "slug": "seedance/2-5-flash-reference-to-video",
+      "title": "Seedance 2.5 Flash Reference to Video",
+      "legacy": "/seedance/2-5-flash-reference-to-video",
+      "schema": true,
+      "modelId": "seedance-2.5-flash-r2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.5 Flash Reference to Video",
+          "zh": "Seedance 2.5 Flash 参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.5 Flash Reference to Video is the fast tier of Seedance 2.5 that uses reference images, video, or audio to guide subjects, motion, visual style, and sound. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. Reference media is passed to the upstream as public URLs. In APIPod, the public model ID is seedance-2.5-flash-r2v. It supports image-to-video, accepts text, image and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.5 Flash 参考视频生成是 Seedance 2.5 的官方高速档，使用参考图、参考视频或参考音频约束主体、运动、视觉风格与声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。参考素材以公网 URL 直接传给上游。在 APIPod 中，公开模型 ID 为 seedance-2.5-flash-r2v，支持图生视频；接受文本、图片、视频输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.5-flash-r2v"
+    },
+    {
+      "slug": "seedance/2-5-flash-video-edit",
+      "title": "Seedance 2.5 Flash Video Edit",
+      "legacy": "/seedance/2-5-flash-video-edit",
+      "schema": true,
+      "modelId": "seedance-2.5-flash-edit",
+      "classifications": [
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.5 Flash Video Edit",
+          "zh": "Seedance 2.5 Flash 视频编辑"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.5 Flash Video Edit pins the omni-reference task type to video editing. Provide the source video (4-30 seconds) plus optional reference images or audios and describe the edit; the output keeps the source timeline, aspect ratio, and duration - duration and aspect_ratio are not exposed and any passed values are ignored. Constraints are validated at submission time, so incompatible parameters fail fast instead of erroring asynchronously. In APIPod, the public model ID is seedance-2.5-flash-edit, and results are returned through asynchronous video tasks.",
+        "zh": "Seedance 2.5 Flash 视频编辑将全模态参考子任务固定为视频编辑：传入源视频（4-30 秒），可附参考图或参考音频，用提示词描述编辑意图；输出时长与画幅自动跟随源视频——duration 与 aspect_ratio 均不暴露在契约中，传入任意值都会被忽略。子任务参数限制在提交时同步校验，不再异步报错。在 APIPod 中，公开模型 ID 为 seedance-2.5-flash-edit，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.5-flash-edit",
+      "example_prompts": [
+        "视频编辑：删除 @视频1中的所有人，除了主角。"
+      ]
+    },
+    {
+      "slug": "seedance/2-5-flash-video-extend",
+      "title": "Seedance 2.5 Flash Video Extend",
+      "legacy": "/seedance/2-5-flash-video-extend",
+      "schema": true,
+      "modelId": "seedance-2.5-flash-extend",
+      "classifications": [
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.5 Flash Video Extend",
+          "zh": "Seedance 2.5 Flash 视频延长"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.5 Flash Video Extend pins the omni-reference task type to video extension. Provide the source video and describe the forward or backward continuation; the output is 4-30 seconds and the aspect ratio automatically follows the source video (not settable; any passed value is ignored). Constraints are validated at submission time, so incompatible parameters fail fast instead of erroring asynchronously. In APIPod, the public model ID is seedance-2.5-flash-extend, and results are returned through asynchronous video tasks.",
+        "zh": "Seedance 2.5 Flash 视频延长将全模态参考子任务固定为视频延长：传入源视频并描述向前或向后延续；输出 4-30 秒，画幅自动跟随源视频（不可设置，传入忽略）。子任务参数限制在提交时同步校验，不再异步报错。在 APIPod 中，公开模型 ID 为 seedance-2.5-flash-extend，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.5-flash-extend",
+      "example_prompts": [
+        "延长@视频1，窗户打开后进入@视频2的美术馆室内，最后镜头进入@视频3的画内"
+      ]
+    },
+    {
+      "slug": "seedance/2-5-flash-spicy-text-to-video",
+      "title": "Seedance 2.5 Flash Spicy Text to Video",
+      "legacy": "/seedance/2-5-flash-spicy-text-to-video",
+      "schema": true,
+      "modelId": "seedance-2.5-flash-spicy-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.5 Flash Spicy Text to Video",
+          "zh": "Seedance 2.5 Flash Spicy 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.5 Flash Spicy Text to Video is the fast tier of Seedance 2.5 that turns text instructions into video without requiring source media. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. In APIPod, the public model ID is seedance-2.5-flash-spicy-t2v. It supports text-to-video, accepts text inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.5 Flash Spicy 文生视频是 Seedance 2.5 的官方高速档，根据文本指令生成视频，不要求提供源媒体。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。在 APIPod 中，公开模型 ID 为 seedance-2.5-flash-spicy-t2v，支持文生视频；接受文本输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.5-flash-spicy-t2v"
+    },
+    {
+      "slug": "seedance/2-5-flash-spicy-image-to-video",
+      "title": "Seedance 2.5 Flash Spicy Image to Video",
+      "legacy": "/seedance/2-5-flash-spicy-image-to-video",
+      "schema": true,
+      "modelId": "seedance-2.5-flash-spicy-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.5 Flash Spicy Image to Video",
+          "zh": "Seedance 2.5 Flash Spicy 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.5 Flash Spicy Image to Video is the fast tier of Seedance 2.5 that animates a first frame (and optionally a last frame) into video. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. Reference media is passed to the upstream as public URLs. In APIPod, the public model ID is seedance-2.5-flash-spicy-i2v. It supports image-to-video, accepts text and image inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.5 Flash Spicy 图生视频是 Seedance 2.5 的官方高速档，将首帧图（可选尾帧图）动画化为视频。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。参考素材以公网 URL 直接传给上游。在 APIPod 中，公开模型 ID 为 seedance-2.5-flash-spicy-i2v，支持图生视频；接受文本、图片输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.5-flash-spicy-i2v"
+    },
+    {
+      "slug": "seedance/2-5-flash-spicy-reference-to-video",
+      "title": "Seedance 2.5 Flash Spicy Reference to Video",
+      "legacy": "/seedance/2-5-flash-spicy-reference-to-video",
+      "schema": true,
+      "modelId": "seedance-2.5-flash-spicy-r2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "video"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.5 Flash Spicy Reference to Video",
+          "zh": "Seedance 2.5 Flash Spicy 参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.5 Flash Spicy Reference to Video is the fast tier of Seedance 2.5 that uses reference images, video, or audio to guide subjects, motion, visual style, and sound. The Seedance family emphasizes prompt following, coherent motion, multi-shot storytelling, and synchronized audio. Reference media is passed to the upstream as public URLs. In APIPod, the public model ID is seedance-2.5-flash-spicy-r2v. It supports image-to-video, accepts text, image and video inputs, and returns results through asynchronous video tasks.",
+        "zh": "Seedance 2.5 Flash Spicy 参考视频生成是 Seedance 2.5 的官方高速档，使用参考图、参考视频或参考音频约束主体、运动、视觉风格与声音。Seedance 系列强调提示词遵循、连贯运动、多镜头叙事和音画同步。参考素材以公网 URL 直接传给上游。在 APIPod 中，公开模型 ID 为 seedance-2.5-flash-spicy-r2v，支持图生视频；接受文本、图片、视频输入，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.5-flash-spicy-r2v"
+    },
+    {
+      "slug": "seedance/2-5-flash-spicy-video-edit",
+      "title": "Seedance 2.5 Flash Spicy Video Edit",
+      "legacy": "/seedance/2-5-flash-spicy-video-edit",
+      "schema": true,
+      "modelId": "seedance-2.5-flash-spicy-edit",
+      "classifications": [
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.5 Flash Spicy Video Edit",
+          "zh": "Seedance 2.5 Flash Spicy 视频编辑"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.5 Flash Spicy Video Edit pins the omni-reference task type to video editing. Provide the source video (4-30 seconds) plus optional reference images or audios and describe the edit; the output keeps the source timeline, aspect ratio, and duration - duration and aspect_ratio are not exposed and any passed values are ignored. Constraints are validated at submission time, so incompatible parameters fail fast instead of erroring asynchronously. In APIPod, the public model ID is seedance-2.5-flash-spicy-edit, and results are returned through asynchronous video tasks.",
+        "zh": "Seedance 2.5 Flash Spicy 视频编辑将全模态参考子任务固定为视频编辑：传入源视频（4-30 秒），可附参考图或参考音频，用提示词描述编辑意图；输出时长与画幅自动跟随源视频——duration 与 aspect_ratio 均不暴露在契约中，传入任意值都会被忽略。子任务参数限制在提交时同步校验，不再异步报错。在 APIPod 中，公开模型 ID 为 seedance-2.5-flash-spicy-edit，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.5-flash-spicy-edit",
+      "example_prompts": [
+        "视频编辑：删除 @视频1中的所有人，除了主角。"
+      ]
+    },
+    {
+      "slug": "seedance/2-5-flash-spicy-video-extend",
+      "title": "Seedance 2.5 Flash Spicy Video Extend",
+      "legacy": "/seedance/2-5-flash-spicy-video-extend",
+      "schema": true,
+      "modelId": "seedance-2.5-flash-spicy-extend",
+      "classifications": [
+        "video_to_video"
+      ],
+      "modelInfo": {
+        "providerId": "bytedance",
+        "inputTypes": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Seedance 2.5 Flash Spicy Video Extend",
+          "zh": "Seedance 2.5 Flash Spicy 视频延长"
+        }
+      },
+      "introduction": {
+        "en": "Seedance 2.5 Flash Spicy Video Extend pins the omni-reference task type to video extension. Provide the source video and describe the forward or backward continuation; the output is 4-30 seconds and the aspect ratio automatically follows the source video (not settable; any passed value is ignored). Constraints are validated at submission time, so incompatible parameters fail fast instead of erroring asynchronously. In APIPod, the public model ID is seedance-2.5-flash-spicy-extend, and results are returned through asynchronous video tasks.",
+        "zh": "Seedance 2.5 Flash Spicy 视频延长将全模态参考子任务固定为视频延长：传入源视频并描述向前或向后延续；输出 4-30 秒，画幅自动跟随源视频（不可设置，传入忽略）。子任务参数限制在提交时同步校验，不再异步报错。在 APIPod 中，公开模型 ID 为 seedance-2.5-flash-spicy-extend，并通过异步视频任务返回结果。"
+      },
+      "source": "localhost:8080/public/schemas/seedance-2.5-flash-spicy-extend",
+      "example_prompts": [
+        "延长@视频1，窗户打开后进入@视频2的美术馆室内，最后镜头进入@视频3的画内"
+      ]
+    },
+    {
+      "slug": "qwen-image/qwen-image-2.1-pro",
+      "title": "Qwen Image 2.1 Pro",
+      "legacy": "/qwen-image/qwen-image-2.1-pro",
+      "schema": true,
+      "modelId": "qwen-image-2.1-pro",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "source": "localhost:8080/public/schemas/qwen-image-2.1-pro",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Qwen Image 2.1 Pro",
+          "zh": "Qwen Image 2.1 Pro"
+        }
+      },
+      "introduction": {
+        "en": "Qwen Image 2.1 Pro unifies text-to-image and instruction-based editing in a 7B single-stream DiT. It generates native RGBA images from text, edits transparent layers, and extracts subjects from photos; accepts up to 10 reference images with circle, brush or mask-guided local edits; and preserves identity for people and products. Native 2K output, 1-6 images per request. In APIPod, the public model ID is qwen-image-2.1-pro. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "Qwen Image 2.1 Pro 用 7B 单流 DiT 统一文生图与指令式编辑：可从文本生成原生 RGBA 图像、编辑透明图层、从照片中提取主体；支持最多 10 张参考图，可圈选、涂抹或蒙版指定局部编辑，并保持人物与商品身份特征。原生 2K 输出，单次 1~6 张。在 APIPod 中，公开模型 ID 为 qwen-image-2.1-pro，支持文生图、图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "qwen-image/qwen-image-2.1-turbo",
+      "title": "Qwen Image 2.1 Turbo",
+      "legacy": "/qwen-image/qwen-image-2.1-turbo",
+      "schema": true,
+      "modelId": "qwen-image-2.1-turbo",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "source": "localhost:8080/public/schemas/qwen-image-2.1-turbo",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Qwen Image 2.1 Turbo",
+          "zh": "Qwen Image 2.1 Turbo"
+        }
+      },
+      "introduction": {
+        "en": "Qwen Image 2.1 Turbo keeps the 2.1 architecture and contract but cuts denoising from 40 steps to 8, making it the best price-performance option in the Qwen-Image series. It generates and edits images with up to 10 reference images, supports native transparent output, and retains native 2K resolution at 1-6 images per request. In APIPod, the public model ID is qwen-image-2.1-turbo. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "Qwen Image 2.1 Turbo 沿用 2.1 架构与契约，但把去噪步数从 40 步压到 8 步，是 Qwen-Image 系列中性价比最高的选择。它同样支持最多 10 张参考图的生成与编辑、原生透明输出，并保留原生 2K 分辨率，单次 1~6 张。在 APIPod 中，公开模型 ID 为 qwen-image-2.1-turbo，支持文生图、图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "qwen-image/qwen-image-3.0",
+      "title": "Qwen Image 3.0",
+      "legacy": "/qwen-image/qwen-image-3.0",
+      "schema": true,
+      "modelId": "qwen-image-3.0",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "source": "localhost:8080/public/schemas/qwen-image-3.0",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Qwen Image 3.0",
+          "zh": "Qwen Image 3.0"
+        }
+      },
+      "introduction": {
+        "en": "Qwen Image 3.0 renders dense, information-rich images in a single pass: full newspaper pages, multi-cell infographic grids, LaTeX papers, menus and UI mockups, with text down to 10px across 12 languages. One model ID handles text-to-image and instruction-based editing with up to 3 reference images, returning 1-6 PNG images per request. In APIPod, the public model ID is qwen-image-3.0. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "Qwen Image 3.0 能一次生成信息密集的图像：报纸整版、多格信息图、LaTeX 论文页、菜单与 UI 界面，文字小到 10px 依然清晰，覆盖 12 国语言。同一模型 ID 同时支持文生图与指令式编辑（最多 3 张参考图），每次返回 1~6 张 PNG。在 APIPod 中，公开模型 ID 为 qwen-image-3.0，支持文生图、图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
+      }
+    },
+    {
+      "slug": "qwen-image/qwen-image-3.0-pro",
+      "title": "Qwen Image 3.0 Pro",
+      "legacy": "/qwen-image/qwen-image-3.0-pro",
+      "schema": true,
+      "modelId": "qwen-image-3.0-pro",
+      "classifications": [
+        "text_to_image",
+        "image_to_image"
+      ],
+      "source": "localhost:8080/public/schemas/qwen-image-3.0-pro",
+      "modelInfo": {
+        "providerId": "alibaba",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "image"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Qwen Image 3.0 Pro",
+          "zh": "Qwen Image 3.0 Pro"
+        }
+      },
+      "introduction": {
+        "en": "Qwen Image 3.0 Pro is the flagship of the 3.0 generation, trading throughput for texture fidelity, typography stability and instruction adherence. It excels at photorealistic skin and hair detail, dense multilingual layouts, and multi-layer UI scenes, and supports both text-to-image and editing with up to 3 reference images at 1-6 images per request. In APIPod, the public model ID is qwen-image-3.0-pro. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
+        "zh": "Qwen Image 3.0 Pro 是 3.0 代的旗舰档，用吞吐换质感、排版稳定性与指令遵循。它在写实皮肤与发丝细节、多语言密集排版、多层 UI 场景上表现最佳，同样支持文生图与编辑（最多 3 张参考图），单次 1~6 张。在 APIPod 中，公开模型 ID 为 qwen-image-3.0-pro，支持文生图、图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
       }
     }
   ]

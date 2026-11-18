@@ -119,7 +119,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Publicly reachable source or reference image URLs. Not supported together with gif or svg output.",
+            "description": "Publicly reachable source or reference image URLs. Works with gif output to animate the reference images; not supported together with svg output.",
             "x-apipod-ui": {
               "maxCount": 16,
               "component": "image-upload"
@@ -152,7 +152,7 @@
             "type": "string",
             "title": "Output Format",
             "default": "png",
-            "description": "Output format. gif and svg are new in GPT Image 2.6 and are only available for text-to-image; svg returns a single result, and neither format supports output_compression or transparent backgrounds.",
+            "description": "Output format. gif and svg are new in GPT Image 2.6. gif works for text-to-image and with reference images (image_urls), but not with mask_url or markup_url; svg is text-to-image only and returns a single result. Neither format supports output_compression or transparent backgrounds.",
             "x-apipod-ui": {
               "component": "button-group"
             }

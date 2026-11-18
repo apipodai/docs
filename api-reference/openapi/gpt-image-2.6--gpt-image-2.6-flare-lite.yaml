@@ -52,8 +52,8 @@ paths:
                   maxItems: 16
                   items:
                     type: string
-                  description: Publicly reachable source or reference image URLs. Not supported together
-                    with gif output.
+                  description: Publicly reachable source or reference image URLs. Works with gif output to animate
+                    the reference images.
                 mask_url:
                   type: string
                   title: Mask Url
@@ -76,9 +76,9 @@ paths:
                   type: string
                   title: Output Format
                   default: png
-                  description: Output format. gif is only available for text-to-image and does not support
-                    output_compression or transparent backgrounds; svg is not available on GPT Image 2.6
-                    Lite.
+                  description: Output format. gif works for text-to-image and with reference images (image_urls), but
+                    not with mask_url or markup_url, and does not support output_compression or transparent
+                    backgrounds; svg is not available on GPT Image 2.6 Lite.
                 complexity:
                   enum:
                   - low

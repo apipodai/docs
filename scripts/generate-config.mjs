@@ -33,6 +33,15 @@ const apiGroups = [
       { en: "GPT Image 2.6", zh: "GPT Image 2.6", icon: "wand-sparkles", prefix: "gpt-image-2.6/" },
       { en: "Nano Banana", zh: "Nano Banana", icon: "banana", prefix: "nano-banana/" },
       {
+        en: "Qwen Image",
+        zh: "Qwen Image",
+        icon: "sparkles",
+        groups: [
+          { en: "Qwen Image 3.0", zh: "Qwen Image 3.0", slugs: ["qwen-image/qwen-image-3.0", "qwen-image/qwen-image-3.0-pro"] },
+          { en: "Qwen Image 2.1", zh: "Qwen Image 2.1", slugs: ["qwen-image/qwen-image-2.1-pro", "qwen-image/qwen-image-2.1-turbo"] },
+        ],
+      },
+      {
         en: "Seedream",
         zh: "Seedream",
         icon: "flower-2",

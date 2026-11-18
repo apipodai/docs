@@ -47,7 +47,7 @@ paths:
                   maxItems: 16
                   items:
                     type: string
-                  description: 可公开访问的源图或参考图 URL。与 gif、svg 输出不能同时使用。
+                  description: 可公开访问的源图或参考图 URL。可与 gif 输出搭配，让参考图动起来；与 svg 输出不能同时使用。
                 mask_url:
                   type: string
                   title: Mask Url
@@ -68,8 +68,8 @@ paths:
                   type: string
                   title: Output Format
                   default: png
-                  description: 输出格式。gif 与 svg 是 GPT Image 2.6 新增能力，仅支持文生图；svg 一次只返回一个结果，两者都不支持 output_compression
-                    与透明背景。
+                  description: 输出格式。gif 与 svg 是 GPT Image 2.6 新增能力。gif 支持文生图与参考图生成（image_urls），但不能与 mask_url、markup_url
+                    同用；svg 仅支持文生图，一次只返回一个结果。两者都不支持 output_compression 与透明背景。
                 complexity:
                   enum:
                     - low

@@ -7,11 +7,11 @@ icon: "sparkles"
 APIPod 在独立的 Base URL 下提供 OpenAI 原生的**同步**图片接口。将任意 OpenAI SDK、Agent 框架或 OpenAI 兼容软件指向该地址，图片结果会直接在 HTTP 响应中返回，无需轮询任务状态。
 
 ```text
-Base URL: https://apid.apipod.ai/openai/v1
+Base URL: https://api-sync.apipod.ai/openai/v1
 ```
 
 <Important>
-  对于**非流式请求**或图片生成这类**长时间同步请求**，请使用 **`https://apid.apipod.ai`**。默认域名 `https://api.apipod.ai` 在边缘网关配置了 **120 秒 read timeout**，图片生成耗时可能超过该值而被切断。本页所有示例均使用长请求域名。
+  对于**非流式请求**或图片生成这类**长时间同步请求**，请使用 **`https://api-sync.apipod.ai`**。默认域名 `https://api.apipod.ai` 在边缘网关配置了 **120 秒 read timeout**，图片生成耗时可能超过该值而被切断。本页所有示例均使用长请求域名。
 </Important>
 
 <Note>
@@ -25,7 +25,7 @@ Base URL: https://apid.apipod.ai/openai/v1
 直接返回生成结果，响应为标准 OpenAI 格式。
 
 ```bash
-curl https://apid.apipod.ai/openai/v1/images/generations \
+curl https://api-sync.apipod.ai/openai/v1/images/generations \
   -H "Authorization: Bearer $APIPOD_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -74,7 +74,7 @@ from openai import OpenAI
 
 client = OpenAI(
     api_key="apipod-...",
-    base_url="https://apid.apipod.ai/openai/v1",
+    base_url="https://api-sync.apipod.ai/openai/v1",
 )
 
 image = client.images.generate(
@@ -112,7 +112,7 @@ print(image.data[0].b64_json[:32])
 接收 `multipart/form-data`：待编辑图片、可选的 `mask` 遮罩（局部重绘）以及文本提示词。请使用支持编辑的模型，如 `gpt-image-2` / `gpt-image-2-edit` 或 `seedream-*-edit` 系列。
 
 ```bash
-curl https://apid.apipod.ai/openai/v1/images/edits \
+curl https://api-sync.apipod.ai/openai/v1/images/edits \
   -H "Authorization: Bearer $APIPOD_API_KEY" \
   -F model="gpt-image-2-edit" \
   -F prompt="add a red wool hat to the cat" \
@@ -146,7 +146,7 @@ curl https://apid.apipod.ai/openai/v1/images/edits \
 ```
 
 <Important>
-  默认域名 `https://api.apipod.ai` 在边缘网关配置了 **120 秒 read timeout**，比 300 秒等待窗口更短。请始终通过 **`https://apid.apipod.ai`** 调用这些接口，让慢任务能在等待窗口内完成，而不是在 120 秒时被切断。
+  默认域名 `https://api.apipod.ai` 在边缘网关配置了 **120 秒 read timeout**，比 300 秒等待窗口更短。请始终通过 **`https://api-sync.apipod.ai`** 调用这些接口，让慢任务能在等待窗口内完成，而不是在 120 秒时被切断。
 </Important>
 
 任务不会被取消——它会继续在后台完成、正常结算，结果可通过标准异步状态接口查询：
