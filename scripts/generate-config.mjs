@@ -107,7 +107,7 @@ const apiGroups = [
           {
             en: "Seedance 2.5",
             zh: "Seedance 2.5",
-            // spicy 版不对中国大陆/港/澳地区开放，与 2.0 spicy 一致不进导航。
+            // spicy 版不对中国大陆地区开放，与 2.0 spicy 一致不进导航。
             groups: [
               { en: "Seedance 2.5", zh: "Seedance 2.5", slugs: ["seedance/2-5-text-to-video", "seedance/2-5-image-to-video", "seedance/2-5-reference-to-video", "seedance/2-5-draft", "seedance/2-5-video-edit", "seedance/2-5-video-extend"] },
               { en: "Seedance 2.5 Lite", zh: "Seedance 2.5 特价版", slugs: ["seedance/2-5-lite-text-to-video", "seedance/2-5-lite-image-to-video", "seedance/2-5-lite-reference-to-video"] },

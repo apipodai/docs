@@ -74,7 +74,8 @@ paths:
                   type: array
                   title: Reference Images
                   description: Optional. Omit for text-to-image; pass 1 to 3 images to switch the
-                    same model into instruction-based editing.
+                    same model into instruction-based editing. Each input image is billed at
+                    $0.003 on top of the per-image output price.
                   items:
                     type: string
                     title: Image URL

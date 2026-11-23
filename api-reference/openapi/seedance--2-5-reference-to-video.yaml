@@ -125,7 +125,19 @@ paths:
                   enum:
                     - 480p
                     - 720p
+                    - 1080p
+                    - 4k
                   default: 720p
+                output_format:
+                  type: string
+                  title: Output Format
+                  description: "Output container format: mp4 (default) or mov."
+                  enum:
+                    - mp4
+                    - mov
+                  default: mp4
+                  x-apipod-ui:
+                    component: button-group
                 aspect_ratio:
                   type: string
                   title: Aspect Ratio

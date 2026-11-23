@@ -315,7 +315,7 @@ const zhDescriptionTranslations = {
   "Number of images to generate per request. Each returned image is billed separately.": "单次请求生成的图片数量；每张返回的图片分别计费。",
   "Prompt rewriting strategy when prompt_extend is enabled. direct (the default) supports both text-to-image and editing; agent rewrites in more detail and is supported for text-to-image only.": "prompt_extend 开启时的提示词改写方式。direct（默认）文生图与编辑均可用；agent 改写更精细，仅支持文生图。",
   "Enable reasoning before rendering to improve output quality at the cost of latency. Takes effect only when prompt_extend is enabled; the upstream default is on.": "渲染前先推理以提升出图质量，但会增加耗时。仅在 prompt_extend 开启时生效；上游默认开启。",
-  "Optional. Omit for text-to-image; pass 1 to 3 images to switch the same model into instruction-based editing.": "可选。不传即为文生图；传入 1 到 3 张图片后，同一模型切换为指令式编辑。",
+  "Optional. Omit for text-to-image; pass 1 to 3 images to switch the same model into instruction-based editing. Each input image is billed at $0.003 on top of the per-image output price.": "可选。不传即为文生图；传入 1 到 3 张图片后，同一模型切换为指令式编辑。每张输入图片在出图价格之外另行计费 $0.003。",
   "Optional. Omit for text-to-image; pass 1 to 10 images to switch the same model into instruction-based editing.": "可选。不传即为文生图；传入 1 到 10 张图片后，同一模型切换为指令式编辑。",
   "Output aspect ratio, used together with resolution. Any ratio from 1:8 to 8:1 is accepted.": "输出宽高比，与 resolution 搭配使用；接受 1:8 到 8:1 的任意比例。",
   "Recommended output tier. Combined with aspect_ratio the API derives the exact pixel size.": "推荐的输出档位；与 aspect_ratio 搭配时由 API 换算出精确像素。",

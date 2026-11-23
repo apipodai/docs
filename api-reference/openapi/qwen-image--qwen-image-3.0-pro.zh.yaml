@@ -62,7 +62,7 @@ paths:
                 image_urls:
                   type: array
                   title: Reference Images
-                  description: 可选。不传即为文生图；传入 1 到 3 张图片后，同一模型切换为指令式编辑。
+                  description: 可选。不传即为文生图；传入 1 到 3 张图片后，同一模型切换为指令式编辑。每张输入图片在出图价格之外另行计费 $0.003。
                   items:
                     type: string
                     title: Image URL
