@@ -3,7 +3,7 @@ info:
   title: Seedance 2.5 Draft API
   version: 1.0.0
   description: Seedance 2.5 Draft 是两段式工作流：按普通请求提交生成低成本的 480p 样片，样片完成后把其任务 ID 作为
-    draft_task_id 提交即可生成 1080p 成片。成片复用样片的提示词、素材、时长、画幅、seed
+    draft_task_id 提交即可生成 1080p 或 4k 成片。成片复用样片的提示词、素材、时长、画幅、seed
     与音频设置，并固定在生成样片的同一账号上执行。在 APIPod 中，公开模型 ID 为
     seedance-2.5-draft，并通过异步视频任务返回结果。
 servers:
@@ -14,7 +14,7 @@ paths:
     post:
       summary: 创建生成任务
       description: Seedance 2.5 Draft 是两段式工作流：按普通请求提交生成低成本的 480p 样片，样片完成后把其任务 ID 作为
-        draft_task_id 提交即可生成 1080p 成片。成片复用样片的提示词、素材、时长、画幅、seed
+        draft_task_id 提交即可生成 1080p 或 4k 成片。成片复用样片的提示词、素材、时长、画幅、seed
         与音频设置，并固定在生成样片的同一账号上执行。在 APIPod 中，公开模型 ID 为
         seedance-2.5-draft，并通过异步视频任务返回结果。
       operationId: create-seedance-2-5-draft
@@ -38,12 +38,9 @@ paths:
                 draft_task_id:
                   type: string
                   title: Draft Task ID
-                  description: The data.task_id of a completed draft (from GET
-                    /v1/videos/status/{task_id}), created by the same user
-                    within the last 7 days. When set, creates the 1080p final
-                    video; only resolution, output_format, watermark, and
-                    callback_url may be sent alongside it. Do not send an
-                    upstream task ID.
+                  description: 已完成样片在 APIPod 返回的 data.task_id（须由当前用户在 7 天内创建）。填写后将基于样片生成
+                    1080p 或 4k 成片，此时仅允许同时传入 resolution、output_format、watermark、callback_url。成片按目标分辨率计费，单价档位与输入视频时长继承自
+                    Step 1 样片（草稿视频本身不计入时长）。请勿传上游任务 ID。
                 prompt:
                   type: string
                   title: Prompt
@@ -115,10 +112,11 @@ paths:
                 resolution:
                   type: string
                   title: Resolution
-                  description: 输出分辨率档位。
+                  description: 输出分辨率档位。样片仅支持 480p（缺省自动补齐）；基于 draft_task_id 生成成片时支持 1080p 或 4k（缺省为 1080p）。
                   enum:
                     - 480p
                     - 1080p
+                    - 4k
                 generate_audio:
                   type: boolean
                   title: Generate Audio

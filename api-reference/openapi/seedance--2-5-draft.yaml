@@ -4,10 +4,10 @@ info:
   version: 1.0.0
   description: "Seedance 2.5 Draft is a two-stage workflow: submit a normal
     request to create a low-cost 480p draft preview, then submit the completed
-    draft's task ID as draft_task_id to render the 1080p final video. The final
-    video reuses the draft prompt, media, duration, aspect ratio, seed, and
-    audio setting, and always runs on the same generation account as the draft.
-    In APIPod, the public model ID is seedance-2.5-draft, and results are
+    draft's task ID as draft_task_id to render the 1080p or 4k final video. The
+    final video reuses the draft prompt, media, duration, aspect ratio, seed,
+    and audio setting, and always runs on the same generation account as the
+    draft. In APIPod, the public model ID is seedance-2.5-draft, and results are
     returned through asynchronous video tasks."
 servers:
   - url: https://api.apipod.ai
@@ -18,10 +18,10 @@ paths:
       summary: Create Generation Task
       description: "Seedance 2.5 Draft is a two-stage workflow: submit a normal
         request to create a low-cost 480p draft preview, then submit the
-        completed draft's task ID as draft_task_id to render the 1080p final
-        video. The final video reuses the draft prompt, media, duration, aspect
-        ratio, seed, and audio setting, and always runs on the same generation
-        account as the draft. In APIPod, the public model ID is
+        completed draft's task ID as draft_task_id to render the 1080p or 4k
+        final video. The final video reuses the draft prompt, media, duration,
+        aspect ratio, seed, and audio setting, and always runs on the same
+        generation account as the draft. In APIPod, the public model ID is
         seedance-2.5-draft, and results are returned through asynchronous video
         tasks."
       operationId: create-seedance-2-5-draft
@@ -47,10 +47,12 @@ paths:
                   title: Draft Task ID
                   description: The data.task_id of a completed draft (from GET
                     /v1/videos/status/{task_id}), created by the same user
-                    within the last 7 days. When set, creates the 1080p final
-                    video; only resolution, output_format, watermark, and
-                    callback_url may be sent alongside it. Do not send an
-                    upstream task ID.
+                    within the last 7 days. When set, creates the 1080p or 4k
+                    final video; only resolution, output_format, watermark, and
+                    callback_url may be sent alongside it. Billing uses the
+                    target resolution and inherits the draft's input video tier
+                    and reference video duration (the draft video itself is not
+                    counted). Do not send an upstream task ID.
                 prompt:
                   type: string
                   title: Prompt
@@ -140,11 +142,12 @@ paths:
                   type: string
                   title: Resolution
                   description: Draft previews support only 480p (filled in when omitted). Final
-                    videos created with draft_task_id support only 1080p (filled
-                    in when omitted).
+                    videos created with draft_task_id support only 1080p or 4k
+                    (defaults to 1080p when omitted).
                   enum:
                     - 480p
                     - 1080p
+                    - 4k
                 generate_audio:
                   type: boolean
                   title: Generate Audio

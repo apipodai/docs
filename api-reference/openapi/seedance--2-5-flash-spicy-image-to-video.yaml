@@ -100,6 +100,16 @@ paths:
                     - 480p
                     - 720p
                   default: 720p
+                output_format:
+                  type: string
+                  title: Output Format
+                  description: "Output container format: mp4 (default) or mov."
+                  enum:
+                    - mp4
+                    - mov
+                  default: mp4
+                  x-apipod-ui:
+                    component: button-group
                 generate_audio:
                   type: boolean
                   title: Generate Audio
