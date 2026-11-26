@@ -1,0 +1,9 @@
+---
+title: "MAGI-2 Image to Video"
+description: "Sand AI MAGI-2 Image to Video animates a first frame with an optional last frame into 4-30 second 1080p, 25 fps clips with synchronized native audio."
+openapi: "api-reference/openapi/magi-2--magi-2-i2v.yaml POST /v1/videos/generations"
+---
+
+<Note>
+Pass 1–2 public HTTPS image URLs in `image_urls` (`first_frame` required, optional `last_frame`, `<30 MB`, `≤16 MP`, `16–10,000 px`) and cite them in `prompt` as `@first_frame` and `@last_frame`. Always set `aspect_ratio` explicitly to match your first frame—MAGI-2 defaults to `16:9` and does not auto-adapt. Typical generation time is **13–20 minutes**.
+</Note>

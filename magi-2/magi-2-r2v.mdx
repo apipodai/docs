@@ -1,0 +1,9 @@
+---
+title: "MAGI-2 Reference to Video"
+description: "Sand AI MAGI-2 Reference to Video accepts up to 20 multimodal references (images, videos, and audio—including audio-only) to generate 4-30 second 1080p native audio-video clips."
+openapi: "api-reference/openapi/magi-2--magi-2-r2v.yaml POST /v1/videos/generations"
+---
+
+<Note>
+Combine 1–20 public HTTPS references across `image_urls` (`0–10`, `<30 MB`), `video_urls` (`0–5` MP4, `2–30s` each, `≤30s` total), and `audio_urls` (`0–5`, `≤15 MB`, `2–30s` each, `≤30s` total—audio-only requests are supported). Reference items in order as `@image_1`, `@video_1`, and `@audio_1`. Billing is flat per requested output second; typical generation time is **13–20 minutes**.
+</Note>

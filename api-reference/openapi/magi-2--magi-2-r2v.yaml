@@ -1,0 +1,225 @@
+openapi: 3.1.0
+info:
+  title: MAGI-2 Reference to Video API
+  version: 1.0.0
+  description: Sand AI MAGI-2 Reference to Video accepts 1-20 multimodal references (up to 10 images, 5 videos, and 5 audios, including audio-only references) to generate 4-30 second 1080p, 25 fps native audio-video clips. In APIPod, the public model ID is magi-2-r2v.
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/videos/generations:
+    post:
+      summary: Create Generation Task
+      description: Sand AI MAGI-2 Reference to Video accepts up to 20 multimodal references (images, videos, and audio—including audio-only) and generates 4-30 second 1080p native audio-video clips.
+      operationId: create-magi-2-magi-2-r2v
+      tags:
+        - MAGI-2 Reference to Video
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: MAGI-2 Reference to Video
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: Public APIPod model ID.
+                  const: magi-2-r2v
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: Required, up to 8000 characters. Reference assets in order as @image_1, @video_1, @audio_1.
+                  minLength: 1
+                  maxLength: 8000
+                image_urls:
+                  type: array
+                  title: Reference Images
+                  description: Optional. 0-10 public HTTPS image URLs (<30 MB each). Combined references must be 1-20.
+                  items:
+                    type: string
+                    description: Public HTTPS image URL.
+                  maxItems: 10
+                video_urls:
+                  type: array
+                  title: Reference Videos
+                  description: Optional. 0-5 public HTTPS MP4 video URLs (2-30s each, <=30s total).
+                  items:
+                    type: string
+                    description: Public HTTPS MP4 video URL.
+                  maxItems: 5
+                audio_urls:
+                  type: array
+                  title: Reference Audios
+                  description: Optional. 0-5 public HTTPS audio URLs (<=15 MB, 2-30s each, <=30s total). Audio-only reference is supported.
+                  items:
+                    type: string
+                    description: Public HTTPS audio URL.
+                  maxItems: 5
+                duration:
+                  type: integer
+                  title: Duration
+                  description: Output video duration in seconds (4-30, default 5).
+                  minimum: 4
+                  maximum: 30
+                  default: 5
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: Output resolution. MAGI-2 supports 1080p only.
+                  enum:
+                    - 1080p
+                  default: 1080p
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  description: Output aspect ratio.
+                  enum:
+                    - 21:9
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                  default: 16:9
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  description: Generate synchronized native audio alongside the video.
+                  default: true
+                callback_url:
+                  type: string
+                  title: Callback URL
+                  description: Optional webhook URL to receive task completion notifications.
+              required:
+                - model
+                - prompt
+            example:
+              model: magi-2-r2v
+              prompt: The character from @image_1 walks through the floral valley in @image_2 following @video_1 and synced to @audio_1.
+              image_urls:
+                - https://cdn.example.com/character.png
+                - https://cdn.example.com/valley.png
+              video_urls:
+                - https://cdn.example.com/camera-ref.mp4
+              audio_urls:
+                - https://cdn.example.com/score.mp3
+              duration: 15
+              resolution: 1080p
+              aspect_ratio: "16:9"
+              generate_audio: true
+      responses:
+        "200":
+          description: Task accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    properties:
+                      task_id:
+                        type: string
+                        description: generation task id
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "magi-2-r2v",
+              "prompt": "The character from @image_1 walks through the floral valley in @image_2 following @video_1 and synced to @audio_1.",
+              "image_urls": [
+                "https://cdn.example.com/character.png",
+                "https://cdn.example.com/valley.png"
+              ],
+              "video_urls": ["https://cdn.example.com/camera-ref.mp4"],
+              "audio_urls": ["https://cdn.example.com/score.mp3"],
+              "duration": 15,
+              "resolution": "1080p",
+              "aspect_ratio": "16:9",
+              "generate_audio": true
+            }'
+        - lang: Python
+          label: Python
+          source: >-
+            import os
+            import requests
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": "magi-2-r2v",
+                    "prompt": "The character from @image_1 walks through the floral valley in @image_2.",
+                    "image_urls": [
+                        "https://cdn.example.com/character.png",
+                        "https://cdn.example.com/valley.png",
+                    ],
+                    "duration": 15,
+                    "resolution": "1080p",
+                    "aspect_ratio": "16:9",
+                    "generate_audio": True,
+                },
+                timeout=60,
+            )
+            response.raise_for_status()
+            print(response.json())
+        - lang: JavaScript
+          label: Node.js
+          source: >-
+            const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                model: "magi-2-r2v",
+                prompt: "The character from @image_1 walks through the floral valley in @image_2.",
+                image_urls: [
+                  "https://cdn.example.com/character.png",
+                  "https://cdn.example.com/valley.png",
+                ],
+                duration: 15,
+                resolution: "1080p",
+                aspect_ratio: "16:9",
+                generate_audio: true,
+              }),
+            });
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+            console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

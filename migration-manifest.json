@@ -5499,6 +5499,98 @@
         "en": "Qwen Image 3.0 Pro is the flagship of the 3.0 generation, trading throughput for texture fidelity, typography stability and instruction adherence. It excels at photorealistic skin and hair detail, dense multilingual layouts, and multi-layer UI scenes, and supports both text-to-image and editing with up to 3 reference images at 1-6 images per request. In APIPod, the public model ID is qwen-image-3.0-pro. It supports text-to-image and image generation and editing, accepts text and image inputs, and returns results through asynchronous image tasks.",
         "zh": "Qwen Image 3.0 Pro 是 3.0 代的旗舰档，用吞吐换质感、排版稳定性与指令遵循。它在写实皮肤与发丝细节、多语言密集排版、多层 UI 场景上表现最佳，同样支持文生图与编辑（最多 3 张参考图），单次 1~6 张。在 APIPod 中，公开模型 ID 为 qwen-image-3.0-pro，支持文生图、图片生成与编辑；接受文本、图片输入，并通过异步图片任务返回结果。"
       }
+    },
+    {
+      "slug": "magi-2/magi-2-t2v",
+      "title": "MAGI-2 Text to Video",
+      "legacy": "/magi-2/magi-2-t2v",
+      "schema": true,
+      "modelId": "magi-2-t2v",
+      "classifications": [
+        "text_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/magi-2-t2v",
+      "modelInfo": {
+        "providerId": "sand-ai",
+        "inputTypes": [
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "MAGI-2 Text to Video",
+          "zh": "MAGI-2 文生视频"
+        }
+      },
+      "introduction": {
+        "en": "Sand AI MAGI-2 Text to Video generates 4-30 second 1080p, 25 fps videos with synchronized native audio from text prompts up to 8000 characters across six aspect ratios. In APIPod, the public model ID is magi-2-t2v.",
+        "zh": "Sand AI MAGI-2 文生视频支持最长 8000 字提示词，单次生成 4-30 秒 1080p、25 fps 原生有声视频，提供六种画幅选择。在 APIPod 中，公开模型 ID 为 magi-2-t2v。"
+      }
+    },
+    {
+      "slug": "magi-2/magi-2-i2v",
+      "title": "MAGI-2 Image to Video",
+      "legacy": "/magi-2/magi-2-i2v",
+      "schema": true,
+      "modelId": "magi-2-i2v",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/magi-2-i2v",
+      "modelInfo": {
+        "providerId": "sand-ai",
+        "inputTypes": [
+          "text",
+          "image"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "MAGI-2 Image to Video",
+          "zh": "MAGI-2 图生视频"
+        }
+      },
+      "introduction": {
+        "en": "Sand AI MAGI-2 Image to Video animates a first frame and optional last frame into 4-30 second 1080p, 25 fps native audio-video clips. In APIPod, the public model ID is magi-2-i2v.",
+        "zh": "Sand AI MAGI-2 图生视频支持首帧与可选尾帧输入，单次生成 4-30 秒 1080p、25 fps 原生有声视频。在 APIPod 中，公开模型 ID 为 magi-2-i2v。"
+      }
+    },
+    {
+      "slug": "magi-2/magi-2-r2v",
+      "title": "MAGI-2 Reference to Video",
+      "legacy": "/magi-2/magi-2-r2v",
+      "schema": true,
+      "modelId": "magi-2-r2v",
+      "classifications": [
+        "video_to_video",
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/magi-2-r2v",
+      "modelInfo": {
+        "providerId": "sand-ai",
+        "inputTypes": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "MAGI-2 Reference to Video",
+          "zh": "MAGI-2 参考生视频"
+        }
+      },
+      "introduction": {
+        "en": "Sand AI MAGI-2 Reference to Video accepts up to 20 multimodal references (up to 10 images, 5 videos, and 5 audios, including audio-only references) to generate 4-30 second 1080p native audio-video clips. In APIPod, the public model ID is magi-2-r2v.",
+        "zh": "Sand AI MAGI-2 参考生视频支持最多 20 份图片/视频/音频混合参考（最多 10 张图、5 段视频、5 段音频，支持纯音频参考），单次生成 4-30 秒 1080p 原生有声视频。在 APIPod 中，公开模型 ID 为 magi-2-r2v。"
+      }
     }
   ]
 }

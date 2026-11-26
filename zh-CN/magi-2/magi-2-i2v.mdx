@@ -1,0 +1,9 @@
+---
+title: "MAGI-2 图生视频"
+description: "Sand AI MAGI-2 图生视频支持首帧与可选尾帧输入，单次生成 4-30 秒 1080p、25 fps 原生有声视频。"
+openapi: "api-reference/openapi/magi-2--magi-2-i2v.zh.yaml POST /v1/videos/generations"
+---
+
+<Note>
+`image_urls` 需传 1–2 个公开 HTTPS 图片地址（首帧必填、尾帧可选，单张 `<30 MB`、`≤1600 万像素`、边长 `16–10,000 px`），提示词中可用 `@first_frame`、`@last_frame` 引用。画幅不会自动跟随首帧图片（默认 `16:9`），请显式设为与首帧一致的比例。出片耗时约 **13–20 分钟**。
+</Note>

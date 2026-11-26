@@ -1,0 +1,9 @@
+---
+title: "MAGI-2 文生视频"
+description: "Sand AI MAGI-2 文生视频支持最长 8000 字提示词，单次生成 4-30 秒 1080p、25 fps 原生有声视频，提供六种画幅选择。"
+openapi: "api-reference/openapi/magi-2--magi-2-t2v.zh.yaml POST /v1/videos/generations"
+---
+
+<Note>
+MAGI-2 输出原生 1080p、25 fps 音画同步视频（实际成片比 `duration` 长约 0.24 秒），出片耗时约 **13–20 分钟**。建议配置 `callback_url` 回调或轮询 `GET /v1/videos/status/{task_id}`。按请求的 `duration` 统一按秒计费，画幅与音频开关不影响单价。
+</Note>

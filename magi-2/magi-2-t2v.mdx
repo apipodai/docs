@@ -1,0 +1,9 @@
+---
+title: "MAGI-2 Text to Video"
+description: "Sand AI MAGI-2 Text to Video generates 4-30 second 1080p, 25 fps videos with synchronized native audio from prompts up to 8000 characters across six aspect ratios."
+openapi: "api-reference/openapi/magi-2--magi-2-t2v.yaml POST /v1/videos/generations"
+---
+
+<Note>
+MAGI-2 renders native 1080p, 25 fps audio-video clips (finished output is ~0.24s longer than `duration`) and typically takes **13–20 minutes** depending on length. Use `callback_url` or patient polling on `GET /v1/videos/status/{task_id}`. Billing is flat per requested second regardless of aspect ratio or `generate_audio`.
+</Note>

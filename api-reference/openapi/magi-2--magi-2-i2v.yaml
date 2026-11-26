@@ -1,0 +1,199 @@
+openapi: 3.1.0
+info:
+  title: MAGI-2 Image to Video API
+  version: 1.0.0
+  description: Sand AI MAGI-2 Image to Video animates a first frame and optional last frame into 4-30 second 1080p, 25 fps native audio-video clips. In APIPod, the public model ID is magi-2-i2v.
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/videos/generations:
+    post:
+      summary: Create Generation Task
+      description: Sand AI MAGI-2 Image to Video animates a first frame and optional last frame into 4-30 second 1080p, 25 fps clips with synchronized native audio. Reference frames with @first_frame and @last_frame.
+      operationId: create-magi-2-magi-2-i2v
+      tags:
+        - MAGI-2 Image to Video
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: MAGI-2 Image to Video
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: Public APIPod model ID.
+                  const: magi-2-i2v
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: Required, up to 8000 characters. Reference frames as @first_frame and @last_frame.
+                  minLength: 1
+                  maxLength: 8000
+                image_urls:
+                  type: array
+                  title: First / Last Frame Images
+                  description: Required. 1-2 public HTTPS image URLs (first frame required, optional second image as last frame).
+                  items:
+                    type: string
+                    description: Public HTTPS image URL (<30 MB, <=16 MP, 16-10000 px).
+                  minItems: 1
+                  maxItems: 2
+                duration:
+                  type: integer
+                  title: Duration
+                  description: Output video duration in seconds (4-30, default 5).
+                  minimum: 4
+                  maximum: 30
+                  default: 5
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: Output resolution. MAGI-2 supports 1080p only.
+                  enum:
+                    - 1080p
+                  default: 1080p
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  description: Output aspect ratio. Does not auto-follow first frame; set explicitly to match your input image.
+                  enum:
+                    - 21:9
+                    - 16:9
+                    - 4:3
+                    - 1:1
+                    - 3:4
+                    - 9:16
+                  default: 16:9
+                generate_audio:
+                  type: boolean
+                  title: Generate Audio
+                  description: Generate synchronized native audio alongside the video.
+                  default: true
+                callback_url:
+                  type: string
+                  title: Callback URL
+                  description: Optional webhook URL to receive task completion notifications.
+              required:
+                - model
+                - prompt
+                - image_urls
+            example:
+              model: magi-2-i2v
+              prompt: Starting from @first_frame, slow dolly in as morning sunlight sweeps across the studio desk and settles on @last_frame.
+              image_urls:
+                - https://cdn.example.com/studio-start.png
+                - https://cdn.example.com/studio-end.png
+              duration: 8
+              resolution: 1080p
+              aspect_ratio: "16:9"
+              generate_audio: true
+      responses:
+        "200":
+          description: Task accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    properties:
+                      task_id:
+                        type: string
+                        description: generation task id
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "magi-2-i2v",
+              "prompt": "Starting from @first_frame, slow dolly in as morning sunlight sweeps across the studio desk and settles on @last_frame.",
+              "image_urls": [
+                "https://cdn.example.com/studio-start.png",
+                "https://cdn.example.com/studio-end.png"
+              ],
+              "duration": 8,
+              "resolution": "1080p",
+              "aspect_ratio": "16:9",
+              "generate_audio": true
+            }'
+        - lang: Python
+          label: Python
+          source: >-
+            import os
+            import requests
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": "magi-2-i2v",
+                    "prompt": "Starting from @first_frame, slow dolly in as morning sunlight sweeps across the studio desk.",
+                    "image_urls": ["https://cdn.example.com/studio-start.png"],
+                    "duration": 8,
+                    "resolution": "1080p",
+                    "aspect_ratio": "16:9",
+                    "generate_audio": True,
+                },
+                timeout=60,
+            )
+            response.raise_for_status()
+            print(response.json())
+        - lang: JavaScript
+          label: Node.js
+          source: >-
+            const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                model: "magi-2-i2v",
+                prompt: "Starting from @first_frame, slow dolly in as morning sunlight sweeps across the studio desk.",
+                image_urls: ["https://cdn.example.com/studio-start.png"],
+                duration: 8,
+                resolution: "1080p",
+                aspect_ratio: "16:9",
+                generate_audio: true,
+              }),
+            });
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+            console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

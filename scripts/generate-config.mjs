@@ -128,6 +128,12 @@ const apiGroups = [
       },
       { en: "Sora 2", zh: "Sora 2", icon: "aperture", prefix: "sora-2/" },
       {
+        en: "MAGI-2",
+        zh: "MAGI-2",
+        icon: "film",
+        slugs: ["magi-2/magi-2-t2v", "magi-2/magi-2-i2v", "magi-2/magi-2-r2v"],
+      },
+      {
         en: "MU Video",
         zh: "MU Video",
         icon: "sparkles",

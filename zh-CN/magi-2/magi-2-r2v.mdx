@@ -1,0 +1,9 @@
+---
+title: "MAGI-2 参考生视频"
+description: "Sand AI MAGI-2 参考生视频支持最多 20 份图片、视频、音频混合参考（支持纯音频参考），单次生成 4-30 秒 1080p 原生有声视频。"
+openapi: "api-reference/openapi/magi-2--magi-2-r2v.zh.yaml POST /v1/videos/generations"
+---
+
+<Note>
+`image_urls`（0–10，`<30 MB`）、`video_urls`（0–5 个 MP4，每段 2–30 秒且合计 ≤30 秒）、`audio_urls`（0–5，≤15 MB，每段 2–30 秒且合计 ≤30 秒，**允许仅提供音频参考**）合计须为 1–20 份公开 HTTPS 地址。提示词按顺序用 `@image_1`、`@video_1`、`@audio_1` 引用。按请求时长按秒统一计费，出片耗时约 **13–20 分钟**。
+</Note>
