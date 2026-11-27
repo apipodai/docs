@@ -1,0 +1,173 @@
+openapi: 3.1.0
+info:
+  title: Genjutsu Light Object Swap API
+  version: 1.0.0
+  description: Higgsfield Genjutsu Light Object Swap delivers faster, cost-effective object replacement on 4-30s source MP4 videos using 1-10 reference images at 720p or 1080p. In APIPod, the public model ID is genjutsu-light-1.0-object-swap.
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/videos/generations:
+    post:
+      summary: Create Generation Task
+      description: Fast, cost-efficient object swap on 1 source MP4 video (4-30s) using 1-10 reference images at 720p or 1080p. Output duration and aspect ratio follow the source video. Public model ID is genjutsu-light-1.0-object-swap.
+      operationId: create-genjutsu-genjutsu-light-1-0-object-swap
+      tags:
+        - Genjutsu Light Object Swap
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Genjutsu Light Object Swap
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: Public APIPod model ID.
+                  const: genjutsu-light-1.0-object-swap
+                video_urls:
+                  type: array
+                  title: Source Video
+                  description: Required. Exactly 1 public HTTPS MP4 video URL (4-30s). Output duration and aspect ratio follow this video.
+                  items:
+                    type: string
+                    description: Public HTTPS MP4 video URL.
+                  minItems: 1
+                  maxItems: 1
+                image_urls:
+                  type: array
+                  title: Reference Images
+                  description: Required. 1-10 public HTTPS reference image URLs of the replacement object or product.
+                  items:
+                    type: string
+                    description: Public HTTPS image URL.
+                  minItems: 1
+                  maxItems: 10
+                prompt:
+                  type: string
+                  title: Prompt
+                  description: Optional text guidance up to 5000 characters. Reference assets with @video_1 and @image_1.
+                  maxLength: 5000
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: Output resolution (720p or 1080p; default 720p). Use genjutsu-1.0-object-swap if 480p is needed.
+                  enum:
+                    - 720p
+                    - 1080p
+                  default: 720p
+                callback_url:
+                  type: string
+                  title: Callback URL
+                  description: Optional webhook URL to receive task completion notifications.
+              required:
+                - model
+                - video_urls
+                - image_urls
+            example:
+              model: genjutsu-light-1.0-object-swap
+              video_urls:
+                - https://cdn.example.com/source-walk.mp4
+              image_urls:
+                - https://cdn.example.com/sneaker-ref.png
+              prompt: Swap the sneaker in @video_1 with the product from @image_1.
+              resolution: 1080p
+      responses:
+        "200":
+          description: Task accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    properties:
+                      task_id:
+                        type: string
+                        description: generation task id
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: >-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "genjutsu-light-1.0-object-swap",
+              "video_urls": ["https://cdn.example.com/source-walk.mp4"],
+              "image_urls": ["https://cdn.example.com/sneaker-ref.png"],
+              "prompt": "Swap the sneaker in @video_1 with the product from @image_1.",
+              "resolution": "1080p"
+            }'
+        - lang: Python
+          label: Python
+          source: >-
+            import os
+            import requests
+
+            response = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={
+                    "Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": "genjutsu-light-1.0-object-swap",
+                    "video_urls": ["https://cdn.example.com/source-walk.mp4"],
+                    "image_urls": ["https://cdn.example.com/sneaker-ref.png"],
+                    "prompt": "Swap the sneaker in @video_1 with the product from @image_1.",
+                    "resolution": "1080p",
+                },
+                timeout=60,
+            )
+            response.raise_for_status()
+            print(response.json())
+        - lang: JavaScript
+          label: Node.js
+          source: >-
+            const response = await fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                model: "genjutsu-light-1.0-object-swap",
+                video_urls: ["https://cdn.example.com/source-walk.mp4"],
+                image_urls: ["https://cdn.example.com/sneaker-ref.png"],
+                prompt: "Swap the sneaker in @video_1 with the product from @image_1.",
+                resolution: "1080p",
+              }),
+            });
+
+            if (!response.ok) {
+              throw new Error(`APIPod request failed: ${response.status} ${await response.text()}`);
+            }
+
+            console.log(await response.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: APIPod API key
+      description: Use your APIPod API key as a Bearer token in the Authorization header.

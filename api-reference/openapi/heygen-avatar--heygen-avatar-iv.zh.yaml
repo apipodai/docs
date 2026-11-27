@@ -1,0 +1,163 @@
+openapi: 3.1.0
+info:
+  title: HeyGen Avatar IV API
+  version: 1.0.0
+  description: 用一张人像照片和逐字口播稿生成 720p 有声数字人视频，成片时长由稿件和合成语音决定。在 APIPod 中的公开模型 ID 为 heygen-avatar-iv。
+servers:
+  - url: https://api.apipod.ai
+    description: 生产环境
+paths:
+  /v1/videos/generations:
+    post:
+      summary: 创建生成任务
+      description: 传入 1 张人像照片与逐字口播稿，生成 720p 有声 MP4 视频。请省略 duration 与 generate_audio，最终按实测输出秒数结算。公开模型 ID 为 heygen-avatar-iv。
+      operationId: create-heygen-avatar-heygen-avatar-iv
+      tags:
+        - HeyGen Avatar IV
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: HeyGen Avatar IV
+              properties:
+                model:
+                  type: string
+                  title: 模型 ID
+                  description: APIPod 公开模型 ID。
+                  const: heygen-avatar-iv
+                image_urls:
+                  type: array
+                  title: 人像照片
+                  description: 必填。恰好 1 张公开 HTTPS 人像照片地址。
+                  items:
+                    type: string
+                    description: 公开 HTTPS 人像照片地址。
+                  minItems: 1
+                  maxItems: 1
+                prompt:
+                  type: string
+                  title: 口播稿
+                  description: 必填。需要数字人逐字念出的口播脚本，成片时长由稿件与合成语音自动决定。
+                  minLength: 1
+                  maxLength: 8000
+                aspect_ratio:
+                  type: string
+                  title: 画幅
+                  description: 输出视频宽高比（默认 16:9）。
+                  enum:
+                    - "16:9"
+                    - "9:16"
+                    - "4:5"
+                    - "5:4"
+                    - "1:1"
+                    - auto
+                  default: "16:9"
+                resolution:
+                  type: string
+                  title: 分辨率
+                  description: 输出视频分辨率（固定 720p）。
+                  enum:
+                    - 720p
+                  default: 720p
+                callback_url:
+                  type: string
+                  title: 回调地址
+                  description: 可选。任务完成后接收异步通知的 Webhook 地址。
+              required:
+                - model
+                - image_urls
+                - prompt
+            example:
+              model: heygen-avatar-iv
+              image_urls:
+                - https://cdn.example.com/portrait.png
+              prompt: Welcome to the team. Here is what to expect on your first day.
+              aspect_ratio: "16:9"
+              resolution: 720p
+      responses:
+        "200":
+          description: 任务已受理
+          content:
+            application/json:
+              schema:
+                type: object
+                title: 任务提交响应
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    properties:
+                      task_id:
+                        type: string
+                        description: 生成任务 ID
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "heygen-avatar-iv",
+              "image_urls": ["https://cdn.example.com/portrait.png"],
+              "prompt": "Welcome to the team. Here is what to expect on your first day.",
+              "aspect_ratio": "16:9",
+              "resolution": "720p"
+            }'
+        - lang: Python
+          label: Python
+          source: |-
+            import os, requests
+
+            res = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={"Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}"},
+                json={
+                    "model": "heygen-avatar-iv",
+                    "image_urls": ["https://cdn.example.com/portrait.png"],
+                    "prompt": "Welcome to the team. Here is what to expect on your first day.",
+                    "aspect_ratio": "16:9",
+                    "resolution": "720p",
+                },
+            )
+            print(res.json())
+        - lang: JavaScript
+          label: JavaScript
+          source: |-
+            const res = await fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                model: "heygen-avatar-iv",
+                image_urls: ["https://cdn.example.com/portrait.png"],
+                prompt: "Welcome to the team. Here is what to expect on your first day.",
+                aspect_ratio: "16:9",
+                resolution: "720p",
+              }),
+            });
+            console.log(await res.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: APIPod API 密钥（`sk-...`）

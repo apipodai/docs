@@ -1,0 +1,9 @@
+---
+title: "HeyGen Avatar IV"
+description: "Generate a 720p narrated talking-avatar MP4 video from a single portrait photo and verbatim spoken script."
+openapi: "api-reference/openapi/heygen-avatar--heygen-avatar-iv.yaml POST /v1/videos/generations"
+---
+
+<Note>
+Pass exactly 1 public HTTPS portrait photo in `image_urls` and your verbatim spoken script in `prompt`. Output is a `720p` narrated MP4 video (`16:9`, `9:16`, `4:5`, `5:4`, `1:1`, or `auto`; default `16:9`) using the Warm Pro Narrator voice. Omit `duration` and `generate_audio` — output length is determined by the script and synthesized speech, and final billing settles on actual output seconds.
+</Note>

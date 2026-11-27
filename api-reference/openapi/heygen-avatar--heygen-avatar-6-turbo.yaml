@@ -1,0 +1,160 @@
+openapi: 3.1.0
+info:
+  title: HeyGen Avatar 6 Turbo API
+  version: 1.0.0
+  description: Generate a 1080p audio-driven lip-sync avatar video from 1 portrait photo and 1 speech audio track, with optional motion prompts up to 1200 characters. In APIPod, the public model ID is heygen-avatar-6-turbo.
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/videos/generations:
+    post:
+      summary: Create Generation Task
+      description: Animate 1 portrait photo with 1 speech audio URL at 1080p. Framing follows the photo (auto) and duration follows the audio. Optional prompt (up to 1200 characters) guides gestures and expressions. Public model ID is heygen-avatar-6-turbo.
+      operationId: create-heygen-avatar-heygen-avatar-6-turbo
+      tags:
+        - HeyGen Avatar 6 Turbo
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: HeyGen Avatar 6 Turbo
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: Public APIPod model ID.
+                  const: heygen-avatar-6-turbo
+                image_urls:
+                  type: array
+                  title: Portrait Photo
+                  description: Required. Exactly 1 public HTTPS portrait photo URL. Output framing follows this image.
+                  items:
+                    type: string
+                    description: Public HTTPS portrait photo URL.
+                  minItems: 1
+                  maxItems: 1
+                audio_urls:
+                  type: array
+                  title: Speech Audio
+                  description: Required. Exactly 1 public HTTPS speech audio URL (WAV/MP3/M4A). Output duration follows this audio track.
+                  items:
+                    type: string
+                    description: Public HTTPS speech audio URL.
+                  minItems: 1
+                  maxItems: 1
+                prompt:
+                  type: string
+                  title: Motion & Expression Prompt
+                  description: Optional text direction up to 1200 characters describing posture, hand gestures, and facial expressions.
+                  maxLength: 1200
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: Output resolution (1080p).
+                  enum:
+                    - 1080p
+                  default: 1080p
+                callback_url:
+                  type: string
+                  title: Callback URL
+                  description: Optional webhook URL to receive task completion notifications.
+              required:
+                - model
+                - image_urls
+                - audio_urls
+            example:
+              model: heygen-avatar-6-turbo
+              image_urls:
+                - https://cdn.example.com/portrait.png
+              audio_urls:
+                - https://cdn.example.com/speech.wav
+              prompt: Face the camera and use small, natural hand gestures while speaking.
+              resolution: 1080p
+      responses:
+        "200":
+          description: Task accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    properties:
+                      task_id:
+                        type: string
+                        description: generation task id
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "heygen-avatar-6-turbo",
+              "image_urls": ["https://cdn.example.com/portrait.png"],
+              "audio_urls": ["https://cdn.example.com/speech.wav"],
+              "prompt": "Face the camera and use small, natural hand gestures while speaking.",
+              "resolution": "1080p"
+            }'
+        - lang: Python
+          label: Python
+          source: |-
+            import os, requests
+
+            res = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={"Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}"},
+                json={
+                    "model": "heygen-avatar-6-turbo",
+                    "image_urls": ["https://cdn.example.com/portrait.png"],
+                    "audio_urls": ["https://cdn.example.com/speech.wav"],
+                    "prompt": "Face the camera and use small, natural hand gestures while speaking.",
+                    "resolution": "1080p",
+                },
+            )
+            print(res.json())
+        - lang: JavaScript
+          label: JavaScript
+          source: |-
+            const res = await fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                model: "heygen-avatar-6-turbo",
+                image_urls: ["https://cdn.example.com/portrait.png"],
+                audio_urls: ["https://cdn.example.com/speech.wav"],
+                prompt: "Face the camera and use small, natural hand gestures while speaking.",
+                resolution: "1080p",
+              }),
+            });
+            console.log(await res.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: APIPod API Key (`sk-...`)

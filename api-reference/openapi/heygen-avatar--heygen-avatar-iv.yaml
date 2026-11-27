@@ -1,0 +1,163 @@
+openapi: 3.1.0
+info:
+  title: HeyGen Avatar IV API
+  version: 1.0.0
+  description: Generate a 720p narrated talking-avatar MP4 video from a single portrait photo and verbatim spoken script. Output duration is determined by the script and synthesized speech. In APIPod, the public model ID is heygen-avatar-iv.
+servers:
+  - url: https://api.apipod.ai
+    description: Production
+paths:
+  /v1/videos/generations:
+    post:
+      summary: Create Generation Task
+      description: Generate a 720p narrated talking-avatar video from 1 portrait photo and a spoken script. Omit duration and generate_audio; final cost settles on actual output seconds. Public model ID is heygen-avatar-iv.
+      operationId: create-heygen-avatar-heygen-avatar-iv
+      tags:
+        - HeyGen Avatar IV
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: HeyGen Avatar IV
+              properties:
+                model:
+                  type: string
+                  title: Model ID
+                  description: Public APIPod model ID.
+                  const: heygen-avatar-iv
+                image_urls:
+                  type: array
+                  title: Portrait Photo
+                  description: Required. Exactly 1 public HTTPS portrait photo URL.
+                  items:
+                    type: string
+                    description: Public HTTPS portrait photo URL.
+                  minItems: 1
+                  maxItems: 1
+                prompt:
+                  type: string
+                  title: Spoken Script
+                  description: Required. The exact text script for the avatar to speak verbatim. Output duration depends on script length and synthesized voice.
+                  minLength: 1
+                  maxLength: 8000
+                aspect_ratio:
+                  type: string
+                  title: Aspect Ratio
+                  description: Output video aspect ratio (default 16:9).
+                  enum:
+                    - "16:9"
+                    - "9:16"
+                    - "4:5"
+                    - "5:4"
+                    - "1:1"
+                    - auto
+                  default: "16:9"
+                resolution:
+                  type: string
+                  title: Resolution
+                  description: Output resolution (720p).
+                  enum:
+                    - 720p
+                  default: 720p
+                callback_url:
+                  type: string
+                  title: Callback URL
+                  description: Optional webhook URL to receive task completion notifications.
+              required:
+                - model
+                - image_urls
+                - prompt
+            example:
+              model: heygen-avatar-iv
+              image_urls:
+                - https://cdn.example.com/portrait.png
+              prompt: Welcome to the team. Here is what to expect on your first day.
+              aspect_ratio: "16:9"
+              resolution: 720p
+      responses:
+        "200":
+          description: Task accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Task Submit Response
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: object
+                    properties:
+                      task_id:
+                        type: string
+                        description: generation task id
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+                  - data
+              example:
+                code: 200
+                message: success
+                data:
+                  task_id: vid_task_01JEXAMPLE
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |-
+            curl https://api.apipod.ai/v1/videos/generations \
+              -H "Authorization: Bearer $APIPOD_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d '{
+              "model": "heygen-avatar-iv",
+              "image_urls": ["https://cdn.example.com/portrait.png"],
+              "prompt": "Welcome to the team. Here is what to expect on your first day.",
+              "aspect_ratio": "16:9",
+              "resolution": "720p"
+            }'
+        - lang: Python
+          label: Python
+          source: |-
+            import os, requests
+
+            res = requests.post(
+                "https://api.apipod.ai/v1/videos/generations",
+                headers={"Authorization": f"Bearer {os.environ['APIPOD_API_KEY']}"},
+                json={
+                    "model": "heygen-avatar-iv",
+                    "image_urls": ["https://cdn.example.com/portrait.png"],
+                    "prompt": "Welcome to the team. Here is what to expect on your first day.",
+                    "aspect_ratio": "16:9",
+                    "resolution": "720p",
+                },
+            )
+            print(res.json())
+        - lang: JavaScript
+          label: JavaScript
+          source: |-
+            const res = await fetch("https://api.apipod.ai/v1/videos/generations", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${process.env.APIPOD_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                model: "heygen-avatar-iv",
+                image_urls: ["https://cdn.example.com/portrait.png"],
+                prompt: "Welcome to the team. Here is what to expect on your first day.",
+                aspect_ratio: "16:9",
+                resolution: "720p",
+              }),
+            });
+            console.log(await res.json());
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: APIPod API Key (`sk-...`)

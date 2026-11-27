@@ -1,0 +1,9 @@
+---
+title: "Genjutsu 对象替换"
+description: "Higgsfield Genjutsu 对象替换使用 1–10 张参考图局部替换 4–30 秒源 MP4 视频中的物体或商品，支持 480p / 720p / 1080p。"
+openapi: "api-reference/openapi/genjutsu--genjutsu-1-0-object-swap.zh.yaml POST /v1/videos/generations"
+---
+
+<Note>
+必须通过 `video_urls` 传入恰好 1 段公开 HTTPS MP4 源视频（`4–30` 秒），并通过 `image_urls` 传入 `1–10` 张替换物参考图。提示词可省略（上限 5000 字符），建议用 `@video_1` 与 `@image_1` 指明源视频与替换图。支持 `480p`、`720p`（默认）、`1080p`，成片时长与画幅跟随源视频。
+</Note>

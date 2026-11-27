@@ -1,0 +1,9 @@
+---
+title: "Genjutsu Light 对象替换"
+description: "Higgsfield Genjutsu Light 对象替换是更快速、高性价比的对象替换档位，支持 4–30 秒源 MP4 与 1–10 张参考图，输出 720p 或 1080p。"
+openapi: "api-reference/openapi/genjutsu--genjutsu-light-1-0-object-swap.zh.yaml POST /v1/videos/generations"
+---
+
+<Note>
+必须通过 `video_urls` 传入恰好 1 段公开 HTTPS MP4 源视频（`4–30` 秒），并通过 `image_urls` 传入 `1–10` 张替换物参考图。仅支持 `720p`（默认）与 `1080p`（如需 `480p` 请改用 `genjutsu-1.0-object-swap`）。提示词可省略，可用 `@video_1` 与 `@image_1` 指明替换对象；成片时长与画幅跟随源视频。
+</Note>

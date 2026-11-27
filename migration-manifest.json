@@ -5591,6 +5591,160 @@
         "en": "Sand AI MAGI-2 Reference to Video accepts up to 20 multimodal references (up to 10 images, 5 videos, and 5 audios, including audio-only references) to generate 4-30 second 1080p native audio-video clips. In APIPod, the public model ID is magi-2-r2v.",
         "zh": "Sand AI MAGI-2 参考生视频支持最多 20 份图片/视频/音频混合参考（最多 10 张图、5 段视频、5 段音频，支持纯音频参考），单次生成 4-30 秒 1080p 原生有声视频。在 APIPod 中，公开模型 ID 为 magi-2-r2v。"
       }
+    },
+    {
+      "slug": "genjutsu/genjutsu-1-0-motion-transfer",
+      "title": "Genjutsu Motion Transfer",
+      "legacy": "/genjutsu/genjutsu-1-0-motion-transfer",
+      "schema": true,
+      "modelId": "genjutsu-1.0-motion-transfer",
+      "classifications": [
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/genjutsu-1.0-motion-transfer",
+      "modelInfo": {
+        "providerId": "higgsfield",
+        "inputTypes": [
+          "video",
+          "image",
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Genjutsu Motion Transfer",
+          "zh": "Genjutsu 动作迁移"
+        }
+      },
+      "introduction": {
+        "en": "Higgsfield Genjutsu Motion Transfer transfers movement, choreography, and camera motion from a 1-30s source MP4 video onto characters from 1-10 reference images. In APIPod, the public model ID is genjutsu-1.0-motion-transfer.",
+        "zh": "Higgsfield Genjutsu 动作迁移将 1-30 秒源 MP4 视频中的动作与运镜迁移到 1-10 张参考图人物上。在 APIPod 中，公开模型 ID 为 genjutsu-1.0-motion-transfer。"
+      }
+    },
+    {
+      "slug": "genjutsu/genjutsu-1-0-object-swap",
+      "title": "Genjutsu Object Swap",
+      "legacy": "/genjutsu/genjutsu-1-0-object-swap",
+      "schema": true,
+      "modelId": "genjutsu-1.0-object-swap",
+      "classifications": [
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/genjutsu-1.0-object-swap",
+      "modelInfo": {
+        "providerId": "higgsfield",
+        "inputTypes": [
+          "video",
+          "image",
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Genjutsu Object Swap",
+          "zh": "Genjutsu 对象替换"
+        }
+      },
+      "introduction": {
+        "en": "Higgsfield Genjutsu Object Swap replaces specific objects or products in a 4-30s source MP4 video using 1-10 reference images at 480p, 720p, or 1080p. In APIPod, the public model ID is genjutsu-1.0-object-swap.",
+        "zh": "Higgsfield Genjutsu 对象替换使用 1-10 张参考图局部替换 4-30 秒源 MP4 视频中的物体或商品，支持 480p / 720p / 1080p。在 APIPod 中，公开模型 ID 为 genjutsu-1.0-object-swap。"
+      }
+    },
+    {
+      "slug": "genjutsu/genjutsu-light-1-0-object-swap",
+      "title": "Genjutsu Light Object Swap",
+      "legacy": "/genjutsu/genjutsu-light-1-0-object-swap",
+      "schema": true,
+      "modelId": "genjutsu-light-1.0-object-swap",
+      "classifications": [
+        "video_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/genjutsu-light-1.0-object-swap",
+      "modelInfo": {
+        "providerId": "higgsfield",
+        "inputTypes": [
+          "video",
+          "image",
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "Genjutsu Light Object Swap",
+          "zh": "Genjutsu Light 对象替换"
+        }
+      },
+      "introduction": {
+        "en": "Higgsfield Genjutsu Light Object Swap delivers faster, cost-effective object replacement on 4-30s source MP4 videos using 1-10 reference images at 720p or 1080p. In APIPod, the public model ID is genjutsu-light-1.0-object-swap.",
+        "zh": "Higgsfield Genjutsu Light 对象替换是更快速、高性价比的视频对象替换档位，支持 4-30 秒源 MP4 视频与 1-10 张参考图，输出 720p 或 1080p。在 APIPod 中，公开模型 ID 为 genjutsu-light-1.0-object-swap。"
+      }
+    },
+    {
+      "slug": "heygen-avatar/heygen-avatar-6-turbo",
+      "title": "HeyGen Avatar 6 Turbo",
+      "legacy": "/heygen-avatar/heygen-avatar-6-turbo",
+      "schema": true,
+      "modelId": "heygen-avatar-6-turbo",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/heygen-avatar-6-turbo",
+      "modelInfo": {
+        "providerId": "heygen",
+        "inputTypes": [
+          "image",
+          "audio",
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "HeyGen Avatar 6 Turbo",
+          "zh": "HeyGen Avatar 6 Turbo"
+        }
+      },
+      "introduction": {
+        "en": "HeyGen Avatar 6 Turbo generates a 1080p audio-driven lip-sync avatar video from 1 portrait photo and 1 speech audio track, with optional motion prompts up to 1200 characters. In APIPod, the public model ID is heygen-avatar-6-turbo.",
+        "zh": "HeyGen Avatar 6 Turbo 用一张人像照片和一段语音生成 1080p 对口型数字人视频，画幅跟随照片、时长跟随音频，可用提示词控制动作与表情。在 APIPod 中，公开模型 ID 为 heygen-avatar-6-turbo。"
+      }
+    },
+    {
+      "slug": "heygen-avatar/heygen-avatar-iv",
+      "title": "HeyGen Avatar IV",
+      "legacy": "/heygen-avatar/heygen-avatar-iv",
+      "schema": true,
+      "modelId": "heygen-avatar-iv",
+      "classifications": [
+        "image_to_video"
+      ],
+      "source": "localhost:8080/public/schemas/heygen-avatar-iv",
+      "modelInfo": {
+        "providerId": "heygen",
+        "inputTypes": [
+          "image",
+          "text"
+        ],
+        "outputTypes": [
+          "video"
+        ],
+        "lifecycle": "ga",
+        "displayName": {
+          "en": "HeyGen Avatar IV",
+          "zh": "HeyGen Avatar IV"
+        }
+      },
+      "introduction": {
+        "en": "HeyGen Avatar IV generates a 720p narrated talking-avatar MP4 video from 1 portrait photo and a verbatim spoken script. Output duration is determined by the script and synthesized voice. In APIPod, the public model ID is heygen-avatar-iv.",
+        "zh": "HeyGen Avatar IV 用一张人像照片和口播稿生成 720p 有声数字人视频，成片时长由稿件和合成语音决定。在 APIPod 中，公开模型 ID 为 heygen-avatar-iv。"
+      }
     }
   ]
 }

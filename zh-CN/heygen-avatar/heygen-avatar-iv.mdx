@@ -1,0 +1,9 @@
+---
+title: "HeyGen Avatar IV"
+description: "用一张人像照片和口播稿生成 720p 有声数字人视频，成片时长由稿件和合成语音决定。"
+openapi: "api-reference/openapi/heygen-avatar--heygen-avatar-iv.zh.yaml POST /v1/videos/generations"
+---
+
+<Note>
+在 `image_urls` 中传入恰好 1 张公开 HTTPS 人像照片，在 `prompt` 中填写需要逐字念出的口播稿。模型使用固定 Warm Pro Narrator 音色输出 `720p` 有声 MP4，画幅支持 `16:9`、`9:16`、`4:5`、`5:4`、`1:1` 与 `auto`（默认 `16:9`）。请省略 `duration` 和 `generate_audio`，提交时按稿件字数预扣，成片交付后按实测输出秒数自动多退少补结算。
+</Note>

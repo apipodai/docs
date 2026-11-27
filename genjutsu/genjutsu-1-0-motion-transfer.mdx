@@ -1,0 +1,9 @@
+---
+title: "Genjutsu Motion Transfer"
+description: "Higgsfield Genjutsu Motion Transfer extracts movement, choreography, and camera motion from a 1-30s source MP4 video and transfers it onto characters from 1-10 reference images."
+openapi: "api-reference/openapi/genjutsu--genjutsu-1-0-motion-transfer.yaml POST /v1/videos/generations"
+---
+
+<Note>
+Pass exactly 1 public HTTPS MP4 video in `video_urls` (`1–30s`) and `1–10` public HTTPS character/style images in `image_urls`. Output duration and aspect ratio automatically follow the source video; `prompt` is optional (up to 5000 characters). Billed per measured source second by resolution (`480p`, `720p`, `1080p`), with a **4-second billing minimum**.
+</Note>

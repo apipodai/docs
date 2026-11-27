@@ -1,0 +1,9 @@
+---
+title: "Genjutsu 动作迁移"
+description: "Higgsfield Genjutsu 动作迁移将 1–30 秒源 MP4 视频中的动作与运镜迁移到 1–10 张参考图人物上，支持 480p / 720p / 1080p。"
+openapi: "api-reference/openapi/genjutsu--genjutsu-1-0-motion-transfer.zh.yaml POST /v1/videos/generations"
+---
+
+<Note>
+必须通过 `video_urls` 传入恰好 1 段公开 HTTPS MP4 源视频（`1–30` 秒），并通过 `image_urls` 传入 `1–10` 张目标人物或风格参考图。成片时长与画幅自动跟随源视频，音频不可控；`prompt` 可省略（上限 5000 字符）。按实测源视频时长（向上取整）与分辨率计费，**最低按 4 秒计费**。
+</Note>

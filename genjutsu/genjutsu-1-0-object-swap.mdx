@@ -1,0 +1,9 @@
+---
+title: "Genjutsu Object Swap"
+description: "Higgsfield Genjutsu Object Swap replaces a targeted object, product, or element inside a 4-30s source MP4 video using 1-10 reference images while keeping the rest of the shot intact."
+openapi: "api-reference/openapi/genjutsu--genjutsu-1-0-object-swap.yaml POST /v1/videos/generations"
+---
+
+<Note>
+Pass exactly 1 public HTTPS MP4 video in `video_urls` (`4–30s`) and `1–10` public HTTPS replacement images in `image_urls`. Use `@video_1` and `@image_1` in the optional `prompt` (up to 5000 characters) to specify what to replace. Supports `480p`, `720p` (default), and `1080p`; output duration and aspect ratio follow the source video.
+</Note>

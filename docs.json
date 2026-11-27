@@ -351,6 +351,23 @@
                     ]
                   },
                   {
+                    "group": "Genjutsu",
+                    "icon": "wand-sparkles",
+                    "pages": [
+                      "genjutsu/genjutsu-1-0-motion-transfer",
+                      "genjutsu/genjutsu-1-0-object-swap",
+                      "genjutsu/genjutsu-light-1-0-object-swap"
+                    ]
+                  },
+                  {
+                    "group": "HeyGen Avatar",
+                    "icon": "user-round",
+                    "pages": [
+                      "heygen-avatar/heygen-avatar-6-turbo",
+                      "heygen-avatar/heygen-avatar-iv"
+                    ]
+                  },
+                  {
                     "group": "MU Video",
                     "icon": "sparkles",
                     "pages": [
@@ -834,6 +851,23 @@
                       "zh-CN/magi-2/magi-2-t2v",
                       "zh-CN/magi-2/magi-2-i2v",
                       "zh-CN/magi-2/magi-2-r2v"
+                    ]
+                  },
+                  {
+                    "group": "Genjutsu",
+                    "icon": "wand-sparkles",
+                    "pages": [
+                      "zh-CN/genjutsu/genjutsu-1-0-motion-transfer",
+                      "zh-CN/genjutsu/genjutsu-1-0-object-swap",
+                      "zh-CN/genjutsu/genjutsu-light-1-0-object-swap"
+                    ]
+                  },
+                  {
+                    "group": "HeyGen Avatar",
+                    "icon": "user-round",
+                    "pages": [
+                      "zh-CN/heygen-avatar/heygen-avatar-6-turbo",
+                      "zh-CN/heygen-avatar/heygen-avatar-iv"
                     ]
                   },
                   {
@@ -1374,7 +1408,17 @@
       "api-reference/openapi/magi-2--magi-2-i2v.yaml",
       "api-reference/openapi/magi-2--magi-2-i2v.zh.yaml",
       "api-reference/openapi/magi-2--magi-2-r2v.yaml",
-      "api-reference/openapi/magi-2--magi-2-r2v.zh.yaml"
+      "api-reference/openapi/magi-2--magi-2-r2v.zh.yaml",
+      "api-reference/openapi/genjutsu--genjutsu-1-0-motion-transfer.yaml",
+      "api-reference/openapi/genjutsu--genjutsu-1-0-motion-transfer.zh.yaml",
+      "api-reference/openapi/genjutsu--genjutsu-1-0-object-swap.yaml",
+      "api-reference/openapi/genjutsu--genjutsu-1-0-object-swap.zh.yaml",
+      "api-reference/openapi/genjutsu--genjutsu-light-1-0-object-swap.yaml",
+      "api-reference/openapi/genjutsu--genjutsu-light-1-0-object-swap.zh.yaml",
+      "api-reference/openapi/heygen-avatar--heygen-avatar-6-turbo.yaml",
+      "api-reference/openapi/heygen-avatar--heygen-avatar-6-turbo.zh.yaml",
+      "api-reference/openapi/heygen-avatar--heygen-avatar-iv.yaml",
+      "api-reference/openapi/heygen-avatar--heygen-avatar-iv.zh.yaml"
     ],
     "playground": {
       "display": "interactive",
@@ -3366,6 +3410,56 @@
     {
       "source": "/zh/magi-2/magi-2-r2v",
       "destination": "/zh-CN/magi-2/magi-2-r2v",
+      "permanent": true
+    },
+    {
+      "source": "/en/genjutsu/genjutsu-1-0-motion-transfer",
+      "destination": "/genjutsu/genjutsu-1-0-motion-transfer",
+      "permanent": true
+    },
+    {
+      "source": "/zh/genjutsu/genjutsu-1-0-motion-transfer",
+      "destination": "/zh-CN/genjutsu/genjutsu-1-0-motion-transfer",
+      "permanent": true
+    },
+    {
+      "source": "/en/genjutsu/genjutsu-1-0-object-swap",
+      "destination": "/genjutsu/genjutsu-1-0-object-swap",
+      "permanent": true
+    },
+    {
+      "source": "/zh/genjutsu/genjutsu-1-0-object-swap",
+      "destination": "/zh-CN/genjutsu/genjutsu-1-0-object-swap",
+      "permanent": true
+    },
+    {
+      "source": "/en/genjutsu/genjutsu-light-1-0-object-swap",
+      "destination": "/genjutsu/genjutsu-light-1-0-object-swap",
+      "permanent": true
+    },
+    {
+      "source": "/zh/genjutsu/genjutsu-light-1-0-object-swap",
+      "destination": "/zh-CN/genjutsu/genjutsu-light-1-0-object-swap",
+      "permanent": true
+    },
+    {
+      "source": "/en/heygen-avatar/heygen-avatar-6-turbo",
+      "destination": "/heygen-avatar/heygen-avatar-6-turbo",
+      "permanent": true
+    },
+    {
+      "source": "/zh/heygen-avatar/heygen-avatar-6-turbo",
+      "destination": "/zh-CN/heygen-avatar/heygen-avatar-6-turbo",
+      "permanent": true
+    },
+    {
+      "source": "/en/heygen-avatar/heygen-avatar-iv",
+      "destination": "/heygen-avatar/heygen-avatar-iv",
+      "permanent": true
+    },
+    {
+      "source": "/zh/heygen-avatar/heygen-avatar-iv",
+      "destination": "/zh-CN/heygen-avatar/heygen-avatar-iv",
       "permanent": true
     },
     {

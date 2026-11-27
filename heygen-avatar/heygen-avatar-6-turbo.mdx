@@ -1,0 +1,9 @@
+---
+title: "HeyGen Avatar 6 Turbo"
+description: "Generate a 1080p audio-driven lip-sync avatar video from a single portrait photo and speech audio, with optional motion prompts."
+openapi: "api-reference/openapi/heygen-avatar--heygen-avatar-6-turbo.yaml POST /v1/videos/generations"
+---
+
+<Note>
+Pass exactly 1 public HTTPS portrait photo in `image_urls` and 1 public HTTPS speech audio URL in `audio_urls`. `prompt` is optional (up to `1200` characters) to direct posture, expressions, and hand gestures. Output is `1080p` with aspect ratio following the photo (`auto`) and duration following the speech audio. Omit `duration` and `generate_audio`.
+</Note>

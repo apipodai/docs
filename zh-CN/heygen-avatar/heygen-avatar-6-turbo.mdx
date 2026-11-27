@@ -1,0 +1,9 @@
+---
+title: "HeyGen Avatar 6 Turbo"
+description: "用一张人像照片和一段语音生成 1080p 对口型数字人视频，可用提示词控制动作与表情。"
+openapi: "api-reference/openapi/heygen-avatar--heygen-avatar-6-turbo.zh.yaml POST /v1/videos/generations"
+---
+
+<Note>
+在 `image_urls` 中传入恰好 1 张公开 HTTPS 人像照片，在 `audio_urls` 中传入恰好 1 段公开 HTTPS 语音文件；`prompt` 可选（最多 `1200` 字符），用于控制动作与表情。输出为 `1080p` 视频，画幅自动跟随照片（`auto`），时长跟随输入音频。请省略 `duration` 和 `generate_audio`，提交时探测音频时长预扣，成片交付后按实测秒数复核结算。
+</Note>

@@ -134,6 +134,25 @@ const apiGroups = [
         slugs: ["magi-2/magi-2-t2v", "magi-2/magi-2-i2v", "magi-2/magi-2-r2v"],
       },
       {
+        en: "Genjutsu",
+        zh: "Genjutsu",
+        icon: "wand-sparkles",
+        slugs: [
+          "genjutsu/genjutsu-1-0-motion-transfer",
+          "genjutsu/genjutsu-1-0-object-swap",
+          "genjutsu/genjutsu-light-1-0-object-swap",
+        ],
+      },
+      {
+        en: "HeyGen Avatar",
+        zh: "HeyGen Avatar",
+        icon: "user-round",
+        slugs: [
+          "heygen-avatar/heygen-avatar-6-turbo",
+          "heygen-avatar/heygen-avatar-iv",
+        ],
+      },
+      {
         en: "MU Video",
         zh: "MU Video",
         icon: "sparkles",
